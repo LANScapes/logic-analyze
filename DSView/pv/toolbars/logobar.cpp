@@ -108,11 +108,17 @@ LogoBar::LogoBar(SigSession *session, QWidget *parent) :
 
     QWidget *spacer = new QWidget(this);
     spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    addWidget(spacer);
+    QAction *spacer_action = addWidget(spacer);
     addWidget(&_logo_button);
     QWidget *margin = new QWidget(this);
     margin->setMinimumWidth(20);
-    addWidget(margin);
+    QAction *margin_action = addWidget(margin);
+    // Docked on a side, Help follows the other buttons instead of being pushed
+    // to the far end of the window.
+    connect(this, &QToolBar::orientationChanged, this, [spacer_action, margin_action](Qt::Orientation o) {
+        spacer_action->setVisible(o == Qt::Horizontal);
+        margin_action->setVisible(o == Qt::Horizontal);
+    });
 
     connect(_action_en, SIGNAL(triggered()), this, SLOT(on_actionEn_triggered()));
     connect(_action_cn, SIGNAL(triggered()), this, SLOT(on_actionCn_triggered()));

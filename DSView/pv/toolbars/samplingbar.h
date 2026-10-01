@@ -85,6 +85,8 @@ namespace pv
             void reload(); 
             void update_view_status();
             void config_device();
+            // Adds a submenu (Display, from the trigger bar) to the Options menu.
+            void add_options_submenu(QMenu *menu);
             ds_device_handle get_next_device_handle();
 
             inline void set_view(view::View *view){
@@ -161,6 +163,8 @@ namespace pv
             QAction             *_mode_action;
          
             QMenu               *_mode_menu;
+            QMenu               *_options_menu;
+            QAction             *_action_device_options;
             QAction             *_action_repeat;
             QAction             *_action_single;
             QAction             *_action_loop;

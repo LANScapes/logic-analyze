@@ -49,6 +49,7 @@ public:
     ~TrigBar();
     void reload();
     void update_view_status();
+    QMenu *display_menu(){ return _display_menu; }
 
 private:
     void retranslateUi();

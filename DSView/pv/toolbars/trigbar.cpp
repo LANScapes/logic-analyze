@@ -108,6 +108,7 @@ TrigBar::TrigBar(SigSession *session, QWidget *parent) :
     _search_action = addWidget(&_search_button);
     _function_action = addWidget(&_function_button); 
     _display_action = addWidget(&_setting_button); //must be created
+    _display_action->setVisible(false);  // Display lives in the Options menu (SamplingBar)
 
     connect(&_trig_button, SIGNAL(clicked()),this, SLOT(trigger_clicked()));
     connect(&_protocol_button, SIGNAL(clicked()),this, SLOT(protocol_clicked()));
@@ -137,7 +138,8 @@ void TrigBar::retranslateUi()
     _search_button.setText(L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_SEARCH), "Search"));
     _function_button.setText(L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_FUNCTION), "Function"));
 
-    _setting_button.setText(L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_DISPLAY), "Display"));    
+    _setting_button.setText(L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_DISPLAY), "Display"));
+    _display_menu->setTitle(_setting_button.text());    
     _themes->setTitle(L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_DISPLAY_THEMES), "Themes"));
     _action_lissajous->setText(L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_DISPLAY_LISSAJOUS), "Lissajous"));
 
@@ -161,6 +163,7 @@ void TrigBar::reStyle()
     _search_button.setIcon(QIcon(iconPath+"/search-bar.svg"));
     _function_button.setIcon(QIcon(iconPath+"/function.svg"));
     _setting_button.setIcon(QIcon(iconPath+"/display.svg"));
+    _display_menu->setIcon(QIcon(iconPath+"/display.svg"));
 
     _action_fft->setIcon(QIcon(iconPath+"/fft.svg"));
     _action_math->setIcon(QIcon(iconPath+"/math.svg"));
@@ -349,6 +352,7 @@ void TrigBar::on_actionLissajous_triggered()
             _setting_button.setEnabled(true);
         }
     }
+    _display_menu->menuAction()->setEnabled(_setting_button.isEnabled());
  }
 
 void TrigBar::update_checked_status()

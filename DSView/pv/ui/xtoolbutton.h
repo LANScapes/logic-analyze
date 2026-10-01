@@ -34,8 +34,20 @@ class XToolButton : public QToolButton
 
 public:
     XToolButton(QWidget *parent = nullptr);
-    
+    QSize sizeHint() const override;
+
+    // Label beside the icon (toolbar docked on a side): space from the button's
+    // left edge to the icon, and from the icon to the label. Qt's own layout
+    // leaves only 4 px before the label; these give every button the same edge.
+    static const int LabelPad = 8;
+    static const int LabelGap = 12;
+
+protected:
+    void paintEvent(QPaintEvent *event) override;
+
 private:
+    bool label_beside() const;
+
     void mousePressEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
 

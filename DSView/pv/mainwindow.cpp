@@ -204,6 +204,7 @@ namespace pv
         _main_toolbar->setAllowedAreas(Qt::AllToolBarAreas);
         _main_toolbar->setContentsMargins(0, 0, 0, 0);
         _main_toolbar->layout()->setSpacing(0);
+        _sampling_bar->add_options_submenu(_trig_bar->display_menu());
         // File first, so Help sits alone at the far end (the logo bar stretches).
         for (QToolBar *bar : {(QToolBar*)_file_bar, (QToolBar*)_sampling_bar,
                               (QToolBar*)_trig_bar, (QToolBar*)_logo_bar}){
@@ -1233,6 +1234,7 @@ namespace pv
                 if (QToolButton *bt = qobject_cast<QToolButton*>(w)){
                     bt->setToolButtonStyle(vertical ? Qt::ToolButtonTextBesideIcon
                                                     : Qt::ToolButtonTextUnderIcon);
+                    bt->setIconSize(vertical ? QSize(28, 28) : iconSize());
                 }
                 if (qobject_cast<QToolButton*>(w) || qobject_cast<QComboBox*>(w)){
                     w->setSizePolicy(vertical ? QSizePolicy::Expanding : QSizePolicy::Preferred,
