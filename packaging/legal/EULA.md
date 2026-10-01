@@ -2,7 +2,7 @@
 
 **Mac App Store edition** · Version 1.0 (DRAFT, not yet in effect) · Last updated: [date]
 
-Licensor: **Lanscapes** [confirm legal entity, e.g. "Luke R. Fulcomer, doing business as Lanscapes" or "Lanscapes LLC"], 1623 N Cascabel Rd., Benson, AZ 85602-8008, United States. Contact: la_support@lanscapes.net.
+Licensor: **Lanscapes** [confirm legal entity, e.g. "Luke R. Fulcomer, doing business as Lanscapes" or "Lanscapes LLC"], 1623 N Cascabel Rd., Benson, AZ 85602-8008, United States. Contact: la_support@lanscapes.net, (906) 675-1568.
 
 > **Plain-language summary (not part of the agreement).** Logic Analyze has two parts. The logic-analyzer application is free, open-source software under the GNU GPL, and nothing here takes away your GPL rights to it. The MCP server, which lets AI assistants drive the analyzer, is proprietary: you get a personal license to use it inside Logic Analyze on your own Macs, and you may not copy, extract, resell or reverse-engineer it. The software comes as-is, and our liability is limited to what you paid.
 
@@ -169,5 +169,6 @@ Lanscapes
 Benson, AZ 85602-8008
 United States
 la_support@lanscapes.net
+(906) 675-1568
 
 Questions, support requests, legal notices and source-code requests (Section 3.2) go to this address.
