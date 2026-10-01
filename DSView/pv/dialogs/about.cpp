@@ -32,6 +32,7 @@
 #include <QScrollBar>
   
 #include "../config/appconfig.h"
+#include "config.h"
 #include "../dsvdef.h"
 #include "../utility/encoding.h"
 #include "../ui/langresource.h"
@@ -57,6 +58,42 @@ About::About(QWidget *parent) :
         QString arch = "other";
     #endif
 
+#ifdef LANSCAPES_BRAND
+    QString version = QString("<font size=24>%1 %2 (%3)</font><br />%4<br /><br />")
+                      .arg(QApplication::applicationName())
+                      .arg(QApplication::applicationVersion())
+                      .arg(arch)
+                      .arg(BRAND_ORG_NAME);
+
+    QString url = QString("Source code: <a href=\"%1\" style=\"color:#C0C0C0\">%1</a><br />"
+                          "Releases and issues: <a href=\"%1/releases\" style=\"color:#C0C0C0\">%1/releases</a><br />"
+                          "<br />")
+                  .arg(BRAND_REPO_URL);
+
+    QString thanks = QString(
+        "<font size=16>License</font><br />"
+        "%1 is free software: you can redistribute it and/or modify it under the terms of the "
+        "GNU General Public License, version 3 or (at your option) any later version. "
+        "It is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY. "
+        "The complete source code is available at the address above.<br /><br />"
+        "Based on <a href=\"https://github.com/DreamSourceLab/DSView\" style=\"color:#C0C0C0\">DSView %2</a> "
+        "by DreamSourceLab, which is based on PulseView and the "
+        "<a href=\"https://sigrok.org/\" style=\"color:#C0C0C0\">sigrok project</a>.<br />"
+        "Device firmware &copy; DreamSourceLab, MIT license (see licenses in the app bundle).<br /><br />"
+        "Copyright &copy; 2026 %3 (changes and additions).<br />"
+        "Copyright &copy; DreamSourceLab and the sigrok and PulseView contributors.<br /><br />"
+#ifdef LANSCAPES_APPSTORE
+        "The MCP server included in the App Store edition is proprietary software "
+        "&copy; 2026 %3, licensed to you under the End User License Agreement and not "
+        "covered by the GPL.<br /><br />"
+#endif
+        )
+        .arg(QApplication::applicationName())
+        .arg(DS_VERSION_STRING)
+        .arg(BRAND_ORG_NAME);
+
+    QString changlogs;
+#else
     QString version = tr("<font size=24>DSView %1 (%2)</font><br />")
                       .arg(QApplication::applicationVersion())
                       .arg(arch);
@@ -103,15 +140,21 @@ About::About(QWidget *parent) :
     }
     news.close();    
 
+#endif
+
+#ifndef LANSCAPES_BRAND
     QPixmap pix(":/icons/dsl_logo.svg");
     QImage logo = pix.toImage();
+#endif
 
     QTextBrowser *about = new QTextBrowser(this);
     about->setOpenExternalLinks(true);
     about->setFrameStyle(QFrame::NoFrame);
     QTextCursor cur = about->textCursor();
+#ifndef LANSCAPES_BRAND
     cur.insertImage(logo);
     cur.insertHtml("<br /><br /><br />");
+#endif
     cur.insertHtml(version+url+thanks+changlogs);
     about->moveCursor(QTextCursor::Start);
 
