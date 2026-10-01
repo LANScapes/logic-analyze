@@ -632,7 +632,8 @@ void MainFrame::saveNormalRegion()
 #endif
 
     if (_parentNativeWidget == NULL){
-        QRect rc = geometry();
+        // Restore uses move() for the frame position and resize() for the client size.
+        QRect rc(pos(), size());
         app.frameOptions.left = rc.left();
         app.frameOptions.top = rc.top();
         app.frameOptions.right = rc.right();
