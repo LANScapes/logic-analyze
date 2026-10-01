@@ -62,7 +62,7 @@ LogoBar::LogoBar(SigSession *session, QWidget *parent) :
     _log_open_bt = NULL;
     _log_clear_bt = NULL;
 
-    setMovable(false);
+    setMovable(false);  // moves with MainWindow's main toolbar, which holds it
     setContentsMargins(0,0,0,0);
 
     _action_en = new QAction(this);
