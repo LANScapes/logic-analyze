@@ -146,7 +146,7 @@ void FileBar::on_actionOpen_triggered()
         this, 
         L_S(STR_PAGE_DLG, S_ID(IDS_DLG_OPEN_FILE), "Open File"), 
         app.userHistory.openDir,
-        "DSView Data (*.dsl)");
+        QString(APP_NAME) + " Data (*.dsl)");
 
     if (!file_name.isEmpty()) { 
         QString fname = path::GetDirectoryName(file_name);
@@ -167,7 +167,7 @@ void FileBar::on_actionLoad_triggered()
         this, 
         L_S(STR_PAGE_DLG, S_ID(IDS_DLG_OPEN_SEESION), "Open Session"), 
         app.userHistory.sessionDir, 
-        "DSView Session (*.dsc)");
+        QString(APP_NAME) + " Session (*.dsc)");
 
     if (!file_name.isEmpty()) {
         QString fname = path::GetDirectoryName(file_name);
@@ -215,7 +215,7 @@ void FileBar::on_actionStore_triggered()
                 this, 
                 L_S(STR_PAGE_DLG, S_ID(IDS_DLG_SAVE_SEESION), "Save Session"),
                 app.userHistory.sessionDir,
-                "DSView Session (*.dsc)");
+                QString(APP_NAME) + " Session (*.dsc)");
 
     if (!file_name.isEmpty()) {
         QFileInfo f(file_name);

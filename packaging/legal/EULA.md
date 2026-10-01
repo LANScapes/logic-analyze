@@ -12,7 +12,7 @@ Licensor: **Lanscapes** [confirm legal entity, e.g. "Luke R. Fulcomer, doing bus
 
 1.1 This End User License Agreement ("Agreement") is between you and Licensor only, and **not with Apple Inc. ("Apple")**. Licensor, not Apple, is solely responsible for the Licensed Application and its content.
 
-1.2 By downloading, installing or using the Licensed Application you agree to this Agreement. If you do not agree, do not install or use it. Request a refund through Apple as described in Section 10.
+1.2 By downloading, installing or using the Licensed Application you agree to this Agreement. If you do not agree, do not install or use it. Apple handles refund requests under its own policies.
 
 1.3 If you use the Licensed Application on behalf of an organization, you represent that you are authorized to bind it, and "you" includes that organization.
 
@@ -22,7 +22,7 @@ Licensor: **Lanscapes** [confirm legal entity, e.g. "Luke R. Fulcomer, doing bus
 - **"Open Source Components"**: the parts of the Licensed Application licensed under open-source licenses. These include the logic-analyzer application derived from DSView by DreamSourceLab (GNU General Public License, version 3 or later), the DreamSourceLab device firmware (MIT License), and the third-party libraries listed in the Third-Party Notices included with the Licensed Application.
 - **"MCP Server"**: Licensor's proprietary Model Context Protocol server and any related proprietary code, data and documentation included in the Licensed Application. It lets AI assistants and other MCP clients capture, measure and decode signals through the Licensed Application.
 - **"Proprietary Components"**: the MCP Server, and Licensor's names, logos, icons and other branding.
-- **"Usage Rules"**: the rules for Apple-branded products and services set out in the Apple Media Services Terms and Conditions, as amended from time to time.
+- **"Usage Rules"**: the rules for Apple-branded products and services set out in the Apple Media Services Terms and Conditions, and, for apps obtained through volume purchasing, the Volume Content Terms, each as amended from time to time.
 
 ## 3. Open Source Components
 
@@ -32,27 +32,29 @@ Licensor: **Lanscapes** [confirm legal entity, e.g. "Luke R. Fulcomer, doing bus
 
 3.3 The license texts and notices for the Open Source Components are included with the Licensed Application and listed in its About window.
 
-## 4. License to the Proprietary Components
+## 4. License
 
-4.1 Subject to your compliance with this Agreement, Licensor grants you a limited, non-exclusive, non-transferable, non-sublicensable, revocable license to install and use the Proprietary Components:
+4.1 **The Licensed Application.** Licensor grants you a non-transferable license to use the Licensed Application on any Apple-branded products that you own or control and as permitted by the Usage Rules, except that the Licensed Application may be accessed and used by other accounts associated with you, the purchaser, via Family Sharing, volume purchasing or Legacy Contacts. For the Open Source Components, this license is in addition to the rights their own licenses give you and does not limit them (Section 3).
+
+4.2 **The Proprietary Components.** Subject to your compliance with this Agreement, Licensor grants you a limited, non-exclusive, non-transferable, non-sublicensable, revocable license to install and use the Proprietary Components:
 (a) only as part of, and only from within, the Licensed Application;
-(b) only on Apple-branded products that you own or control, and only as permitted by the Usage Rules (including Family Sharing or volume purchasing, where those apply); and
+(b) only on the products and by the accounts permitted in Section 4.1; and
 (c) for your own personal or internal business purposes.
 
-4.2 You may connect the MCP Server to AI assistants and MCP clients of your choice running on, or connected to, those products.
+4.3 You may connect the MCP Server to AI assistants and MCP clients of your choice, running on those products or connected to them over a network, for your own use under Section 4.2.
 
-4.3 This license is not a sale. Licensor reserves all rights not expressly granted.
+4.4 This license is not a sale. Licensor reserves all rights not expressly granted.
 
 ## 5. Restrictions on the Proprietary Components
 
 Except as expressly permitted by this Agreement or by applicable law that cannot be waived, you will not, and will not permit anyone else to:
 
-(a) copy the Proprietary Components, other than as part of backups of your device made under the Usage Rules;
+(a) copy the Proprietary Components, other than the copies made by installing and using the Licensed Application as permitted in Section 4 and backups of your devices made under the Usage Rules;
 (b) extract, separate or run the MCP Server outside the Licensed Application, or use it with any other analyzer software or a copy of the Licensed Application not obtained from the Mac App Store;
 (c) modify, adapt, translate or create derivative works of the Proprietary Components;
 (d) reverse engineer, decompile, disassemble, decrypt or otherwise try to derive the source code of the Proprietary Components, except to the extent applicable law expressly permits this notwithstanding this restriction;
 (e) circumvent, disable or interfere with any purchase verification, license check or technical protection in the Licensed Application;
-(f) rent, lease, lend, sell, resell, sublicense, distribute, publish or otherwise transfer the Proprietary Components, or make them available over a network for use by others;
+(f) rent, lease, lend, sell, resell, sublicense, distribute, publish or otherwise transfer the Proprietary Components, or make them available, over a network or otherwise, to anyone other than you and the accounts permitted in Section 4.1;
 (g) offer the MCP Server's functionality to third parties as a hosted, managed or commercial service;
 (h) remove, alter or obscure any copyright, trademark, license or proprietary notice; or
 (i) use the Proprietary Components in violation of any law.
@@ -130,9 +132,9 @@ When you use the Licensed Application, you must comply with applicable third-par
 
 ## 17. Termination
 
-17.1 This Agreement is effective until terminated. Your rights to the Proprietary Components terminate automatically, without notice, if you fail to comply with this Agreement. Upon termination you must stop using the Proprietary Components and delete all copies of the Licensed Application.
+17.1 This Agreement is effective until terminated. Your rights to the Proprietary Components terminate automatically, without notice, if you fail to comply with this Agreement. Upon termination you must stop using the Proprietary Components and delete all copies of them. You may keep and use the Open Source Components under their own licenses.
 
-17.2 Sections 3, 5, 6 and 9 through 21 survive termination. Termination does not affect your rights in the Open Source Components under their own licenses.
+17.2 Sections 3, 4.4, 5, 6 and 9 through 21 survive termination. Termination does not affect your rights in the Open Source Components under their own licenses.
 
 ## 18. Third-party beneficiary
 

@@ -30,6 +30,7 @@
 #include <dwmapi.h> 
 #include <assert.h>
 #include <QString>
+#include "config/appconfig.h"
 #include <QtCore>
 #include <QtGui>
 #include <QtWidgets>
@@ -160,7 +161,7 @@ WinNativeWidget::WinNativeWidget(const int x, const int y, const int width,
         assert(false);
     }
  
-    _hWnd = CreateWindow(L"DSViewWindowClass", L"DSView",
+    _hWnd = CreateWindow(L"DSViewWindowClass", QString(APP_NAME).toStdWString().c_str(),
             //WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CLIPCHILDREN,
             WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN | WS_CLIPSIBLINGS, 
             x, y, width, height,

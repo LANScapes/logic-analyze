@@ -1660,7 +1660,7 @@ QString StoreSession::MakeSaveFile(bool bDlg)
             L_S(STR_PAGE_MSG, S_ID(IDS_MSG_SAVE_FILE),"Save File"),
             default_name,
             //tr
-            "DSView Data (*.dsl)");
+            QString(APP_NAME) + " Data (*.dsl)");
 
         if (default_name.isEmpty())
         {

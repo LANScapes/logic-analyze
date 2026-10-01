@@ -30,6 +30,8 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <assert.h>
+#include <map>
+#include <string.h>
 
 //---------------Lang_resource_page
 Lang_resource_page::Lang_resource_page()
@@ -199,6 +201,27 @@ void LangResource::load_page(Lang_resource_page &p, QString file)
     }
 }
 
+#ifdef LANSCAPES_BRAND
+// A fallback text, branded like the loaded JSON texts. Kept for the life of the
+// process so the returned pointer stays valid; called with _mutex held.
+static const char* branded_default(const char *text)
+{
+    static std::map<std::string, std::string> cache;
+    if (strstr(text, "DSView") == NULL)
+        return text;
+    auto it = cache.find(text);
+    if (it == cache.end()){
+        QString s(text);
+        s.replace("DSView", BRAND_APP_NAME);
+        it = cache.emplace(text, s.toStdString()).first;
+    }
+    return it->second.c_str();
+}
+#define DEFAULT_TEXT(t) branded_default(t)
+#else
+#define DEFAULT_TEXT(t) (t)
+#endif
+
 const char* LangResource::get_lang_text(int page_id, const char *str_id, const char *default_str)
 {
     assert(str_id);
@@ -224,7 +247,7 @@ const char* LangResource::get_lang_text(int page_id, const char *str_id, const c
     if (_current_page == NULL){
         if (_cur_lang != LAN_EN)
             dsv_warn("Warning:Can't find language source page:%d", page_id);
-        return default_str;
+        return DEFAULT_TEXT(default_str);
     }
 
     if (_current_page->_loaded == false){
@@ -253,7 +276,7 @@ const char* LangResource::get_lang_text(int page_id, const char *str_id, const c
         dsv_warn("Warning:Can't get language text:%s", str_id);
     }
 
-    return default_str;
+    return DEFAULT_TEXT(default_str);
 }
 
 bool LangResource::is_new_decoder(const char *decoder_id)

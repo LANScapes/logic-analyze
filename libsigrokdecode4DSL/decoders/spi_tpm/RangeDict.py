@@ -1,4 +1,5 @@
 # Source: https://raw.githubusercontent.com/WKPlus/rangedict/master/rangedict.py
+# Copyright (c) 2015 WKPlus. MIT License; see RangeDict-LICENSE.txt in this directory.
 __all__ = ['RangeDict']
 
 

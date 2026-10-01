@@ -8,7 +8,20 @@ SRC="$(cd "$(dirname "$0")/../.." && pwd)"
 NAME="Logic Analyze"
 EXE="LogicAnalyze"
 BUNDLE_ID="com.lanscapes.LogicAnalyzer"
-VERSION="${VERSION:-1.0.0}"
+# The build records its edition and version; package exactly what was built.
+[ -f "$SRC/build.dir/brand.env" ] || { echo "FAIL: build.dir/brand.env missing; configure and build with cmake first"; exit 1; }
+LANSCAPES_BRAND=$(sed -n 's/^LANSCAPES_BRAND=//p' "$SRC/build.dir/brand.env")
+LANSCAPES_APPSTORE=$(sed -n 's/^LANSCAPES_APPSTORE=//p' "$SRC/build.dir/brand.env")
+VERSION=$(sed -n 's/^BRAND_VERSION=//p' "$SRC/build.dir/brand.env")
+case "$LANSCAPES_BRAND" in ON|on|TRUE|true|1) ;; *)
+  echo "FAIL: this packages Logic Analyze; the build has LANSCAPES_BRAND=$LANSCAPES_BRAND"; exit 1 ;;
+esac
+case "$LANSCAPES_APPSTORE" in ON|on|TRUE|true|1) APPSTORE=1 ;; *) APPSTORE= ;; esac
+[ -n "$VERSION" ] || { echo "FAIL: no BRAND_VERSION in build.dir/brand.env"; exit 1; }
+# package.sh does not compile; refuse a binary older than its sources.
+stale=$(find "$SRC/DSView" "$SRC/libsigrok4DSL" "$SRC/libsigrokdecode4DSL" "$SRC/common" "$SRC/tools/dslcap" "$SRC/CMakeLists.txt" \
+  \( -name '*.c' -o -name '*.cpp' -o -name '*.h' -o -name CMakeLists.txt \) -newer "$SRC/build.dir/DSView" -print -quit)
+[ -z "$stale" ] || { echo "FAIL: $stale is newer than build.dir/DSView; run cmake --build build first"; exit 1; }
 BUILD="${BUILD:-1}"
 PYVER=3.14
 PYSRC="$(brew --prefix python@$PYVER)/Frameworks/Python.framework/Versions/$PYVER"
@@ -41,6 +54,7 @@ echo "== data (Contents/Resources; GetAppDataDir looks here first)"
 cp -R "$SRC/DSView/res" "$SRC/DSView/demo" "$SRC/lang" "$C/Resources/"
 cp -R "$SRC/libsigrokdecode4DSL/decoders" "$C/Resources/decoders"
 rm -rf "$C/Resources/decoders/ir_irmp"  # needs the native libirmp, which is not built
+rm -rf "$C/Resources/decoders/pxx1"     # declares no license ("Pirate"); not redistributable
 cp "$SRC/NEWS25" "$SRC/NEWS31" "$SRC/ug25.pdf" "$SRC/ug31.pdf" "$C/Resources/"
 cp "$SRC/DSView/icons/showDoc25.png" "$SRC/DSView/icons/showDoc31.png" "$C/Resources/"
 cp "$SRC/packaging/macos/icon/$EXE.icns" "$C/Resources/$EXE.icns"
@@ -48,6 +62,9 @@ sips -Z 256 "$SRC/packaging/macos/icon/$EXE-1024.png" --out "$C/Resources/about-
 mkdir -p "$C/Resources/licenses"
 cp "$SRC/COPYING" "$C/Resources/licenses/GPL-3.0.txt"
 cp "$SRC/DSView/res/license.txt" "$C/Resources/licenses/DreamSourceLab-firmware-MIT.txt"
+if [ -n "$APPSTORE" ]; then
+  cp "$SRC/packaging/legal/EULA.md" "$C/Resources/licenses/EULA.txt"
+fi
 find "$C/Resources" -name '__pycache__' -type d -prune -exec rm -rf {} +
 
 cat > "$C/Info.plist" <<PLIST
@@ -138,25 +155,41 @@ python3 "$SRC/packaging/macos/third_party_notices.py" "$APP" "$SRC" "$C/Resource
 
 # Sign every Mach-O file individually, inside out, then frameworks and the app.
 # codesign --deep does not reach loose libraries such as Python's lib-dynload.
+# Every step checks its own status: callers use `sign_tree ... || exit`, which
+# turns off errexit inside the function, so nothing here may rely on set -e.
 #   sign_tree APP IDENTITY [developer-id]
+sign1() {  # codesign one path; print its output unless it is the routine replace notice
+  local out
+  if ! out=$(codesign --force "$@" 2>&1); then
+    echo "$out"; echo "FAIL: codesign ${*: -1}"; return 1
+  fi
+  echo "$out" | grep -v 'replacing existing signature' || true
+}
 sign_tree() {
-  local app="$1" id="$2" mode="${3:-adhoc}" opts=()
-  [ "$mode" = "developer-id" ] && opts=(--timestamp --options runtime)
+  local app="$1" id="$2" mode="${3:-adhoc}" opts=() entopt=() f fw
   local ent="$SRC/packaging/macos/entitlements-developer-id.plist"
-  find "$app" -type f -print0 | while IFS= read -r -d '' f; do
+  [ "$mode" = "developer-id" ] && opts=(--timestamp --options runtime) && entopt=(--entitlements "$ent")
+  local machos=()
+  while IFS= read -r -d '' f; do
     case "$f" in "$app/Contents/MacOS/"*) continue ;; esac
-    if file -b "$f" | grep -q 'Mach-O'; then
-      codesign --force ${opts[@]+"${opts[@]}"} --sign "$id" "$f" 2>&1 | grep -v 'replacing existing signature' || true
-    fi
+    file -b "$f" | grep -q 'Mach-O' && machos+=("$f")
+  done < <(find "$app" -type f -print0)
+  [ ${#machos[@]} -gt 0 ] || { echo "FAIL: no libraries found to sign in $app"; return 1; }
+  for f in "${machos[@]}"; do
+    sign1 ${opts[@]+"${opts[@]}"} --sign "$id" "$f" || return 1
   done
   for fw in "$app/Contents/Frameworks"/*.framework; do
-    codesign --force ${opts[@]+"${opts[@]}"} --sign "$id" "$fw" 2>&1 | grep -v 'replacing existing signature' || true
+    [ -e "$fw" ] || continue
+    sign1 ${opts[@]+"${opts[@]}"} --sign "$id" "$fw" || return 1
   done
-  local entopt=()
-  [ "$mode" = "developer-id" ] && entopt=(--entitlements "$ent")
-  codesign --force ${opts[@]+"${opts[@]}"} ${entopt[@]+"${entopt[@]}"} --sign "$id" "$app/Contents/MacOS/dslcap"
-  codesign --force ${opts[@]+"${opts[@]}"} ${entopt[@]+"${entopt[@]}"} --sign "$id" "$app"
-  codesign --verify --deep --strict "$app"
+  sign1 ${opts[@]+"${opts[@]}"} ${entopt[@]+"${entopt[@]}"} --sign "$id" "$app/Contents/MacOS/dslcap" || return 1
+  sign1 ${opts[@]+"${opts[@]}"} ${entopt[@]+"${entopt[@]}"} --sign "$id" "$app" || return 1
+  # The outer --deep check does not prove each loose library is signed; check each one.
+  for f in "${machos[@]}" "$app/Contents/MacOS/dslcap"; do
+    codesign --verify --strict "$f" 2>&1 || { echo "FAIL: signature does not verify: $f"; return 1; }
+  done
+  codesign --verify --deep --strict "$app" || { echo "FAIL: bundle signature does not verify"; return 1; }
+  echo "signed and verified ${#machos[@]} libraries, dslcap and the app"
 }
 
 echo "== runtime load check (dyld's own record of every loaded image)"
@@ -202,11 +235,11 @@ fi
 
 if [ -n "$SIGN_ID" ]; then
   echo "== signing with $SIGN_ID"
-  sign_tree "$APP" "$SIGN_ID" developer-id
+  sign_tree "$APP" "$SIGN_ID" developer-id || exit 1
   codesign --verify --deep --strict --verbose=2 "$APP" 2>&1 | tail -2
 else
   echo "== ad-hoc signing (no --sign given; for local use only)"
-  sign_tree "$APP" -
+  sign_tree "$APP" - || exit 1
 fi
 
 if [ -n "$NOTARY_PROFILE" ]; then

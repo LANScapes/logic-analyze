@@ -54,7 +54,12 @@ void usage()
 		"  -v, -V, --version               Show release version\n"
 		"  -s, --storelog                  Save log to locale file\n"
 		"  -h, -?, --help                  Show help option\n"
-		"\n", DS_BIN_NAME, DS_DESCRIPTION);
+		"\n",
+#ifdef LANSCAPES_BRAND
+		BRAND_APP_NAME, "a logic analyzer for DreamSourceLab DSLogic devices, by " BRAND_ORG_NAME);
+#else
+		DS_BIN_NAME, DS_DESCRIPTION);
+#endif
 }
 
 #include <stdlib.h>
@@ -138,7 +143,11 @@ int main(int argc, char *argv[])
 
 		case 'V': // version
 		case 'v':
+#ifdef LANSCAPES_BRAND
+			printf("%s %s (based on DSView %s)\n", BRAND_APP_NAME, BRAND_VERSION, DS_VERSION_STRING);
+#else
 			printf("%s %s\n", DS_TITLE, DS_VERSION_STRING);
+#endif
 			return 0;
  
 		case 'h': // get help
