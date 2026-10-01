@@ -155,6 +155,41 @@ def source_archive(formula):
     return path
 
 
+def recipe_patches(head):
+    """The patches a recipe (before __END__) applies: (sorted external sha256s,
+    sorted tap-local files, number of inline :DATA patches)."""
+    shas, files, inline = [], [], 0
+    for blk in re.finditer(r"^(\s*)patch\b[^\n]*\bdo\n(.*?)^\1end\b", head, re.M | re.S):
+        sha = re.search(r'^\s*sha256 "([0-9a-f]{64})"', blk.group(2), re.M)
+        file = re.search(r'^\s*file "([^"]+)"', blk.group(2), re.M)
+        if sha:
+            shas.append(sha.group(1))
+        elif file:
+            files.append(file.group(1))
+        else:
+            die(f"cannot read a patch block in the recipe:\n{blk.group(0)}")
+    for line in head.splitlines():
+        if re.match(r"\s*patch\b", line) and ":DATA" in line:
+            inline += 1
+        elif re.match(r"\s*patch\b", line) and not re.search(r"\bdo\s*$", line):
+            die(f"cannot read the patch directive {line.strip()!r} in the recipe")
+    return sorted(shas), sorted(files), inline
+
+
+def metadata_patches(patches):
+    shas, files, inline = [], [], 0
+    for p in patches:
+        if p.get("data"):
+            inline += 1
+        elif "file" in p:
+            files.append(p["file"])
+        elif p.get("url") and p.get("sha256"):
+            shas.append(p["sha256"])
+        else:
+            die(f"unknown patch entry in Homebrew's metadata: {p}")
+    return sorted(shas), sorted(files), inline
+
+
 def source_record(formula, version, keg, m):
     """(formula, version, url, sha256, recipe path, homebrew-core commit, patches JSON)
     for a library whose source is offered, checked against the recipe it was built with.
@@ -178,14 +213,9 @@ def source_record(formula, version, keg, m):
     if not (sha and sha.group(1) == stable["checksum"]):
         die(f"{formula}: keg {version} was built from a different source archive than "
             f"Homebrew's current recipe names; reinstall {formula} and package again")
-    applied = [l for l in head.splitlines()
-               if re.match(r"\s*patch\b", l) and ":DATA" not in l]
-    if len(applied) != len(patches):
-        die(f"{formula}: the recipe applies {len(applied)} patch(es), the metadata lists {len(patches)}")
-    for p in patches:
-        ref = p.get("file") or p.get("url") or ""
-        if not ref or (ref not in kept and p.get("sha256", "-") not in kept):
-            die(f"{formula}: patch {p} is not in the recipe")
+    if recipe_patches(head) != metadata_patches(patches):
+        die(f"{formula}: the patches in keg {version}'s recipe {recipe_patches(head)} do not "
+            f"match Homebrew's current metadata {metadata_patches(patches)}")
     if any(re.search(r"\s", f) for f in (stable["url"], recipe, tap_head)):
         die(f"{formula}: unexpected whitespace in its source metadata")
     return (formula, version, stable["url"], stable["checksum"], recipe, tap_head,
@@ -362,14 +392,14 @@ def main():
     L += ["", "=" * 78, "2. Source code, and replacing the LGPL libraries", "=" * 78, "",
           "These libraries were built by Homebrew from the source archives below, with the",
           "patches and build options in each library's Homebrew build recipe (linked below at",
-          "the homebrew-core revision used). Each release also publishes the archives, the",
+          "the current homebrew-core revision). Each release also publishes the archives, the",
           f"exact recipes and their patches at {REPO}/releases,",
           "and Lanscapes will provide them on request for at least three years after each",
           f"release: write to {SUPPORT}.", ""]
     for formula, version, url, sha, recipe, tap_head, patches in sources:
         L += [f"{formula} {version}", f"  {url}", f"  SHA-256 {sha}"]
         if recipe and tap_head:
-            L.append(f"  Build recipe: https://github.com/Homebrew/homebrew-core/blob/{tap_head}/{recipe}")
+            L.append(f"  Recipe:   https://github.com/Homebrew/homebrew-core/blob/{tap_head}/{recipe}")
         L.append("")
     if os.environ.get("NOTICES_SOURCES_OUT"):
         # One line per archive for the release job, fields separated by US (0x1f) so

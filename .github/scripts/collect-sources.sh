@@ -42,10 +42,14 @@ while IFS=$'\x1f' read -r formula version url sha recipe tap_head patches; do
   python3 -c '
 import json, sys
 for p in json.loads(sys.argv[1]):
+    if p.get("data"):
+        continue  # inline: the bytes are after __END__ in the copied recipe
     if "file" in p:
         print("file", p["file"], "-", sep="\x1f")
     elif "url" in p:
-        print("url", p["url"], p.get("sha256") or "-", sep="\x1f")
+        if not p.get("sha256"):
+            sys.exit(f"external patch without a checksum: {p}")
+        print("url", p["url"], p["sha256"], sep="\x1f")
     else:
         sys.exit(f"unknown patch entry {p}")
 ' "$patches" > "$work/patches.list"
@@ -60,7 +64,8 @@ for p in json.loads(sys.argv[1]):
     else
       f="$d/patches/$n-$(basename "${ref%%\?*}")"
       curl -fsSL --retry 3 -o "$f" "$ref"
-      if [ "$psha" != - ] && [ "$(sha_of "$f")" != "$psha" ]; then
+      # The notices checked that this checksum is the one in the kept recipe.
+      if [ "$(sha_of "$f")" != "$psha" ]; then
         echo "::error::$formula patch $ref does not match its recipe checksum"; exit 1
       fi
     fi
@@ -71,9 +76,13 @@ for p in json.loads(sys.argv[1]):
     echo "Homebrew built it from $url"
     echo "(SHA-256 $sha) with the recipe in this directory:"
     echo "  https://github.com/Homebrew/homebrew-core/blob/$tap_head/$recipe"
-    echo "patches/ holds the $n patch(es) the recipe applies; any inline patch is at the end"
-    echo "of the recipe itself (after __END__). INSTALL_RECEIPT.json records how the keg was"
-    echo "built or poured. Homebrew's build documentation: https://docs.brew.sh/Formula-Cookbook"
+    echo "patches/ holds the $n downloaded patch(es) the recipe applies; any inline patch is at"
+    echo "the end of the recipe itself (after __END__). A patch downloaded from a URL is"
+    echo "checked against the checksum in the recipe. A patch file kept in homebrew-core"
+    echo "itself is taken from the commit above; the recipe names it but gives no checksum,"
+    echo "so this assumes the file did not change between the bottle's build and that commit."
+    echo "INSTALL_RECEIPT.json records how the keg was built or poured."
+    echo "Homebrew's build documentation: https://docs.brew.sh/Formula-Cookbook"
   } > "$d/README.txt"
   tar -C "$work" -czf "$out/$formula-$version-homebrew-recipe.tar.gz" "$(basename "$d")"
 done < "$tsv"
