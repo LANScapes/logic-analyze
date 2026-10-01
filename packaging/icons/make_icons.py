@@ -6,8 +6,7 @@
 Writes OUTDIR/light/<name>.svg and OUTDIR/dark/<name>.svg for every icon below,
 plus OUTDIR/<name>.svg for the theme-independent ones (USB). Every icon is drawn
 on a 24-unit grid as round-capped 1.75-unit strokes in one ink colour, with
-colour kept for meaning only: green start, red stop, the USB speeds, and the
-four channel colours of the app icon on Help.
+colour kept for meaning only: green start, red stop and the USB speeds.
 
 The names are the file names DSView already loads, so the set drops in place.
 """
@@ -18,7 +17,6 @@ import sys
 INK = {"light": "#2A2A2A", "dark": "#D7D7D7"}   # the colours DSView's own icons use
 GREEN, RED = "#1FA05A", "#D64545"
 USB2, USB3 = "#1FA05A", "#2F86D8"
-CHANNELS = ("#3FC1E8", "#F2B33D", "#E8609A", "#5FD38A")   # app icon concept B
 SW = 1.75
 
 
@@ -79,14 +77,6 @@ def lissajous():
     return "M" + " L".join(f"{x:.2f} {y:.2f}" for x, y in pts) + " Z"
 
 
-def channels(colors):
-    # four channels, like the app icon: fewer edges than the icon so it reads at 24 px
-    rows = ("M3 6 H8 V4 H13 V6 H21",
-            "M3 10.5 H11 V8.5 H17 V10.5 H21",
-            "M3 15 H6 V13 H10 V15 H14 V13 H21",
-            "M3 19.5 H14 V17.5 H21")
-    return "".join(p(d, c) for d, c in zip(rows, colors))
-
 
 SQUARE = "M3 17 H6.5 V7 H11 V17 H15 V7 H19 V17 H21"
 SINE = "M3 12 C5 3.5 7 3.5 9 12 C11 20.5 13 20.5 15 12 C17 3.5 19 3.5 21 12"
@@ -95,6 +85,10 @@ NOISE = ("M3 12 L4.5 10 L6 14 L7.5 6.5 L9 17.5 L10.5 4.5 L12 19.5 L13.5 6 L15 16
 EYE = "M2.5 12 C5 7 8.5 5 12 5 C15.5 5 19 7 21.5 12 C19 17 15.5 19 12 19 C8.5 19 5 17 2.5 12 Z"
 FOLDER = ("M3 7 C3 5.9 3.9 5 5 5 H9.3 L11.3 7 H19 C20.1 7 21 7.9 21 9 V17 C21 18.1 20.1 19 19 19 "
           "H5 C3.9 19 3 18.1 3 17 Z")
+
+HELP = (circle(12, 12, 9) + p("M9.4 9.4 C9.4 7.9 10.6 6.9 12 6.9 C13.5 6.9 14.6 7.9 14.6 9.3 "
+                              "C14.6 10.6 13.7 11.1 12.9 11.6 C12.3 12 12 12.5 12 13.3 V13.7")
+        + circle(12, 16.9, 1.1, filled=True))
 
 # name: (drawing, what it is for). Drawings use {ink} for the theme colour.
 ICONS = {
@@ -144,8 +138,10 @@ ICONS = {
                   "V17 C20 18.1 19.1 19 18 19 H6 C4.9 19 4 18.1 4 17 Z") + circle(12, 12.5, 3.5),
                 "Screenshot"),
     # help menu (logo bar)
-    "logo_color": (channels(CHANNELS), "Help menu (Logic Analyze mark, device connected)"),
-    "logo_noColor": (channels(["{ink}"] * 4), "Help menu (Logic Analyze mark, no device)"),
+    # Help is the standard circled question mark. DSView swaps these two files
+    # when a device connects; the USB button already shows that, so both match.
+    "logo_color": (HELP, "Help menu (device connected)"),
+    "logo_noColor": (HELP, "Help menu (no device)"),
     "about": (circle(12, 12, 9) + p("M12 11 V16.5") + circle(12, 7.8, 1.1, filled=True), "About"),
     "manual": (p("M12 6.5 C12 5.1 10.9 4 9.5 4 H4 V18 H9.5 C10.9 18 12 19.1 12 20.5 "
                  "C12 19.1 13.1 18 14.5 18 H20 V4 H14.5 C13.1 4 12 5.1 12 6.5 Z M12 6.5 V20.5"),

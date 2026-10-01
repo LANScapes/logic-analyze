@@ -109,6 +109,7 @@ LogoBar::LogoBar(SigSession *session, QWidget *parent) :
     QWidget *spacer = new QWidget(this);
     spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     QAction *spacer_action = addWidget(spacer);
+    _spacer_action = spacer_action;
     addWidget(&_logo_button);
     QWidget *margin = new QWidget(this);
     margin->setMinimumWidth(20);
