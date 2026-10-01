@@ -101,7 +101,7 @@ static int pick_device(int list_only)
 static int set_u64(int key, uint64_t v) { return ds_set_actived_device_config(NULL, NULL, key, g_variant_new_uint64(v)); }
 
 /* Keep the channel-major file layout, using fixed-size conversion buffers. */
-static int write_output(const char *path, int nch, uint64_t per_ch)
+static int write_output(const char *path, int nch, uint64_t per_ch, uint64_t got)
 {
     uint64_t raw[4096], channel[4096];
     if (fflush(g_raw) || fseeko(g_raw, 0, SEEK_SET)) return -1;
@@ -116,6 +116,9 @@ static int write_output(const char *path, int nch, uint64_t per_ch)
         }
         for (int c = 0; c < nch; c++) {
             for (size_t i = 0; i < count; i++) channel[i] = raw[i * nch + c];
+            /* Clear samples past the requested count in the last word. */
+            if (k + count == per_ch && got % 64)
+                channel[count - 1] &= (1ULL << (got % 64)) - 1;
             if (fseeko(f, (off_t)(((uint64_t)c * per_ch + k) * 8), SEEK_SET) ||
                 fwrite(channel, 8, count, f) != count) {
                 failed = 1;
@@ -227,6 +230,13 @@ int main(int argc, char **argv)
         g_free(dup);
     }
 
+    uint64_t hw_samples = samples;
+    if (strcmp(mode, "stream")) {
+        /* Buffer delivery is aligned to 1024 samples in the driver. */
+        if (samples > UINT64_MAX - SAMPLES_ALIGN) { fprintf(stderr, "sample limit too large\n"); return 2; }
+        hw_samples = (samples + SAMPLES_ALIGN) & ~SAMPLES_ALIGN;
+    }
+
     ds_log_level(1);
     ds_set_firmware_resource_dir(res);
     ds_set_event_callback(on_event);
@@ -285,7 +295,7 @@ int main(int argc, char **argv)
         ds_lib_exit();
         return 1;
     }
-    set_u64(SR_CONF_LIMIT_SAMPLES, samples);
+    set_u64(SR_CONF_LIMIT_SAMPLES, hw_samples);
 
     nch = 0;
     for (GSList *l = ds_get_actived_device_channels(); l; l = l->next) {
@@ -328,9 +338,8 @@ int main(int argc, char **argv)
         ds_trigger_set_en(FALSE);
     }
 
-    uint64_t act_rate = rate, act_samples = samples;
+    uint64_t act_rate = rate;
     if (ds_get_actived_device_config(NULL, NULL, SR_CONF_SAMPLERATE, &gv) == SR_OK && gv) { act_rate = g_variant_get_uint64(gv); g_variant_unref(gv); gv = NULL; }
-    if (ds_get_actived_device_config(NULL, NULL, SR_CONF_LIMIT_SAMPLES, &gv) == SR_OK && gv) { act_samples = g_variant_get_uint64(gv); g_variant_unref(gv); gv = NULL; }
 
     char *spool = g_strdup_printf("%s.raw-XXXXXX", out);
     int fd = g_mkstemp(spool);
@@ -359,22 +368,23 @@ int main(int argc, char **argv)
     /* De-interleave LA_CROSS_DATA: 64-sample words rotate through channels. */
     uint64_t words = g_raw_bytes / 8;
     uint64_t per_ch = nch ? words / nch : 0;
+    uint64_t got = per_ch * 64;
+    if (got > samples) got = samples;
+    per_ch = (got + 63) / 64;
     char path[1024];
     snprintf(path, sizeof path, "%s.bin", out);
-    if (g_io_error || write_output(path, nch, per_ch)) {
+    if (g_io_error || write_output(path, nch, per_ch, got)) {
         printf("{\"error\":\"cannot write capture data\"}\n");
         fclose(g_raw);
         ds_lib_exit();
         return 1;
     }
 
-    uint64_t got = per_ch * 64;
-    if (got > act_samples) got = act_samples;
     double secs = (t1.tv_sec - t0.tv_sec) + (t1.tv_nsec - t0.tv_nsec) / 1e9;
     printf("{\"device\":");
     json_str(info.name);
     printf(",\"samplerate\":%llu,\"samples_requested\":%llu,\"samples\":%llu,\"words_per_channel\":%llu,"
-           "\"channels\":[", (unsigned long long)act_rate, (unsigned long long)act_samples,
+           "\"channels\":[", (unsigned long long)act_rate, (unsigned long long)samples,
            (unsigned long long)got, (unsigned long long)per_ch);
     for (int i = 0; i < nch; i++) printf("%s%d", i ? "," : "", enabled[i]);
     printf("],\"vth\":%.3f,\"mode\":", vth);
