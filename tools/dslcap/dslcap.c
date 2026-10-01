@@ -86,6 +86,29 @@ static int pick_device(int list_only)
 
 static int set_u64(int key, uint64_t v) { return ds_set_actived_device_config(NULL, NULL, key, g_variant_new_uint64(v)); }
 
+static int write_output(const char *path, const uint64_t *w, uint64_t per_ch, int nch)
+{
+    char *tmp = g_strdup_printf("%s.XXXXXX", path);
+    int fd = g_mkstemp(tmp);
+    if (fd < 0) { g_free(tmp); return -1; }
+    FILE *f = fdopen(fd, "wb");
+    int rc = -1;
+    if (!f) { close(fd); goto done; }
+
+    for (int c = 0; c < nch; c++)
+        for (uint64_t k = 0; k < per_ch; k++)
+            if (fwrite(&w[k * nch + c], 8, 1, f) != 1)
+                goto close_file;
+    rc = 0;
+close_file:
+    if (fclose(f) != 0) rc = -1;
+    if (rc == 0 && rename(tmp, path) != 0) rc = -1;
+done:
+    if (rc != 0) unlink(tmp);
+    g_free(tmp);
+    return rc;
+}
+
 int main(int argc, char **argv)
 {
     const char *res = getenv("DSLCAP_RES");
@@ -188,15 +211,16 @@ int main(int argc, char **argv)
     /* De-interleave LA_CROSS_DATA: 64-sample words rotate through channels. */
     uint64_t words = g_raw->len / 8;
     uint64_t per_ch = nch ? words / nch : 0;
-    char path[1024];
-    snprintf(path, sizeof path, "%s.bin", out);
-    FILE *f = fopen(path, "wb");
-    if (!f) { printf("{\"error\":\"cannot write output\"}\n"); ds_lib_exit(); return 1; }
+    char *path = g_strdup_printf("%s.bin", out);
     const uint64_t *w = (const uint64_t *)g_raw->data;
-    for (int c = 0; c < nch; c++)
-        for (uint64_t k = 0; k < per_ch; k++)
-            fwrite(&w[k * nch + c], 8, 1, f);
-    fclose(f);
+    if (write_output(path, w, per_ch, nch) != 0) {
+        printf("{\"error\":\"cannot write output\"}\n");
+        g_free(path);
+        g_byte_array_free(g_raw, TRUE);
+        ds_release_actived_device();
+        ds_lib_exit();
+        return 1;
+    }
 
     uint64_t got = per_ch * 64;
     if (got > act_samples) got = act_samples;
@@ -216,6 +240,7 @@ int main(int argc, char **argv)
     json_str(path);
     printf("}\n");
 
+    g_free(path);
     g_byte_array_free(g_raw, TRUE);
     ds_release_actived_device();
     ds_lib_exit();
