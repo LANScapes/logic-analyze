@@ -57,6 +57,8 @@ void usage()
 		"\n", DS_BIN_NAME, DS_DESCRIPTION);
 }
 
+#include <stdlib.h>
+
 int main(int argc, char *argv[])
 {   
 	//return main2();
@@ -64,6 +66,12 @@ int main(int argc, char *argv[])
 	const char *open_file = NULL;
 	int logLevel = -1;
 	bool bStoreLog = false;
+
+#ifdef __APPLE__
+	// The signed app bundle is read-only: decoders ship precompiled, and the
+	// embedded Python must never write __pycache__ into the bundle.
+	setenv("PYTHONDONTWRITEBYTECODE", "1", 1);
+#endif
 
 	//----------------------rebuild command param
 #ifdef _WIN32
