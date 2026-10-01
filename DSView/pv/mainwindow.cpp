@@ -204,8 +204,9 @@ namespace pv
         _main_toolbar->setAllowedAreas(Qt::AllToolBarAreas);
         _main_toolbar->setContentsMargins(0, 0, 0, 0);
         _main_toolbar->layout()->setSpacing(0);
-        for (QToolBar *bar : {(QToolBar*)_sampling_bar, (QToolBar*)_trig_bar,
-                              (QToolBar*)_file_bar, (QToolBar*)_logo_bar}){
+        // File first, so Help sits alone at the far end (the logo bar stretches).
+        for (QToolBar *bar : {(QToolBar*)_file_bar, (QToolBar*)_sampling_bar,
+                              (QToolBar*)_trig_bar, (QToolBar*)_logo_bar}){
             _main_toolbar->addWidget(bar);
         }
         connect(_main_toolbar, &QToolBar::orientationChanged, this, &MainWindow::on_toolbar_orientation);
