@@ -155,6 +155,12 @@ def source_archive(formula):
     return path
 
 
+def recipe_without_bottle(text):
+    """A recipe without its `bottle do ... end` block, which Homebrew rewrites when it
+    rebuilds bottles without changing how the library is built from source."""
+    return re.sub(r"\n  bottle do\n.*?\n  end\n", "\n", text, count=1, flags=re.S)
+
+
 def source_record(formula, version, keg, m):
     """(formula, version, url, sha256, recipe path, homebrew-core commit, patches JSON)
     for a library whose source is offered, checked against the recipe it was built with.
@@ -171,7 +177,7 @@ def source_record(formula, version, keg, m):
     if not os.path.exists(kept_path):
         die(f"{formula}: keg {version} kept no recipe ({kept_path})")
     kept = open(kept_path, encoding="utf-8").read()
-    if run("brew", "cat", formula).stdout != kept:
+    if recipe_without_bottle(run("brew", "cat", formula).stdout) != recipe_without_bottle(kept):
         die(f"{formula}: the recipe keg {version} was built with is not Homebrew's current "
             f"recipe; reinstall {formula} (`brew reinstall {formula}`) and package again")
     applied = [l for l in kept.split("\n__END__")[0].splitlines()
