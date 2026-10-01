@@ -139,6 +139,7 @@ public slots:
 private:
     void hide_border();
     void show_border();
+    void saveNormalRegion(const QRect &rc);
     void writeSettings();
     void ReadSettings();
     void AttachNativeWindow();
