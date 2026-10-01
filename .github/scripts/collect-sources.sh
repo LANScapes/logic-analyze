@@ -64,7 +64,7 @@ for p in json.loads(sys.argv[1]):
     else
       f="$d/patches/$n-$(basename "${ref%%\?*}")"
       curl -fsSL --retry 3 -o "$f" "$ref"
-      # The notices checked that this checksum is the one in the kept recipe.
+      # The checksum comes from the kept recipe (third_party_notices.py).
       if [ "$(sha_of "$f")" != "$psha" ]; then
         echo "::error::$formula patch $ref does not match its recipe checksum"; exit 1
       fi
@@ -76,9 +76,10 @@ for p in json.loads(sys.argv[1]):
     echo "Homebrew built it from $url"
     echo "(SHA-256 $sha) with the recipe in this directory:"
     echo "  https://github.com/Homebrew/homebrew-core/blob/$tap_head/$recipe"
-    echo "patches/ holds the $n downloaded patch(es) the recipe applies; any inline patch is at"
-    echo "the end of the recipe itself (after __END__). A patch downloaded from a URL is"
-    echo "checked against the checksum in the recipe. A patch file kept in homebrew-core"
+    echo "patches/ holds the $n patch file(s) the recipe downloads (including any for its"
+    echo "resources or head builds). Inline patches are in the recipe itself (a string, or"
+    echo "after __END__). A patch downloaded from a URL is checked against the checksum the"
+    echo "recipe gives for it. A patch file kept in homebrew-core"
     echo "itself is taken from the commit above; the recipe names it but gives no checksum,"
     echo "so this assumes the file did not change between the bottle's build and that commit."
     echo "INSTALL_RECEIPT.json records how the keg was built or poured."

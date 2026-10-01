@@ -155,67 +155,55 @@ def source_archive(formula):
     return path
 
 
-def recipe_patches(head):
-    """The patches a recipe (before __END__) applies: (sorted external sha256s,
-    sorted tap-local files, number of inline :DATA patches)."""
-    shas, files, inline = [], [], 0
-    for blk in re.finditer(r"^(\s*)patch\b[^\n]*\bdo\n(.*?)^\1end\b", head, re.M | re.S):
-        sha = re.search(r'^\s*sha256 "([0-9a-f]{64})"', blk.group(2), re.M)
-        file = re.search(r'^\s*file "([^"]+)"', blk.group(2), re.M)
-        if sha:
-            shas.append(sha.group(1))
+def recipe_downloads(recipe):
+    """The patch files a recipe (before __END__) downloads: [{"url", "sha256"}] and
+    [{"file"}] for files kept in homebrew-core. Every patch directive counts, including
+    those of resources and head builds; over-including is harmless. Inline patches
+    (:DATA or a string) need nothing: their bytes are in the recipe."""
+    out = []
+    for m in re.finditer(r"\bpatch\b", recipe):
+        if "#" in recipe[recipe.rfind("\n", 0, m.start()) + 1:m.start()]:
+            continue  # in a comment
+        rest = recipe[m.end():]
+        line = rest.split("\n", 1)[0]
+        if not re.match(r"[^#\n]*\bdo\b", line):
+            continue  # inline: patch :DATA, patch :p0, "...", or a heredoc
+        body = re.split(r"\bend\b", rest, maxsplit=1)[0]
+        url = re.search(r'\burl\s+"([^"]+)"', body)
+        sha = re.search(r'\bsha256\s+"([0-9a-f]{64})"', body)
+        file = re.search(r'\bfile\s+"([^"]+)"', body)
+        if url and sha:
+            out.append({"url": url.group(1), "sha256": sha.group(1)})
         elif file:
-            files.append(file.group(1))
+            out.append({"file": file.group(1)})
         else:
-            die(f"cannot read a patch block in the recipe:\n{blk.group(0)}")
-    for line in head.splitlines():
-        if re.match(r"\s*patch\b", line) and ":DATA" in line:
-            inline += 1
-        elif re.match(r"\s*patch\b", line) and not re.search(r"\bdo\s*$", line):
-            die(f"cannot read the patch directive {line.strip()!r} in the recipe")
-    return sorted(shas), sorted(files), inline
-
-
-def metadata_patches(patches):
-    shas, files, inline = [], [], 0
-    for p in patches:
-        if p.get("data"):
-            inline += 1
-        elif "file" in p:
-            files.append(p["file"])
-        elif p.get("url") and p.get("sha256"):
-            shas.append(p["sha256"])
-        else:
-            die(f"unknown patch entry in Homebrew's metadata: {p}")
-    return sorted(shas), sorted(files), inline
+            die(f"cannot read the patch at {line.strip()!r} in the recipe:\n{body[:300]}")
+    return out
 
 
 def source_record(formula, version, keg, m):
     """(formula, version, url, sha256, recipe path, homebrew-core commit, patches JSON)
-    for a library whose source is offered, checked against the recipe it was built with.
+    for a library whose source is offered.
 
-    Homebrew's metadata (url, checksum, patches, tap commit) describes its current
-    recipe. The keg keeps the recipe its bottle was built from, which can differ in
-    unrelated ways (bottle hashes, test blocks). Use the metadata only if the kept
-    recipe builds from the same archive and applies exactly the listed patches."""
+    The keg keeps the recipe its bottle was built from; that recipe is the record of
+    how the library was built and goes into the release whole (inline patches
+    included). Homebrew's current metadata supplies the archive URL and the
+    homebrew-core commit, so require the kept recipe to build from the same archive
+    (by SHA-256), and take the patches to download from the kept recipe itself."""
     stable = m["urls"]["stable"]
     recipe, tap_head = m.get("ruby_source_path", ""), m.get("tap_git_head", "")
-    patches = m.get("patches", [])
     if not (stable.get("checksum") and recipe and tap_head):
         die(f"{formula}: Homebrew's metadata lacks the source checksum, recipe path or tap commit")
     kept_path = os.path.join(keg, ".brew", f"{formula}.rb")
     if not os.path.exists(kept_path):
         die(f"{formula}: keg {version} kept no recipe ({kept_path})")
-    kept = open(kept_path, encoding="utf-8").read()
-    head = kept.split("\n__END__")[0]
+    head = open(kept_path, encoding="utf-8").read().split("\n__END__")[0]
     # The archive's SHA-256 is its identity (the URL can name another mirror path).
     sha = re.search(r'^  sha256 "([0-9a-f]{64})"', head, re.M)
     if not (sha and sha.group(1) == stable["checksum"]):
         die(f"{formula}: keg {version} was built from a different source archive than "
             f"Homebrew's current recipe names; reinstall {formula} and package again")
-    if recipe_patches(head) != metadata_patches(patches):
-        die(f"{formula}: the patches in keg {version}'s recipe {recipe_patches(head)} do not "
-            f"match Homebrew's current metadata {metadata_patches(patches)}")
+    patches = recipe_downloads(head)
     if any(re.search(r"\s", f) for f in (stable["url"], recipe, tap_head)):
         die(f"{formula}: unexpected whitespace in its source metadata")
     return (formula, version, stable["url"], stable["checksum"], recipe, tap_head,
