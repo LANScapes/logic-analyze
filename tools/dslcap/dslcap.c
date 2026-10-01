@@ -190,7 +190,7 @@ int main(int argc, char **argv)
     uint64_t per_ch = nch ? words / nch : 0;
     char path[1024];
     snprintf(path, sizeof path, "%s.bin", out);
-    FILE *f = fopen(path, "wb");
+    FILE *f = fopen(path, "wbx");
     if (!f) { printf("{\"error\":\"cannot write output\"}\n"); ds_lib_exit(); return 1; }
     const uint64_t *w = (const uint64_t *)g_raw->data;
     for (int c = 0; c < nch; c++)
