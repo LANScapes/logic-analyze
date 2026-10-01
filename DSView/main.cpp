@@ -76,6 +76,7 @@ int main(int argc, char *argv[])
 	unsetenv("PYTHONPATH");
 	unsetenv("PYTHONSTARTUP");
 	unsetenv("PYTHONUSERBASE");
+	unsetenv("__PYVENV_LAUNCHER__");
 	setenv("PYTHONNOUSERSITE", "1", 1);
 #endif
 
