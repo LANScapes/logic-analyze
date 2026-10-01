@@ -191,6 +191,9 @@ void LangResource::load_page(Lang_resource_page &p, QString file)
         if (obj.contains("id") && obj.contains("text")){
             QString id = obj["id"].toString().trimmed();
             QString text = obj["text"].toString();
+#ifdef LANSCAPES_BRAND
+            text.replace("DSView", BRAND_APP_NAME);
+#endif
             p._res[id.toStdString()] = text.toStdString();
         }
     }

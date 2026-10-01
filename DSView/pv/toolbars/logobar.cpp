@@ -207,11 +207,19 @@ void LogoBar::on_actionManual_triggered()
 
 void LogoBar::on_actionIssue_triggered()
 {
+#ifdef LANSCAPES_BRAND
+    QDesktopServices::openUrl(QUrl(QStringLiteral(BRAND_REPO_URL "/issues")));
+#else
     QDesktopServices::openUrl(QUrl(QLatin1String("https://github.com/DreamSourceLab/DSView/issues")));
+#endif
 }
 
  void LogoBar::on_action_update()
  {
+#ifdef LANSCAPES_BRAND
+     QDesktopServices::openUrl(QUrl(QStringLiteral(BRAND_REPO_URL "/releases")));
+     return;
+#endif
      if (AppConfig::Instance().frameOptions.language == LAN_CN){
          QDesktopServices::openUrl(QUrl(QLatin1String("https://dreamsourcelab.cn/download/")));
      }

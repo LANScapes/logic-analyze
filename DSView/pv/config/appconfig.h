@@ -33,7 +33,11 @@
 #define THEME_STYLE_DARK   "dark"
 #define THEME_STYLE_LIGHT  "light"
 
+#ifdef LANSCAPES_BRAND
+#define APP_NAME  BRAND_APP_NAME
+#else
 #define APP_NAME  "DSView"
+#endif
   
 //--------------------api---
 QString GetIconPath();

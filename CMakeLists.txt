@@ -35,6 +35,18 @@ set(DS_VERSION_MINOR 3)
 set(DS_VERSION_MICRO 2)
 set(DS_VERSION_STRING  ${DS_VERSION_MAJOR}.${DS_VERSION_MINOR}.${DS_VERSION_MICRO})
 
+#= Lanscapes branding ("Logic Analyze"); off builds plain DSView.
+option(LANSCAPES_BRAND "Build as Logic Analyze by Lanscapes" OFF)
+set(BRAND_VERSION "1.0.0" CACHE STRING "Logic Analyze version")
+set(BRAND_REPO_URL "https://github.com/nullifyr/logic-analyze" CACHE STRING "Public source repository")
+if(LANSCAPES_BRAND)
+	add_definitions(-DLANSCAPES_BRAND
+		-DBRAND_APP_NAME="Logic Analyze"
+		-DBRAND_ORG_NAME="Lanscapes"
+		-DBRAND_VERSION="${BRAND_VERSION}"
+		-DBRAND_REPO_URL="${BRAND_REPO_URL}")
+endif()
+
 configure_file (
 	${PROJECT_SOURCE_DIR}/DSView/config.h.in
 	${PROJECT_BINARY_DIR}/DSView/config.h

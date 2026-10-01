@@ -689,7 +689,12 @@ namespace pv
         GVariant *gvar;
         gsize num_opts;
 
+#ifdef LANSCAPES_BRAND
+        // Version information lives in About, not the title bar.
+        QString title = QApplication::applicationName();
+#else
         QString title = QApplication::applicationName() + " v" + QApplication::applicationVersion();
+#endif
 
         QJsonArray channelVar;
         sessionVar["Version"] = QJsonValue::fromVariant(SESSION_FORMAT_VERSION);

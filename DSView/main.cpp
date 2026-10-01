@@ -185,10 +185,17 @@ bool bHighScale = true;
     a.setStyle(new MyStyle);
 
     // Set some application metadata
+#ifdef LANSCAPES_BRAND
+    QApplication::setApplicationVersion(BRAND_VERSION);
+    QApplication::setApplicationName(BRAND_APP_NAME);
+    QApplication::setOrganizationName(BRAND_ORG_NAME);
+    QApplication::setOrganizationDomain(BRAND_REPO_URL);
+#else
     QApplication::setApplicationVersion(DS_VERSION_STRING);
     QApplication::setApplicationName("DSView");
     QApplication::setOrganizationName("DreamSourceLab");
     QApplication::setOrganizationDomain("www.DreamSourceLab.com");
+#endif
 
 	//----------------------init log
 	dsv_log_init(); // Don't call before QApplication be inited
