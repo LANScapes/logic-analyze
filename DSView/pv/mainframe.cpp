@@ -99,10 +99,21 @@ MainFrame::MainFrame()
     _is_win32_parent_window = true;
     _taskBtn = NULL;
     isWin32 = true;
+#elif defined(__APPLE__)
+    // macOS: use the native window frame. The frameless window with a drawn
+    // title bar breaks the Window menu, the traffic-light buttons, and moving
+    // the window between displays.
+    setWindowFlags(Qt::Window);
+    _is_win32_parent_window = false;
 #else
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::WindowSystemMenuHint);
     setAttribute(Qt::WA_TranslucentBackground);
     _is_win32_parent_window = false;
+#endif
+
+    bool nativeFrame = false;
+#ifdef __APPLE__
+    nativeFrame = true;
 #endif
  
 #ifdef _WIN32
@@ -121,6 +132,11 @@ MainFrame::MainFrame()
     setWindowIcon(icon);
     
     _titleBar = new toolbars::TitleBar(true, this, this, false);
+    if (nativeFrame){
+        // The window title goes to the native title bar instead.
+        _titleBar->set_native();
+        _titleBar->setVisible(false);
+    }
     _mainWindow = new MainWindow(_titleBar, this);
     _mainWindow->setWindowFlags(Qt::Widget);
 
@@ -135,7 +151,7 @@ MainFrame::MainFrame()
     _layout->setContentsMargins(0,0,0,0);
  
 
-    if (!isWin32 || !_is_win32_parent_window)
+    if (!nativeFrame && (!isWin32 || !_is_win32_parent_window))
     {
         _top_left = new widgets::Border (TopLeft, this);
         _top_left->setFixedSize(Margin, Margin);
