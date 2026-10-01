@@ -154,6 +154,28 @@ int main(int argc, char **argv)
     if (!res) res = "/Applications/DSView Native.app/Contents/MacOS/res";
     if (!list_only && !out) { fprintf(stderr, "--out is required\n"); return 2; }
 
+    int enabled[64], nch = 0;
+    if (!list_only) {
+        char *dup = g_strdup(chans), *tok, *save = NULL;
+        for (tok = strtok_r(dup, ",", &save); tok; tok = strtok_r(NULL, ",", &save)) {
+            int c = atoi(tok);
+            for (int i = 0; i < nch; i++) {
+                if (enabled[i] == c) {
+                    printf("{\"error\":\"duplicate channel\",\"channel\":%d}\n", c);
+                    g_free(dup);
+                    return 2;
+                }
+            }
+            if (nch == 64) {
+                printf("{\"error\":\"too many channels\"}\n");
+                g_free(dup);
+                return 2;
+            }
+            enabled[nch++] = c;
+        }
+        g_free(dup);
+    }
+
     ds_log_level(1);
     ds_set_firmware_resource_dir(res);
     ds_set_event_callback(on_event);
@@ -176,23 +198,29 @@ int main(int argc, char **argv)
     ds_set_actived_device_config(NULL, NULL, SR_CONF_OPERATION_MODE,
         g_variant_new_int16(strcmp(mode, "stream") ? LO_OP_BUFFER : LO_OP_STREAM));
 
-    int enabled[64], nch = 0;
-    for (int c = 0; c < 32; c++) ds_enable_device_channel_index(c, FALSE);
-    {
-        char *dup = g_strdup(chans), *tok, *save = NULL;
-        for (tok = strtok_r(dup, ",", &save); tok; tok = strtok_r(NULL, ",", &save)) {
-            int c = atoi(tok);
-            if (ds_enable_device_channel_index(c, TRUE) == SR_OK && nch < 64) enabled[nch++] = c;
-        }
-        g_free(dup);
-    }
-    /* ascending order, as the device sends them */
-    for (int i = 0; i < nch; i++) for (int j = i + 1; j < nch; j++)
-        if (enabled[j] < enabled[i]) { int t = enabled[i]; enabled[i] = enabled[j]; enabled[j] = t; }
+    for (GSList *l = ds_get_actived_device_channels(); l; l = l->next)
+        ds_enable_device_channel(l->data, FALSE);
+    for (int i = 0; i < nch; i++)
+        ds_enable_device_channel_index(enabled[i], TRUE);
 
     ds_set_actived_device_config(NULL, NULL, SR_CONF_VTH, g_variant_new_double(vth));
     set_u64(SR_CONF_SAMPLERATE, rate);
     set_u64(SR_CONF_LIMIT_SAMPLES, samples);
+
+    nch = 0;
+    for (GSList *l = ds_get_actived_device_channels(); l; l = l->next) {
+        const struct sr_channel *ch = l->data;
+        if (!ch->enabled) continue;
+        if (nch == 64) {
+            printf("{\"error\":\"too many enabled channels\"}\n");
+            ds_lib_exit();
+            return 1;
+        }
+        enabled[nch++] = ch->index;
+    }
+    /* ascending order, as the device sends them */
+    for (int i = 0; i < nch; i++) for (int j = i + 1; j < nch; j++)
+        if (enabled[j] < enabled[i]) { int t = enabled[i]; enabled[i] = enabled[j]; enabled[j] = t; }
 
     ds_trigger_reset();
     ds_trigger_set_mode(SIMPLE_TRIGGER);
