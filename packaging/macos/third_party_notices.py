@@ -160,21 +160,29 @@ def recipe_downloads(recipe):
     [{"file"}] for files kept in homebrew-core. Every patch directive counts, including
     those of resources and head builds; over-including is harmless. Inline patches
     (:DATA or a string) need nothing: their bytes are in the recipe."""
+    # Drop =begin/=end blocks and full-line comments. This is a pattern scan, not a
+    # Ruby parser; it is meant for Homebrew's own recipes, and the copied recipe is
+    # the authoritative record either way.
+    recipe = re.sub(r"^=begin\b.*?^=end\b[^\n]*", "", recipe, flags=re.M | re.S)
+    recipe = "\n".join("" if re.match(r"\s*#", l) else l for l in recipe.split("\n"))
     out = []
-    for m in re.finditer(r"\bpatch\b", recipe):
-        if "#" in recipe[recipe.rfind("\n", 0, m.start()) + 1:m.start()]:
-            continue  # in a comment
+    for m in re.finditer(r"^\s*patch\b", recipe, re.M):
         rest = recipe[m.end():]
         line = rest.split("\n", 1)[0]
         if not re.match(r"[^#\n]*\bdo\b", line):
             continue  # inline: patch :DATA, patch :p0, "...", or a heredoc
-        body = re.split(r"\bend\b", rest, maxsplit=1)[0]
-        url = re.search(r'\burl\s+"([^"]+)"', body)
-        sha = re.search(r'\bsha256\s+"([0-9a-f]{64})"', body)
-        file = re.search(r'\bfile\s+"([^"]+)"', body)
+        body = re.split(r"^\s*end\b|;\s*end\b", rest, maxsplit=1, flags=re.M)[0]
+        url = re.search(r'^\s*(?:[^#\n]*;)?\s*url\s+"([^"]+)"', body, re.M)
+        sha = re.search(r'^\s*(?:[^#\n]*;)?\s*sha256\s+"([0-9a-f]{64})"', body, re.M)
+        file = re.search(r'^\s*(?:[^#\n]*;)?\s*file\s+"([^"]+)"', body, re.M)
         if url and sha:
+            if not re.fullmatch(r"https://[^\s\x00-\x1f]+", url.group(1)):
+                die(f"refusing patch URL {url.group(1)!r}: only https downloads are collected")
             out.append({"url": url.group(1), "sha256": sha.group(1)})
         elif file:
+            if not re.fullmatch(r"Patches/[A-Za-z0-9._+@-]+(/[A-Za-z0-9._+@-]+)*", file.group(1)) \
+                    or "/../" in f"/{file.group(1)}/":
+                die(f"refusing tap-local patch path {file.group(1)!r}")
             out.append({"file": file.group(1)})
         else:
             die(f"cannot read the patch at {line.strip()!r} in the recipe:\n{body[:300]}")

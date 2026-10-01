@@ -59,11 +59,11 @@ for p in json.loads(sys.argv[1]):
     n=$((n + 1))
     if [ "$kind" = file ]; then
       # A patch kept in homebrew-core itself, at the revision the recipe came from.
-      curl -fsSL --retry 3 -o "$d/patches/$(basename "$ref")" \
+      curl -fsSL --proto =https --proto-redir =https --retry 3 -o "$d/patches/$(basename "$ref")" \
         "https://raw.githubusercontent.com/Homebrew/homebrew-core/$tap_head/$ref"
     else
       f="$d/patches/$n-$(basename "${ref%%\?*}")"
-      curl -fsSL --retry 3 -o "$f" "$ref"
+      curl -fsSL --proto =https --proto-redir =https --retry 3 -o "$f" "$ref"
       # The checksum comes from the kept recipe (third_party_notices.py).
       if [ "$(sha_of "$f")" != "$psha" ]; then
         echo "::error::$formula patch $ref does not match its recipe checksum"; exit 1
