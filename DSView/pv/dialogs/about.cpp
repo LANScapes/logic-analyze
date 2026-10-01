@@ -73,7 +73,12 @@ About::About(QWidget *parent) :
 
     QString thanks = QString(
         "<font size=16>License</font><br />"
+#ifdef LANSCAPES_APPSTORE
+        "The %1 analyzer (everything in this app except the MCP server described below) "
+        "is free software: you can redistribute it and/or modify it under the terms of the "
+#else
         "%1 is free software: you can redistribute it and/or modify it under the terms of the "
+#endif
         "GNU General Public License, version 3 or (at your option) any later version. "
         "It is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY. "
         "The complete source code is available at the address above.<br /><br />"
@@ -83,6 +88,10 @@ About::About(QWidget *parent) :
         "Device firmware &copy; DreamSourceLab, MIT license (see licenses in the app bundle).<br /><br />"
         "Copyright &copy; 2026 %3 (changes and additions).<br />"
         "Copyright &copy; DreamSourceLab and the sigrok and PulseView contributors.<br /><br />"
+        "Uses Qt &copy; The Qt Company Ltd. and other contributors, under the GNU LGPL "
+        "version 3; Python &copy; Python Software Foundation, under the PSF License; and the "
+        "other libraries listed in the third-party notices below, each under its own license. "
+        "The notices say where to get the source of each LGPL library and how to replace it.<br /><br />"
         )
         .arg(QApplication::applicationName())
         .arg(DS_VERSION_STRING)
@@ -113,7 +122,7 @@ About::About(QWidget *parent) :
     QString lic = GetAppDataDir() + "/licenses/";
     auto link = [&](const QString &file, const QString &label) {
         return QString("<a href=\"%1\" style=\"color:#C0C0C0\">%2</a><br />")
-            .arg(QUrl::fromLocalFile(lic + file).toString(), label);
+            .arg(QUrl::fromLocalFile(lic + file).toString(QUrl::FullyEncoded).toHtmlEscaped(), label.toHtmlEscaped());
     };
     thanks += "<font size=16>License texts</font><br />";
     thanks += link("GPL-3.0.txt", "GNU General Public License, version 3");
