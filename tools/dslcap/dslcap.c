@@ -272,6 +272,14 @@ static int parse_args(int argc, char **argv, struct options *o)
     o->stream = !strcmp(o->mode, "stream");
     if (o->list_only)
         return 0;
+    /* The driver converts trigpos% of the (aligned) sample limit to a 32-bit
+     * trigger position before applying its depth limit, so keep it in range. */
+    if (o->trigpos > 0 &&
+        o->samples + SAMPLES_ALIGN > (uint64_t)UINT32_MAX * 100 / (uint64_t)o->trigpos) {
+        printf("{\"error\":\"--trigpos too large for --samples\",\"samples\":%llu,\"trigpos\":%d}\n",
+               (unsigned long long)o->samples, o->trigpos);
+        return 2;
+    }
     if (!o->out) {
         arg_error("--out is required", NULL, NULL);
         return 2;

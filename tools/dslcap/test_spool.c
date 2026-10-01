@@ -56,6 +56,11 @@ static void test_arguments(void)
     assert(o.trig_ch == 15 && o.trig_type == 'F' && o.trigpos == 100);
     assert(parse(&o, "--out", "x", "--trigger", "0", NULL) == 0 && o.trig_type == 'R');
     assert(parse(&o, "--list", NULL) == 0 && o.list_only);
+    /* trigpos% of the aligned sample limit must fit the driver's 32-bit position. */
+    assert(parse(&o, "--out", "x", "--samples", "8589934592", "--trigpos", "100", NULL) == 2);
+    assert(parse(&o, "--out", "x", "--samples", "4294000000", "--trigpos", "100", NULL) == 0);
+    assert(parse(&o, "--out", "x", "--samples", "8589934592", "--trigpos", "10", NULL) == 0);
+    assert(parse(&o, "--out", "x", "--samples", "8589934592", "--trigpos", "0", NULL) == 0);
 
     const char *bad[][2] = {
         {"--channels", "garbage"}, {"--channels", "1,,2"}, {"--channels", "1,"},
