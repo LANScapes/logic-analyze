@@ -41,7 +41,8 @@ jobs:
             -DPython3_EXECUTABLE="$(brew --prefix python@3.14)/bin/python3.14"
           cmake --build build-plain -j"$(sysctl -n hw.ncpu)"
           # The plain build must not carry any of the Logic Analyze branding.
-          if strings build.dir/DSView | grep -E 'Logic Analyze|Lanscapes|main_toolbar'; then
+          # ("Logic Analyzer" is DSView's own mode name, so match the brand name exactly.)
+          if strings build.dir/DSView | grep -E 'Logic Analyze($|[^r])|Lanscapes|LANScapes|main_toolbar'; then
             echo "::error::the plain build contains brand strings"; exit 1
           fi
 
