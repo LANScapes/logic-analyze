@@ -42,9 +42,11 @@ jobs:
         run: |
           version=${TAG#v}
           echo "VERSION=$version" >> "$GITHUB_ENV"
+          pyargs=$(.github/scripts/python-pin.sh)   # stops the step if it fails
+          # shellcheck disable=SC2086 # three -D arguments without spaces
           cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \
             -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DLANSCAPES_BRAND=ON \
-            -DBRAND_VERSION="$version" $(.github/scripts/python-pin.sh)
+            -DBRAND_VERSION="$version" $pyargs
           cmake --build build -j"$(sysctl -n hw.ncpu)"
 
       - name: Import the signing certificate

@@ -15,9 +15,12 @@ for f in "${FORMULAE[@]}"; do
   brew list --versions "$f" || { echo "::error::$f is not installed"; exit 1; }
   [ -d "$(brew --prefix "$f")" ] || { echo "::error::$f has no opt/ prefix"; exit 1; }
 done
-# A real install failure leaves an old version behind; the notices would then offer
-# source that does not match the bundled library. Nothing we use may be outdated.
-outdated=$(brew outdated --formula --quiet $(brew deps --union --installed "${FORMULAE[@]}") "${FORMULAE[@]}" || true)
-if [ -n "$outdated" ]; then
-  echo "::error::these formulae did not upgrade: $outdated"; exit 1
+# Bring every library the app bundles up to Homebrew's current version: the
+# third-party notices offer the current source archives and refuse a bundled
+# LGPL/GPL keg that is older. `brew install` leaves adequate older dependencies
+# alone, so upgrade them explicitly. A link conflict is again only a warning.
+deps=$(brew deps --union "${FORMULAE[@]}")
+# shellcheck disable=SC2086 # one formula name per word
+if ! brew upgrade --quiet --overwrite $deps; then
+  echo "::warning::brew upgrade reported a problem (usually a link conflict)"
 fi

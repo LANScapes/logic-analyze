@@ -11,7 +11,7 @@ Lanscapes is not affiliated with DreamSourceLab. DSLogic is DreamSourceLab's pro
 - A self-contained, signed app bundle with its own Python, and third-party notices traced to the exact library builds it ships.
 - `dslcap`, a command-line tool for headless captures (`tools/dslcap`).
 
-The branding and interface changes (name, icons, toolbar, Options menu) sit behind the `LANSCAPES_BRAND` CMake option; without it, this tree builds DSView. A plain build still differs from upstream DSView in a few shared places: the macOS window and path-length fixes, and the extra `dslcap` target. Those are being offered back to DSView as pull requests.
+The branding and interface changes (name, icons, toolbar, Options menu) sit behind the `LANSCAPES_BRAND` CMake option; without it, this tree builds DSView. A plain build still differs from upstream DSView in a few shared places: the macOS window and path-length fixes, and the extra `dslcap` target. Those are offered back to DSView as pull requests from the [LANScapes/DSView](https://github.com/LANScapes/DSView) fork.
 
 ## Building
 
@@ -19,8 +19,9 @@ On macOS with Homebrew:
 
 ```sh
 .github/scripts/brew-deps.sh
+.github/scripts/python-pin.sh >/dev/null &&   # the app embeds Homebrew's Python 3.14
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DLANSCAPES_BRAND=ON \
-  $(.github/scripts/python-pin.sh)  # the app embeds Homebrew's Python 3.14
+  $(.github/scripts/python-pin.sh)
 cmake --build build -j
 packaging/macos/package.sh          # dist/Logic Analyze.app, ad-hoc signed
 ```

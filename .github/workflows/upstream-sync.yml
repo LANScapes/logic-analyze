@@ -59,7 +59,13 @@ jobs:
               echo "$branch has already been proposed"; exit 0
             fi
             # An earlier run pushed the branch but did not finish. Build and propose the
-            # branch as it is; it may hold someone's fixes, so it is never overwritten.
+            # branch as it is (it may hold someone's fixes, so it is never overwritten),
+            # but only if it really contains the upstream commit its name claims.
+            git fetch --no-tags origin "refs/heads/$branch"
+            if ! git merge-base --is-ancestor "$up" FETCH_HEAD; then
+              echo "::error::$branch exists but does not contain upstream $up; fix or delete it"
+              exit 1
+            fi
             echo "$branch exists without a pull request; building it again"
             echo "branch=$branch" >> "$GITHUB_OUTPUT"; exit 0
           fi

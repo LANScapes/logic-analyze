@@ -155,6 +155,39 @@ def source_archive(formula):
     return path
 
 
+def source_record(formula, version, keg, m):
+    """(formula, version, url, sha256, recipe path, homebrew-core commit, patches JSON)
+    for a library whose source is offered, checked against the recipe it was built with.
+
+    Homebrew's metadata (url, checksum, patches, tap commit) describes its current
+    recipe. Use it only if the recipe the keg kept is that same recipe, and only if
+    every patch the recipe applies is in the metadata."""
+    stable = m["urls"]["stable"]
+    recipe, tap_head = m.get("ruby_source_path", ""), m.get("tap_git_head", "")
+    patches = m.get("patches", [])
+    if not (stable.get("checksum") and recipe and tap_head):
+        die(f"{formula}: Homebrew's metadata lacks the source checksum, recipe path or tap commit")
+    kept_path = os.path.join(keg, ".brew", f"{formula}.rb")
+    if not os.path.exists(kept_path):
+        die(f"{formula}: keg {version} kept no recipe ({kept_path})")
+    kept = open(kept_path, encoding="utf-8").read()
+    if run("brew", "cat", formula).stdout != kept:
+        die(f"{formula}: the recipe keg {version} was built with is not Homebrew's current "
+            f"recipe; reinstall {formula} (`brew reinstall {formula}`) and package again")
+    applied = [l for l in kept.split("\n__END__")[0].splitlines()
+               if re.match(r"\s*patch\b", l) and ":DATA" not in l]
+    if len(applied) != len(patches):
+        die(f"{formula}: the recipe applies {len(applied)} patch(es), the metadata lists {len(patches)}")
+    for p in patches:
+        ref = p.get("file") or p.get("url") or ""
+        if not ref or (ref not in kept and p.get("sha256", "-") not in kept):
+            die(f"{formula}: patch {p} is not in the recipe")
+    if any(re.search(r"\s", f) for f in (stable["url"], recipe, tap_head)):
+        die(f"{formula}: unexpected whitespace in its source metadata")
+    return (formula, version, stable["url"], stable["checksum"], recipe, tap_head,
+            json.dumps(patches, separators=(",", ":")))
+
+
 def read_from_archive(archive, wanted):
     """{relative path: bytes} for the members TOPDIR/<relative path> of a source archive."""
     out = {}
@@ -283,12 +316,7 @@ def main():
               f"  Text:     {', '.join(dict.fromkeys(refs))}"]
         entries.append(e)
         if formula in COPYLEFT:
-            stable = m["urls"]["stable"]
-            if not stable.get("checksum"):
-                die(f"{formula}: Homebrew gives no checksum for its source archive")
-            sources.append((formula, version, stable["url"], stable["checksum"],
-                            m.get("ruby_source_path", ""), m.get("tap_git_head", ""),
-                            json.dumps(m.get("patches", []), separators=(",", ":"))))
+            sources.append(source_record(formula, version, keg, m))
 
     tree = []
     for title, spdx, holders, path, span in IN_TREE:
@@ -340,10 +368,11 @@ def main():
             L.append(f"  Build recipe: https://github.com/Homebrew/homebrew-core/blob/{tap_head}/{recipe}")
         L.append("")
     if os.environ.get("NOTICES_SOURCES_OUT"):
-        # One tab-separated line per archive for the release job: formula, keg version,
-        # url, sha256, recipe path in homebrew-core, homebrew-core commit, patches (JSON).
+        # One line per archive for the release job, fields separated by US (0x1f) so
+        # that none can be empty-collapsed: formula, keg version, url, sha256, recipe
+        # path in homebrew-core, homebrew-core commit, patches (JSON).
         with open(os.environ["NOTICES_SOURCES_OUT"], "w", encoding="utf-8") as fh:
-            fh.writelines("\t".join(row) + "\n" for row in sources)
+            fh.writelines("\x1f".join(row) + "\n" for row in sources)
     L += ["The LGPL libraries (Qt, glib, libusb, libintl, graphite2) are linked dynamically.",
           "You can replace them with modified versions built from the sources above:",
           "  1. Copy Logic Analyze.app to a folder you can write to, such as your home folder.",

@@ -15,8 +15,12 @@ trap 'rm -rf "$work"' EXIT
 
 sha_of() { shasum -a 256 "$1" | cut -d' ' -f1; }
 
-while IFS=$'\t' read -r formula version url sha recipe tap_head patches; do
-  [ -n "$sha" ] || { echo "::error::$formula: no source checksum"; exit 1; }
+# Fields are separated by US (0x1f), which unlike a tab is not IFS whitespace, so an
+# empty field stays in its place.
+while IFS=$'\x1f' read -r formula version url sha recipe tap_head patches; do
+  for v in formula version url sha recipe tap_head patches; do
+    [ -n "${!v}" ] || { echo "::error::sources list: empty $v for '$formula'"; exit 1; }
+  done
   keg="$cellar/$formula/$version"
   [ -d "$keg" ] || { echo "::error::$formula: keg $keg is not installed"; exit 1; }
 
@@ -34,8 +38,19 @@ while IFS=$'\t' read -r formula version url sha recipe tap_head patches; do
   mkdir -p "$d/patches"
   cp "$keg"/.brew/*.rb "$d/"
   cp "$keg/INSTALL_RECEIPT.json" "$d/"
+  # Parse the patch list in the foreground, so a bad list stops the job.
+  python3 -c '
+import json, sys
+for p in json.loads(sys.argv[1]):
+    if "file" in p:
+        print("file", p["file"], "-", sep="\x1f")
+    elif "url" in p:
+        print("url", p["url"], p.get("sha256") or "-", sep="\x1f")
+    else:
+        sys.exit(f"unknown patch entry {p}")
+' "$patches" > "$work/patches.list"
   n=0
-  while IFS=$'\t' read -r kind ref psha; do
+  while IFS=$'\x1f' read -r kind ref psha; do
     [ -n "$kind" ] || continue
     n=$((n + 1))
     if [ "$kind" = file ]; then
@@ -45,18 +60,11 @@ while IFS=$'\t' read -r formula version url sha recipe tap_head patches; do
     else
       f="$d/patches/$n-$(basename "${ref%%\?*}")"
       curl -fsSL --retry 3 -o "$f" "$ref"
-      if [ -n "$psha" ] && [ "$(sha_of "$f")" != "$psha" ]; then
+      if [ "$psha" != - ] && [ "$(sha_of "$f")" != "$psha" ]; then
         echo "::error::$formula patch $ref does not match its recipe checksum"; exit 1
       fi
     fi
-  done < <(python3 -c '
-import json, sys
-for p in json.loads(sys.argv[1]):
-    if "file" in p:
-        print("file", p["file"], "", sep="\t")
-    elif "url" in p:
-        print("url", p["url"], p.get("sha256", ""), sep="\t")
-' "$patches")
+  done < "$work/patches.list"
   {
     echo "$formula $version, as bundled in Logic Analyze."
     echo

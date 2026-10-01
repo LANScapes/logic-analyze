@@ -36,8 +36,11 @@ jobs:
 
       - name: Build plain DSView
         run: |
+          # A separate assignment, so that a failing python-pin.sh stops the step.
+          pyargs=$(.github/scripts/python-pin.sh)
+          # shellcheck disable=SC2086 # three -D arguments without spaces
           cmake -S . -B build-plain -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_POLICY_VERSION_MINIMUM=3.5 $(.github/scripts/python-pin.sh)
+            -DCMAKE_POLICY_VERSION_MINIMUM=3.5 $pyargs
           cmake --build build-plain -j"$(sysctl -n hw.ncpu)"
           # The plain build must not carry any of the Logic Analyze branding.
           # ("Logic Analyzer" is DSView's own mode name, so match the brand name exactly.)
@@ -56,8 +59,10 @@ jobs:
           # The plain and branded builds share build.dir; start clean so the
           # package step sees only the branded binaries.
           rm -rf build.dir
+          pyargs=$(.github/scripts/python-pin.sh)   # stops the step if it fails
+          # shellcheck disable=SC2086 # three -D arguments without spaces
           cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DLANSCAPES_BRAND=ON $(.github/scripts/python-pin.sh)
+            -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DLANSCAPES_BRAND=ON $pyargs
           cmake --build build -j"$(sysctl -n hw.ncpu)"
 
       - name: Package (ad-hoc signed)
