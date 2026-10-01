@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Hardened runtime for the Developer ID build. USB access through IOKit
+     needs no entitlement outside the App Sandbox. Python extension modules
+     are signed with the same team ID, so library validation stays on. -->
+<plist version="1.0">
+<dict>
+</dict>
+</plist>

@@ -478,6 +478,11 @@ QString GetAppDataDir()
 #else
 
 #ifdef Q_OS_DARWIN
+    // Signed app bundles keep data in Contents/Resources, not next to the executable.
+    QDir resdir(QCoreApplication::applicationDirPath());
+    if (resdir.cd("../Resources") && resdir.exists("res")){
+        return resdir.absolutePath();
+    }
     QDir dir1(QCoreApplication::applicationDirPath());
     //"./res" is not exists
     if (dir1.cd("res") == false){
