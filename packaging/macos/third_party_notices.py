@@ -322,6 +322,10 @@ def main():
           f"them on request for at least three years after each release: write to {SUPPORT}.", ""]
     for formula, version, url, sha in sources:
         L += [f"{formula} {version}", f"  {url}", f"  SHA-256 {sha}", ""]
+    if os.environ.get("NOTICES_SOURCES_OUT"):
+        # One "formula<TAB>version<TAB>url<TAB>sha256" line per archive, for the release job.
+        with open(os.environ["NOTICES_SOURCES_OUT"], "w", encoding="utf-8") as fh:
+            fh.writelines(f"{f}\t{v}\t{u}\t{h}\n" for f, v, u, h in sources)
     L += ["The LGPL libraries (Qt, glib, libusb, libintl, graphite2) are linked dynamically.",
           "You can replace them with modified versions built from the sources above:",
           "  1. Copy Logic Analyze.app to a folder you can write to, such as your home folder.",

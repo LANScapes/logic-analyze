@@ -1,0 +1,132 @@
+name: Release
+
+# Pushing a tag vX.Y.Z builds Logic Analyze X.Y.Z and drafts a GitHub release
+# with the app and the source archives of the bundled LGPL/GPL libraries, as
+# THIRD-PARTY-NOTICES.txt promises. Nothing is published until a person
+# reviews the draft and clicks Publish.
+#
+# Signing is optional. Without these secrets the app is ad-hoc signed and the
+# draft says so:
+#   MACOS_CERT_P12_BASE64, MACOS_CERT_PASSWORD   Developer ID Application certificate (.p12)
+#   MACOS_SIGN_ID                                e.g. "Developer ID Application: NAME (TEAMID)"
+#   NOTARY_APPLE_ID, NOTARY_PASSWORD, NOTARY_TEAM_ID
+#                                                App Store Connect account, app-specific password, team
+on:
+  push:
+    tags: ["v*.*.*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-15
+    timeout-minutes: 150
+    env:
+      TAG: ${{ github.ref_name }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: .github/scripts/brew-deps.sh
+
+      - name: Build Logic Analyze
+        run: |
+          version=${TAG#v}
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DLANSCAPES_BRAND=ON \
+            -DBRAND_VERSION="$version" \
+            -DPython3_EXECUTABLE="$(brew --prefix python@3.14)/bin/python3.14"
+          cmake --build build -j"$(sysctl -n hw.ncpu)"
+
+      - name: Import the signing certificate
+        id: cert
+        env:
+          P12: ${{ secrets.MACOS_CERT_P12_BASE64 }}
+          P12_PASSWORD: ${{ secrets.MACOS_CERT_PASSWORD }}
+          SIGN_ID: ${{ secrets.MACOS_SIGN_ID }}
+          NOTARY_APPLE_ID: ${{ secrets.NOTARY_APPLE_ID }}
+          NOTARY_PASSWORD: ${{ secrets.NOTARY_PASSWORD }}
+          NOTARY_TEAM_ID: ${{ secrets.NOTARY_TEAM_ID }}
+        run: |
+          set -euo pipefail
+          if [ -z "$P12" ] || [ -z "$P12_PASSWORD" ] || [ -z "$SIGN_ID" ]; then
+            echo "No signing secrets: the app will be ad-hoc signed."
+            echo "signed=false" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          kc="$RUNNER_TEMP/signing.keychain-db"
+          kcpass=$(uuidgen)
+          echo "$P12" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+          security create-keychain -p "$kcpass" "$kc"
+          security set-keychain-settings -lut 21600 "$kc"
+          security unlock-keychain -p "$kcpass" "$kc"
+          security import "$RUNNER_TEMP/cert.p12" -k "$kc" -P "$P12_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -k "$kcpass" "$kc" >/dev/null
+          security list-keychains -d user -s "$kc" $(security list-keychains -d user | tr -d '"')
+          # notarytool looks keychain profiles up in the default keychain.
+          security default-keychain -d user -s "$kc"
+          rm -f "$RUNNER_TEMP/cert.p12"
+          echo "signed=true" >> "$GITHUB_OUTPUT"
+          if [ -n "$NOTARY_APPLE_ID" ] && [ -n "$NOTARY_PASSWORD" ] && [ -n "$NOTARY_TEAM_ID" ]; then
+            xcrun notarytool store-credentials logic-analyze-notary \
+              --apple-id "$NOTARY_APPLE_ID" --password "$NOTARY_PASSWORD" --team-id "$NOTARY_TEAM_ID"
+            echo "notarize=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Package
+        env:
+          SIGN_ID: ${{ secrets.MACOS_SIGN_ID }}
+          SIGNED: ${{ steps.cert.outputs.signed }}
+          NOTARIZE: ${{ steps.cert.outputs.notarize }}
+        run: |
+          set -euo pipefail
+          args=()
+          if [ "$SIGNED" = true ]; then args+=(--sign "$SIGN_ID"); fi
+          if [ "$NOTARIZE" = true ]; then args+=(--notarize logic-analyze-notary); fi
+          NOTICES_SOURCES_OUT="$RUNNER_TEMP/sources.tsv" packaging/macos/package.sh "${args[@]}"
+          mkdir -p release
+          # package.sh leaves a zip only when it notarizes (with the stapled ticket).
+          if [ -f "dist/LogicAnalyze-$VERSION.zip" ]; then
+            cp "dist/LogicAnalyze-$VERSION.zip" release/
+          elif [ "$SIGNED" = true ]; then
+            ditto -c -k --keepParent "dist/Logic Analyze.app" "release/LogicAnalyze-$VERSION.zip"
+          else
+            ditto -c -k --keepParent "dist/Logic Analyze.app" "release/LogicAnalyze-$VERSION-adhoc.zip"
+          fi
+
+      - name: Collect the library source archives
+        run: |
+          set -euo pipefail
+          mkdir -p release/sources
+          while IFS=$'\t' read -r formula version url sha; do
+            path=$(brew --cache -s "$formula")
+            [ -f "$path" ] || brew fetch -s "$formula"
+            got=$(shasum -a 256 "$path" | cut -d' ' -f1)
+            if [ -n "$sha" ] && [ "$got" != "$sha" ]; then
+              echo "::error::$formula archive SHA-256 $got does not match the notices ($sha)"; exit 1
+            fi
+            cp "$path" "release/sources/$formula-$version-$(basename "$url")"
+          done < "$RUNNER_TEMP/sources.tsv"
+          ls -l release release/sources
+
+      - name: Draft the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SIGNED: ${{ steps.cert.outputs.signed }}
+          NOTARIZE: ${{ steps.cert.outputs.notarize }}
+        run: |
+          set -euo pipefail
+          if [ "$NOTARIZE" = true ]; then how="signed with Developer ID and notarized"
+          elif [ "$SIGNED" = true ]; then how="signed with Developer ID, **not notarized**"
+          else how="**ad-hoc signed only**; Gatekeeper will refuse it on other Macs"; fi
+          {
+            echo "Logic Analyze $VERSION for macOS (Apple silicon), $how."
+            echo
+            echo "The source of Logic Analyze is this tag. The \`sources/\` archives are the exact"
+            echo "sources of the LGPL and GPL libraries bundled in the app; THIRD-PARTY-NOTICES.txt"
+            echo "(in the app under Contents/Resources/licenses) lists them and explains how to"
+            echo "replace the LGPL libraries."
+          } > "$RUNNER_TEMP/notes.md"
+          gh release create "$TAG" --draft --verify-tag --title "Logic Analyze $VERSION" \
+            --notes-file "$RUNNER_TEMP/notes.md" release/*.zip release/sources/*
