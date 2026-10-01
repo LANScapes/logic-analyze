@@ -412,6 +412,17 @@ void MainFrame::changeEvent(QEvent *event)
     if (event->type() == QEvent::WindowStateChange && _is_resize_ready) {     
         //dsv_info("Window state changed.");
         QWindowStateChangeEvent *stateChangeEvent = static_cast<QWindowStateChangeEvent*>(event);
+#ifdef __APPLE__
+        if (!(stateChangeEvent->oldState() & (Qt::WindowMinimized | Qt::WindowMaximized | Qt::WindowFullScreen))
+                && IsMaxsized()) {
+            // Native resizing can precede the state change; use Qt's restore rectangle.
+            // normalGeometry() is client-relative; shift it to the frame position
+            // that restore passes to move().
+            QRect ng = normalGeometry();
+            QPoint frameOffset = pos() - geometry().topLeft();
+            saveNormalRegion(QRect(ng.topLeft() + frameOffset, ng.size()));
+        }
+#endif
         if (stateChangeEvent->oldState() & Qt::WindowMaximized 
                 && !(windowState() & Qt::WindowMaximized)) {
             
@@ -423,6 +434,11 @@ void MainFrame::changeEvent(QEvent *event)
 bool MainFrame::eventFilter(QObject *object, QEvent *event)
 { 
     const QEvent::Type type = event->type();
+#ifdef __APPLE__
+    if (object == this && (type == QEvent::Move || type == QEvent::Resize)){
+        saveNormalRegion();
+    }
+#endif
     const QMouseEvent *const mouse_event = (QMouseEvent*)event;
     int newWidth = 0;
     int newHeight = 0;
@@ -614,9 +630,9 @@ void MainFrame::saveNormalRegion()
         return;
     } 
 
-    AppConfig &app = AppConfig::Instance();  
-
 #ifdef _WIN32
+    AppConfig &app = AppConfig::Instance();
+
     if (_parentNativeWidget != NULL){
         RECT rc;
         int k = _parentNativeWidget->GetDevicePixelRatio();
@@ -633,14 +649,19 @@ void MainFrame::saveNormalRegion()
 
     if (_parentNativeWidget == NULL){
         // Restore uses move() for the frame position and resize() for the client size.
-        QRect rc(pos(), size());
-        app.frameOptions.left = rc.left();
-        app.frameOptions.top = rc.top();
-        app.frameOptions.right = rc.right();
-        app.frameOptions.bottom = rc.bottom();
-        app.frameOptions.x = rc.left();
-        app.frameOptions.y = rc.top(); 
+        saveNormalRegion(QRect(pos(), size()));
     }
+}
+
+void MainFrame::saveNormalRegion(const QRect &rc)
+{
+    AppConfig &app = AppConfig::Instance();
+    app.frameOptions.left = rc.left();
+    app.frameOptions.top = rc.top();
+    app.frameOptions.right = rc.right();
+    app.frameOptions.bottom = rc.bottom();
+    app.frameOptions.x = rc.left();
+    app.frameOptions.y = rc.top();
 }
 
 void MainFrame::writeSettings()
