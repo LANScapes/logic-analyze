@@ -19,7 +19,9 @@
 #include "libsigrok.h"
 
 static volatile int g_done = 0, g_err = 0;
-static GByteArray *g_raw = NULL;          /* concatenated logic payload */
+static FILE *g_raw = NULL;               /* disk spool of logic payload */
+static uint64_t g_raw_bytes = 0;
+static int g_io_error = 0;
 static int g_format = -1;
 static long long g_trig_pos = -1;
 static int g_split_seen = 0;
@@ -42,7 +44,14 @@ static void on_data(const struct sr_dev_inst *sdi, const struct sr_datafeed_pack
         g_format = l->format;
         if (l->format == LA_SPLIT_DATA)
             g_split_seen = 1;
-        g_byte_array_append(g_raw, l->data, (guint)l->length);
+        if (!g_io_error) {
+            if (fwrite(l->data, 1, l->length, g_raw) != l->length) {
+                g_io_error = 1;
+                g_done = 1;
+            } else {
+                g_raw_bytes += l->length;
+            }
+        }
     } else if (p->type == SR_DF_TRIGGER && p->payload) {
         const struct ds_trigger_pos *t = p->payload;
         g_trig_pos = t->real_pos;
@@ -85,6 +94,34 @@ static int pick_device(int list_only)
 }
 
 static int set_u64(int key, uint64_t v) { return ds_set_actived_device_config(NULL, NULL, key, g_variant_new_uint64(v)); }
+
+/* Keep the channel-major file layout, using fixed-size conversion buffers. */
+static int write_output(const char *path, int nch, uint64_t per_ch)
+{
+    uint64_t raw[4096], channel[4096];
+    if (fflush(g_raw) || fseeko(g_raw, 0, SEEK_SET)) return -1;
+    FILE *f = fopen(path, "wb");
+    if (!f) return -1;
+    int failed = 0;
+    for (uint64_t k = 0; k < per_ch && !failed;) {
+        size_t count = MIN(per_ch - k, G_N_ELEMENTS(raw) / nch);
+        if (fread(raw, sizeof(uint64_t) * nch, count, g_raw) != count) {
+            failed = 1;
+            break;
+        }
+        for (int c = 0; c < nch; c++) {
+            for (size_t i = 0; i < count; i++) channel[i] = raw[i * nch + c];
+            if (fseeko(f, (off_t)(((uint64_t)c * per_ch + k) * 8), SEEK_SET) ||
+                fwrite(channel, 8, count, f) != count) {
+                failed = 1;
+                break;
+            }
+        }
+        k += count;
+    }
+    if (fclose(f)) failed = 1;
+    return failed ? -1 : 0;
+}
 
 int main(int argc, char **argv)
 {
@@ -170,12 +207,21 @@ int main(int argc, char **argv)
     if (ds_get_actived_device_config(NULL, NULL, SR_CONF_SAMPLERATE, &gv) == SR_OK && gv) { act_rate = g_variant_get_uint64(gv); g_variant_unref(gv); gv = NULL; }
     if (ds_get_actived_device_config(NULL, NULL, SR_CONF_LIMIT_SAMPLES, &gv) == SR_OK && gv) { act_samples = g_variant_get_uint64(gv); g_variant_unref(gv); gv = NULL; }
 
-    g_raw = g_byte_array_new();
+    char *spool = g_strdup_printf("%s.raw-XXXXXX", out);
+    int fd = g_mkstemp(spool);
+    if (fd >= 0) {
+        g_raw = fdopen(fd, "w+b");
+        if (!g_raw) close(fd);
+        unlink(spool);
+    }
+    g_free(spool);
+    if (!g_raw) { printf("{\"error\":\"cannot create capture spool\"}\n"); ds_lib_exit(); return 1; }
     struct timespec t0, t1;
     clock_gettime(CLOCK_MONOTONIC, &t0);
     int rc = ds_start_collect();
     if (rc != SR_OK) {
         printf("{\"error\":\"start failed\",\"code\":%d}\n", rc);
+        fclose(g_raw);
         ds_lib_exit();
         return 1;
     }
@@ -186,17 +232,16 @@ int main(int argc, char **argv)
     clock_gettime(CLOCK_MONOTONIC, &t1);
 
     /* De-interleave LA_CROSS_DATA: 64-sample words rotate through channels. */
-    uint64_t words = g_raw->len / 8;
+    uint64_t words = g_raw_bytes / 8;
     uint64_t per_ch = nch ? words / nch : 0;
     char path[1024];
     snprintf(path, sizeof path, "%s.bin", out);
-    FILE *f = fopen(path, "wb");
-    if (!f) { printf("{\"error\":\"cannot write output\"}\n"); ds_lib_exit(); return 1; }
-    const uint64_t *w = (const uint64_t *)g_raw->data;
-    for (int c = 0; c < nch; c++)
-        for (uint64_t k = 0; k < per_ch; k++)
-            fwrite(&w[k * nch + c], 8, 1, f);
-    fclose(f);
+    if (g_io_error || write_output(path, nch, per_ch)) {
+        printf("{\"error\":\"cannot write capture data\"}\n");
+        fclose(g_raw);
+        ds_lib_exit();
+        return 1;
+    }
 
     uint64_t got = per_ch * 64;
     if (got > act_samples) got = act_samples;
@@ -216,7 +261,7 @@ int main(int argc, char **argv)
     json_str(path);
     printf("}\n");
 
-    g_byte_array_free(g_raw, TRUE);
+    fclose(g_raw);
     ds_release_actived_device();
     ds_lib_exit();
     return (timed_out || g_err) ? 3 : 0;
