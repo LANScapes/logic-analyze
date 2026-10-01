@@ -155,6 +155,69 @@ def source_archive(formula):
     return path
 
 
+def recipe_downloads(recipe):
+    """The patch files a recipe (before __END__) downloads: [{"url", "sha256"}] and
+    [{"file"}] for files kept in homebrew-core. Every patch directive counts, including
+    those of resources and head builds; over-including is harmless. Inline patches
+    (:DATA or a string) need nothing: their bytes are in the recipe."""
+    # Drop =begin/=end blocks and full-line comments. This is a pattern scan, not a
+    # Ruby parser; it is meant for Homebrew's own recipes, and the copied recipe is
+    # the authoritative record either way.
+    recipe = re.sub(r"^=begin\b.*?^=end\b[^\n]*", "", recipe, flags=re.M | re.S)
+    recipe = "\n".join("" if re.match(r"\s*#", l) else l for l in recipe.split("\n"))
+    out = []
+    for m in re.finditer(r"^\s*patch\b", recipe, re.M):
+        rest = recipe[m.end():]
+        line = rest.split("\n", 1)[0]
+        if not re.match(r"[^#\n]*\bdo\b", line):
+            continue  # inline: patch :DATA, patch :p0, "...", or a heredoc
+        body = re.split(r"^\s*end\b|;\s*end\b", rest, maxsplit=1, flags=re.M)[0]
+        url = re.search(r'^\s*(?:[^#\n]*;)?\s*url\s+"([^"]+)"', body, re.M)
+        sha = re.search(r'^\s*(?:[^#\n]*;)?\s*sha256\s+"([0-9a-f]{64})"', body, re.M)
+        file = re.search(r'^\s*(?:[^#\n]*;)?\s*file\s+"([^"]+)"', body, re.M)
+        if url and sha:
+            if not re.fullmatch(r"https://[^\s\x00-\x1f]+", url.group(1)):
+                die(f"refusing patch URL {url.group(1)!r}: only https downloads are collected")
+            out.append({"url": url.group(1), "sha256": sha.group(1)})
+        elif file:
+            if not re.fullmatch(r"Patches/[A-Za-z0-9._+@-]+(/[A-Za-z0-9._+@-]+)*", file.group(1)) \
+                    or "/../" in f"/{file.group(1)}/":
+                die(f"refusing tap-local patch path {file.group(1)!r}")
+            out.append({"file": file.group(1)})
+        else:
+            die(f"cannot read the patch at {line.strip()!r} in the recipe:\n{body[:300]}")
+    return out
+
+
+def source_record(formula, version, keg, m):
+    """(formula, version, url, sha256, recipe path, homebrew-core commit, patches JSON)
+    for a library whose source is offered.
+
+    The keg keeps the recipe its bottle was built from; that recipe is the record of
+    how the library was built and goes into the release whole (inline patches
+    included). Homebrew's current metadata supplies the archive URL and the
+    homebrew-core commit, so require the kept recipe to build from the same archive
+    (by SHA-256), and take the patches to download from the kept recipe itself."""
+    stable = m["urls"]["stable"]
+    recipe, tap_head = m.get("ruby_source_path", ""), m.get("tap_git_head", "")
+    if not (stable.get("checksum") and recipe and tap_head):
+        die(f"{formula}: Homebrew's metadata lacks the source checksum, recipe path or tap commit")
+    kept_path = os.path.join(keg, ".brew", f"{formula}.rb")
+    if not os.path.exists(kept_path):
+        die(f"{formula}: keg {version} kept no recipe ({kept_path})")
+    head = open(kept_path, encoding="utf-8").read().split("\n__END__")[0]
+    # The archive's SHA-256 is its identity (the URL can name another mirror path).
+    sha = re.search(r'^  sha256 "([0-9a-f]{64})"', head, re.M)
+    if not (sha and sha.group(1) == stable["checksum"]):
+        die(f"{formula}: keg {version} was built from a different source archive than "
+            f"Homebrew's current recipe names; reinstall {formula} and package again")
+    patches = recipe_downloads(head)
+    if any(re.search(r"\s", f) for f in (stable["url"], recipe, tap_head)):
+        die(f"{formula}: unexpected whitespace in its source metadata")
+    return (formula, version, stable["url"], stable["checksum"], recipe, tap_head,
+            json.dumps(patches, separators=(",", ":")))
+
+
 def read_from_archive(archive, wanted):
     """{relative path: bytes} for the members TOPDIR/<relative path> of a source archive."""
     out = {}
@@ -238,6 +301,15 @@ def main():
     entries, sources, qt = [], [], []
     for (formula, version), names in sorted(kegs.items()):
         m = meta[formula]
+        # Source URLs and checksums come from Homebrew's current formula, so they
+        # describe the bundled keg only if the keg is that formula's current version.
+        current = m["versions"]["stable"] + (f"_{m['revision']}" if m.get("revision") else "")
+        if version != current:
+            msg = (f"{formula}: the app bundles keg {version}, but Homebrew's formula is now "
+                   f"{current}; run `brew upgrade {formula}`, rebuild and package again")
+            if formula in COPYLEFT:
+                die(msg + " (its source archive is offered, so it must match exactly)")
+            print(f"notices: warning: {msg}; license texts are read from the {current} archive")
         archive = source_archive(formula)
         keg = os.path.join(cellar, formula, version)
         if formula in OVERRIDE:
@@ -274,8 +346,7 @@ def main():
               f"  Text:     {', '.join(dict.fromkeys(refs))}"]
         entries.append(e)
         if formula in COPYLEFT:
-            stable = m["urls"]["stable"]
-            sources.append((formula, version, stable["url"], stable.get("checksum", "")))
+            sources.append(source_record(formula, version, keg, m))
 
     tree = []
     for title, spdx, holders, path, span in IN_TREE:
@@ -316,12 +387,22 @@ def main():
 
     L += ["", "=" * 78, "2. Source code, and replacing the LGPL libraries", "=" * 78, "",
           "These libraries were built by Homebrew from the source archives below, with the",
-          "build changes in each Homebrew formula (https://github.com/Homebrew/homebrew-core).",
-          "Copies of the archives are also published with each release at",
-          f"{REPO}/releases, and Lanscapes will provide",
-          f"them on request for at least three years after each release: write to {SUPPORT}.", ""]
-    for formula, version, url, sha in sources:
-        L += [f"{formula} {version}", f"  {url}", f"  SHA-256 {sha}", ""]
+          "patches and build options in each library's Homebrew build recipe (linked below at",
+          "the current homebrew-core revision). Each release also publishes the archives, the",
+          f"exact recipes and their patches at {REPO}/releases,",
+          "and Lanscapes will provide them on request for at least three years after each",
+          f"release: write to {SUPPORT}.", ""]
+    for formula, version, url, sha, recipe, tap_head, patches in sources:
+        L += [f"{formula} {version}", f"  {url}", f"  SHA-256 {sha}"]
+        if recipe and tap_head:
+            L.append(f"  Recipe:   https://github.com/Homebrew/homebrew-core/blob/{tap_head}/{recipe}")
+        L.append("")
+    if os.environ.get("NOTICES_SOURCES_OUT"):
+        # One line per archive for the release job, fields separated by US (0x1f) so
+        # that none can be empty-collapsed: formula, keg version, url, sha256, recipe
+        # path in homebrew-core, homebrew-core commit, patches (JSON).
+        with open(os.environ["NOTICES_SOURCES_OUT"], "w", encoding="utf-8") as fh:
+            fh.writelines("\x1f".join(row) + "\n" for row in sources)
     L += ["The LGPL libraries (Qt, glib, libusb, libintl, graphite2) are linked dynamically.",
           "You can replace them with modified versions built from the sources above:",
           "  1. Copy Logic Analyze.app to a folder you can write to, such as your home folder.",

@@ -1,0 +1,90 @@
+#!/bin/bash
+# collect-sources.sh SOURCES.TSV OUTDIR
+# For each LGPL/GPL library that third_party_notices.py listed (NOTICES_SOURCES_OUT),
+# put in OUTDIR:
+#   <formula>-<version>-<archive name>          the upstream source archive (SHA-256 checked)
+#   <formula>-<version>-homebrew-recipe.tar.gz  the recipe and install receipt from the
+#                                               bundled keg, plus every patch the recipe applies
+set -euo pipefail
+tsv=$1
+out=$2
+mkdir -p "$out"
+cellar=$(brew --cellar)
+work=$(mktemp -d)
+trap 'rm -rf "$work"' EXIT
+
+sha_of() { shasum -a 256 "$1" | cut -d' ' -f1; }
+
+# Fields are separated by US (0x1f), which unlike a tab is not IFS whitespace, so an
+# empty field stays in its place.
+while IFS=$'\x1f' read -r formula version url sha recipe tap_head patches; do
+  for v in formula version url sha recipe tap_head patches; do
+    [ -n "${!v}" ] || { echo "::error::sources list: empty $v for '$formula'"; exit 1; }
+  done
+  keg="$cellar/$formula/$version"
+  [ -d "$keg" ] || { echo "::error::$formula: keg $keg is not installed"; exit 1; }
+
+  # Upstream source archive.
+  path=$(brew --cache -s "$formula")
+  [ -f "$path" ] || brew fetch -s "$formula" >/dev/null
+  got=$(sha_of "$path")
+  if [ "$got" != "$sha" ]; then
+    echo "::error::$formula archive SHA-256 $got does not match the notices ($sha)"; exit 1
+  fi
+  cp "$path" "$out/$formula-$version-$(basename "$url")"
+
+  # The recipe and receipt of the bundled keg, and the patches it applies.
+  d="$work/$formula-$version-homebrew-recipe"
+  mkdir -p "$d/patches"
+  cp "$keg"/.brew/*.rb "$d/"
+  cp "$keg/INSTALL_RECEIPT.json" "$d/"
+  # Parse the patch list in the foreground, so a bad list stops the job.
+  python3 -c '
+import json, sys
+for p in json.loads(sys.argv[1]):
+    if p.get("data"):
+        continue  # inline: the bytes are after __END__ in the copied recipe
+    if "file" in p:
+        print("file", p["file"], "-", sep="\x1f")
+    elif "url" in p:
+        if not p.get("sha256"):
+            sys.exit(f"external patch without a checksum: {p}")
+        print("url", p["url"], p["sha256"], sep="\x1f")
+    else:
+        sys.exit(f"unknown patch entry {p}")
+' "$patches" > "$work/patches.list"
+  n=0
+  while IFS=$'\x1f' read -r kind ref psha; do
+    [ -n "$kind" ] || continue
+    n=$((n + 1))
+    if [ "$kind" = file ]; then
+      # A patch kept in homebrew-core itself, at the revision the recipe came from.
+      curl -fsSL --proto =https --proto-redir =https --retry 3 -o "$d/patches/$(basename "$ref")" \
+        "https://raw.githubusercontent.com/Homebrew/homebrew-core/$tap_head/$ref"
+    else
+      f="$d/patches/$n-$(basename "${ref%%\?*}")"
+      curl -fsSL --proto =https --proto-redir =https --retry 3 -o "$f" "$ref"
+      # The checksum comes from the kept recipe (third_party_notices.py).
+      if [ "$(sha_of "$f")" != "$psha" ]; then
+        echo "::error::$formula patch $ref does not match its recipe checksum"; exit 1
+      fi
+    fi
+  done < "$work/patches.list"
+  {
+    echo "$formula $version, as bundled in Logic Analyze."
+    echo
+    echo "Homebrew built it from $url"
+    echo "(SHA-256 $sha) with the recipe in this directory:"
+    echo "  https://github.com/Homebrew/homebrew-core/blob/$tap_head/$recipe"
+    echo "patches/ holds the $n patch file(s) the recipe downloads (including any for its"
+    echo "resources or head builds). Inline patches are in the recipe itself (a string, or"
+    echo "after __END__). A patch downloaded from a URL is checked against the checksum the"
+    echo "recipe gives for it. A patch file kept in homebrew-core"
+    echo "itself is taken from the commit above; the recipe names it but gives no checksum,"
+    echo "so this assumes the file did not change between the bottle's build and that commit."
+    echo "INSTALL_RECEIPT.json records how the keg was built or poured."
+    echo "Homebrew's build documentation: https://docs.brew.sh/Formula-Cookbook"
+  } > "$d/README.txt"
+  tar -C "$work" -czf "$out/$formula-$version-homebrew-recipe.tar.gz" "$(basename "$d")"
+done < "$tsv"
+ls -l "$out"

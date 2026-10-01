@@ -1,0 +1,155 @@
+name: Upstream sync
+
+# Tracks DreamSourceLab/DSView. When upstream master has commits that main
+# does not, merge them into a sync/upstream-<sha> branch, build it with the
+# Build workflow, and open a pull request with the result. A merge conflict
+# opens an issue instead, listing the conflicting files.
+on:
+  schedule:
+    - cron: "17 9 * * 1"   # Mondays 09:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: upstream-sync
+  cancel-in-progress: false
+
+env:
+  UPSTREAM: https://github.com/DreamSourceLab/DSView.git
+  UPSTREAM_BRANCH: master
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    outputs:
+      branch: ${{ steps.merge.outputs.branch }}
+      upstream: ${{ steps.merge.outputs.upstream }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Merge upstream into a sync branch
+        id: merge
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add upstream "$UPSTREAM"
+          git fetch --no-tags upstream "$UPSTREAM_BRANCH"
+          up=$(git rev-parse FETCH_HEAD)
+          short=${up:0:9}
+          echo "upstream=$up" >> "$GITHUB_OUTPUT"
+          if git merge-base --is-ancestor "$up" HEAD; then
+            echo "main already contains upstream $short"; exit 0
+          fi
+          branch="sync/upstream-$short"
+          if git ls-remote --exit-code --heads origin "$branch" >/dev/null; then
+            # A pull request (open or closed by a person) or the fallback issue means
+            # this upstream commit has been proposed; do not propose it again.
+            if [ -n "$(gh pr list --head "$branch" --state all --json number --jq '.[].number')" ] ||
+               [ -n "$(gh issue list --state all --search "\"Upstream DSView $short is ready to merge\" in:title" --json number --jq '.[].number')" ]; then
+              echo "$branch has already been proposed"; exit 0
+            fi
+            # An earlier run pushed the branch but did not finish. Build and propose the
+            # branch as it is (it may hold someone's fixes, so it is never overwritten),
+            # but only if it really contains the upstream commit its name claims.
+            git fetch --no-tags origin "refs/heads/$branch"
+            if ! git merge-base --is-ancestor "$up" FETCH_HEAD; then
+              echo "::error::$branch exists but does not contain upstream $up; fix or delete it"
+              exit 1
+            fi
+            echo "$branch exists without a pull request; building it again"
+            echo "branch=$branch" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          title="Upstream DSView $short does not merge cleanly"
+          git checkout -b "$branch"
+          if ! git merge --no-ff --no-edit -m "Merge upstream DSView $short" "$up"; then
+            files=$(git diff --name-only --diff-filter=U)
+            git merge --abort
+            if [ -z "$(gh issue list --state open --search "\"$title\" in:title" --json number --jq '.[].number')" ]; then
+              {
+                echo "Merging DreamSourceLab/DSView \`$up\` into \`main\` conflicts in:"
+                echo
+                echo "$files" | sed 's/^/- `/; s/$/`/'
+                echo
+                echo "Resolve it locally:"
+                echo
+                echo '```'
+                echo "git fetch $UPSTREAM $UPSTREAM_BRANCH"
+                echo "git switch -c $branch origin/main"
+                echo "git merge --no-ff FETCH_HEAD"
+                echo '```'
+                echo
+                echo "Then push the branch and open a pull request; the Build workflow runs on it."
+              } > "$RUNNER_TEMP/issue.md"
+              gh issue create --title "$title" --body-file "$RUNNER_TEMP/issue.md"
+            fi
+            exit 0
+          fi
+          git push origin "$branch"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: merge
+    if: needs.merge.outputs.branch != ''
+    uses: ./.github/workflows/ci.yml
+    with:
+      ref: ${{ needs.merge.outputs.branch }}
+
+  pull-request:
+    needs: [merge, build]
+    if: always() && needs.merge.outputs.branch != ''
+    runs-on: ubuntu-latest
+    steps:
+      - name: Open the pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ needs.merge.outputs.branch }}
+          UP: ${{ needs.merge.outputs.upstream }}
+          RESULT: ${{ needs.build.result }}
+          RUN: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          if [ "$RESULT" = success ]; then
+            status="The merge builds: plain DSView, the dslcap spool test, Logic Analyze, and the ad-hoc package with its scrub, audit, notices and runtime checks all passed."
+          else
+            status="**The build failed ($RESULT).** Fix it on this branch before merging."
+          fi
+          cat > body.md <<EOF
+          Merges DreamSourceLab/DSView [\`${UP:0:9}\`](https://github.com/DreamSourceLab/DSView/commit/$UP) into \`main\`.
+
+          $status Build log: $RUN
+
+          Before merging:
+          - Read the upstream changes for anything that touches the Logic Analyze patches (toolbar, icons, packaging, dslcap).
+          - Check that the merge kept the patch set small: \`git diff $UP HEAD -- DSView libsigrok4DSL libsigrokdecode4DSL\` should show only the Logic Analyze changes (behind \`LANSCAPES_BRAND\` or \`__APPLE__\`) and the shared fixes already offered to DSView.
+          EOF
+          if [ -n "$(gh pr list --repo "$GITHUB_REPOSITORY" --head "$BRANCH" --state all --json number --jq '.[].number')" ]; then
+            echo "a pull request for $BRANCH already exists"; exit 0
+          fi
+          if ! gh pr create --repo "$GITHUB_REPOSITORY" --base main --head "$BRANCH" \
+              --title "Merge upstream DSView ${UP:0:9}" --body-file body.md 2> "$RUNNER_TEMP/pr.err"; then
+            # Creating pull requests needs "Allow GitHub Actions to create and approve pull
+            # requests" (Settings > Actions > General). Without it, say so in an issue.
+            cat "$RUNNER_TEMP/pr.err"
+            {
+              echo "The upstream sync could not open a pull request:"
+              echo
+              echo '```'
+              cat "$RUNNER_TEMP/pr.err"
+              echo '```'
+              echo
+              echo "Open it from https://github.com/$GITHUB_REPOSITORY/compare/main...$BRANCH with this description:"
+              echo
+              cat body.md
+            } > issue.md
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "Upstream DSView ${UP:0:9} is ready to merge" --body-file issue.md
+          fi
