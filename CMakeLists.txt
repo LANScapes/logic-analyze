@@ -718,3 +718,9 @@ if(ENABLE_TESTS)
 endif(ENABLE_TESTS)
 
 
+
+#===============================================================================
+#= dslcap: headless capture CLI for the MCP wrapper (local addition)
+#-------------------------------------------------------------------------------
+add_executable(dslcap tools/dslcap/dslcap.c ${common_SOURCES} ${libsigrok4DSL_SOURCES})
+target_link_libraries(dslcap ${DSVIEW_LINK_LIBS})
