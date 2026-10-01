@@ -105,8 +105,12 @@ static int write_output(const char *path, int nch, uint64_t per_ch, uint64_t got
 {
     uint64_t raw[4096], channel[4096];
     if (fflush(g_raw) || fseeko(g_raw, 0, SEEK_SET)) return -1;
-    FILE *f = fopen(path, "wb");
-    if (!f) return -1;
+    /* Write to a temporary file and rename it into place only on success. */
+    char *tmp = g_strdup_printf("%s.XXXXXX", path);
+    int fd = g_mkstemp(tmp);
+    if (fd < 0) { g_free(tmp); return -1; }
+    FILE *f = fdopen(fd, "wb");
+    if (!f) { close(fd); unlink(tmp); g_free(tmp); return -1; }
     int failed = 0;
     for (uint64_t k = 0; k < per_ch && !failed;) {
         size_t count = MIN(per_ch - k, G_N_ELEMENTS(raw) / nch);
@@ -128,6 +132,9 @@ static int write_output(const char *path, int nch, uint64_t per_ch, uint64_t got
         k += count;
     }
     if (fclose(f)) failed = 1;
+    if (!failed && rename(tmp, path)) failed = 1;
+    if (failed) unlink(tmp);
+    g_free(tmp);
     return failed ? -1 : 0;
 }
 
@@ -376,6 +383,7 @@ int main(int argc, char **argv)
     if (g_io_error || write_output(path, nch, per_ch, got)) {
         printf("{\"error\":\"cannot write capture data\"}\n");
         fclose(g_raw);
+        ds_release_actived_device();
         ds_lib_exit();
         return 1;
     }
