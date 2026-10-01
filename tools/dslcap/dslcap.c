@@ -134,7 +134,7 @@ static int write_output(const char *path, int nch, uint64_t per_ch, uint64_t got
     if (fclose(f)) failed = 1;
     /* link() publishes atomically and, unlike rename(), refuses to replace an existing capture (fix 02). */
     if (!failed && link(tmp, path)) failed = 1;
-    if (failed) unlink(tmp);
+    unlink(tmp);  /* after link() the published name keeps the data; drop the temporary one either way */
     g_free(tmp);
     return failed ? -1 : 0;
 }

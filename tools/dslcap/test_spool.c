@@ -35,7 +35,10 @@ int main(int argc, char **argv)
             pos += length;
         }
         assert(g_raw_bytes == bytes + 7);
-        assert(write_output(argv[2], nch, g_raw_bytes / 8 / nch) == 0);
+        /* Publication is exclusive (fix 02), so clear the previous case's output. */
+        unlink(argv[2]);
+        uint64_t per_ch = g_raw_bytes / 8 / nch;
+        assert(write_output(argv[2], nch, per_ch, per_ch * 64) == 0);
         FILE *out = fopen(argv[2], "rb");
         assert(out);
         for (int c = 0; c < nch; c++)

@@ -435,7 +435,10 @@ bool MainFrame::eventFilter(QObject *object, QEvent *event)
 { 
     const QEvent::Type type = event->type();
 #ifdef __APPLE__
-    if (object == this && (type == QEvent::Move || type == QEvent::Resize)){
+    // Track only the normal window: maximized, fullscreen and minimized
+    // geometry must not replace the saved restore rectangle.
+    if (object == this && (type == QEvent::Move || type == QEvent::Resize)
+            && !(windowState() & (Qt::WindowMaximized | Qt::WindowFullScreen | Qt::WindowMinimized))){
         saveNormalRegion();
     }
 #endif
