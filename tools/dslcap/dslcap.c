@@ -149,6 +149,36 @@ static int set_samplerate(uint64_t rate)
     return supported ? set_u64(SR_CONF_SAMPLERATE, rate) : SR_ERR_ARG;
 }
 
+static int select_channel_mode(uint64_t rate)
+{
+    GVariant *gv = NULL;
+    if (ds_get_actived_device_config_list(NULL, SR_CONF_CHANNEL_MODE, &gv) != SR_OK || !gv)
+        return SR_ERR;
+    const struct sr_list_item *modes = (const struct sr_list_item *)g_variant_get_uint64(gv);
+    g_variant_unref(gv);
+
+    /* The driver lists modes from most channels to fewest. */
+    for (; modes && modes->id >= 0; modes++) {
+        if (ds_set_actived_device_config(NULL, NULL, SR_CONF_CHANNEL_MODE,
+                g_variant_new_int16(modes->id)) != SR_OK)
+            return SR_ERR;
+        gv = NULL;
+        if (ds_get_actived_device_config_list(NULL, SR_CONF_SAMPLERATE, &gv) != SR_OK || !gv)
+            return SR_ERR;
+        GVariant *rates = g_variant_lookup_value(gv, "samplerates", G_VARIANT_TYPE("at"));
+        g_variant_unref(gv);
+        if (!rates) return SR_ERR;
+        gsize count = 0;
+        const uint64_t *values = g_variant_get_fixed_array(rates, &count, sizeof(uint64_t));
+        int found = 0;
+        for (gsize i = 0; i < count; i++)
+            if (values[i] == rate) found = 1;
+        g_variant_unref(rates);
+        if (found) return SR_OK;
+    }
+    return SR_ERR;
+}
+
 int main(int argc, char **argv)
 {
     const char *res = getenv("DSLCAP_RES");
@@ -216,13 +246,35 @@ int main(int argc, char **argv)
     ds_get_actived_device_info(&info);
 
     /* Mode first: it changes the channel mode and the allowed rates. */
-    ds_set_actived_device_config(NULL, NULL, SR_CONF_OPERATION_MODE,
-        g_variant_new_int16(strcmp(mode, "stream") ? LO_OP_BUFFER : LO_OP_STREAM));
+    if (ds_set_actived_device_config(NULL, NULL, SR_CONF_OPERATION_MODE,
+            g_variant_new_int16(strcmp(mode, "stream") ? LO_OP_BUFFER : LO_OP_STREAM)) != SR_OK ||
+            select_channel_mode(rate) != SR_OK) {
+        printf("{\"error\":\"samplerate unavailable in operation mode\",\"samplerate\":%llu}\n",
+               (unsigned long long)rate);
+        ds_lib_exit();
+        return 2;
+    }
+    GVariant *gv = NULL;
+    if (ds_get_actived_device_config(NULL, NULL, SR_CONF_VLD_CH_NUM, &gv) != SR_OK || !gv) {
+        printf("{\"error\":\"cannot read channel limit\"}\n");
+        ds_lib_exit();
+        return 1;
+    }
+    int max_channels = g_variant_get_int16(gv);
+    g_variant_unref(gv);
+    gv = NULL;
 
     for (GSList *l = ds_get_actived_device_channels(); l; l = l->next)
         ds_enable_device_channel(l->data, FALSE);
-    for (int i = 0; i < nch; i++)
-        ds_enable_device_channel_index(enabled[i], TRUE);
+    for (int i = 0; i < nch; i++) {
+        /* The selected channel mode limits which channels exist at this rate. */
+        if (i >= max_channels || ds_enable_device_channel_index(enabled[i], TRUE) != SR_OK) {
+            printf("{\"error\":\"channel/rate combination unavailable\",\"channel\":%d,\"samplerate\":%llu,\"max_channels\":%d}\n",
+                   enabled[i], (unsigned long long)rate, max_channels);
+            ds_lib_exit();
+            return 2;
+        }
+    }
 
     ds_set_actived_device_config(NULL, NULL, SR_CONF_VTH, g_variant_new_double(vth));
     int rate_rc = set_samplerate(rate);
@@ -276,7 +328,6 @@ int main(int argc, char **argv)
         ds_trigger_set_en(FALSE);
     }
 
-    GVariant *gv = NULL;
     uint64_t act_rate = rate, act_samples = samples;
     if (ds_get_actived_device_config(NULL, NULL, SR_CONF_SAMPLERATE, &gv) == SR_OK && gv) { act_rate = g_variant_get_uint64(gv); g_variant_unref(gv); gv = NULL; }
     if (ds_get_actived_device_config(NULL, NULL, SR_CONF_LIMIT_SAMPLES, &gv) == SR_OK && gv) { act_samples = g_variant_get_uint64(gv); g_variant_unref(gv); gv = NULL; }
