@@ -779,7 +779,33 @@ endif(ENABLE_TESTS)
 
 
 #===============================================================================
-#= dslcap: headless capture CLI for the MCP wrapper (local addition)
+#= dslcap: headless capture command-line tool
 #-------------------------------------------------------------------------------
-add_executable(dslcap tools/dslcap/dslcap.c ${common_SOURCES} ${libsigrok4DSL_SOURCES})
-target_link_libraries(dslcap ${DSVIEW_LINK_LIBS})
+# The tool uses POSIX file and executable-path APIs, so it is not built on
+# Windows; the GUI build there is unchanged.
+if(NOT WIN32)
+	add_executable(dslcap tools/dslcap/dslcap.c ${common_SOURCES} ${libsigrok4DSL_SOURCES})
+
+	# Only what the C sources need; unlike the C++ link of DSView, the C link
+	# does not pull in libm implicitly.
+	set(DSLCAP_LINK_LIBS
+		-lz
+		-lglib-2.0
+		${CMAKE_THREAD_LIBS_INIT}
+		${LIBUSB_1_LIBRARIES}
+	)
+	find_library(DSLCAP_MATH_LIBRARY m)
+	if(DSLCAP_MATH_LIBRARY)
+		list(APPEND DSLCAP_LINK_LIBS ${DSLCAP_MATH_LIBRARY})
+	endif()
+	target_link_libraries(dslcap ${DSLCAP_LINK_LIBS})
+
+	# 64-bit file offsets for long captures on 32-bit systems; the installed
+	# firmware directory matches the install(DIRECTORY DSView/res ...) rule above.
+	target_compile_definitions(dslcap PRIVATE
+		_FILE_OFFSET_BITS=64
+		DSLCAP_INSTALL_RES_DIR="${CMAKE_INSTALL_PREFIX}/share/DSView/res"
+	)
+
+	install(TARGETS dslcap DESTINATION ${CMAKE_INSTALL_BINDIR})
+endif()

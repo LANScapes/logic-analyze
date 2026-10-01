@@ -46,6 +46,7 @@
 #include <QFont>
 #include <algorithm>
 #include <QWindow>
+#include <QTimer>
 
  #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
  #include <QDesktopWidget>
@@ -725,10 +726,14 @@ void MainFrame::ShowFormInit()
 
     if (_initWndInfo.isMaxSize){
 #ifdef __APPLE__
-        // Place the window at the saved normal region first, so that Qt keeps it
-        // as the restore geometry when the window leaves the maximized state.
+        // Show the window at the saved normal region, then zoom it once the native
+        // window exists: Cocoa only treats a window as zoomed, and only restores it
+        // to its normal frame, if it was zoomed after it was shown.
         move(_normalRegion.x, _normalRegion.y);
         resize(_normalRegion.w, _normalRegion.h);
+        QFrame::show();
+        QTimer::singleShot(0, this, [this](){ showMaximized(); });
+        return;
 #else
         move(x, y);
 #endif
