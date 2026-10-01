@@ -414,13 +414,16 @@ void MainFrame::changeEvent(QEvent *event)
         QWindowStateChangeEvent *stateChangeEvent = static_cast<QWindowStateChangeEvent*>(event);
 #ifdef __APPLE__
         if (!(stateChangeEvent->oldState() & (Qt::WindowMinimized | Qt::WindowMaximized | Qt::WindowFullScreen))
-                && IsMaxsized()) {
-            // Native resizing can precede the state change; use Qt's restore rectangle.
-            // normalGeometry() is client-relative; shift it to the frame position
-            // that restore passes to move().
+                && (windowState() & (Qt::WindowMaximized | Qt::WindowFullScreen))) {
+            // Native zoom and fullscreen move and resize the window before the state
+            // changes, so the region saved from those events is wrong; use Qt's restore
+            // rectangle. normalGeometry() is client-relative; shift it to the frame
+            // position that restore passes to move(). Fullscreen hides the title bar,
+            // so use the offset recorded while the window was normal.
             QRect ng = normalGeometry();
-            QPoint frameOffset = pos() - geometry().topLeft();
-            saveNormalRegion(QRect(ng.topLeft() + frameOffset, ng.size()));
+            if (ng.isValid()){
+                saveNormalRegion(QRect(ng.topLeft() + _frameOffset, ng.size()));
+            }
         }
 #endif
         if (stateChangeEvent->oldState() & Qt::WindowMaximized 
@@ -437,9 +440,15 @@ bool MainFrame::eventFilter(QObject *object, QEvent *event)
 #ifdef __APPLE__
     // Track only the normal window: maximized, fullscreen and minimized
     // geometry must not replace the saved restore rectangle.
-    if (object == this && (type == QEvent::Move || type == QEvent::Resize)
-            && !(windowState() & (Qt::WindowMaximized | Qt::WindowFullScreen | Qt::WindowMinimized))){
-        saveNormalRegion();
+    if (object == this && !(windowState() & (Qt::WindowMaximized | Qt::WindowFullScreen | Qt::WindowMinimized))){
+        // Remember the title bar size while it is visible; fullscreen hides it.
+        QMargins m = windowHandle() ? windowHandle()->frameMargins() : QMargins();
+        if (m.top() > 0){
+            _frameOffset = QPoint(-m.left(), -m.top());
+        }
+        if (type == QEvent::Move || type == QEvent::Resize){
+            saveNormalRegion();
+        }
     }
 #endif
     const QMouseEvent *const mouse_event = (QMouseEvent*)event;
@@ -715,7 +724,14 @@ void MainFrame::ShowFormInit()
 #endif
 
     if (_initWndInfo.isMaxSize){
+#ifdef __APPLE__
+        // Place the window at the saved normal region first, so that Qt keeps it
+        // as the restore geometry when the window leaves the maximized state.
+        move(_normalRegion.x, _normalRegion.y);
+        resize(_normalRegion.w, _normalRegion.h);
+#else
         move(x, y);
+#endif
         if (isWin32 &&_is_win32_parent_window){
             resize(w, h);
         }
@@ -889,6 +905,13 @@ bool MainFrame::IsNormalsized()
 #ifdef _WIN32
     if (_parentNativeWidget != NULL){
         return _parentNativeWidget->IsNormalsized();
+    }
+#endif
+
+#ifdef __APPLE__
+    // The native frame can go fullscreen; that geometry is not the normal region either.
+    if (QFrame::isFullScreen()){
+        return false;
     }
 #endif
 
