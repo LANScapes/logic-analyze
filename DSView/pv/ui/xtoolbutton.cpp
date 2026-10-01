@@ -23,6 +23,8 @@
 #include <QMenu>
 #include <QApplication>
 #include <QTimer>
+#include <QStylePainter>
+#include <QStyleOptionToolButton>
 #include "../log.h" 
 
 #ifdef _WIN32
@@ -40,6 +42,47 @@ XToolButton::XToolButton(QWidget *parent)
 {
     _menu = NULL;
     _is_mouse_down = false; 
+}
+
+bool XToolButton::label_beside() const
+{
+    return toolButtonStyle() == Qt::ToolButtonTextBesideIcon
+        && !icon().isNull() && !text().isEmpty();
+}
+
+QSize XToolButton::sizeHint() const
+{
+    QSize s = QToolButton::sizeHint();
+    if (label_beside())
+        s.rwidth() += LabelPad + LabelGap - 4;
+    return s;
+}
+
+void XToolButton::paintEvent(QPaintEvent *event)
+{
+    if (!label_beside()){
+        QToolButton::paintEvent(event);
+        return;
+    }
+
+    // The style draws the frame, hover and menu arrow; the icon and label are
+    // placed here so every button puts its label on the same edge.
+    QStylePainter p(this);
+    QStyleOptionToolButton opt;
+    initStyleOption(&opt);
+    const QString label = opt.text;
+    const QIcon ic = opt.icon;
+    opt.text.clear();
+    opt.icon = QIcon();
+    p.drawComplexControl(QStyle::CC_ToolButton, opt);
+
+    const QSize is = iconSize();
+    QRect ir(LabelPad, (height() - is.height()) / 2, is.width(), is.height());
+    ic.paint(&p, ir, Qt::AlignCenter, isEnabled() ? QIcon::Normal : QIcon::Disabled,
+             isChecked() ? QIcon::On : QIcon::Off);
+    QRect tr(ir.right() + 1 + LabelGap, 0, width() - ir.right() - 1 - LabelGap, height());
+    style()->drawItemText(&p, tr, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextShowMnemonic,
+                          opt.palette, isEnabled(), label, QPalette::ButtonText);
 }
 
 void XToolButton::mousePressEvent(QMouseEvent *event)

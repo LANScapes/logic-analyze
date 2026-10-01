@@ -96,12 +96,20 @@ namespace pv
 
             QWidget *leftMargin = new QWidget(this);
             leftMargin->setFixedWidth(4);
-            addWidget(leftMargin);
+            QAction *left_margin = addWidget(leftMargin);
+            connect(this, &QToolBar::orientationChanged, this, [left_margin](Qt::Orientation o) {
+                left_margin->setVisible(o == Qt::Horizontal);
+            });
 
             _device_type.setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
             addWidget(&_device_type);
             addWidget(&_device_selector);
             _configure_button.setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+            // Options is a menu: the device options, then Display (see add_options_submenu).
+            _options_menu = new QMenu(this);
+            _action_device_options = _options_menu->addAction(QString());
+            _configure_button.setMenu(_options_menu);
+            _configure_button.setPopupMode(QToolButton::InstantPopup);
             addWidget(&_configure_button);
 
             addWidget(&_sample_count);
@@ -134,7 +142,7 @@ namespace pv
             update_view_status();
 
             connect(&_device_selector, SIGNAL(currentIndexChanged(int)), this, SLOT(on_device_selected()));
-            connect(&_configure_button, SIGNAL(clicked()), this, SLOT(on_configure()));
+            connect(_action_device_options, SIGNAL(triggered()), this, SLOT(on_configure()));
             connect(&_run_stop_button, SIGNAL(clicked()), this, SLOT(on_run_stop()));
             connect(&_instant_button, SIGNAL(clicked()), this, SLOT(on_instant_stop()));
             connect(&_sample_count, SIGNAL(currentIndexChanged(int)), this, SLOT(on_samplecount_sel(int)));
@@ -179,6 +187,7 @@ namespace pv
                 }
             }
             _configure_button.setText(L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_DEVICE_OPTION), "Options"));
+            _action_device_options->setText(L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_DEVICE_OPTION_ITEM), "Device Options..."));
            _mode_button.setText(L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_CAPTURE_MODE), "Mode"));
 
             int mode = _device_agent->get_work_mode();
@@ -1165,9 +1174,15 @@ namespace pv
             _updating_device_list = false;
         }
 
+        void SamplingBar::add_options_submenu(QMenu *menu)
+        {
+            _options_menu->addSeparator();
+            _options_menu->addMenu(menu);
+        }
+
         void SamplingBar::config_device()
         {   
-            if (_configure_button.isVisible() && _configure_button.isEnabled()){
+            if (_configure_button.isVisible() && _action_device_options->isEnabled()){
                 on_configure();
             }            
         }
@@ -1179,7 +1194,8 @@ namespace pv
 
             _device_type.setEnabled(bEnable);
             _mode_button.setEnabled(bEnable);
-            _configure_button.setEnabled(bEnable);
+            // The button stays enabled so Display is reachable; only the device options follow the state.
+            _action_device_options->setEnabled(bEnable);
             _device_selector.setEnabled(bEnable);
             _action_loop->setVisible(false);
 
