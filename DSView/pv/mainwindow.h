@@ -97,7 +97,9 @@ public:
 
 public slots: 
     void switchTheme(QString style);
+#ifdef LANSCAPES_BRAND
     void on_toolbar_orientation(Qt::Orientation o);
+#endif
     void restore_dock();
 
 private slots:
@@ -216,7 +218,9 @@ private:
     toolbars::TrigBar       *_trig_bar;
     toolbars::FileBar       *_file_bar;
     toolbars::LogoBar       *_logo_bar; //help button, on top right
+#ifdef LANSCAPES_BRAND
     QToolBar                *_main_toolbar; //holds the four bars; movable to any side
+#endif
     toolbars::TitleBar      *_title_bar;
 
 

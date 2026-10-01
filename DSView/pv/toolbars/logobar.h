@@ -48,9 +48,11 @@ public:
     ~LogoBar();
 
     void enable_toggle(bool enable);
+#ifdef LANSCAPES_BRAND
     // Places a button ahead of Help, after everything else (Options, from the
     // sampling bar). On top, Help stays alone at the far end.
     void add_before_help(QWidget *w){ insertWidget(_spacer_action, w); }
+#endif
 
    //show the hardware device conneted status with logo picture
     void dsl_connected(bool conn);
@@ -90,7 +92,9 @@ private:
 
     XToolButton _logo_button;
 
+#ifdef LANSCAPES_BRAND
     QAction *_spacer_action;
+#endif
 
     QMenu *_menu;
 

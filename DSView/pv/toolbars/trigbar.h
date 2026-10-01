@@ -49,7 +49,9 @@ public:
     ~TrigBar();
     void reload();
     void update_view_status();
+#ifdef LANSCAPES_BRAND
     QMenu *display_menu(){ return _display_menu; }
+#endif
 
 private:
     void retranslateUi();

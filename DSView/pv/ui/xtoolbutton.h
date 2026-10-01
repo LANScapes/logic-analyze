@@ -34,6 +34,7 @@ class XToolButton : public QToolButton
 
 public:
     XToolButton(QWidget *parent = nullptr);
+#ifdef LANSCAPES_BRAND
     QSize sizeHint() const override;
 
     // Label beside the icon (toolbar docked on a side): space from the button's
@@ -47,7 +48,9 @@ protected:
 
 private:
     bool label_beside() const;
-
+#endif
+    
+private:
     void mousePressEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
 

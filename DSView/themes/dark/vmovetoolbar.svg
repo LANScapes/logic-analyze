@@ -1,1 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="54px" height="16px" viewBox="0 0 54 16"><circle cx="22.0" cy="5.5" r="1.3" fill="#8a8f96"/><circle cx="22.0" cy="10.5" r="1.3" fill="#8a8f96"/><circle cx="27.0" cy="5.5" r="1.3" fill="#8a8f96"/><circle cx="27.0" cy="10.5" r="1.3" fill="#8a8f96"/><circle cx="32.0" cy="5.5" r="1.3" fill="#8a8f96"/><circle cx="32.0" cy="10.5" r="1.3" fill="#8a8f96"/></svg>
+<svg x="0px" y="0px" width="54px" height="10px" viewBox="0 0 54 10" enable-background="new 0 0 54 10" xml:space="preserve">
+  <rect id="Dark1" data-name="Dark1" fill="#292c31" x="16" y="1" width="4" height="8"/>
+  <rect id="Light1" data-name="Light1" fill="#7f8795" x="16" y="1" width="3" height="7"/>
+  <rect id="Dark2" data-name="Dark2" fill="#292c31" x="25" y="1" width="4" height="8"/>
+  <rect id="Light2" data-name="Light2" fill="#7f8795" x="25" y="1" width="3" height="7"/>
+  <rect id="Dark3" data-name="Dark3" fill="#292c31" x="34" y="1" width="4" height="8"/>
+  <rect id="Light3" data-name="Light3" fill="#7f8795" x="34" y="1" width="3" height="7"/>
+</svg>

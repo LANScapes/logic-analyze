@@ -80,7 +80,7 @@ namespace pv
             _session = session;
             _device_agent = _session->get_device();
 
-            setMovable(false);  // moves with MainWindow's main toolbar, which holds it
+            setMovable(false);
             setContentsMargins(0, 0, 0, 0);
             layout()->setSpacing(0);
 
@@ -96,29 +96,41 @@ namespace pv
 
             QWidget *leftMargin = new QWidget(this);
             leftMargin->setFixedWidth(4);
+#ifdef LANSCAPES_BRAND
             QAction *left_margin = addWidget(leftMargin);
             connect(this, &QToolBar::orientationChanged, this, [left_margin](Qt::Orientation o) {
                 left_margin->setVisible(o == Qt::Horizontal);
             });
+#else
+            addWidget(leftMargin);
+#endif
 
             _device_type.setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
             addWidget(&_device_type);
             addWidget(&_device_selector);
             _configure_button.setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+#ifdef LANSCAPES_BRAND
             // Options is a menu: the device options, then Display (see add_options_submenu).
             _options_menu = new QMenu(this);
             _action_device_options = _options_menu->addAction(QString());
             _configure_button.setMenu(_options_menu);
             _configure_button.setPopupMode(QToolButton::InstantPopup);
             // Options sits just before Help in the logo bar; MainWindow places it there.
+#else
+            addWidget(&_configure_button);
+#endif
 
             addWidget(&_sample_count);
             //tr
+#ifdef LANSCAPES_BRAND
             QAction *at_label = addWidget(new QLabel(" @ "));
             // "count @ rate" reads across, not down: drop the @ when the bar is vertical.
             connect(this, &QToolBar::orientationChanged, this, [at_label](Qt::Orientation o) {
                 at_label->setVisible(o == Qt::Horizontal);
             });
+#else
+            addWidget(new QLabel(" @ "));
+#endif
             addWidget(&_sample_rate);
 
             _action_single = new QAction(this);
@@ -142,7 +154,11 @@ namespace pv
             update_view_status();
 
             connect(&_device_selector, SIGNAL(currentIndexChanged(int)), this, SLOT(on_device_selected()));
+#ifdef LANSCAPES_BRAND
             connect(_action_device_options, SIGNAL(triggered()), this, SLOT(on_configure()));
+#else
+            connect(&_configure_button, SIGNAL(clicked()), this, SLOT(on_configure()));
+#endif
             connect(&_run_stop_button, SIGNAL(clicked()), this, SLOT(on_run_stop()));
             connect(&_instant_button, SIGNAL(clicked()), this, SLOT(on_instant_stop()));
             connect(&_sample_count, SIGNAL(currentIndexChanged(int)), this, SLOT(on_samplecount_sel(int)));
@@ -187,7 +203,9 @@ namespace pv
                 }
             }
             _configure_button.setText(L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_DEVICE_OPTION), "Options"));
+#ifdef LANSCAPES_BRAND
             _action_device_options->setText(L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_DEVICE_OPTION_ITEM), "Device Options..."));
+#endif
            _mode_button.setText(L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_CAPTURE_MODE), "Mode"));
 
             int mode = _device_agent->get_work_mode();
@@ -1174,15 +1192,21 @@ namespace pv
             _updating_device_list = false;
         }
 
+#ifdef LANSCAPES_BRAND
         void SamplingBar::add_options_submenu(QMenu *menu)
         {
             _options_menu->addSeparator();
             _options_menu->addMenu(menu);
         }
+#endif
 
         void SamplingBar::config_device()
         {   
+#ifdef LANSCAPES_BRAND
             if (_configure_button.isVisible() && _action_device_options->isEnabled()){
+#else
+            if (_configure_button.isVisible() && _configure_button.isEnabled()){
+#endif
                 on_configure();
             }            
         }
@@ -1194,8 +1218,12 @@ namespace pv
 
             _device_type.setEnabled(bEnable);
             _mode_button.setEnabled(bEnable);
+#ifdef LANSCAPES_BRAND
             // The button stays enabled so Display is reachable; only the device options follow the state.
             _action_device_options->setEnabled(bEnable);
+#else
+            _configure_button.setEnabled(bEnable);
+#endif
             _device_selector.setEnabled(bEnable);
             _action_loop->setVisible(false);
 
