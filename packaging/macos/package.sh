@@ -1,6 +1,6 @@
 #!/bin/bash
 # Build a self-contained "Logic Analyze.app" from the native build.
-#   packaging/macos/package.sh [--sign "Developer ID Application: ..."]
+#   packaging/macos/package.sh [--sign "Developer ID Application: ..."] [--notarize KEYCHAIN_PROFILE]
 # Output: dist/Logic Analyze.app (unsigned unless --sign is given).
 set -euo pipefail
 
@@ -15,7 +15,17 @@ PYSRC="$(brew --prefix python@$PYVER)/Frameworks/Python.framework/Versions/$PYVE
 QTBIN="$(brew --prefix qtbase)/bin"
 QTSVGLIB="$(brew --prefix qtsvg)/lib"
 SIGN_ID=""
-[ "${1:-}" = "--sign" ] && SIGN_ID="$2"
+NOTARY_PROFILE=""
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --sign) SIGN_ID="$2"; shift 2 ;;
+    --notarize) NOTARY_PROFILE="$2"; shift 2 ;;
+    *) echo "unknown argument: $1"; exit 2 ;;
+  esac
+done
+[ -n "$NOTARY_PROFILE" ] && [ -z "$SIGN_ID" ] && { echo "--notarize requires --sign"; exit 2; }
+# Homebrew's bottles are built for this macOS; the bundle cannot run on older.
+MIN_MACOS="${MIN_MACOS:-26.0}"
 
 DIST="$SRC/dist"
 APP="$DIST/$NAME.app"
@@ -30,6 +40,7 @@ cp "$SRC/build.dir/dslcap" "$C/MacOS/dslcap"
 echo "== data (Contents/Resources; GetAppDataDir looks here first)"
 cp -R "$SRC/DSView/res" "$SRC/DSView/demo" "$SRC/lang" "$C/Resources/"
 cp -R "$SRC/libsigrokdecode4DSL/decoders" "$C/Resources/decoders"
+rm -rf "$C/Resources/decoders/ir_irmp"  # needs the native libirmp, which is not built
 cp "$SRC/NEWS25" "$SRC/NEWS31" "$SRC/ug25.pdf" "$SRC/ug31.pdf" "$C/Resources/"
 cp "$SRC/DSView/icons/showDoc25.png" "$SRC/DSView/icons/showDoc31.png" "$C/Resources/"
 cp "$SRC/DSView.icns" "$C/Resources/$EXE.icns"
@@ -50,7 +61,7 @@ cat > "$C/Info.plist" <<PLIST
 <key>CFBundlePackageType</key><string>APPL</string>
 <key>CFBundleShortVersionString</key><string>$VERSION</string>
 <key>CFBundleVersion</key><string>$BUILD</string>
-<key>LSMinimumSystemVersion</key><string>13.0</string>
+<key>LSMinimumSystemVersion</key><string>$MIN_MACOS</string>
 <key>LSApplicationCategoryType</key><string>public.app-category.developer-tools</string>
 <key>NSHighResolutionCapable</key><true/>
 <key>NSPrincipalClass</key><string>NSApplication</string>
@@ -75,6 +86,7 @@ DYN="$PV/lib/python$PYVER/lib-dynload"
 rm -f "$DYN"/_decimal.* "$DYN"/_hashlib.* "$DYN"/_ssl.* "$DYN"/_lzma.* "$DYN"/_sqlite3.* "$DYN"/_zstd.* \
       "$DYN"/_test*.* "$DYN"/_xxtestfuzz.* "$DYN"/xx*.* "$DYN"/_ctypes_test.* \
       "$DYN"/readline.* "$DYN"/_curses*.* "$DYN"/_dbm.* "$DYN"/_gdbm.* "$DYN"/_tkinter.*
+rm -f "$PV/lib/python$PYVER/sitecustomize.py"  # Homebrew's: adds /opt/homebrew site-packages
 mkdir -p "$PV/lib/python$PYVER/site-packages"
 ln -s "$PYVER" "$PF/Versions/Current"
 ln -s Versions/Current/Python "$PF/Python"
@@ -97,30 +109,83 @@ echo "== precompiling Python (the bundle is read-only at run time)"
   -d "" "$PV/lib/python$PYVER" "$C/Resources/decoders" >/dev/null
 
 echo "== Qt and other libraries (macdeployqt)"
-"$QTBIN/macdeployqt" "$APP" -executable="$C/MacOS/dslcap" -libpath="$QTSVGLIB" -always-overwrite -verbose=1 2>&1 | grep -v '^Log: ' || true
+"$QTBIN/macdeployqt" "$APP" -executable="$C/MacOS/dslcap" -libpath="$QTSVGLIB" -always-overwrite -verbose=1 > "$DIST/macdeployqt.log" 2>&1 \
+  || { cat "$DIST/macdeployqt.log"; echo "FAIL: macdeployqt"; exit 1; }
+grep -v '^Log: ' "$DIST/macdeployqt.log" || true
 
-echo "== checking for paths outside the bundle"
-leaks=""
+echo "== required plugins"
+for p in platforms/libqcocoa.dylib imageformats/libqsvg.dylib iconengines/libqsvgicon.dylib; do
+  [ -f "$C/PlugIns/$p" ] || { echo "FAIL: missing PlugIns/$p"; exit 1; }
+done
+
+# Every Mach-O file in the bundle, found by content rather than permissions.
+macho_files() {
+  find "$APP" -type f -print0 | while IFS= read -r -d '' f; do
+    if file -b "$f" | grep -q 'Mach-O'; then printf '%s\0' "$f"; fi
+  done
+  return 0
+}
+
+echo "== scrubbing external rpaths and library IDs"
 while IFS= read -r -d '' f; do
-  out=$(otool -L "$f" 2>/dev/null | tail -n +2 | grep -E "/opt/homebrew|/usr/local" || true)
-  [ -n "$out" ] && leaks+="$f:"$'\n'"$out"$'\n'
-done < <(find "$APP" -type f \( -perm -u+x -o -name '*.dylib' -o -name '*.so' \) -print0)
-if [ -n "$leaks" ]; then echo "$leaks"; echo "FAIL: external library references remain"; exit 1; fi
-echo "no external references"
+  chmod u+w "$f"
+  for rp in $(otool -l "$f" | awk '/cmd LC_RPATH/{r=1} r&&/ path /{print $2; r=0}' | grep -E '^(/opt/homebrew|/usr/local)' || true); do
+    install_name_tool -delete_rpath "$rp" "$f" 2>/dev/null
+  done
+  id=$(otool -D "$f" | tail -n +2)
+  if echo "$id" | grep -qE '^(/opt/homebrew|/usr/local)'; then
+    rel="${f#$C/Frameworks/}"
+    install_name_tool -id "@rpath/$rel" "$f" 2>/dev/null
+  fi
+done < <(macho_files)
+
+echo "== auditing every Mach-O (load commands, rpaths, IDs, minimum macOS)"
+bad=""
+while IFS= read -r -d '' f; do
+  ext=$(otool -l "$f" | awk '/cmd LC_(LOAD|LOAD_WEAK|REEXPORT|ID)_DYLIB/{d=1} d&&/ name /{print $2; d=0} /cmd LC_RPATH/{r=1} r&&/ path /{print $2; r=0}' \
+        | grep -E '^(/opt/homebrew|/usr/local)' || true)
+  [ -n "$ext" ] && bad+="$f: $ext"$'\n'
+  minos=$(otool -l "$f" | awk '/LC_BUILD_VERSION/{b=1} b&&/minos/{print $2; exit}')
+  if [ -n "$minos" ] && [ "$(printf '%s\n%s\n' "$minos" "$MIN_MACOS" | sort -V | tail -1)" != "$MIN_MACOS" ]; then
+    bad+="$f: built for macOS $minos, above the declared $MIN_MACOS"$'\n'
+  fi
+done < <(macho_files)
+if [ -n "$bad" ]; then printf '%s' "$bad"; echo "FAIL: bundle audit"; exit 1; fi
+echo "audit clean: $(macho_files | tr -cd '\0' | wc -c | tr -d ' ') Mach-O files"
 
 if [ -n "$SIGN_ID" ]; then
   echo "== signing with $SIGN_ID"
   ENT="$SRC/packaging/macos/entitlements-developer-id.plist"
   # Inside out: every Mach-O file, then frameworks, then the app.
-  find "$APP" -type f \( -name '*.dylib' -o -name '*.so' \) -print0 \
-    | xargs -0 codesign --force --timestamp --options runtime --sign "$SIGN_ID"
-  codesign --force --timestamp --options runtime --sign "$SIGN_ID" "$PV/Python"
+  macho_files | while IFS= read -r -d '' f; do
+    case "$f" in "$C/MacOS/"*) continue ;; esac
+    codesign --force --timestamp --options runtime --sign "$SIGN_ID" "$f"
+  done
   for fw in "$C/Frameworks"/*.framework; do
     codesign --force --timestamp --options runtime --sign "$SIGN_ID" "$fw"
   done
   codesign --force --timestamp --options runtime --entitlements "$ENT" --sign "$SIGN_ID" "$C/MacOS/dslcap"
   codesign --force --timestamp --options runtime --entitlements "$ENT" --sign "$SIGN_ID" "$APP"
   codesign --verify --deep --strict --verbose=2 "$APP"
+fi
+
+if [ -n "$NOTARY_PROFILE" ]; then
+  echo "== notarizing with keychain profile $NOTARY_PROFILE"
+  ZIP="$DIST/$EXE-$VERSION.zip"
+  rm -f "$ZIP"
+  ditto -c -k --keepParent "$APP" "$ZIP"
+  out=$(xcrun notarytool submit "$ZIP" --keychain-profile "$NOTARY_PROFILE" --wait --output-format json)
+  echo "$out"
+  id=$(echo "$out" | python3 -c 'import json,sys; print(json.load(sys.stdin)["id"])')
+  status=$(echo "$out" | python3 -c 'import json,sys; print(json.load(sys.stdin)["status"])')
+  xcrun notarytool log "$id" --keychain-profile "$NOTARY_PROFILE" "$DIST/notary-$id.json"
+  [ "$status" = "Accepted" ] || { echo "FAIL: notarization $status; see $DIST/notary-$id.json"; exit 1; }
+  xcrun stapler staple "$APP"
+  xcrun stapler validate "$APP"
+  spctl -a -vv "$APP"
+  rm -f "$ZIP"
+  ditto -c -k --keepParent "$APP" "$ZIP"   # re-zip with the stapled ticket for distribution
+  echo "Notarized: $ZIP"
 fi
 
 du -sh "$APP"
