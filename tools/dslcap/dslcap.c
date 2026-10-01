@@ -112,6 +112,13 @@ int main(int argc, char **argv)
     if (!res) res = "/Applications/DSView Native.app/Contents/MacOS/res";
     if (!list_only && !out) { fprintf(stderr, "--out is required\n"); return 2; }
 
+    uint64_t hw_samples = samples;
+    if (strcmp(mode, "stream")) {
+        /* Buffer delivery is aligned to 1024 samples in the driver. */
+        if (samples > UINT64_MAX - SAMPLES_ALIGN) { fprintf(stderr, "sample limit too large\n"); return 2; }
+        hw_samples = (samples + SAMPLES_ALIGN) & ~SAMPLES_ALIGN;
+    }
+
     ds_log_level(1);
     ds_set_firmware_resource_dir(res);
     ds_set_event_callback(on_event);
@@ -150,7 +157,7 @@ int main(int argc, char **argv)
 
     ds_set_actived_device_config(NULL, NULL, SR_CONF_VTH, g_variant_new_double(vth));
     set_u64(SR_CONF_SAMPLERATE, rate);
-    set_u64(SR_CONF_LIMIT_SAMPLES, samples);
+    set_u64(SR_CONF_LIMIT_SAMPLES, hw_samples);
 
     ds_trigger_reset();
     ds_trigger_set_mode(SIMPLE_TRIGGER);
@@ -166,9 +173,8 @@ int main(int argc, char **argv)
     }
 
     GVariant *gv = NULL;
-    uint64_t act_rate = rate, act_samples = samples;
+    uint64_t act_rate = rate;
     if (ds_get_actived_device_config(NULL, NULL, SR_CONF_SAMPLERATE, &gv) == SR_OK && gv) { act_rate = g_variant_get_uint64(gv); g_variant_unref(gv); gv = NULL; }
-    if (ds_get_actived_device_config(NULL, NULL, SR_CONF_LIMIT_SAMPLES, &gv) == SR_OK && gv) { act_samples = g_variant_get_uint64(gv); g_variant_unref(gv); gv = NULL; }
 
     g_raw = g_byte_array_new();
     struct timespec t0, t1;
@@ -188,23 +194,28 @@ int main(int argc, char **argv)
     /* De-interleave LA_CROSS_DATA: 64-sample words rotate through channels. */
     uint64_t words = g_raw->len / 8;
     uint64_t per_ch = nch ? words / nch : 0;
+    uint64_t got = per_ch * 64;
+    if (got > samples) got = samples;
+    per_ch = (got + 63) / 64;
     char path[1024];
     snprintf(path, sizeof path, "%s.bin", out);
     FILE *f = fopen(path, "wb");
     if (!f) { printf("{\"error\":\"cannot write output\"}\n"); ds_lib_exit(); return 1; }
     const uint64_t *w = (const uint64_t *)g_raw->data;
     for (int c = 0; c < nch; c++)
-        for (uint64_t k = 0; k < per_ch; k++)
-            fwrite(&w[k * nch + c], 8, 1, f);
+        for (uint64_t k = 0; k < per_ch; k++) {
+            uint64_t word = w[k * nch + c];
+            if (k + 1 == per_ch && got % 64)
+                word &= (1ULL << (got % 64)) - 1;
+            fwrite(&word, 8, 1, f);
+        }
     fclose(f);
 
-    uint64_t got = per_ch * 64;
-    if (got > act_samples) got = act_samples;
     double secs = (t1.tv_sec - t0.tv_sec) + (t1.tv_nsec - t0.tv_nsec) / 1e9;
     printf("{\"device\":");
     json_str(info.name);
     printf(",\"samplerate\":%llu,\"samples_requested\":%llu,\"samples\":%llu,\"words_per_channel\":%llu,"
-           "\"channels\":[", (unsigned long long)act_rate, (unsigned long long)act_samples,
+           "\"channels\":[", (unsigned long long)act_rate, (unsigned long long)samples,
            (unsigned long long)got, (unsigned long long)per_ch);
     for (int i = 0; i < nch; i++) printf("%s%d", i ? "," : "", enabled[i]);
     printf("],\"vth\":%.3f,\"mode\":", vth);
