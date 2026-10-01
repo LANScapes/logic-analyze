@@ -17,6 +17,11 @@ import sys
 SYSTEM = ("/System/", "/usr/lib/")
 
 
+def is_system(p):
+    """System paths only after normalization: /usr/lib/../../tmp is not system."""
+    return p.startswith("/") and os.path.normpath(p).startswith(SYSTEM)
+
+
 def run(*cmd):
     return subprocess.run(cmd, capture_output=True, text=True, check=False)
 
@@ -48,8 +53,8 @@ def load_commands(path):
         if not cmd:
             continue
         cmd = cmd.group(1)
-        name = re.search(r"^\s+name (\S+)", block, flags=re.M)
-        path = re.search(r"^\s+path (\S+)", block, flags=re.M)
+        name = re.search(r"^\s+name (.+?) \(offset \d+\)\s*$", block, flags=re.M)
+        path = re.search(r"^\s+path (.+?) \(offset \d+\)\s*$", block, flags=re.M)
         if cmd in ("LC_LOAD_DYLIB", "LC_LOAD_WEAK_DYLIB", "LC_REEXPORT_DYLIB", "LC_LOAD_UPWARD_DYLIB"):
             cur["loads"].append((name.group(1), cmd == "LC_LOAD_WEAK_DYLIB"))
         elif cmd == "LC_RPATH":
@@ -101,14 +106,14 @@ def main():
                         continue  # one deletion removes the path from every slice
                     seen.add(rp)
                     targets = expand(rp, f, exe_dirs)
-                    if all(t.startswith(SYSTEM) for t in targets):
+                    if all(is_system(t) for t in targets):
                         continue
                     if not all(inside(app, t) for t in targets):
                         r = run("install_name_tool", "-delete_rpath", rp, f)
                         if r.returncode:
                             errors.append(f"{f}: cannot delete rpath {rp}: {r.stderr.strip()}")
                 lid = s["id"]
-                if lid and lid.startswith("/") and not lid.startswith(SYSTEM):
+                if lid and lid.startswith("/") and not is_system(lid):
                     rel = os.path.relpath(f, os.path.join(app, "Contents/Frameworks"))
                     r = run("install_name_tool", "-id", "@rpath/" + rel, f)
                     if r.returncode:
@@ -125,14 +130,14 @@ def main():
                 own = []
                 for rp in s["rpaths"]:
                     for t in expand(rp, f, exe_dirs):
-                        if not t.startswith(SYSTEM) and not inside(app, t):
+                        if not is_system(t) and not inside(app, t):
                             errors.append(f"{f} [{s['arch']}]: rpath leaves the bundle: {rp}")
                         own.append(t)
                 for v in s["minos"]:
                     if version_tuple(v) > minimum:
                         errors.append(f"{f} [{s['arch']}]: built for macOS {v}, above {sys.argv[3]}")
                 for dep, weak in s["loads"]:
-                    if dep.startswith(SYSTEM):
+                    if is_system(dep):
                         continue
                     if dep.startswith("@rpath/"):
                         cands = [os.path.join(d, dep[len("@rpath/"):]) for d in own + exe_rpaths]
@@ -142,6 +147,9 @@ def main():
                     if not found:
                         if not weak:
                             errors.append(f"{f} [{s['arch']}]: unresolved dependency {dep}")
+                        elif any(not is_system(c) and not inside(app, c) for c in cands):
+                            # A missing weak import would load from wherever it later appears.
+                            errors.append(f"{f} [{s['arch']}]: weak dependency {dep} could load from outside the bundle")
                         continue
                     if not inside(app, found[0]):
                         errors.append(f"{f} [{s['arch']}]: {dep} resolves outside the bundle: {found[0]}")

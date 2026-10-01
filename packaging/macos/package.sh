@@ -132,6 +132,42 @@ python3 "$SRC/packaging/macos/macho_audit.py" scrub "$APP"
 echo "== auditing every Mach-O slice (dependency resolution, rpaths, symlinks, minimum macOS)"
 python3 "$SRC/packaging/macos/macho_audit.py" audit "$APP" "$MIN_MACOS"
 
+echo "== runtime load check (dyld's own record of every loaded image)"
+# The hardened runtime ignores DYLD_* variables, so check an ad-hoc signed copy.
+if [ -z "${SKIP_RUNTIME_CHECK:-}" ]; then
+  RT="$DIST/runtime-check"
+  rm -rf "$RT"; mkdir -p "$RT"
+  ditto "$APP" "$RT/$NAME.app"
+  codesign --force --deep --sign - "$RT/$NAME.app" >/dev/null 2>&1
+  DYLD_PRINT_LIBRARIES=1 "$RT/$NAME.app/Contents/MacOS/dslcap" --list > "$RT/dslcap.log" 2>&1 || true
+  DYLD_PRINT_LIBRARIES=1 "$RT/$NAME.app/Contents/MacOS/$EXE" > "$RT/app.log" 2>&1 &
+  pid=$!
+  sleep "${RUNTIME_CHECK_SECONDS:-12}"
+  kill "$pid" 2>/dev/null || true; wait "$pid" 2>/dev/null || true
+  python3 - "$RT" "$RT/$NAME.app" <<'PY'
+import os, re, sys
+rt, app = sys.argv[1], os.path.realpath(sys.argv[2])
+bad, seen = [], 0
+for log in ("dslcap.log", "app.log"):
+    for line in open(os.path.join(rt, log), errors="replace"):
+        m = re.match(r"dyld\[\d+\]: <[^>]*> (.+)$", line.strip())
+        if not m:
+            continue
+        seen += 1
+        p = os.path.realpath(m.group(1))
+        if not (p.startswith(app + os.sep) or p.startswith(("/System/", "/usr/lib/"))):
+            bad.append(f"{log}: {m.group(1)}")
+if seen == 0:
+    sys.exit("FAIL: runtime check saw no loaded images (did the binaries start?)")
+for b in bad:
+    print("loaded from outside the bundle:", b)
+if bad:
+    sys.exit(f"FAIL: {len(bad)} image(s) loaded from outside the bundle")
+print(f"runtime check clean: {seen} images loaded, all from the bundle or the OS")
+PY
+  rm -rf "$RT"
+fi
+
 if [ -n "$SIGN_ID" ]; then
   echo "== signing with $SIGN_ID"
   ENT="$SRC/packaging/macos/entitlements-developer-id.plist"
