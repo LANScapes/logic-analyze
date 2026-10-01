@@ -154,6 +154,12 @@ About::About(QWidget *parent) :
 #ifndef LANSCAPES_BRAND
     cur.insertImage(logo);
     cur.insertHtml("<br /><br /><br />");
+#else
+    QImage icon(GetAppDataDir() + "/about-icon.png");
+    if (!icon.isNull()) {
+        cur.insertImage(icon.scaled(128, 128, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+        cur.insertHtml("<br /><br />");
+    }
 #endif
     cur.insertHtml(version+url+thanks+changlogs);
     about->moveCursor(QTextCursor::Start);
