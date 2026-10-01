@@ -11,6 +11,7 @@
  * Prints one JSON object describing the capture on stdout.
  */
 #include <glib.h>
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -197,7 +198,20 @@ int main(int argc, char **argv)
     ds_trigger_set_mode(SIMPLE_TRIGGER);
     ds_trigger_set_pos((uint16_t)trigpos);
     if (trig) {
-        int tch = atoi(trig);
+        char *end;
+        errno = 0;
+        long tch = strtol(trig, &end, 10);
+        int trigger_enabled = 0;
+        if (!errno && end != trig && (*end == ':' || *end == '\0') &&
+            tch >= 0 && tch < MaxTriggerProbes) {
+            for (int i = 0; i < nch; i++)
+                if (enabled[i] == tch) trigger_enabled = 1;
+        }
+        if (!trigger_enabled) {
+            printf("{\"error\":\"trigger channel must be an enabled device channel\"}\n");
+            ds_lib_exit();
+            return 2;
+        }
         const char *colon = strchr(trig, ':');
         char t0 = colon ? colon[1] : 'R';
         ds_trigger_probe_set((uint16_t)tch, (unsigned char)t0, 'X');
