@@ -96,7 +96,7 @@ About::About(QWidget *parent) :
         "capture, measure and decode signals through the analyzer. The MCP server is "
         "proprietary software &copy; 2026 %2. It is NOT free software and is NOT covered "
         "by the GPL: it is licensed to the purchaser of this App Store edition under the "
-        "%1 MCP Server License Agreement, and may not be copied, redistributed or used "
+        "%1 End User License Agreement, and may not be copied, redistributed or used "
         "outside %1.<br /><br />")
         .arg(QApplication::applicationName()).arg(BRAND_ORG_NAME);
 #else
@@ -118,8 +118,9 @@ About::About(QWidget *parent) :
     thanks += "<font size=16>License texts</font><br />";
     thanks += link("GPL-3.0.txt", "GNU General Public License, version 3");
     thanks += link("DreamSourceLab-firmware-MIT.txt", "DreamSourceLab firmware license (MIT)");
+    thanks += link("THIRD-PARTY-NOTICES.txt", "Third-party notices (Qt, Python and other bundled libraries)");
 #ifdef LANSCAPES_APPSTORE
-    thanks += link("MCP-Server-License.txt", QApplication::applicationName() + " MCP Server License Agreement");
+    thanks += link("EULA.txt", QApplication::applicationName() + " End User License Agreement");
 #endif
     thanks += "<br /><br />";
 

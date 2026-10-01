@@ -133,6 +133,9 @@ python3 "$SRC/packaging/macos/macho_audit.py" scrub "$APP"
 echo "== auditing every Mach-O slice (dependency resolution, rpaths, symlinks, minimum macOS)"
 python3 "$SRC/packaging/macos/macho_audit.py" audit "$APP" "$MIN_MACOS"
 
+echo "== third-party notices (every bundled library traced to its Homebrew keg)"
+python3 "$SRC/packaging/macos/third_party_notices.py" "$APP" "$SRC" "$C/Resources/licenses/THIRD-PARTY-NOTICES.txt"
+
 # Sign every Mach-O file individually, inside out, then frameworks and the app.
 # codesign --deep does not reach loose libraries such as Python's lib-dynload.
 #   sign_tree APP IDENTITY [developer-id]
