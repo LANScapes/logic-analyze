@@ -128,6 +128,27 @@ static int write_output(const char *path, int nch, uint64_t per_ch)
     return failed ? -1 : 0;
 }
 
+static int set_samplerate(uint64_t rate)
+{
+    GVariant *dict = NULL;
+    if (ds_get_actived_device_config_list(NULL, SR_CONF_SAMPLERATE, &dict) != SR_OK || !dict)
+        return SR_ERR;
+    GVariant *rates = g_variant_lookup_value(dict, "samplerates", G_VARIANT_TYPE("at"));
+    g_variant_unref(dict);
+    if (!rates)
+        return SR_ERR;
+
+    gsize count;
+    const uint64_t *values = g_variant_get_fixed_array(rates, &count, sizeof(uint64_t));
+    int supported = 0;
+    for (gsize i = 0; i < count; i++)
+        if (values[i] == rate) { supported = 1; break; }
+    g_variant_unref(rates);
+
+    /* The driver stores arbitrary rates but rounds the hardware divider. */
+    return supported ? set_u64(SR_CONF_SAMPLERATE, rate) : SR_ERR_ARG;
+}
+
 int main(int argc, char **argv)
 {
     const char *res = getenv("DSLCAP_RES");
@@ -204,7 +225,14 @@ int main(int argc, char **argv)
         ds_enable_device_channel_index(enabled[i], TRUE);
 
     ds_set_actived_device_config(NULL, NULL, SR_CONF_VTH, g_variant_new_double(vth));
-    set_u64(SR_CONF_SAMPLERATE, rate);
+    int rate_rc = set_samplerate(rate);
+    if (rate_rc != SR_OK) {
+        printf("{\"error\":\"%s\",\"samplerate\":%llu}\n",
+            rate_rc == SR_ERR_ARG ? "unsupported samplerate" : "samplerate configuration failed",
+            (unsigned long long)rate);
+        ds_lib_exit();
+        return 1;
+    }
     set_u64(SR_CONF_LIMIT_SAMPLES, samples);
 
     nch = 0;
