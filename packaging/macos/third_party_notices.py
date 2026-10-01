@@ -155,19 +155,14 @@ def source_archive(formula):
     return path
 
 
-def recipe_without_bottle(text):
-    """A recipe without its `bottle do ... end` block, which Homebrew rewrites when it
-    rebuilds bottles without changing how the library is built from source."""
-    return re.sub(r"\n  bottle do\n.*?\n  end\n", "\n", text, count=1, flags=re.S)
-
-
 def source_record(formula, version, keg, m):
     """(formula, version, url, sha256, recipe path, homebrew-core commit, patches JSON)
     for a library whose source is offered, checked against the recipe it was built with.
 
     Homebrew's metadata (url, checksum, patches, tap commit) describes its current
-    recipe. Use it only if the recipe the keg kept is that same recipe, and only if
-    every patch the recipe applies is in the metadata."""
+    recipe. The keg keeps the recipe its bottle was built from, which can differ in
+    unrelated ways (bottle hashes, test blocks). Use the metadata only if the kept
+    recipe builds from the same archive and applies exactly the listed patches."""
     stable = m["urls"]["stable"]
     recipe, tap_head = m.get("ruby_source_path", ""), m.get("tap_git_head", "")
     patches = m.get("patches", [])
@@ -177,10 +172,13 @@ def source_record(formula, version, keg, m):
     if not os.path.exists(kept_path):
         die(f"{formula}: keg {version} kept no recipe ({kept_path})")
     kept = open(kept_path, encoding="utf-8").read()
-    if recipe_without_bottle(run("brew", "cat", formula).stdout) != recipe_without_bottle(kept):
-        die(f"{formula}: the recipe keg {version} was built with is not Homebrew's current "
-            f"recipe; reinstall {formula} (`brew reinstall {formula}`) and package again")
-    applied = [l for l in kept.split("\n__END__")[0].splitlines()
+    head = kept.split("\n__END__")[0]
+    # The archive's SHA-256 is its identity (the URL can name another mirror path).
+    sha = re.search(r'^  sha256 "([0-9a-f]{64})"', head, re.M)
+    if not (sha and sha.group(1) == stable["checksum"]):
+        die(f"{formula}: keg {version} was built from a different source archive than "
+            f"Homebrew's current recipe names; reinstall {formula} and package again")
+    applied = [l for l in head.splitlines()
                if re.match(r"\s*patch\b", l) and ":DATA" not in l]
     if len(applied) != len(patches):
         die(f"{formula}: the recipe applies {len(applied)} patch(es), the metadata lists {len(patches)}")
