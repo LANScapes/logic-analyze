@@ -110,7 +110,7 @@ namespace pv
             _action_device_options = _options_menu->addAction(QString());
             _configure_button.setMenu(_options_menu);
             _configure_button.setPopupMode(QToolButton::InstantPopup);
-            addWidget(&_configure_button);
+            // Options sits just before Help in the logo bar; MainWindow places it there.
 
             addWidget(&_sample_count);
             //tr

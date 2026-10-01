@@ -87,6 +87,7 @@ namespace pv
             void config_device();
             // Adds a submenu (Display, from the trigger bar) to the Options menu.
             void add_options_submenu(QMenu *menu);
+            QToolButton* options_button(){ return &_configure_button; }
             ds_device_handle get_next_device_handle();
 
             inline void set_view(view::View *view){

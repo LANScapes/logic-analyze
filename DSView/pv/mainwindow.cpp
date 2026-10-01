@@ -205,6 +205,7 @@ namespace pv
         _main_toolbar->setContentsMargins(0, 0, 0, 0);
         _main_toolbar->layout()->setSpacing(0);
         _sampling_bar->add_options_submenu(_trig_bar->display_menu());
+        _logo_bar->add_before_help(_sampling_bar->options_button());
         // File first, so Help sits alone at the far end (the logo bar stretches).
         for (QToolBar *bar : {(QToolBar*)_file_bar, (QToolBar*)_sampling_bar,
                               (QToolBar*)_trig_bar, (QToolBar*)_logo_bar}){
