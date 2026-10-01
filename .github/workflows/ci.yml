@@ -1,0 +1,76 @@
+name: Build
+
+# Builds plain DSView (the upstream code with no branding) and Logic Analyze,
+# runs the hardware-free checks and packages the app. The upstream sync
+# workflow calls this on its merge branch before it opens a pull request.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      ref:
+        description: Branch, tag or commit to build
+        type: string
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ inputs.ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.ref }}
+
+      - name: Install dependencies
+        run: .github/scripts/brew-deps.sh
+
+      - name: Build plain DSView
+        run: |
+          cmake -S . -B build-plain -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+            -DPython3_EXECUTABLE="$(brew --prefix python@3.14)/bin/python3.14"
+          cmake --build build-plain -j"$(sysctl -n hw.ncpu)"
+          # The plain build must not carry any of the Logic Analyze branding.
+          if strings build.dir/DSView | grep -E 'Logic Analyze|Lanscapes|main_toolbar'; then
+            echo "::error::the plain build contains brand strings"; exit 1
+          fi
+
+      - name: dslcap spool test
+        run: |
+          cc -Ilibsigrok4DSL -Icommon $(pkg-config --cflags glib-2.0) tools/dslcap/test_spool.c \
+            $(pkg-config --libs glib-2.0) -Wl,-dead_strip -o "$RUNNER_TEMP/test_spool"
+          "$RUNNER_TEMP/test_spool" "$RUNNER_TEMP/raw" "$RUNNER_TEMP/output.bin"
+
+      - name: Build Logic Analyze
+        run: |
+          # The plain and branded builds share build.dir; start clean so the
+          # package step sees only the branded binaries.
+          rm -rf build.dir
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DLANSCAPES_BRAND=ON \
+            -DPython3_EXECUTABLE="$(brew --prefix python@3.14)/bin/python3.14"
+          cmake --build build -j"$(sysctl -n hw.ncpu)"
+
+      - name: Package (ad-hoc signed)
+        run: packaging/macos/package.sh
+
+      - name: Zip the app
+        run: |
+          version=$(sed -n 's/^BRAND_VERSION=//p' build.dir/brand.env)
+          ditto -c -k --keepParent "dist/Logic Analyze.app" "dist/LogicAnalyze-$version-adhoc.zip"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: logic-analyze-adhoc
+          path: dist/LogicAnalyze-*-adhoc.zip
+          retention-days: 14
