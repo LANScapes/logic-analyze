@@ -25,7 +25,15 @@ jobs:
     env:
       TAG: ${{ github.ref_name }}
     steps:
-      - uses: actions/checkout@v5
+      - name: Check the tag
+        run: |
+          # CFBundleShortVersionString must be three integers; reject anything else
+          # before spending an hour on the build.
+          if ! [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::release tags must look like v1.2.3, got $TAG"; exit 1
+          fi
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Install dependencies
         run: .github/scripts/brew-deps.sh
@@ -36,8 +44,7 @@ jobs:
           echo "VERSION=$version" >> "$GITHUB_ENV"
           cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \
             -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DLANSCAPES_BRAND=ON \
-            -DBRAND_VERSION="$version" \
-            -DPython3_EXECUTABLE="$(brew --prefix python@3.14)/bin/python3.14"
+            -DBRAND_VERSION="$version" $(.github/scripts/python-pin.sh)
           cmake --build build -j"$(sysctl -n hw.ncpu)"
 
       - name: Import the signing certificate
@@ -84,7 +91,10 @@ jobs:
           args=()
           if [ "$SIGNED" = true ]; then args+=(--sign "$SIGN_ID"); fi
           if [ "$NOTARIZE" = true ]; then args+=(--notarize logic-analyze-notary); fi
-          NOTICES_SOURCES_OUT="$RUNNER_TEMP/sources.tsv" packaging/macos/package.sh "${args[@]}"
+          # The runner's macOS is the oldest the Homebrew libraries in the bundle support.
+          # ${args[@]+...}: an empty array is "unbound" under set -u in macOS's bash 3.2.
+          MIN_MACOS="$(sw_vers -productVersion | cut -d. -f1).0" \
+          NOTICES_SOURCES_OUT="$RUNNER_TEMP/sources.tsv" packaging/macos/package.sh ${args[@]+"${args[@]}"}
           mkdir -p release
           # package.sh leaves a zip only when it notarizes (with the stapled ticket).
           if [ -f "dist/LogicAnalyze-$VERSION.zip" ]; then
@@ -95,20 +105,8 @@ jobs:
             ditto -c -k --keepParent "dist/Logic Analyze.app" "release/LogicAnalyze-$VERSION-adhoc.zip"
           fi
 
-      - name: Collect the library source archives
-        run: |
-          set -euo pipefail
-          mkdir -p release/sources
-          while IFS=$'\t' read -r formula version url sha; do
-            path=$(brew --cache -s "$formula")
-            [ -f "$path" ] || brew fetch -s "$formula"
-            got=$(shasum -a 256 "$path" | cut -d' ' -f1)
-            if [ -n "$sha" ] && [ "$got" != "$sha" ]; then
-              echo "::error::$formula archive SHA-256 $got does not match the notices ($sha)"; exit 1
-            fi
-            cp "$path" "release/sources/$formula-$version-$(basename "$url")"
-          done < "$RUNNER_TEMP/sources.tsv"
-          ls -l release release/sources
+      - name: Collect the library sources, recipes and patches
+        run: .github/scripts/collect-sources.sh "$RUNNER_TEMP/sources.tsv" release/sources
 
       - name: Draft the release
         env:
@@ -123,10 +121,11 @@ jobs:
           {
             echo "Logic Analyze $VERSION for macOS (Apple silicon), $how."
             echo
-            echo "The source of Logic Analyze is this tag. The \`sources/\` archives are the exact"
-            echo "sources of the LGPL and GPL libraries bundled in the app; THIRD-PARTY-NOTICES.txt"
-            echo "(in the app under Contents/Resources/licenses) lists them and explains how to"
-            echo "replace the LGPL libraries."
+            echo "The source of Logic Analyze is this tag. For each LGPL and GPL library bundled in"
+            echo "the app, the release has its source archive and a \`-homebrew-recipe.tar.gz\` with"
+            echo "the exact Homebrew build recipe, install receipt and patches used to build it."
+            echo "THIRD-PARTY-NOTICES.txt (in the app under Contents/Resources/licenses) lists them"
+            echo "and explains how to replace the LGPL libraries."
           } > "$RUNNER_TEMP/notes.md"
           gh release create "$TAG" --draft --verify-tag --title "Logic Analyze $VERSION" \
             --notes-file "$RUNNER_TEMP/notes.md" release/*.zip release/sources/*

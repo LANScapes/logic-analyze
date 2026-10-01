@@ -238,6 +238,15 @@ def main():
     entries, sources, qt = [], [], []
     for (formula, version), names in sorted(kegs.items()):
         m = meta[formula]
+        # Source URLs and checksums come from Homebrew's current formula, so they
+        # describe the bundled keg only if the keg is that formula's current version.
+        current = m["versions"]["stable"] + (f"_{m['revision']}" if m.get("revision") else "")
+        if version != current:
+            msg = (f"{formula}: the app bundles keg {version}, but Homebrew's formula is now "
+                   f"{current}; run `brew upgrade {formula}`, rebuild and package again")
+            if formula in COPYLEFT:
+                die(msg + " (its source archive is offered, so it must match exactly)")
+            print(f"notices: warning: {msg}; license texts are read from the {current} archive")
         archive = source_archive(formula)
         keg = os.path.join(cellar, formula, version)
         if formula in OVERRIDE:
@@ -275,7 +284,11 @@ def main():
         entries.append(e)
         if formula in COPYLEFT:
             stable = m["urls"]["stable"]
-            sources.append((formula, version, stable["url"], stable.get("checksum", "")))
+            if not stable.get("checksum"):
+                die(f"{formula}: Homebrew gives no checksum for its source archive")
+            sources.append((formula, version, stable["url"], stable["checksum"],
+                            m.get("ruby_source_path", ""), m.get("tap_git_head", ""),
+                            json.dumps(m.get("patches", []), separators=(",", ":"))))
 
     tree = []
     for title, spdx, holders, path, span in IN_TREE:
@@ -316,16 +329,21 @@ def main():
 
     L += ["", "=" * 78, "2. Source code, and replacing the LGPL libraries", "=" * 78, "",
           "These libraries were built by Homebrew from the source archives below, with the",
-          "build changes in each Homebrew formula (https://github.com/Homebrew/homebrew-core).",
-          "Copies of the archives are also published with each release at",
-          f"{REPO}/releases, and Lanscapes will provide",
-          f"them on request for at least three years after each release: write to {SUPPORT}.", ""]
-    for formula, version, url, sha in sources:
-        L += [f"{formula} {version}", f"  {url}", f"  SHA-256 {sha}", ""]
+          "patches and build options in each library's Homebrew build recipe (linked below at",
+          "the homebrew-core revision used). Each release also publishes the archives, the",
+          f"exact recipes and their patches at {REPO}/releases,",
+          "and Lanscapes will provide them on request for at least three years after each",
+          f"release: write to {SUPPORT}.", ""]
+    for formula, version, url, sha, recipe, tap_head, patches in sources:
+        L += [f"{formula} {version}", f"  {url}", f"  SHA-256 {sha}"]
+        if recipe and tap_head:
+            L.append(f"  Build recipe: https://github.com/Homebrew/homebrew-core/blob/{tap_head}/{recipe}")
+        L.append("")
     if os.environ.get("NOTICES_SOURCES_OUT"):
-        # One "formula<TAB>version<TAB>url<TAB>sha256" line per archive, for the release job.
+        # One tab-separated line per archive for the release job: formula, keg version,
+        # url, sha256, recipe path in homebrew-core, homebrew-core commit, patches (JSON).
         with open(os.environ["NOTICES_SOURCES_OUT"], "w", encoding="utf-8") as fh:
-            fh.writelines(f"{f}\t{v}\t{u}\t{h}\n" for f, v, u, h in sources)
+            fh.writelines("\t".join(row) + "\n" for row in sources)
     L += ["The LGPL libraries (Qt, glib, libusb, libintl, graphite2) are linked dynamically.",
           "You can replace them with modified versions built from the sources above:",
           "  1. Copy Logic Analyze.app to a folder you can write to, such as your home folder.",

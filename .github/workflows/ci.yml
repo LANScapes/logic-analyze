@@ -27,7 +27,7 @@ jobs:
     runs-on: macos-15
     timeout-minutes: 120
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ inputs.ref || github.ref }}
 
@@ -37,8 +37,7 @@ jobs:
       - name: Build plain DSView
         run: |
           cmake -S . -B build-plain -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
-            -DPython3_EXECUTABLE="$(brew --prefix python@3.14)/bin/python3.14"
+            -DCMAKE_POLICY_VERSION_MINIMUM=3.5 $(.github/scripts/python-pin.sh)
           cmake --build build-plain -j"$(sysctl -n hw.ncpu)"
           # The plain build must not carry any of the Logic Analyze branding.
           # ("Logic Analyzer" is DSView's own mode name, so match the brand name exactly.)
@@ -58,19 +57,19 @@ jobs:
           # package step sees only the branded binaries.
           rm -rf build.dir
           cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DLANSCAPES_BRAND=ON \
-            -DPython3_EXECUTABLE="$(brew --prefix python@3.14)/bin/python3.14"
+            -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DLANSCAPES_BRAND=ON $(.github/scripts/python-pin.sh)
           cmake --build build -j"$(sysctl -n hw.ncpu)"
 
       - name: Package (ad-hoc signed)
-        run: packaging/macos/package.sh
+        # The runner's macOS is the oldest the Homebrew libraries in the bundle support.
+        run: MIN_MACOS="$(sw_vers -productVersion | cut -d. -f1).0" packaging/macos/package.sh
 
       - name: Zip the app
         run: |
           version=$(sed -n 's/^BRAND_VERSION=//p' build.dir/brand.env)
           ditto -c -k --keepParent "dist/Logic Analyze.app" "dist/LogicAnalyze-$version-adhoc.zip"
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: logic-analyze-adhoc
           path: dist/LogicAnalyze-*-adhoc.zip

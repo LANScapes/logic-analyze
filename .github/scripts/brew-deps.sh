@@ -15,3 +15,9 @@ for f in "${FORMULAE[@]}"; do
   brew list --versions "$f" || { echo "::error::$f is not installed"; exit 1; }
   [ -d "$(brew --prefix "$f")" ] || { echo "::error::$f has no opt/ prefix"; exit 1; }
 done
+# A real install failure leaves an old version behind; the notices would then offer
+# source that does not match the bundled library. Nothing we use may be outdated.
+outdated=$(brew outdated --formula --quiet $(brew deps --union --installed "${FORMULAE[@]}") "${FORMULAE[@]}" || true)
+if [ -n "$outdated" ]; then
+  echo "::error::these formulae did not upgrade: $outdated"; exit 1
+fi
