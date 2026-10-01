@@ -33,6 +33,7 @@
   
 #include "../config/appconfig.h"
 #include "config.h"
+#include <QUrl>
 #include "../dsvdef.h"
 #include "../utility/encoding.h"
 #include "../ui/langresource.h"
@@ -82,15 +83,45 @@ About::About(QWidget *parent) :
         "Device firmware &copy; DreamSourceLab, MIT license (see licenses in the app bundle).<br /><br />"
         "Copyright &copy; 2026 %3 (changes and additions).<br />"
         "Copyright &copy; DreamSourceLab and the sigrok and PulseView contributors.<br /><br />"
-#ifdef LANSCAPES_APPSTORE
-        "The MCP server included in the App Store edition is proprietary software "
-        "&copy; 2026 %3, licensed to you under the End User License Agreement and not "
-        "covered by the GPL.<br /><br />"
-#endif
         )
         .arg(QApplication::applicationName())
         .arg(DS_VERSION_STRING)
         .arg(BRAND_ORG_NAME);
+
+    // MCP integration: proprietary and paid; only the App Store edition contains it.
+#ifdef LANSCAPES_APPSTORE
+    thanks += QString(
+        "<font size=16>MCP server</font><br />"
+        "This edition includes the %1 MCP server, which lets AI assistants such as Claude "
+        "capture, measure and decode signals through the analyzer. The MCP server is "
+        "proprietary software &copy; 2026 %2. It is NOT free software and is NOT covered "
+        "by the GPL: it is licensed to the purchaser of this App Store edition under the "
+        "%1 MCP Server License Agreement, and may not be copied, redistributed or used "
+        "outside %1.<br /><br />")
+        .arg(QApplication::applicationName()).arg(BRAND_ORG_NAME);
+#else
+    thanks += QString(
+        "<font size=16>MCP server</font><br />"
+        "The %1 MCP server, which lets AI assistants capture, measure and decode signals "
+        "through the analyzer, is proprietary, paid software &copy; 2026 %2. It is not "
+        "part of this free edition and is available only in the %1 edition on the "
+        "Mac App Store.<br /><br />")
+        .arg(QApplication::applicationName()).arg(BRAND_ORG_NAME);
+#endif
+
+    // Full license texts shipped in the bundle.
+    QString lic = GetAppDataDir() + "/licenses/";
+    auto link = [&](const QString &file, const QString &label) {
+        return QString("<a href=\"%1\" style=\"color:#C0C0C0\">%2</a><br />")
+            .arg(QUrl::fromLocalFile(lic + file).toString(), label);
+    };
+    thanks += "<font size=16>License texts</font><br />";
+    thanks += link("GPL-3.0.txt", "GNU General Public License, version 3");
+    thanks += link("DreamSourceLab-firmware-MIT.txt", "DreamSourceLab firmware license (MIT)");
+#ifdef LANSCAPES_APPSTORE
+    thanks += link("MCP-Server-License.txt", QApplication::applicationName() + " MCP Server License Agreement");
+#endif
+    thanks += "<br /><br />";
 
     QString changlogs;
 #else
