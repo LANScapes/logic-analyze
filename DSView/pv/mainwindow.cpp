@@ -28,6 +28,8 @@
 #include <QMenuBar>
 #include <QStatusBar>
 #include <QVBoxLayout>
+#include <QToolButton>
+#include <QComboBox>
 #include <QWidget>
 #include <QDesktopServices>
 #include <QKeyEvent>
@@ -112,6 +114,10 @@ namespace pv
         QString tmp_file;
     }
 
+    // Version of the saved window layout. 1: the four bars sit in one movable
+    // main toolbar; a layout saved before that (version 0) is ignored.
+    static const int WINDOW_STATE_VERSION = 1;
+
     MainWindow::MainWindow(toolbars::TitleBar *title_bar, QWidget *parent)
         : QMainWindow(parent)
     {
@@ -189,10 +195,21 @@ namespace pv
 
 
         setIconSize(QSize(40, 40));
-        addToolBar(_sampling_bar);
-        addToolBar(_trig_bar);
-        addToolBar(_file_bar);
-        addToolBar(_logo_bar);
+        // One toolbar holds the four bars, so they move together to any side of
+        // the window. On the left or right, each bar lays itself out vertically.
+        _main_toolbar = new QToolBar("Toolbar", this);
+        _main_toolbar->setObjectName("main_toolbar");
+        _main_toolbar->setMovable(true);
+        _main_toolbar->setFloatable(false);
+        _main_toolbar->setAllowedAreas(Qt::AllToolBarAreas);
+        _main_toolbar->setContentsMargins(0, 0, 0, 0);
+        _main_toolbar->layout()->setSpacing(0);
+        for (QToolBar *bar : {(QToolBar*)_sampling_bar, (QToolBar*)_trig_bar,
+                              (QToolBar*)_file_bar, (QToolBar*)_logo_bar}){
+            _main_toolbar->addWidget(bar);
+        }
+        connect(_main_toolbar, &QToolBar::orientationChanged, this, &MainWindow::on_toolbar_orientation);
+        addToolBar(Qt::TopToolBarArea, _main_toolbar);
 
         // Setup the dockWidget
         _protocol_dock = new QDockWidget(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_PROTOCOL_DOCK_TITLE), "Decode Protocol"), this);
@@ -438,7 +455,7 @@ namespace pv
             save_config_to_file(sessionFile);
         }
 
-        app.frameOptions.windowState = saveState();
+        app.frameOptions.windowState = saveState(WINDOW_STATE_VERSION);
         app.SaveFrame();
     }
 
@@ -1197,6 +1214,36 @@ namespace pv
         return true;
     }
 
+    // On the left or right, labels sit beside the icons rather than under them
+    // (text under every icon makes the column taller than most windows), icons
+    // are a little smaller, and every control stretches to the column's width.
+    void MainWindow::on_toolbar_orientation(Qt::Orientation o)
+    {
+        const bool vertical = (o == Qt::Vertical);
+        for (QToolBar *bar : {(QToolBar*)_sampling_bar, (QToolBar*)_trig_bar,
+                              (QToolBar*)_file_bar, (QToolBar*)_logo_bar}){
+            bar->setOrientation(o);
+            bar->setIconSize(vertical ? QSize(28, 28) : iconSize());
+            bar->setSizePolicy(vertical ? QSizePolicy::Expanding : QSizePolicy::Preferred,
+                               QSizePolicy::Preferred);
+            for (QWidget *w : bar->findChildren<QWidget*>(QString(), Qt::FindDirectChildrenOnly)){
+                if (w->objectName() == "qt_toolbar_ext_button" || !w->isWidgetType())
+                    continue;
+                if (QToolButton *bt = qobject_cast<QToolButton*>(w)){
+                    bt->setToolButtonStyle(vertical ? Qt::ToolButtonTextBesideIcon
+                                                    : Qt::ToolButtonTextUnderIcon);
+                }
+                if (qobject_cast<QToolButton*>(w) || qobject_cast<QComboBox*>(w)){
+                    w->setSizePolicy(vertical ? QSizePolicy::Expanding : QSizePolicy::Preferred,
+                                     QSizePolicy::Fixed);
+                }
+            }
+            bar->updateGeometry();
+        }
+        _main_toolbar->layout()->invalidate();
+        _main_toolbar->updateGeometry();
+    }
+
     void MainWindow::restore_dock()
     { 
         // default dockwidget size
@@ -1206,7 +1253,7 @@ namespace pv
         {
             try
             {
-                restoreState(st);
+                restoreState(st, WINDOW_STATE_VERSION);  // ignores a state saved in another layout version
             }
             catch (...)
             {

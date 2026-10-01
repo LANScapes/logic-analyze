@@ -80,7 +80,7 @@ namespace pv
             _session = session;
             _device_agent = _session->get_device();
 
-            setMovable(false);
+            setMovable(false);  // moves with MainWindow's main toolbar, which holds it
             setContentsMargins(0, 0, 0, 0);
             layout()->setSpacing(0);
 
@@ -106,7 +106,11 @@ namespace pv
 
             addWidget(&_sample_count);
             //tr
-            addWidget(new QLabel(" @ "));
+            QAction *at_label = addWidget(new QLabel(" @ "));
+            // "count @ rate" reads across, not down: drop the @ when the bar is vertical.
+            connect(this, &QToolBar::orientationChanged, this, [at_label](Qt::Orientation o) {
+                at_label->setVisible(o == Qt::Horizontal);
+            });
             addWidget(&_sample_rate);
 
             _action_single = new QAction(this);

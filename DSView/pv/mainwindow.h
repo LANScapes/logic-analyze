@@ -97,6 +97,7 @@ public:
 
 public slots: 
     void switchTheme(QString style);
+    void on_toolbar_orientation(Qt::Orientation o);
     void restore_dock();
 
 private slots:
@@ -215,6 +216,7 @@ private:
     toolbars::TrigBar       *_trig_bar;
     toolbars::FileBar       *_file_bar;
     toolbars::LogoBar       *_logo_bar; //help button, on top right
+    QToolBar                *_main_toolbar; //holds the four bars; movable to any side
     toolbars::TitleBar      *_title_bar;
 
 
