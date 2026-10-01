@@ -64,8 +64,12 @@ static void json_str(const char *s)
 {
     putchar('"');
     for (; *s; s++) {
-        if (*s == '"' || *s == '\\') putchar('\\');
-        if ((unsigned char)*s >= 0x20) putchar(*s);
+        if ((unsigned char)*s < 0x20)
+            printf("\\u%04x", (unsigned char)*s);
+        else {
+            if (*s == '"' || *s == '\\') putchar('\\');
+            putchar(*s);
+        }
     }
     putchar('"');
 }
