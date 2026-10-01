@@ -20,6 +20,10 @@
 
 #include "config.h"
 #include "libsigrokdecode-internal.h" /* First, so we avoid a _POSIX_C_SOURCE warning. */
+
+#ifdef __APPLE__
+int srd_python_init_isolated(char *err, size_t errlen); /* pyinit_isolated.c */
+#endif
 #include "libsigrokdecode.h"
 #include <glib.h>
 #include "log.h"
@@ -205,7 +209,17 @@ SRD_API int srd_init(const char *path)
 	PyImport_AppendInittab("sigrokdecode", PyInit_sigrokdecode);
 
 	/* Initialize the Python interpreter. */
+#ifdef __APPLE__
+	{
+		char pyerr[256] = {0};
+		if (srd_python_init_isolated(pyerr, sizeof(pyerr)) != 0) {
+			srd_err("Python initialization failed: %s", pyerr);
+			return SRD_ERR_PYTHON;
+		}
+	}
+#else
     Py_InitializeEx(0); 
+#endif
 
 #ifdef DECODERS_DIR
 	/* Hardcoded decoders install location, if defined. */

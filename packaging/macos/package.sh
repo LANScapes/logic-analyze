@@ -126,32 +126,11 @@ macho_files() {
   return 0
 }
 
-echo "== scrubbing external rpaths and library IDs"
-while IFS= read -r -d '' f; do
-  chmod u+w "$f"
-  for rp in $(otool -l "$f" | awk '/cmd LC_RPATH/{r=1} r&&/ path /{print $2; r=0}' | grep -E '^(/opt/homebrew|/usr/local)' || true); do
-    install_name_tool -delete_rpath "$rp" "$f" 2>/dev/null
-  done
-  id=$(otool -D "$f" | tail -n +2)
-  if echo "$id" | grep -qE '^(/opt/homebrew|/usr/local)'; then
-    rel="${f#$C/Frameworks/}"
-    install_name_tool -id "@rpath/$rel" "$f" 2>/dev/null
-  fi
-done < <(macho_files)
+echo "== scrubbing search paths and IDs that leave the bundle"
+python3 "$SRC/packaging/macos/macho_audit.py" scrub "$APP"
 
-echo "== auditing every Mach-O (load commands, rpaths, IDs, minimum macOS)"
-bad=""
-while IFS= read -r -d '' f; do
-  ext=$(otool -l "$f" | awk '/cmd LC_(LOAD|LOAD_WEAK|REEXPORT|ID)_DYLIB/{d=1} d&&/ name /{print $2; d=0} /cmd LC_RPATH/{r=1} r&&/ path /{print $2; r=0}' \
-        | grep -E '^(/opt/homebrew|/usr/local)' || true)
-  [ -n "$ext" ] && bad+="$f: $ext"$'\n'
-  minos=$(otool -l "$f" | awk '/LC_BUILD_VERSION/{b=1} b&&/minos/{print $2; exit}')
-  if [ -n "$minos" ] && [ "$(printf '%s\n%s\n' "$minos" "$MIN_MACOS" | sort -V | tail -1)" != "$MIN_MACOS" ]; then
-    bad+="$f: built for macOS $minos, above the declared $MIN_MACOS"$'\n'
-  fi
-done < <(macho_files)
-if [ -n "$bad" ]; then printf '%s' "$bad"; echo "FAIL: bundle audit"; exit 1; fi
-echo "audit clean: $(macho_files | tr -cd '\0' | wc -c | tr -d ' ') Mach-O files"
+echo "== auditing every Mach-O slice (dependency resolution, rpaths, symlinks, minimum macOS)"
+python3 "$SRC/packaging/macos/macho_audit.py" audit "$APP" "$MIN_MACOS"
 
 if [ -n "$SIGN_ID" ]; then
   echo "== signing with $SIGN_ID"

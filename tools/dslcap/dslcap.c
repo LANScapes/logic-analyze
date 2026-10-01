@@ -245,6 +245,7 @@ int main(int argc, char **argv)
     }
     if (!res) res = default_res_dir();
     if (!res) { printf("{\"error\":\"firmware directory not found; set --res or DSLCAP_RES\"}\n"); return 2; }
+    if (strlen(res) >= 500) { printf("{\"error\":\"firmware directory path is too long (limit 499 bytes)\"}\n"); return 2; }
     if (!list_only && !out) { fprintf(stderr, "--out is required\n"); return 2; }
 
     int enabled[64], nch = 0;

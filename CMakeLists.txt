@@ -497,6 +497,7 @@ set(libsigrok4DSL_HEADERS
 #= libsigrokdecode4DSL source
 #-------------------------------------------------------------------------------
 set(libsigrokdecode4DSL_SOURCES
+    libsigrokdecode4DSL/pyinit_isolated.c
     libsigrokdecode4DSL/type_decoder.c
     libsigrokdecode4DSL/srd.c
     libsigrokdecode4DSL/module_sigrokdecode.c
