@@ -28,7 +28,7 @@ Licensor: **Lanscapes** [confirm legal entity, e.g. "Luke R. Fulcomer, doing bus
 
 3.1 **Your open-source rights are unaffected.** The Open Source Components are licensed to you under their own licenses, not under this Agreement. Nothing in this Agreement limits, restricts or conditions any right you have under those licenses. Where this Agreement conflicts with an open-source license for an Open Source Component, the open-source license governs that component.
 
-3.2 **Source code.** The complete corresponding source code for the GPL-licensed Open Source Components of each released version is available at https://github.com/nullifyr/logic-analyze. For at least three years after the release of each version, Licensor will also provide it on request to the address in Section 21, for no more than the cost of distribution.
+3.2 **Source code.** The complete corresponding source code for the GPL-licensed Open Source Components of each released version is available at https://github.com/LANScapes/logic-analyze. For at least three years after the release of each version, Licensor will also provide it on request to the address in Section 21, for no more than the cost of distribution.
 
 3.3 The license texts and notices for the Open Source Components are included with the Licensed Application and listed in its About window.
 

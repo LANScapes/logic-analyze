@@ -38,7 +38,7 @@ set(DS_VERSION_STRING  ${DS_VERSION_MAJOR}.${DS_VERSION_MINOR}.${DS_VERSION_MICR
 #= Lanscapes branding ("Logic Analyze"); off builds plain DSView.
 option(LANSCAPES_BRAND "Build as Logic Analyze by Lanscapes" OFF)
 set(BRAND_VERSION "1.0.0" CACHE STRING "Logic Analyze version")
-set(BRAND_REPO_URL "https://github.com/nullifyr/logic-analyze" CACHE STRING "Public source repository")
+set(BRAND_REPO_URL "https://github.com/LANScapes/logic-analyze" CACHE STRING "Public source repository")
 if(LANSCAPES_BRAND)
 	add_definitions(-DLANSCAPES_BRAND
 		-DBRAND_APP_NAME="Logic Analyze"
@@ -56,7 +56,7 @@ if(LANSCAPES_APPSTORE)
 endif()
 # packaging/macos/package.sh reads this to know what it is packaging.
 file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/build.dir/brand.env
-	"LANSCAPES_BRAND=${LANSCAPES_BRAND}\nLANSCAPES_APPSTORE=${LANSCAPES_APPSTORE}\nBRAND_VERSION=${BRAND_VERSION}\n")
+	"LANSCAPES_BRAND=${LANSCAPES_BRAND}\nLANSCAPES_APPSTORE=${LANSCAPES_APPSTORE}\nBRAND_VERSION=${BRAND_VERSION}\nBRAND_REPO_URL=${BRAND_REPO_URL}\n")
 
 configure_file (
 	${PROJECT_SOURCE_DIR}/DSView/config.h.in
