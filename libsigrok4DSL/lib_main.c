@@ -267,6 +267,11 @@ SR_API void ds_set_firmware_resource_dir(const char *dir)
 SR_API void ds_set_user_data_dir(const char *dir)
 { 
 	memset(DS_USR_PATH, 0, sizeof(DS_USR_PATH));
+	if (dir && strlen(dir) >= sizeof(DS_USR_PATH)) {
+		sr_err("User data path is too long (%u bytes, limit %u).",
+			(unsigned)strlen(dir), (unsigned)(sizeof(DS_USR_PATH) - 1));
+		return;
+	}
 	if (dir)
 		strcpy(DS_USR_PATH, dir);
 }

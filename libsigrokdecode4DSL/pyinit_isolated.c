@@ -11,12 +11,16 @@
  */
 #ifdef __APPLE__
 #include <Python.h>
+#include <stdlib.h>
 
 int srd_python_init_isolated(char *err, size_t errlen)
 {
 	PyConfig config;
 	PyStatus status;
 
+	/* Isolated mode still honours the macOS venv launcher hook; clear it here
+	 * too so the library is safe even if the host did not. */
+	unsetenv("__PYVENV_LAUNCHER__");
 	PyConfig_InitIsolatedConfig(&config);
 	config.install_signal_handlers = 0;
 	config.site_import = 0;
