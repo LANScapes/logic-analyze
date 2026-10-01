@@ -39,14 +39,17 @@ set(DS_VERSION_STRING  ${DS_VERSION_MAJOR}.${DS_VERSION_MINOR}.${DS_VERSION_MICR
 option(LANSCAPES_BRAND "Build as Logic Analyze by Lanscapes" OFF)
 set(BRAND_VERSION "1.0.0" CACHE STRING "Logic Analyze version")
 set(BRAND_REPO_URL "https://github.com/LANScapes/logic-analyze" CACHE STRING "Public source repository")
+set(BRAND_SUPPORT_EMAIL "la_support@lanscapes.net" CACHE STRING "Support and source-request address")
 if(LANSCAPES_BRAND)
 	add_definitions(-DLANSCAPES_BRAND
 		-DBRAND_APP_NAME="Logic Analyze"
 		-DBRAND_ORG_NAME="Lanscapes"
 		-DBRAND_VERSION="${BRAND_VERSION}"
-		-DBRAND_REPO_URL="${BRAND_REPO_URL}")
+		-DBRAND_REPO_URL="${BRAND_REPO_URL}"
+		-DBRAND_SUPPORT_EMAIL="${BRAND_SUPPORT_EMAIL}")
 endif()
 # The Mac App Store edition: the branded app plus the proprietary MCP server.
+# Packaging it is not implemented yet: package.sh refuses this build.
 option(LANSCAPES_APPSTORE "Build the Mac App Store edition of Logic Analyze" OFF)
 if(LANSCAPES_APPSTORE)
 	if(NOT LANSCAPES_BRAND)
@@ -56,7 +59,7 @@ if(LANSCAPES_APPSTORE)
 endif()
 # packaging/macos/package.sh reads this to know what it is packaging.
 file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/build.dir/brand.env
-	"LANSCAPES_BRAND=${LANSCAPES_BRAND}\nLANSCAPES_APPSTORE=${LANSCAPES_APPSTORE}\nBRAND_VERSION=${BRAND_VERSION}\nBRAND_REPO_URL=${BRAND_REPO_URL}\n")
+	"LANSCAPES_BRAND=${LANSCAPES_BRAND}\nLANSCAPES_APPSTORE=${LANSCAPES_APPSTORE}\nBRAND_VERSION=${BRAND_VERSION}\nBRAND_REPO_URL=${BRAND_REPO_URL}\nBRAND_SUPPORT_EMAIL=${BRAND_SUPPORT_EMAIL}\n")
 
 configure_file (
 	${PROJECT_SOURCE_DIR}/DSView/config.h.in

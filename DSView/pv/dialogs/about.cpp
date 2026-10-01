@@ -68,8 +68,9 @@ About::About(QWidget *parent) :
 
     QString url = QString("Source code: <a href=\"%1\" style=\"color:#C0C0C0\">%1</a><br />"
                           "Releases and issues: <a href=\"%1/releases\" style=\"color:#C0C0C0\">%1/releases</a><br />"
+                          "Support and source requests: %2<br />"
                           "<br />")
-                  .arg(BRAND_REPO_URL);
+                  .arg(BRAND_REPO_URL, BRAND_SUPPORT_EMAIL);
 
     QString thanks = QString(
         "<font size=16>License</font><br />"

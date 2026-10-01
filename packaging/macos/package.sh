@@ -14,12 +14,18 @@ LANSCAPES_BRAND=$(sed -n 's/^LANSCAPES_BRAND=//p' "$SRC/build.dir/brand.env")
 LANSCAPES_APPSTORE=$(sed -n 's/^LANSCAPES_APPSTORE=//p' "$SRC/build.dir/brand.env")
 VERSION=$(sed -n 's/^BRAND_VERSION=//p' "$SRC/build.dir/brand.env")
 BRAND_REPO_URL=$(sed -n 's/^BRAND_REPO_URL=//p' "$SRC/build.dir/brand.env")
+BRAND_SUPPORT_EMAIL=$(sed -n 's/^BRAND_SUPPORT_EMAIL=//p' "$SRC/build.dir/brand.env")
 case "$LANSCAPES_BRAND" in ON|on|TRUE|true|1) ;; *)
   echo "FAIL: this packages Logic Analyze; the build has LANSCAPES_BRAND=$LANSCAPES_BRAND"; exit 1 ;;
 esac
 case "$LANSCAPES_APPSTORE" in ON|on|TRUE|true|1) APPSTORE=1 ;; *) APPSTORE= ;; esac
+# The App Store edition promises the MCP server (About window, EULA), which lives in a
+# private repository. Until its assembly step exists, refuse rather than ship an app
+# that claims a component it does not contain.
+[ -z "$APPSTORE" ] || { echo "FAIL: packaging the App Store edition (LANSCAPES_APPSTORE=ON) is not implemented yet"; exit 1; }
 [ -n "$VERSION" ] || { echo "FAIL: no BRAND_VERSION in build.dir/brand.env"; exit 1; }
 [ -n "$BRAND_REPO_URL" ] || { echo "FAIL: no BRAND_REPO_URL in build.dir/brand.env"; exit 1; }
+[ -n "$BRAND_SUPPORT_EMAIL" ] || { echo "FAIL: no BRAND_SUPPORT_EMAIL in build.dir/brand.env"; exit 1; }
 # package.sh does not compile; refuse a binary older than its sources.
 stale=$(find "$SRC/DSView" "$SRC/libsigrok4DSL" "$SRC/libsigrokdecode4DSL" "$SRC/common" "$SRC/tools/dslcap" "$SRC/CMakeLists.txt" \
   \( -name '*.c' -o -name '*.cpp' -o -name '*.h' -o -name CMakeLists.txt \) -newer "$SRC/build.dir/DSView" -print -quit)
@@ -153,7 +159,7 @@ echo "== auditing every Mach-O slice (dependency resolution, rpaths, symlinks, m
 python3 "$SRC/packaging/macos/macho_audit.py" audit "$APP" "$MIN_MACOS"
 
 echo "== third-party notices (every bundled library traced to its Homebrew keg)"
-BRAND_REPO_URL="$BRAND_REPO_URL" python3 "$SRC/packaging/macos/third_party_notices.py" "$APP" "$SRC" "$C/Resources/licenses/THIRD-PARTY-NOTICES.txt"
+BRAND_REPO_URL="$BRAND_REPO_URL" BRAND_SUPPORT_EMAIL="$BRAND_SUPPORT_EMAIL" python3 "$SRC/packaging/macos/third_party_notices.py" "$APP" "$SRC" "$C/Resources/licenses/THIRD-PARTY-NOTICES.txt"
 
 # Sign every Mach-O file individually, inside out, then frameworks and the app.
 # codesign --deep does not reach loose libraries such as Python's lib-dynload.

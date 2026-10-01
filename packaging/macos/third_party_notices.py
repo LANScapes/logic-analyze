@@ -220,6 +220,8 @@ def main():
     app, src, out = (os.path.realpath(a) for a in sys.argv[1:4])
     global REPO
     REPO = os.environ["BRAND_REPO_URL"].rstrip("/")
+    global SUPPORT
+    SUPPORT = os.environ["BRAND_SUPPORT_EMAIL"]
     cellar = run("brew", "--cellar").stdout.strip()
     if not cellar:
         die("`brew --cellar` failed; this script needs Homebrew")
@@ -317,8 +319,7 @@ def main():
           "build changes in each Homebrew formula (https://github.com/Homebrew/homebrew-core).",
           "Copies of the archives are also published with each release at",
           f"{REPO}/releases, and Lanscapes will provide",
-          "them on request for at least three years after each release (contact details are",
-          "in the About window).", ""]
+          f"them on request for at least three years after each release: write to {SUPPORT}.", ""]
     for formula, version, url, sha in sources:
         L += [f"{formula} {version}", f"  {url}", f"  SHA-256 {sha}", ""]
     L += ["The LGPL libraries (Qt, glib, libusb, libintl, graphite2) are linked dynamically.",
