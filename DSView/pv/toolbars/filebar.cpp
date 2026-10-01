@@ -42,7 +42,7 @@ FileBar::FileBar(SigSession *session, QWidget *parent) :
     _session(session),
     _file_button(this)
 {
-    setMovable(false);  // moves with MainWindow's main toolbar, which holds it
+    setMovable(false);
     setContentsMargins(0,0,0,0);
 
     _action_load = new QAction(this);

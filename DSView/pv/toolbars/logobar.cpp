@@ -62,7 +62,7 @@ LogoBar::LogoBar(SigSession *session, QWidget *parent) :
     _log_open_bt = NULL;
     _log_clear_bt = NULL;
 
-    setMovable(false);  // moves with MainWindow's main toolbar, which holds it
+    setMovable(false);
     setContentsMargins(0,0,0,0);
 
     _action_en = new QAction(this);
@@ -108,6 +108,7 @@ LogoBar::LogoBar(SigSession *session, QWidget *parent) :
 
     QWidget *spacer = new QWidget(this);
     spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+#ifdef LANSCAPES_BRAND
     QAction *spacer_action = addWidget(spacer);
     _spacer_action = spacer_action;
     addWidget(&_logo_button);
@@ -120,6 +121,13 @@ LogoBar::LogoBar(SigSession *session, QWidget *parent) :
         spacer_action->setVisible(o == Qt::Horizontal);
         margin_action->setVisible(o == Qt::Horizontal);
     });
+#else
+    addWidget(spacer);
+    addWidget(&_logo_button);
+    QWidget *margin = new QWidget(this);
+    margin->setMinimumWidth(20);
+    addWidget(margin);
+#endif
 
     connect(_action_en, SIGNAL(triggered()), this, SLOT(on_actionEn_triggered()));
     connect(_action_cn, SIGNAL(triggered()), this, SLOT(on_actionCn_triggered()));

@@ -3,8 +3,11 @@
 
     make_icons.py OUTDIR
 
-Writes OUTDIR/light/<name>.svg and OUTDIR/dark/<name>.svg for every icon below,
-plus OUTDIR/<name>.svg for the theme-independent ones (USB). Every icon is drawn
+Writes a tree that mirrors DSView/: OUTDIR/icons/{light,dark}/<name>.svg for
+every icon below, OUTDIR/icons/<name>.svg for the theme-independent ones (USB),
+and OUTDIR/themes/{light,dark}/{h,v}movetoolbar.svg for the toolbar grip.
+The branded build compiles these in place of DSView's own files (see
+brand_qrc.py); the plain DSView build keeps upstream's icons. Every icon is drawn
 on a 24-unit grid as round-capped 1.75-unit strokes in one ink colour, with
 colour kept for meaning only: green start, red stop and the USB speeds.
 
@@ -187,17 +190,36 @@ ROOT = {
 }
 
 
+GRIP = {"light": "#80858c", "dark": "#8a8f96"}
+
+
+def grip(w, h, cols, rows, color):
+    """A macOS-style drag handle: a grid of dots (2 x 3, or 3 x 2 on a vertical bar)."""
+    step, r = 5, 1.3
+    x0 = w / 2 - step * (cols - 1) / 2
+    y0 = h / 2 - step * (rows - 1) / 2
+    dots = "".join(f'<circle cx="{x0 + c * step:.1f}" cy="{y0 + rw * step:.1f}" r="{r}" fill="{color}"/>'
+                   for c in range(cols) for rw in range(rows))
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}px" height="{h}px" '
+            f'viewBox="0 0 {w} {h}">{dots}</svg>\n')
+
+
+def write(path, text):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w") as fh:
+        fh.write(text)
+
+
 def main():
     out = sys.argv[1]
     for theme, ink in INK.items():
-        os.makedirs(os.path.join(out, theme), exist_ok=True)
         for name, (body, _) in ICONS.items():
-            with open(os.path.join(out, theme, name + ".svg"), "w") as fh:
-                fh.write(svg(body.replace("{ink}", ink)))
+            write(os.path.join(out, "icons", theme, name + ".svg"), svg(body.replace("{ink}", ink)))
+        write(os.path.join(out, "themes", theme, "hmovetoolbar.svg"), grip(16, 64, 2, 3, GRIP[theme]))
+        write(os.path.join(out, "themes", theme, "vmovetoolbar.svg"), grip(54, 16, 3, 2, GRIP[theme]))
     for name, (body, _) in ROOT.items():
-        with open(os.path.join(out, name + ".svg"), "w") as fh:
-            fh.write(svg(body))
-    print(f"{len(ICONS)} themed icons x 2 themes, {len(ROOT)} root icons -> {out}")
+        write(os.path.join(out, "icons", name + ".svg"), svg(body))
+    print(f"{len(ICONS)} themed icons x 2 themes, {len(ROOT)} root icons, grips -> {out}")
 
 
 if __name__ == "__main__":

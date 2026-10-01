@@ -85,9 +85,11 @@ namespace pv
             void reload(); 
             void update_view_status();
             void config_device();
+#ifdef LANSCAPES_BRAND
             // Adds a submenu (Display, from the trigger bar) to the Options menu.
             void add_options_submenu(QMenu *menu);
             QToolButton* options_button(){ return &_configure_button; }
+#endif
             ds_device_handle get_next_device_handle();
 
             inline void set_view(view::View *view){
@@ -164,8 +166,10 @@ namespace pv
             QAction             *_mode_action;
          
             QMenu               *_mode_menu;
+#ifdef LANSCAPES_BRAND
             QMenu               *_options_menu;
             QAction             *_action_device_options;
+#endif
             QAction             *_action_repeat;
             QAction             *_action_single;
             QAction             *_action_loop;

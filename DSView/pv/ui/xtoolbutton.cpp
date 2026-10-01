@@ -23,8 +23,10 @@
 #include <QMenu>
 #include <QApplication>
 #include <QTimer>
+#ifdef LANSCAPES_BRAND
 #include <QStylePainter>
 #include <QStyleOptionToolButton>
+#endif
 #include "../log.h" 
 
 #ifdef _WIN32
@@ -44,6 +46,7 @@ XToolButton::XToolButton(QWidget *parent)
     _is_mouse_down = false; 
 }
 
+#ifdef LANSCAPES_BRAND
 bool XToolButton::label_beside() const
 {
     return toolButtonStyle() == Qt::ToolButtonTextBesideIcon
@@ -84,6 +87,7 @@ void XToolButton::paintEvent(QPaintEvent *event)
     style()->drawItemText(&p, tr, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextShowMnemonic,
                           opt.palette, isEnabled(), label, QPalette::ButtonText);
 }
+#endif
 
 void XToolButton::mousePressEvent(QMouseEvent *event)
 {

@@ -572,6 +572,38 @@ set(DSView_RESOURCES
     DSView/languages/language.qrc
 )
 
+# The branded build swaps in the Logic Analyze icons and toolbar grip, at the
+# same resource paths, without changing DSView's own files.
+if(LANSCAPES_BRAND)
+	find_package(Python3 REQUIRED COMPONENTS Interpreter)
+	set(BRAND_ICON_DIR ${CMAKE_BINARY_DIR}/brand)
+	set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
+		${CMAKE_CURRENT_SOURCE_DIR}/packaging/icons/make_icons.py
+		${CMAKE_CURRENT_SOURCE_DIR}/packaging/icons/brand_qrc.py
+		${CMAKE_CURRENT_SOURCE_DIR}/DSView/DSView.qrc
+		${CMAKE_CURRENT_SOURCE_DIR}/DSView/themes/breeze.qrc)
+	file(REMOVE_RECURSE ${BRAND_ICON_DIR})
+	execute_process(COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/packaging/icons/make_icons.py ${BRAND_ICON_DIR}
+		RESULT_VARIABLE brand_rc)
+	if(NOT brand_rc EQUAL 0)
+		message(FATAL_ERROR "make_icons.py failed")
+	endif()
+	foreach(qrc DSView/DSView.qrc DSView/themes/breeze.qrc)
+		get_filename_component(qrc_name ${qrc} NAME)
+		execute_process(COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/packaging/icons/brand_qrc.py
+			${CMAKE_CURRENT_SOURCE_DIR}/${qrc} ${CMAKE_CURRENT_SOURCE_DIR}/DSView ${BRAND_ICON_DIR} ${BRAND_ICON_DIR}/${qrc_name}
+			RESULT_VARIABLE brand_rc)
+		if(NOT brand_rc EQUAL 0)
+			message(FATAL_ERROR "brand_qrc.py failed for ${qrc}")
+		endif()
+	endforeach()
+	set(DSView_RESOURCES
+		${BRAND_ICON_DIR}/DSView.qrc
+		${BRAND_ICON_DIR}/breeze.qrc
+		DSView/languages/language.qrc
+	)
+endif()
+
 
 if(WIN32)
 	# Use the DSView icon for the DSView.exe executable.

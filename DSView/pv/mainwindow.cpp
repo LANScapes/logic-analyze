@@ -28,8 +28,10 @@
 #include <QMenuBar>
 #include <QStatusBar>
 #include <QVBoxLayout>
+#ifdef LANSCAPES_BRAND
 #include <QToolButton>
 #include <QComboBox>
+#endif
 #include <QWidget>
 #include <QDesktopServices>
 #include <QKeyEvent>
@@ -114,9 +116,13 @@ namespace pv
         QString tmp_file;
     }
 
+#ifdef LANSCAPES_BRAND
     // Version of the saved window layout. 1: the four bars sit in one movable
     // main toolbar; a layout saved before that (version 0) is ignored.
     static const int WINDOW_STATE_VERSION = 1;
+#else
+    static const int WINDOW_STATE_VERSION = 0;
+#endif
 
     MainWindow::MainWindow(toolbars::TitleBar *title_bar, QWidget *parent)
         : QMainWindow(parent)
@@ -195,6 +201,7 @@ namespace pv
 
 
         setIconSize(QSize(40, 40));
+#ifdef LANSCAPES_BRAND
         // One toolbar holds the four bars, so they move together to any side of
         // the window. On the left or right, each bar lays itself out vertically.
         _main_toolbar = new QToolBar("Toolbar", this);
@@ -213,6 +220,12 @@ namespace pv
         }
         connect(_main_toolbar, &QToolBar::orientationChanged, this, &MainWindow::on_toolbar_orientation);
         addToolBar(Qt::TopToolBarArea, _main_toolbar);
+#else
+        addToolBar(_sampling_bar);
+        addToolBar(_trig_bar);
+        addToolBar(_file_bar);
+        addToolBar(_logo_bar);
+#endif
 
         // Setup the dockWidget
         _protocol_dock = new QDockWidget(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_PROTOCOL_DOCK_TITLE), "Decode Protocol"), this);
@@ -1217,6 +1230,7 @@ namespace pv
         return true;
     }
 
+#ifdef LANSCAPES_BRAND
     // On the left or right, labels sit beside the icons rather than under them
     // (text under every icon makes the column taller than most windows), icons
     // are a little smaller, and every control stretches to the column's width.
@@ -1247,6 +1261,7 @@ namespace pv
         _main_toolbar->layout()->invalidate();
         _main_toolbar->updateGeometry();
     }
+#endif
 
     void MainWindow::restore_dock()
     { 
