@@ -218,6 +218,8 @@ class Texts:
 
 def main():
     app, src, out = (os.path.realpath(a) for a in sys.argv[1:4])
+    global REPO
+    REPO = os.environ["BRAND_REPO_URL"].rstrip("/")
     cellar = run("brew", "--cellar").stdout.strip()
     if not cellar:
         die("`brew --cellar` failed; this script needs Homebrew")
@@ -288,7 +290,7 @@ def main():
         "later (licenses/GPL-3.0.txt). It is based on DSView by DreamSourceLab, which is",
         "based on PulseView and the sigrok project. The DSLogic device firmware is",
         "Copyright DreamSourceLab under the MIT License (licenses/DreamSourceLab-firmware-MIT.txt).",
-        "Source: https://github.com/nullifyr/logic-analyze",
+        f"Source: {REPO}",
         "",
         "Section 1 lists the other software included in the app and its license terms.",
         "Section 2 says where to get the source of the LGPL and GPL libraries, and how to",
@@ -314,7 +316,7 @@ def main():
           "These libraries were built by Homebrew from the source archives below, with the",
           "build changes in each Homebrew formula (https://github.com/Homebrew/homebrew-core).",
           "Copies of the archives are also published with each release at",
-          "https://github.com/nullifyr/logic-analyze/releases, and Lanscapes will provide",
+          f"{REPO}/releases, and Lanscapes will provide",
           "them on request for at least three years after each release (contact details are",
           "in the About window).", ""]
     for formula, version, url, sha in sources:

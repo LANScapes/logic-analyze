@@ -198,7 +198,7 @@ bool bHighScale = true;
     QApplication::setApplicationVersion(BRAND_VERSION);
     QApplication::setApplicationName(BRAND_APP_NAME);
     QApplication::setOrganizationName(BRAND_ORG_NAME);
-    QApplication::setOrganizationDomain(BRAND_REPO_URL);
+    QApplication::setOrganizationDomain("lanscapes.net");
 #else
     QApplication::setApplicationVersion(DS_VERSION_STRING);
     QApplication::setApplicationName("DSView");
