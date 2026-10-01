@@ -17,6 +17,9 @@
 #include <string.h>
 #include <unistd.h>
 #include <time.h>
+#ifdef __APPLE__
+#include <mach-o/dyld.h>
+#endif
 #include "libsigrok.h"
 
 static volatile int g_done = 0, g_err = 0;
@@ -190,6 +193,33 @@ static int select_channel_mode(uint64_t rate)
     return SR_ERR;
 }
 
+
+/* Firmware directory next to this executable: an app bundle keeps it in
+ * Contents/Resources/res, a build tree in DSView/res. */
+static char *default_res_dir(void)
+{
+    char exe[4096] = {0};
+#ifdef __APPLE__
+    uint32_t size = sizeof exe;
+    if (_NSGetExecutablePath(exe, &size) != 0) return NULL;
+#else
+    if (readlink("/proc/self/exe", exe, sizeof exe - 1) < 0) return NULL;
+#endif
+    char *real = realpath(exe, NULL);
+    if (!real) return NULL;
+    char *dir = g_path_get_dirname(real);
+    free(real);
+    const char *candidates[] = { "../Resources/res", "../DSView/res", "res" };
+    char *found = NULL;
+    for (size_t i = 0; i < G_N_ELEMENTS(candidates) && !found; i++) {
+        char *path = g_build_filename(dir, candidates[i], NULL);
+        if (g_file_test(path, G_FILE_TEST_IS_DIR)) found = path;
+        else g_free(path);
+    }
+    g_free(dir);
+    return found;
+}
+
 int main(int argc, char **argv)
 {
     const char *res = getenv("DSLCAP_RES");
@@ -213,7 +243,8 @@ int main(int argc, char **argv)
         else if (!strcmp(a, "--timeout") && v) { timeout = atof(v); i++; }
         else { fprintf(stderr, "unknown argument: %s\n", a); return 2; }
     }
-    if (!res) res = "/Applications/DSView Native.app/Contents/MacOS/res";
+    if (!res) res = default_res_dir();
+    if (!res) { printf("{\"error\":\"firmware directory not found; set --res or DSLCAP_RES\"}\n"); return 2; }
     if (!list_only && !out) { fprintf(stderr, "--out is required\n"); return 2; }
 
     int enabled[64], nch = 0;

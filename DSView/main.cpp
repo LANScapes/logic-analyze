@@ -71,6 +71,12 @@ int main(int argc, char *argv[])
 	// The signed app bundle is read-only: decoders ship precompiled, and the
 	// embedded Python must never write __pycache__ into the bundle.
 	setenv("PYTHONDONTWRITEBYTECODE", "1", 1);
+	// Use only the bundled Python: ignore the user's Python environment.
+	unsetenv("PYTHONHOME");
+	unsetenv("PYTHONPATH");
+	unsetenv("PYTHONSTARTUP");
+	unsetenv("PYTHONUSERBASE");
+	setenv("PYTHONNOUSERSITE", "1", 1);
 #endif
 
 	//----------------------rebuild command param
