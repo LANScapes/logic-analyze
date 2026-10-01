@@ -43,7 +43,8 @@ cp -R "$SRC/libsigrokdecode4DSL/decoders" "$C/Resources/decoders"
 rm -rf "$C/Resources/decoders/ir_irmp"  # needs the native libirmp, which is not built
 cp "$SRC/NEWS25" "$SRC/NEWS31" "$SRC/ug25.pdf" "$SRC/ug31.pdf" "$C/Resources/"
 cp "$SRC/DSView/icons/showDoc25.png" "$SRC/DSView/icons/showDoc31.png" "$C/Resources/"
-cp "$SRC/DSView.icns" "$C/Resources/$EXE.icns"
+cp "$SRC/packaging/macos/icon/$EXE.icns" "$C/Resources/$EXE.icns"
+sips -Z 256 "$SRC/packaging/macos/icon/$EXE-1024.png" --out "$C/Resources/about-icon.png" >/dev/null
 mkdir -p "$C/Resources/licenses"
 cp "$SRC/COPYING" "$C/Resources/licenses/GPL-3.0.txt"
 cp "$SRC/DSView/res/license.txt" "$C/Resources/licenses/DreamSourceLab-firmware-MIT.txt"
@@ -132,17 +133,45 @@ python3 "$SRC/packaging/macos/macho_audit.py" scrub "$APP"
 echo "== auditing every Mach-O slice (dependency resolution, rpaths, symlinks, minimum macOS)"
 python3 "$SRC/packaging/macos/macho_audit.py" audit "$APP" "$MIN_MACOS"
 
+# Sign every Mach-O file individually, inside out, then frameworks and the app.
+# codesign --deep does not reach loose libraries such as Python's lib-dynload.
+#   sign_tree APP IDENTITY [developer-id]
+sign_tree() {
+  local app="$1" id="$2" mode="${3:-adhoc}" opts=()
+  [ "$mode" = "developer-id" ] && opts=(--timestamp --options runtime)
+  local ent="$SRC/packaging/macos/entitlements-developer-id.plist"
+  find "$app" -type f -print0 | while IFS= read -r -d '' f; do
+    case "$f" in "$app/Contents/MacOS/"*) continue ;; esac
+    if file -b "$f" | grep -q 'Mach-O'; then
+      codesign --force ${opts[@]+"${opts[@]}"} --sign "$id" "$f" 2>&1 | grep -v 'replacing existing signature' || true
+    fi
+  done
+  for fw in "$app/Contents/Frameworks"/*.framework; do
+    codesign --force ${opts[@]+"${opts[@]}"} --sign "$id" "$fw" 2>&1 | grep -v 'replacing existing signature' || true
+  done
+  local entopt=()
+  [ "$mode" = "developer-id" ] && entopt=(--entitlements "$ent")
+  codesign --force ${opts[@]+"${opts[@]}"} ${entopt[@]+"${entopt[@]}"} --sign "$id" "$app/Contents/MacOS/dslcap"
+  codesign --force ${opts[@]+"${opts[@]}"} ${entopt[@]+"${entopt[@]}"} --sign "$id" "$app"
+  codesign --verify --deep --strict "$app"
+}
+
 echo "== runtime load check (dyld's own record of every loaded image)"
 # The hardened runtime ignores DYLD_* variables, so check an ad-hoc signed copy.
 if [ -z "${SKIP_RUNTIME_CHECK:-}" ]; then
   RT="$DIST/runtime-check"
   rm -rf "$RT"; mkdir -p "$RT"
   ditto "$APP" "$RT/$NAME.app"
-  codesign --force --deep --sign - "$RT/$NAME.app" >/dev/null 2>&1
+  sign_tree "$RT/$NAME.app" - > "$RT/sign.log" 2>&1 || { cat "$RT/sign.log"; echo "FAIL: ad-hoc signing for the runtime check"; exit 1; }
   DYLD_PRINT_LIBRARIES=1 "$RT/$NAME.app/Contents/MacOS/dslcap" --list > "$RT/dslcap.log" 2>&1 || true
   DYLD_PRINT_LIBRARIES=1 "$RT/$NAME.app/Contents/MacOS/$EXE" > "$RT/app.log" 2>&1 &
   pid=$!
   sleep "${RUNTIME_CHECK_SECONDS:-12}"
+  if ! kill -0 "$pid" 2>/dev/null; then
+    tail -20 "$RT/app.log"
+    echo "FAIL: the app exited during the runtime check (crash or code-signature kill; see ~/Library/Logs/DiagnosticReports)"
+    exit 1
+  fi
   kill "$pid" 2>/dev/null || true; wait "$pid" 2>/dev/null || true
   python3 - "$RT" "$RT/$NAME.app" <<'PY'
 import os, re, sys
@@ -170,18 +199,11 @@ fi
 
 if [ -n "$SIGN_ID" ]; then
   echo "== signing with $SIGN_ID"
-  ENT="$SRC/packaging/macos/entitlements-developer-id.plist"
-  # Inside out: every Mach-O file, then frameworks, then the app.
-  macho_files | while IFS= read -r -d '' f; do
-    case "$f" in "$C/MacOS/"*) continue ;; esac
-    codesign --force --timestamp --options runtime --sign "$SIGN_ID" "$f"
-  done
-  for fw in "$C/Frameworks"/*.framework; do
-    codesign --force --timestamp --options runtime --sign "$SIGN_ID" "$fw"
-  done
-  codesign --force --timestamp --options runtime --entitlements "$ENT" --sign "$SIGN_ID" "$C/MacOS/dslcap"
-  codesign --force --timestamp --options runtime --entitlements "$ENT" --sign "$SIGN_ID" "$APP"
-  codesign --verify --deep --strict --verbose=2 "$APP"
+  sign_tree "$APP" "$SIGN_ID" developer-id
+  codesign --verify --deep --strict --verbose=2 "$APP" 2>&1 | tail -2
+else
+  echo "== ad-hoc signing (no --sign given; for local use only)"
+  sign_tree "$APP" -
 fi
 
 if [ -n "$NOTARY_PROFILE" ]; then

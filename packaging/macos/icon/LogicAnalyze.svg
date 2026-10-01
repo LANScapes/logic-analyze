@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- Logic Analyze app icon (concept B): four logic channels and a measurement
+       cursor on the macOS icon grid (824 px rounded tile in a 1024 canvas). -->
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a2f36"/><stop offset="1" stop-color="#15181c"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#000" flood-opacity=".28"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)"><rect x="100" y="100" width="824" height="824" rx="185" fill="url(#tile)"/></g>
+  <g fill="none" stroke-width="30" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M190 330H300V250H420V330H560V250H640V330H840" stroke="#3fc1e8"/>
+    <path d="M190 470H340V390H520V470H700V390H840" stroke="#f2b33d"/>
+    <path d="M190 610H260V530H330V610H400V530H470V610H540V530H610V610H840" stroke="#e8609a"/>
+    <path d="M190 750H460V670H840" stroke="#5fd38a"/>
+  </g>
+  <path d="M622 200V820" stroke="#fff" stroke-width="12" stroke-dasharray="26 18" opacity=".9"/>
+  <circle cx="622" cy="200" r="22" fill="#fff"/>
+</svg>
