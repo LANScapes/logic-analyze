@@ -27,9 +27,16 @@ case "$LANSCAPES_APPSTORE" in ON|on|TRUE|true|1) APPSTORE=1 ;; *) APPSTORE= ;; e
 [ -n "$BRAND_REPO_URL" ] || { echo "FAIL: no BRAND_REPO_URL in build.dir/brand.env"; exit 1; }
 [ -n "$BRAND_SUPPORT_EMAIL" ] || { echo "FAIL: no BRAND_SUPPORT_EMAIL in build.dir/brand.env"; exit 1; }
 # package.sh does not compile; refuse a binary older than its sources.
-stale=$(find "$SRC/DSView" "$SRC/libsigrok4DSL" "$SRC/libsigrokdecode4DSL" "$SRC/common" "$SRC/tools/dslcap" "$SRC/CMakeLists.txt" \
-  \( -name '*.c' -o -name '*.cpp' -o -name '*.h' -o -name CMakeLists.txt \) -newer "$SRC/build.dir/DSView" -print -quit)
-[ -z "$stale" ] || { echo "FAIL: $stale is newer than build.dir/DSView; run cmake --build build first"; exit 1; }
+# Each binary is checked against the sources it is built from.
+check_fresh() {  # check_fresh BINARY SOURCE...
+  local bin=$1; shift
+  [ -f "$SRC/build.dir/$bin" ] || { echo "FAIL: build.dir/$bin is missing; run cmake --build build first"; exit 1; }
+  stale=$(find "$@" \( -name '*.c' -o -name '*.cpp' -o -name '*.h' -o -name CMakeLists.txt \) \
+    -newer "$SRC/build.dir/$bin" -print -quit)
+  [ -z "$stale" ] || { echo "FAIL: $stale is newer than build.dir/$bin; run cmake --build build first"; exit 1; }
+}
+check_fresh DSView "$SRC/DSView" "$SRC/libsigrok4DSL" "$SRC/libsigrokdecode4DSL" "$SRC/common" "$SRC/CMakeLists.txt"
+check_fresh dslcap "$SRC/tools/dslcap" "$SRC/libsigrok4DSL" "$SRC/common" "$SRC/CMakeLists.txt"
 BUILD="${BUILD:-1}"
 PYVER=3.14
 PYSRC="$(brew --prefix python@$PYVER)/Frameworks/Python.framework/Versions/$PYVER"
