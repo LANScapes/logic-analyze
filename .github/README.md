@@ -1,43 +1,87 @@
 # Logic Analyze
 
-Logic Analyze is a macOS app for DreamSourceLab DSLogic logic analyzers, published by Lanscapes. It is a downstream build of [DSView](https://github.com/DreamSourceLab/DSView) by DreamSourceLab, which is based on PulseView and the sigrok project. It is free software under the GNU General Public License, version 3 or later.
+Logic Analyze is a macOS app for DreamSourceLab DSLogic logic analyzers. LANScapes publishes it.
 
-Lanscapes is not affiliated with DreamSourceLab. DSLogic is DreamSourceLab's product; it is named here only to say which hardware the app works with.
+- **Base.** It is a downstream build of [DSView](https://github.com/DreamSourceLab/DSView) by DreamSourceLab, which is based on PulseView and the sigrok project.
+- **License.** GNU General Public License, version 3 or later.
+- **Affiliation.** LANScapes is not affiliated with DreamSourceLab. DSLogic is a DreamSourceLab product. This README names it only to identify the hardware that the app supports.
 
-## What is different from DSView
+## Differences from DSView
 
-- A native macOS window, and a toolbar you can drag to any side of the window, so 16 channels get the full height.
-- One set of interface icons, and the Display menu moved under Options.
-- A self-contained, signed app bundle with its own Python, and third-party notices traced to the exact library builds it ships.
-- `dslcap`, a command-line tool for headless captures (`tools/dslcap`).
+- The app uses a native macOS window.
+- You can move the toolbar to any side of the window. With the toolbar on a side, 16 channels use the full window height.
+- The app has one set of interface icons. The Display menu is under Options.
+- The app bundle is signed and contains its own Python. The third-party notices identify the exact library builds in the bundle.
+- `dslcap` (`tools/dslcap`) is a command-line tool for captures without the user interface.
 
-The branding and interface changes (name, icons, toolbar, Options menu) sit behind the `LANSCAPES_BRAND` CMake option; without it, this tree builds DSView. A plain build still differs from upstream DSView in a few shared places: the macOS window and path-length fixes, and the extra `dslcap` target. Those are offered back to DSView as pull requests from the [LANScapes/DSView](https://github.com/LANScapes/DSView) fork.
+The `LANSCAPES_BRAND` CMake option controls the name, icons, toolbar and Options menu. Without this option, the tree builds DSView.
 
-## Building
+A build without the option is not identical to DSView. It also contains:
 
-On macOS with Homebrew:
+- the macOS window fixes,
+- the path-length fixes,
+- the `dslcap` target.
 
-```sh
-.github/scripts/brew-deps.sh
-.github/scripts/python-pin.sh >/dev/null &&   # the app embeds Homebrew's Python 3.14
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DLANSCAPES_BRAND=ON \
-  $(.github/scripts/python-pin.sh)
-cmake --build build -j
-packaging/macos/package.sh          # dist/Logic Analyze.app, ad-hoc signed
-```
+The [LANScapes/DSView](https://github.com/LANScapes/DSView) fork sends these changes to DSView as pull requests.
 
-`package.sh --sign "Developer ID Application: ..." --notarize PROFILE` signs and notarizes it. The app requires the macOS version it was built on or later (Homebrew's libraries are built for the host); set `MIN_MACOS` when packaging to state it.
+## Build the app
 
-## Keeping up with DSView
+You need macOS and Homebrew.
 
-The [Upstream sync](workflows/upstream-sync.yml) workflow checks DSView every week. When DSView has new commits, it merges them into a `sync/upstream-<commit>` branch, builds it, and opens a pull request. If the merge conflicts, it opens an issue instead. To let it open pull requests, enable *Allow GitHub Actions to create and approve pull requests* under Settings › Actions › General; without that, it opens an issue with a link to the branch.
+1. Install the dependencies:
+   ```sh
+   .github/scripts/brew-deps.sh
+   ```
+2. Make sure that Homebrew Python 3.14 is installed. The app contains this Python. This command fails if it is not installed:
+   ```sh
+   .github/scripts/python-pin.sh
+   ```
+3. Configure the build. Use `bash`, because `zsh` does not split the Python arguments:
+   ```sh
+   bash -c 'cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DLANSCAPES_BRAND=ON $(.github/scripts/python-pin.sh)'
+   ```
+4. Compile:
+   ```sh
+   cmake --build build -j
+   ```
+5. Make the app bundle. The result is `dist/Logic Analyze.app`, with an ad-hoc signature:
+   ```sh
+   packaging/macos/package.sh
+   ```
+
+To sign and notarize the app, add `--sign "Developer ID Application: ..." --notarize PROFILE`.
+
+**NOTE:** The app runs only on the macOS version that built it, or later. Homebrew builds its libraries for that version. To record the version in the app, set `MIN_MACOS` when you run `package.sh`.
+
+## Upstream updates
+
+The [Upstream sync](workflows/upstream-sync.yml) workflow examines DSView every week. If DSView has new commits:
+
+1. The workflow merges them into a `sync/upstream-<commit>` branch.
+2. The workflow builds that branch.
+3. The workflow opens a pull request. If the merge has a conflict, it opens an issue.
+
+To let the workflow open pull requests:
+
+1. Go to Settings › Actions › General.
+2. Enable *Allow GitHub Actions to create and approve pull requests*.
+
+Without this setting, the workflow opens an issue with a link to the branch.
 
 ## Releases
 
-Pushing a `vX.Y.Z` tag builds the app and drafts a release with it and, for each bundled LGPL and GPL library, its source archive plus the Homebrew recipe and patches it was built with. A person reviews and publishes the draft. See [release.yml](workflows/release.yml) for the signing secrets.
+Push a `vX.Y.Z` tag. The [Release](workflows/release.yml) workflow then builds the app and drafts a release. The draft contains:
+
+- the app,
+- the source archive of each LGPL and GPL library in the app,
+- the Homebrew recipe and patches for each of those libraries.
+
+A person examines the draft and publishes it.
+
+**CAUTION:** If the repository does not have the signing secrets, the workflow drafts an app with an ad-hoc signature only. Gatekeeper on other Macs will not open that app. Do not publish that draft. Delete it, or cancel the workflow and make the release on a signing Mac. The signing secrets are listed in [release.yml](workflows/release.yml).
 
 ## Support
 
-la_support@lanscapes.net. Bugs and requests: [issues](https://github.com/LANScapes/logic-analyze/issues).
-
-DSView's own README is [README.md](../README.md).
+- Email: la_support@lanscapes.net
+- Bugs and requests: [issues](https://github.com/LANScapes/logic-analyze/issues)
+- DSView README: [README.md](../README.md)
