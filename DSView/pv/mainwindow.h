@@ -72,6 +72,10 @@ class SearchDock;
 namespace view {
 class View;
 }
+
+namespace mcp {
+class McpBridge;
+}
  
 //The mainwindow,referenced by MainFrame
 //TODO: create graph view,toolbar,and show device list
@@ -223,7 +227,7 @@ private:
     QSize                   _bar_icon_size; //the bars' icon size on the top or bottom
 #endif
 #ifdef LANSCAPES_APPSTORE
-    QAction                 *_action_mcp = nullptr; //Options > MCP...
+    mcp::McpBridge          *_mcp = nullptr; //the agent connection and the MCP button
 #endif
     toolbars::TitleBar      *_title_bar;
 

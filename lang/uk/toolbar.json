@@ -180,7 +180,19 @@
         "text": "&Журналювання"
     },
     {
-        "id": "IDS_TOOLBAR_MCP_ITEM",
-        "text": "MCP..."
+        "id": "IDS_TOOLBAR_MCP",
+        "text": "MCP"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_TIP_OFF",
+        "text": "MCP вимкнено"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_TIP_ON",
+        "text": "MCP увімкнено: ШІ-асистенти можуть виконувати захоплення, поки Logic Analyze відкрито"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_TIP_BUSY",
+        "text": "MCP увімкнено: ШІ-асистент виконує захоплення"
     }
 ]

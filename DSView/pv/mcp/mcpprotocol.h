@@ -17,23 +17,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// The GUI side of the agent channel g<epoch>, version 1: framing, messages and
-// the device lease, as documented in doc/mcp-gui-protocol.md. Pure logic (QtCore
-// only), so it is unit-tested without the app (DSView/pv/mcp/test_mcpprotocol.cpp).
+// The GUI side of the agent channel g<epoch>, version 1, build 2: framing and
+// messages, as documented in doc/mcp-gui-protocol.md. Pure logic (QtCore only),
+// so it is unit-tested without the app (DSView/pv/mcp/test_mcpprotocol.cpp).
 
 #pragma once
 
 #include <QByteArray>
 #include <QJsonObject>
 #include <QString>
+#include <QStringList>
+#include <vector>
 
 namespace pv {
 namespace mcp {
 
 const int kProtocolVersion = 1;
 const int kSecurityEpoch = 1;           // the socket is g<kSecurityEpoch>
-const int kGuiBuild = 1;                // this GUI's protocol build
-const int kGuiMinAgentBuild = 1;        // the oldest agent build this GUI talks to
+const int kGuiBuild = 2;                // this GUI's protocol build (2: GUI captures)
+const int kGuiMinAgentBuild = 2;        // the oldest agent build this GUI talks to
 const int kMaxFrameBody = 32 * 1024 - 4;
 
 // One frame: 4-byte big-endian length, then that many bytes of one JSON object.
@@ -44,50 +46,43 @@ QByteArray encode_frame(const QJsonObject &msg);
 // Returns false if more bytes are needed, or with error set on a bad frame.
 bool take_frame(QByteArray &buf, QJsonObject &msg, bool &error);
 
-// GUI -> agent.
-QJsonObject hello_message();
-QJsonObject lease_message(const QString &op);    // released, busy or reclaim
+// A capture request's fields (doc/mcp-gui-protocol.md, "capture").
+struct CaptureRequest
+{
+    std::vector<int> channels;
+    qint64 samplerate_hz = 0;
+    qint64 samples = 0;           // resolved from duration_s if needed
+    double threshold_v = 1.6;
+    bool stream = false;
+    int trigger_channel = -1;     // -1: none
+    char trigger_edge = 'R';
+    int trigger_position_percent = 10;
+    qint64 timeout_ms = 30000;
+};
 
 // Agent -> GUI.
 struct AgentMessage
 {
-    enum Type { Invalid, Ok, Error, LeaseRequest, LeaseReturned };
+    enum Type { Invalid, Ok, Error, Devices, Capture, CaptureCancel, Current };
 
     Type type = Invalid;
     qint64 build = 0;            // gui_ok
     qint64 min_build = 0;        // gui_ok
+    qint64 id = -1;              // devices, capture, capture_cancel
+    QString name;                // capture, current: the file base name
+    CaptureRequest req;          // capture
+    QString req_error;           // capture, current: why the request is unusable (then "unsupported")
 };
 
 AgentMessage parse_agent_message(const QJsonObject &m);
 
-// The GUI's view of the device lease on the one open connection.
-class GuiLease
-{
-public:
-    enum State { NoAgent, GuiOwned, ReleasePending, McpOwned, ReclaimPending };
-
-    struct Step
-    {
-        QString reply;           // lease op to send now, or empty
-        bool decide = false;     // ask whether to release (then call decide())
-        bool unpark = false;     // the GUI may use the analyzer again
-    };
-
-    State state() const { return _state; }
-
-    // True while an MCP client holds the analyzer or the GUI waits to get it back.
-    bool lent() const { return _state == McpOwned || _state == ReclaimPending; }
-
-    void connected() { _state = GuiOwned; }
-    Step disconnected();
-    Step lease_request();
-    QString decide(bool release);
-    QString reclaim();
-    Step lease_returned();
-
-private:
-    State _state = NoAgent;
-};
+// GUI -> agent.
+QJsonObject hello_message();
+QJsonObject devices_ok_message(qint64 id, const QStringList &devices, const QString &selected);
+QJsonObject capture_started_message(qint64 id);
+QJsonObject capture_done_message(qint64 id, const QString &name, const QJsonObject &meta);
+QJsonObject capture_error_message(qint64 id, const QString &code, const QString &message);
+QJsonObject current_ok_message(qint64 id, const QString &name, const QJsonObject &meta);
 
 } // namespace mcp
 } // namespace pv

@@ -82,6 +82,7 @@ static void post_event_async(int event);
 static void send_event(int event);
 static void make_demo_device_to_list();
 static void process_attach_event(int isEvent);
+static int lib_no_hardware = 0;		/* ds_set_no_hardware() */
 static void process_detach_event();
 static struct libusb_device* get_new_attached_usb_device();
 static struct libusb_device* get_new_detached_usb_device();
@@ -173,8 +174,10 @@ SR_API int ds_lib_init()
 #endif
 
 	// Scan the all hardware device.
-	sr_info("Scan all connected hardware device.");
-	process_attach_event(0);
+	if (!lib_no_hardware) {
+		sr_info("Scan all connected hardware device.");
+		process_attach_event(0);
+	}
 
 	sr_listen_hotplug(lib_ctx.sr_ctx, hotplug_event_listen_callback);
 
@@ -264,6 +267,15 @@ SR_API void ds_set_firmware_resource_dir(const char *dir)
 	}
 	if (dir)
 		strcpy(DS_RES_PATH, dir);
+}
+
+/**
+ * Leave USB devices alone: no scan and no hotplug handling, only the demo
+ * device and files. For test tools; call before ds_lib_init().
+ */
+SR_API void ds_set_no_hardware(int on)
+{
+	lib_no_hardware = on;
 }
 
 /**
@@ -1276,6 +1288,9 @@ static void hotplug_event_listen_callback(struct libusb_context *ctx, struct lib
 	int bDone = 0;
 
 	(void)ctx;
+
+	if (lib_no_hardware)
+		return;
 
 	if (dev == NULL){
 		if (event == USB_EV_HOTPLUG_ATTACH)

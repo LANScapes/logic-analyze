@@ -180,7 +180,19 @@
         "text": "記錄選項(&O)"
     },
     {
-        "id": "IDS_TOOLBAR_MCP_ITEM",
-        "text": "MCP..."
+        "id": "IDS_TOOLBAR_MCP",
+        "text": "MCP"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_TIP_OFF",
+        "text": "MCP 已關閉"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_TIP_ON",
+        "text": "MCP 已開啟：Logic Analyze 開啟時，AI 助理可以擷取"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_TIP_BUSY",
+        "text": "MCP 已開啟：AI 助理正在擷取"
     }
 ]

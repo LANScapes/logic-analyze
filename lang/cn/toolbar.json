@@ -180,7 +180,19 @@
         "text": "日志选项(&L)"
     },
     {
-        "id": "IDS_TOOLBAR_MCP_ITEM",
-        "text": "MCP..."
+        "id": "IDS_TOOLBAR_MCP",
+        "text": "MCP"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_TIP_OFF",
+        "text": "MCP 已关闭"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_TIP_ON",
+        "text": "MCP 已开启：Logic Analyze 打开时，AI 助手可以采集"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_TIP_BUSY",
+        "text": "MCP 已开启：AI 助手正在采集"
     }
 ]

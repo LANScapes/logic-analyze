@@ -180,7 +180,19 @@
         "text": "Tùy chọn &nhật ký"
     },
     {
-        "id": "IDS_TOOLBAR_MCP_ITEM",
-        "text": "MCP..."
+        "id": "IDS_TOOLBAR_MCP",
+        "text": "MCP"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_TIP_OFF",
+        "text": "MCP đang tắt"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_TIP_ON",
+        "text": "MCP bật: trợ lý AI có thể thu thập khi Logic Analyze đang mở"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_TIP_BUSY",
+        "text": "MCP bật: một trợ lý AI đang thu thập"
     }
 ]

@@ -180,7 +180,19 @@
         "text": "ログ設定(&O)"
     },
     {
-        "id": "IDS_TOOLBAR_MCP_ITEM",
-        "text": "MCP..."
+        "id": "IDS_TOOLBAR_MCP",
+        "text": "MCP"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_TIP_OFF",
+        "text": "MCP はオフです"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_TIP_ON",
+        "text": "MCP オン：Logic Analyze が開いている間、AI アシスタントがキャプチャできます"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_TIP_BUSY",
+        "text": "MCP オン：AI アシスタントがキャプチャしています"
     }
 ]

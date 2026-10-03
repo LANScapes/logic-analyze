@@ -808,10 +808,6 @@
         "text": "MCP:"
     },
     {
-        "id": "IDS_DLG_MCP_ANALYZER",
-        "text": "分析仪:"
-    },
-    {
         "id": "IDS_DLG_MCP_TURN_ON",
         "text": "开启"
     },
@@ -832,19 +828,19 @@
         "text": "已开启。代理尚未运行。"
     },
     {
-        "id": "IDS_DLG_MCP_TAKE_BACK",
-        "text": "收回"
+        "id": "IDS_DLG_MCP_NOW",
+        "text": "当前："
     },
     {
-        "id": "IDS_DLG_MCP_LENT",
-        "text": "已借给 MCP 客户端。"
+        "id": "IDS_DLG_MCP_IDLE",
+        "text": "空闲"
     },
     {
-        "id": "IDS_DLG_MCP_LENT_WAITING",
-        "text": "已借给 MCP 客户端。正在等待其完成。"
+        "id": "IDS_DLG_MCP_CAPTURING",
+        "text": "正在采集：通道 %1，%2，%3 个采样"
     },
     {
-        "id": "IDS_DLG_MCP_HELD",
-        "text": "由 Logic Analyze 占用。MCP 客户端需要时会请求使用。"
+        "id": "IDS_DLG_MCP_STOP",
+        "text": "停止"
     }
 ]

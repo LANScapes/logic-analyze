@@ -173,6 +173,8 @@ void ds_log_level(int level)
     test_phase('d');
 }
 void ds_set_firmware_resource_dir(const char *dir) { assert(!test_ids_forbid_library); (void)dir; test_phase('d'); }
+void ds_set_user_data_dir(const char *dir) { (void)dir; }
+void ds_set_no_hardware(int on) { (void)on; }
 /* Manifest setup is stubbed here for publication/lifecycle tests with all
  * three flags. Actual combined preflight/routing is in test_resources.c. */
 int ds_set_firmware_resource_manifest(int fd, GError **error)

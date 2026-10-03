@@ -804,10 +804,6 @@
         "text": "MCP:"
     },
     {
-        "id": "IDS_DLG_MCP_ANALYZER",
-        "text": "アナライザ:"
-    },
-    {
         "id": "IDS_DLG_MCP_TURN_ON",
         "text": "オンにする"
     },
@@ -828,19 +824,19 @@
         "text": "オン。エージェントはまだ実行されていません。"
     },
     {
-        "id": "IDS_DLG_MCP_TAKE_BACK",
-        "text": "取り戻す"
+        "id": "IDS_DLG_MCP_NOW",
+        "text": "現在："
     },
     {
-        "id": "IDS_DLG_MCP_LENT",
-        "text": "MCP クライアントに貸し出し中。"
+        "id": "IDS_DLG_MCP_IDLE",
+        "text": "待機中"
     },
     {
-        "id": "IDS_DLG_MCP_LENT_WAITING",
-        "text": "MCP クライアントに貸し出し中。終了を待っています。"
+        "id": "IDS_DLG_MCP_CAPTURING",
+        "text": "キャプチャ中：チャンネル %1、%2、%3 サンプル"
     },
     {
-        "id": "IDS_DLG_MCP_HELD",
-        "text": "Logic Analyze が保持しています。MCP クライアントは必要なときに要求します。"
+        "id": "IDS_DLG_MCP_STOP",
+        "text": "停止"
     }
 ]

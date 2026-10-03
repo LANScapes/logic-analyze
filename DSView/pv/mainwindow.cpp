@@ -224,14 +224,8 @@ namespace pv
         _sampling_bar->add_options_submenu(_trig_bar->display_menu());
         _logo_bar->add_before_help(_sampling_bar->options_button());
 #ifdef LANSCAPES_APPSTORE
-        // Mac App Store edition: the agent connection and its pane in Options.
-        {
-            pv::mcp::McpBridge *mcp = new pv::mcp::McpBridge(_session, this);
-            QMenu *options = _sampling_bar->options_button()->menu();
-            options->addSeparator();
-            _action_mcp = options->addAction(L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_MCP_ITEM), "MCP..."));
-            connect(_action_mcp, &QAction::triggered, mcp, &pv::mcp::McpBridge::show_pane);
-        }
+        // Mac App Store edition: the agent connection; its MCP button ends the sampling bar.
+        _mcp = new pv::mcp::McpBridge(_session, _sampling_bar, this);
 #endif
         // File first; Options and Help close the row.
         for (QToolBar *bar : {(QToolBar*)_file_bar, (QToolBar*)_sampling_bar,
@@ -396,8 +390,8 @@ namespace pv
         _measure_dock->setWindowTitle(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MEASURE_DOCK_TITLE), "Measurement"));
         _search_dock->setWindowTitle(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_SEARCH_DOCK_TITLE), "Search..."));
 #ifdef LANSCAPES_APPSTORE
-        if (_action_mcp)
-            _action_mcp->setText(L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_MCP_ITEM), "MCP..."));
+        if (_mcp)
+            _mcp->retranslate();
 #endif
     }
 
@@ -1589,7 +1583,7 @@ namespace pv
 
     // The manual is manual/<code>/index.html in the data directory. <code> is the
     // folder name of the UI language under lang/, as a language tag: "cn" is
-    // "zh-CN" and "pt_BR" is "pt-BR". English is the fallback, then the PDF guides.
+    // "zh-CN" and "pt_BR" is "pt-BR". English is the fallback.
     static QString manual_path(const QDir &dir, int lan)
     {
         QStringList codes;
@@ -1606,8 +1600,7 @@ namespace pv
             if (QFile::exists(path))
                 return path;
         }
-        QString pdf = dir.absoluteFilePath("ug" + QString::number(lan) + ".pdf");
-        return QFile::exists(pdf) ? pdf : dir.absoluteFilePath("ug31.pdf");
+        return dir.absoluteFilePath("manual/en/index.html");
     }
 
     void MainWindow::openDoc()

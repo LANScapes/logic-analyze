@@ -808,10 +808,6 @@
         "text": "MCP:"
     },
     {
-        "id": "IDS_DLG_MCP_ANALYZER",
-        "text": "Analyzer:"
-    },
-    {
         "id": "IDS_DLG_MCP_TURN_ON",
         "text": "Turn On"
     },
@@ -832,19 +828,19 @@
         "text": "On. The agent is not running yet."
     },
     {
-        "id": "IDS_DLG_MCP_TAKE_BACK",
-        "text": "Take Back"
+        "id": "IDS_DLG_MCP_NOW",
+        "text": "Now:"
     },
     {
-        "id": "IDS_DLG_MCP_LENT",
-        "text": "Lent to an MCP client."
+        "id": "IDS_DLG_MCP_IDLE",
+        "text": "Idle"
     },
     {
-        "id": "IDS_DLG_MCP_LENT_WAITING",
-        "text": "Lent to an MCP client. Waiting for it to finish."
+        "id": "IDS_DLG_MCP_CAPTURING",
+        "text": "Capturing: ch %1, %2, %3 samples"
     },
     {
-        "id": "IDS_DLG_MCP_HELD",
-        "text": "Held by Logic Analyze. MCP clients ask for it when they need it."
+        "id": "IDS_DLG_MCP_STOP",
+        "text": "Stop"
     }
 ]

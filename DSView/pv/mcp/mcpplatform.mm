@@ -41,6 +41,7 @@
 #define MCP_TEAM_ID "BVM4W42ZKJ"
 #define MCP_AGENT_ID "com.lanscapes.LogicAnalyzer.agent" LANSCAPES_MCP_SUFFIX
 #define MCP_GROUP_A MCP_TEAM_ID ".com.lanscapes.la.ctl" LANSCAPES_MCP_SUFFIX
+#define MCP_GROUP_B MCP_TEAM_ID ".com.lanscapes.la.cap" LANSCAPES_MCP_SUFFIX
 #define MCP_AGENT_APP "Logic Analyze Agent.app"
 
 namespace pv {
@@ -144,6 +145,25 @@ int connect_agent(QString *error)
             return -1;
         }
         return fd;
+    }
+}
+
+QString staging_dir(QString *error)
+{
+    @autoreleasepool {
+        NSURL *group = [[NSFileManager defaultManager]
+            containerURLForSecurityApplicationGroupIdentifier:@MCP_GROUP_B];
+        if (!group || !group.isFileURL) {
+            *error = "the capture store's app group container is not available";
+            return QString();
+        }
+        NSURL *dir = [group URLByAppendingPathComponent:@"captures/staging" isDirectory:YES];
+        BOOL isDir = NO;
+        if (![[NSFileManager defaultManager] fileExistsAtPath:dir.path isDirectory:&isDir] || !isDir) {
+            *error = "the staging directory does not exist";
+            return QString();
+        }
+        return QString::fromUtf8(dir.fileSystemRepresentation);
     }
 }
 

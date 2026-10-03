@@ -57,7 +57,7 @@
 #include "ui/msgbox.h"
 #include "ui/langresource.h"
 #ifdef LANSCAPES_APPSTORE
-#include "mcp/mcphooks.h"
+#include "../../tools/dslcap/capcore.h"
 #endif
 
 namespace pv
@@ -207,11 +207,6 @@ namespace pv
         }
 
         struct ds_device_base_info *dev = (array + count - 1);
-#ifdef LANSCAPES_APPSTORE
-        // While an MCP client holds the analyzer, the default is the newest file or the demo device.
-        while (pv::mcp::device_lent() && dev > array && !pv::mcp::is_virtual_device(dev->handle))
-            dev--;
-#endif
         ds_device_handle dev_handle = dev->handle;
 
         g_free(array);
@@ -228,12 +223,6 @@ namespace pv
         assert(!_is_saving);
         assert(!_is_working);
         assert(_callback);
-
-#ifdef LANSCAPES_APPSTORE
-        // An MCP client holds the analyzer: the GUI asks for it back instead.
-        if (!pv::mcp::may_activate(dev_handle))
-            return false;
-#endif
 
         ds_device_handle old_dev = _device_agent.handle();
  
@@ -336,16 +325,6 @@ namespace pv
             dsv_err("Load file error!");
             return false;
         }
-#ifdef LANSCAPES_APPSTORE
-        // The file device is the newest in the list; it is not the analyzer.
-        {
-            struct ds_device_base_info *array = NULL;
-            int count = 0;
-            if (ds_get_device_list(&array, &count) == SR_OK && array != NULL && count > 0)
-                pv::mcp::note_file_device(array[count - 1].handle);
-            g_free(array);
-        }
-#endif
 
         return set_default_device();
     }
@@ -823,6 +802,9 @@ namespace pv
         }
         else
         {
+            // The capture ends once the device has uploaded its buffer; this is still
+            // an explicit Stop (an MCP capture keeps the data up to it).
+            _callback->trigger_message(DSV_MSG_END_COLLECT_WORK_PREV);
             dsv_info("Data is uploading from device data buffer, waiting for stop.");
         }
         return false;
@@ -1532,6 +1514,9 @@ namespace pv
                                         const struct sr_datafeed_packet *packet)
     {
         assert(_session);
+#ifdef LANSCAPES_APPSTORE
+        cap_on_data(sdi, packet);     // an MCP capture records the same feed as dslcap
+#endif
         _session->data_feed_in(sdi, packet);
     }
 
@@ -2097,6 +2082,9 @@ namespace pv
             dsv_err("Error!Global variable \"_session\" is null.");
             return;
         }
+#ifdef LANSCAPES_APPSTORE
+        cap_on_event(event);
+#endif
         _session->on_device_lib_event(event);
     }
 

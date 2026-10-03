@@ -180,7 +180,19 @@
         "text": "로그 옵션(&O)"
     },
     {
-        "id": "IDS_TOOLBAR_MCP_ITEM",
-        "text": "MCP..."
+        "id": "IDS_TOOLBAR_MCP",
+        "text": "MCP"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_TIP_OFF",
+        "text": "MCP가 꺼져 있습니다"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_TIP_ON",
+        "text": "MCP 켜짐: Logic Analyze가 열려 있는 동안 AI 어시스턴트가 캡처할 수 있습니다"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_TIP_BUSY",
+        "text": "MCP 켜짐: AI 어시스턴트가 캡처하고 있습니다"
     }
 ]

@@ -394,29 +394,5 @@
     {
         "id": "IDS_MSG_MCP_AGENT_MISSING",
         "text": "De Logic Analyze Agent ontbreekt in deze kopie van de app."
-    },
-    {
-        "id": "IDS_MSG_MCP_CLIENT_USING",
-        "text": "Een MCP-client gebruikt de analyser."
-    },
-    {
-        "id": "IDS_MSG_MCP_CLIENT_USING_TAKE_BACK",
-        "text": "Een MCP-client gebruikt de analyser. Selecteer hem in de apparatenlijst om hem terug te nemen."
-    },
-    {
-        "id": "IDS_MSG_MCP_CLIENT_USING_SWITCH",
-        "text": "Een MCP-client gebruikt de analyser. Logic Analyze schakelt ernaar over zodra de client klaar is."
-    },
-    {
-        "id": "IDS_MSG_MCP_HAND_OVER",
-        "text": "Een MCP-client wil de analyser gebruiken. Overdragen?"
-    },
-    {
-        "id": "IDS_MSG_MCP_CAPTURE_STOPS",
-        "text": "De lopende vastlegging stopt."
-    },
-    {
-        "id": "IDS_MSG_MCP_DATA_CLEARED",
-        "text": "De vastgelegde gegevens op het scherm worden gewist; sla ze eerst op als u ze nodig hebt."
     }
 ]

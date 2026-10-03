@@ -63,7 +63,7 @@ mkdir -p "$C/MacOS" "$C/Resources" "$C/Frameworks"
 
 echo "== executables"
 cp "$SRC/build.dir/DSView" "$C/MacOS/$EXE"
-# The App Store GUI does not run dslcap; the agent bundle carries its own.
+# The App Store edition ships no dslcap (a developer tool); the GUI captures in process.
 [ -n "$APPSTORE" ] || cp "$SRC/build.dir/dslcap" "$C/MacOS/dslcap"
 
 echo "== data (Contents/Resources; GetAppDataDir looks here first)"
@@ -71,7 +71,7 @@ cp -R "$SRC/DSView/res" "$SRC/DSView/demo" "$SRC/lang" "$C/Resources/"
 cp -R "$SRC/libsigrokdecode4DSL/decoders" "$C/Resources/decoders"
 rm -rf "$C/Resources/decoders/ir_irmp"  # needs the native libirmp, which is not built
 rm -rf "$C/Resources/decoders/pxx1"     # declares no license ("Pirate"); not redistributable
-cp "$SRC/NEWS25" "$SRC/NEWS31" "$SRC/ug25.pdf" "$SRC/ug31.pdf" "$C/Resources/"
+cp "$SRC/NEWS25" "$SRC/NEWS31" "$C/Resources/"
 # The manual in each UI language (doc/manual); Help > Manual opens manual/<lang>/index.html.
 python3 "$SRC/tools/manual/build_manual.py" --out "$C/Resources/manual" >/dev/null
 cp "$SRC/DSView/icons/showDoc25.png" "$SRC/DSView/icons/showDoc31.png" "$C/Resources/"
@@ -130,6 +130,9 @@ rm -f "$DYN"/_decimal.* "$DYN"/_hashlib.* "$DYN"/_ssl.* "$DYN"/_lzma.* "$DYN"/_s
       "$DYN"/_test*.* "$DYN"/_xxtestfuzz.* "$DYN"/xx*.* "$DYN"/_ctypes_test.* \
       "$DYN"/readline.* "$DYN"/_curses*.* "$DYN"/_dbm.* "$DYN"/_gdbm.* "$DYN"/_tkinter.*
 rm -f "$PV/lib/python$PYVER/sitecustomize.py"  # Homebrew's: adds /opt/homebrew site-packages
+# macOS rsync follows the site-packages symlink despite the exclude, bringing pip and wheel;
+# the decoders need neither, so the bundle gets an empty site-packages.
+rm -rf "$PV/lib/python$PYVER/site-packages"
 mkdir -p "$PV/lib/python$PYVER/site-packages"
 ln -s "$PYVER" "$PF/Versions/Current"
 ln -s Versions/Current/Python "$PF/Python"

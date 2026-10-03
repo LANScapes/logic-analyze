@@ -394,29 +394,5 @@
     {
         "id": "IDS_MSG_MCP_AGENT_MISSING",
         "text": "W tej kopii aplikacji brakuje Logic Analyze Agent."
-    },
-    {
-        "id": "IDS_MSG_MCP_CLIENT_USING",
-        "text": "Klient MCP używa analizatora."
-    },
-    {
-        "id": "IDS_MSG_MCP_CLIENT_USING_TAKE_BACK",
-        "text": "Klient MCP używa analizatora. Wybierz go na liście urządzeń, aby go odzyskać."
-    },
-    {
-        "id": "IDS_MSG_MCP_CLIENT_USING_SWITCH",
-        "text": "Klient MCP używa analizatora. Logic Analyze przełączy się na niego, gdy klient skończy."
-    },
-    {
-        "id": "IDS_MSG_MCP_HAND_OVER",
-        "text": "Klient MCP chce użyć analizatora. Przekazać go?"
-    },
-    {
-        "id": "IDS_MSG_MCP_CAPTURE_STOPS",
-        "text": "Trwająca akwizycja zostanie zatrzymana."
-    },
-    {
-        "id": "IDS_MSG_MCP_DATA_CLEARED",
-        "text": "Zebrane dane na ekranie zostaną usunięte; najpierw je zapisz, jeśli są potrzebne."
     }
 ]

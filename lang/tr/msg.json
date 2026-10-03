@@ -394,29 +394,5 @@
     {
         "id": "IDS_MSG_MCP_AGENT_MISSING",
         "text": "Logic Analyze Agent, uygulamanın bu kopyasında eksik."
-    },
-    {
-        "id": "IDS_MSG_MCP_CLIENT_USING",
-        "text": "Bir MCP istemcisi analizörü kullanıyor."
-    },
-    {
-        "id": "IDS_MSG_MCP_CLIENT_USING_TAKE_BACK",
-        "text": "Bir MCP istemcisi analizörü kullanıyor. Geri almak için cihaz listesinden seçin."
-    },
-    {
-        "id": "IDS_MSG_MCP_CLIENT_USING_SWITCH",
-        "text": "Bir MCP istemcisi analizörü kullanıyor. İstemci işini bitirince Logic Analyze ona geçer."
-    },
-    {
-        "id": "IDS_MSG_MCP_HAND_OVER",
-        "text": "Bir MCP istemcisi analizörü kullanmak istiyor. Devredilsin mi?"
-    },
-    {
-        "id": "IDS_MSG_MCP_CAPTURE_STOPS",
-        "text": "Süren yakalama durdurulur."
-    },
-    {
-        "id": "IDS_MSG_MCP_DATA_CLEARED",
-        "text": "Ekrandaki yakalanan veriler silinir; gerekiyorsa önce kaydedin."
     }
 ]

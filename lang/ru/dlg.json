@@ -804,10 +804,6 @@
         "text": "MCP:"
     },
     {
-        "id": "IDS_DLG_MCP_ANALYZER",
-        "text": "Анализатор:"
-    },
-    {
         "id": "IDS_DLG_MCP_TURN_ON",
         "text": "Включить"
     },
@@ -828,19 +824,19 @@
         "text": "Включено. Агент ещё не запущен."
     },
     {
-        "id": "IDS_DLG_MCP_TAKE_BACK",
-        "text": "Вернуть"
+        "id": "IDS_DLG_MCP_NOW",
+        "text": "Сейчас:"
     },
     {
-        "id": "IDS_DLG_MCP_LENT",
-        "text": "Передан MCP-клиенту."
+        "id": "IDS_DLG_MCP_IDLE",
+        "text": "Ожидание"
     },
     {
-        "id": "IDS_DLG_MCP_LENT_WAITING",
-        "text": "Передан MCP-клиенту. Ожидание завершения."
+        "id": "IDS_DLG_MCP_CAPTURING",
+        "text": "Захват: каналы %1, %2, %3 отсчётов"
     },
     {
-        "id": "IDS_DLG_MCP_HELD",
-        "text": "У Logic Analyze. MCP-клиенты запрашивают его при необходимости."
+        "id": "IDS_DLG_MCP_STOP",
+        "text": "Стоп"
     }
 ]
