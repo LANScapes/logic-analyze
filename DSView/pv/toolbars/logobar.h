@@ -60,7 +60,7 @@ public:
     void add_before_help(QWidget *w){ insertWidget(_help_action, w); }
 #endif
 
-   //show the hardware device conneted status with logo picture
+   //show the hardware device connected status with logo picture
     void dsl_connected(bool conn);
 
     inline void set_mainform_callback(IMainForm *callback){

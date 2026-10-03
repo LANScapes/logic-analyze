@@ -38,9 +38,11 @@ static void device_guard_result(const char *dir, const char *expected, int watch
         test_gate_fd = gate[0];
         test_library_calls = 0;
         test_forbid_library = 1; /* Every library API, including init, is a trap. */
+        ids_registry_calls = 0;
+        ids_test_use_registry = 1; /* Even an accidental listing uses fake APIs. */
         assert(signal(SIGPIPE, SIG_DFL) != SIG_ERR);
         int rc = dslcap_main(argc, argv);
-        assert(rc == 2 && test_library_calls == 0);
+        assert(rc == 2 && test_library_calls == 0 && ids_registry_calls == 0);
         exit(rc);
     }
     close(lifetime[0]); close(out[1]); close(err[1]); close(phase[1]); close(gate[0]);
@@ -116,6 +118,18 @@ static void test_device_guard(void)
     device_guard_result(dir, "missing option value", 0, "--device", NULL);
     device_guard_result(dir, "cannot combine with --list", 0, "--device", valid[0], "--list", NULL);
     device_guard_result(dir, "cannot combine with --list", 0, "--list", "--device", valid[0], NULL);
+    assert(parse(&o, "--device", valid[0], "--list-ids", NULL) == 2);
+    assert(parse(&o, "--list-ids", "--device", valid[0], NULL) == 2);
+    for (int watch = 0; watch < 2; ++watch) {
+        device_guard_result(dir, "--list-ids accepts only --parent-fd", watch,
+                            "--device", valid[0], "--list-ids", NULL);
+        device_guard_result(dir, "--list-ids accepts only --parent-fd", watch,
+                            "--list-ids", "--device", valid[0], NULL);
+    }
+    device_guard_result(dir, "listing option token is not an option value", 0,
+                        "--device", "--list-ids", NULL);
+    device_guard_result(dir, "listing option token is not an option value", 0,
+                        "--device", "--list-ids=true", NULL);
     device_guard_result(dir, "unknown argument", 0, "--device", valid[0], "--bogus", NULL);
     device_guard_result(dir, "unknown argument", 0, "--device=loc-20121500:100003421", NULL);
     /* Incomplete earlier flags cannot consume the selector and enable legacy
@@ -149,6 +163,6 @@ static void test_device_guard(void)
     assert(!rmdir(dir));
     g_free(dir);
     puts("device guard tests passed: canonical location/uint64 generation, rejected old syntax, "
-         "JSON exit 2, zero library calls, no files, rejection before manifest read");
+         "JSON exit 2, zero library/registry calls, no files, rejection before manifest read");
     assert(!fflush(stdout)); /* Subsequent harness forks must not inherit this text. */
 }

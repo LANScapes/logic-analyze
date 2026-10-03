@@ -78,13 +78,13 @@ DecoderStack::DecoderStack(pv::SigSession *session,
 
 DecoderStack::~DecoderStack()
 {   
-    //release resource talbe
+    //release resource table
     DESTROY_OBJECT(_decoder_status);
 
     //release source
     for (auto &kv : _rows)
     {
-        kv.second->clear(); //destory all annotations
+        kv.second->clear(); //destroy all annotations
         delete kv.second;
     }
     _rows.clear();
@@ -148,7 +148,7 @@ void DecoderStack::build_row()
     //release source
     for (auto &kv : _rows)
     {   
-        kv.second->clear(); //destory all annotations
+        kv.second->clear(); //destroy all annotations
         delete kv.second;
     }
     _rows.clear();
@@ -503,12 +503,11 @@ void DecoderStack::decode_data(const uint64_t decode_start, const uint64_t decod
 {
     decode_task_status *status = _stask_stauts;
 
-    //uint8_t *chunk = NULL;
     uint64_t last_cnt = 0;
     uint64_t notify_cnt = (decode_end - decode_start + 1)/100;
     srd_decoder_inst *logic_di = NULL;
 
-    // find the first level decoder instant
+    // find the first level decoder instance
     for (GSList *d = session->di_list; d; d = d->next) {
         srd_decoder_inst *di = (srd_decoder_inst *)d->data;
         srd_decoder *decoder = di->decoder;
@@ -649,7 +648,7 @@ void DecoderStack::decode_data(const uint64_t decode_start, const uint64_t decod
         }
 
         decoded_sample_count += chunk_end - i; 
-        _progress = (int)(decoded_sample_count * 100 / end_index);
+        _progress = end_index ? (int)(decoded_sample_count * 100 / end_index) : 100;
         i = chunk_end;   
  
         //use mutex
@@ -700,8 +699,8 @@ void DecoderStack::execute_decode_stack()
 	assert(_snapshot);
 
 	// Create the session
-    // one decoderstatck onwer one session
-    // all decoderstatck execute in sequence
+    // one decoderstack owns one session
+    // all decoderstacks execute in sequence
 	srd_session_new(&session);
 
     if (session == NULL){
@@ -709,7 +708,7 @@ void DecoderStack::execute_decode_stack()
         assert(false);
     }
     
-    // Get the intial sample count
+    // Get the initial sample count
     _sample_count = _snapshot->get_ring_sample_count();
  
     // Create the decoders
@@ -780,7 +779,7 @@ uint64_t DecoderStack::sample_rate()
     return _samplerate;
 }
 
-//the decode callback, annotation object will be create
+//the decode callback, annotation object will be created
 void DecoderStack::annotation_callback(srd_proto_data *pdata, void *self)
 {
 	assert(pdata);

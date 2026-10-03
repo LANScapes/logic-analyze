@@ -26,10 +26,11 @@ enum parent_fault {
 enum parent_mode { PM_GOOD, PM_INIT, PM_CAPTURE, PM_EXIT, PM_INIT_ERROR, PM_LIST_ERROR };
 static int test_fault, test_mode, test_phase_fd, test_gate_fd;
 static int test_library_calls, test_forbid_library;
+static int test_ids_forbid_library;
 static void test_library_call(void)
 {
     ++test_library_calls;
-    assert(!test_forbid_library); /* Guarded selection must never reach a driver. */
+    assert(!test_forbid_library && !test_ids_forbid_library); /* Neither guarded path may reach a driver. */
 }
 static int test_combined_flags, test_selected_level;
 static int test_fcntl(int fd, int cmd, ...);

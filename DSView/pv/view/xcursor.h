@@ -56,7 +56,7 @@ public:
 	/**
 	 * Constructor.
 	 * @param view A reference to the view that owns this marker.
-	 * @param colour A reference to the colour of this cursor.
+	 * @param order The cursor's order number.
      * @param value0
      * @param value1
 	 */

@@ -72,7 +72,7 @@ SR_PRIV struct sr_session *sr_session_new(void)
 {
 	if (session != NULL){
 		sr_detail("Destroy the old session.");
-		sr_session_destroy(); // Destory the old.
+		sr_session_destroy(); // Destroy the old.
 	}
 
 	session = g_try_malloc0(sizeof(struct sr_session));
@@ -253,8 +253,8 @@ SR_PRIV int sr_session_stop(void)
 	}
 
     g_mutex_lock(&session->stop_mutex);
-    if (session->running)
-        session->abort_session = TRUE;  
+    // Also before sr_session_run() starts: its loops check this flag.
+    session->abort_session = TRUE;  
     g_mutex_unlock(&session->stop_mutex);
 
 	return SR_OK;
@@ -328,8 +328,9 @@ static void datafeed_dump(const struct sr_datafeed_packet *packet)
  * @param pollfd The GPollFD.
  * @param timeout Max time to wait before the callback is called, ignored if 0.
  * @param cb Callback function to add. Must not be NULL.
- * @param cb_data Data for the callback function. Can be NULL.
- * @param poll_object TODO.
+ * @param sdi Device instance, passed to the callback as its data. Can be NULL.
+ * @param poll_object Key identifying this source (fd, GPollFD or GIOChannel
+ *                    pointer), used to remove it later.
  *
  * @return SR_OK upon success, SR_ERR_ARG upon invalid arguments, or
  *         SR_ERR_MALLOC upon memory allocation errors.
@@ -349,7 +350,7 @@ static int _sr_session_source_add(GPollFD *pollfd, int timeout,
 		return SR_ERR_CALL_STATUS;
 	}
 
-	/* Note: cb_data can be NULL, that's not a bug. */
+	/* Note: sdi can be NULL, that's not a bug. */
 
 	new_pollfds = g_try_realloc(session->pollfds,
 			sizeof(GPollFD) * (session->num_sources + 1));
@@ -388,7 +389,7 @@ static int _sr_session_source_add(GPollFD *pollfd, int timeout,
  * @param events Events to check for.
  * @param timeout Max time to wait before the callback is called, ignored if 0.
  * @param cb Callback function to add. Must not be NULL.
- * @param cb_data Data for the callback function. Can be NULL.
+ * @param sdi Device instance, passed to the callback as its data. Can be NULL.
  *
  * @return SR_OK upon success, SR_ERR_ARG upon invalid arguments, or
  *         SR_ERR_MALLOC upon memory allocation errors.
@@ -410,7 +411,7 @@ SR_PRIV int sr_session_source_add(int fd, int events, int timeout,
  * @param pollfd The GPollFD.
  * @param timeout Max time to wait before the callback is called, ignored if 0.
  * @param cb Callback function to add. Must not be NULL.
- * @param cb_data Data for the callback function. Can be NULL.
+ * @param sdi Device instance, passed to the callback as its data. Can be NULL.
  *
  * @return SR_OK upon success, SR_ERR_ARG upon invalid arguments, or
  *         SR_ERR_MALLOC upon memory allocation errors.
@@ -429,7 +430,7 @@ SR_PRIV int sr_session_source_add_pollfd(GPollFD *pollfd, int timeout,
  * @param events Events to poll on.
  * @param timeout Max time to wait before the callback is called, ignored if 0.
  * @param cb Callback function to add. Must not be NULL.
- * @param cb_data Data for the callback function. Can be NULL.
+ * @param sdi Device instance, passed to the callback as its data. Can be NULL.
  *
  * @return SR_OK upon success, SR_ERR_ARG upon invalid arguments, or
  *         SR_ERR_MALLOC upon memory allocation errors.
@@ -450,11 +451,11 @@ SR_PRIV int sr_session_source_add_channel(GIOChannel *channel, int events,
 }
 
 /**
- * Remove the source belonging to the specified channel.
+ * Remove the source belonging to the specified poll object.
  *
  * @todo Add more error checks and logging.
  *
- * @param channel The channel for which the source should be removed.
+ * @param poll_object The key the source was added with.
  *
  * @return SR_OK upon success, SR_ERR_ARG upon invalid arguments, or
  *         SR_ERR_MALLOC upon memory allocation errors, SR_ERR_BUG upon

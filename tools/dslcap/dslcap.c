@@ -2,6 +2,7 @@
  * dslcap: headless DSLogic capture on libsigrok4DSL (GPL-3.0, as DSView).
  *
  *   dslcap --list [--res DIR] [--parent-fd N] [--res-manifest FD] [--log-level N]
+ *   dslcap --list-ids [--parent-fd N]
  *   dslcap --channels 0,1 --samplerate 10000000 --samples 1000000
  *          [--vth 1.6] [--mode buffer|stream] [--trigger CH[:R|F|C|1|0]]
  *          [--trigpos PERCENT] [--timeout SEC] [--res DIR]
@@ -44,6 +45,7 @@
 #include <mach-o/dyld.h>
 #endif
 #include "libsigrok.h"
+#include "list_ids.h"
 
 /* The spool and the output may exceed 2 GiB. */
 G_STATIC_ASSERT(sizeof(off_t) >= 8);
@@ -343,7 +345,7 @@ struct options {
     const char *parent_fd_value;
     uint64_t rate, samples;
     double vth, timeout;
-    int trigpos, list_only, stream, vth_given, log_level;
+    int trigpos, list_only, list_ids, stream, vth_given, log_level;
     int res_manifest;
     int enabled[MAX_CHANNELS], nch;
     int trig_ch;
@@ -377,6 +379,14 @@ static int parse_args(int argc, char **argv, struct options *o)
             o->list_only = 1;
             continue;
         }
+        if (!strcmp(a, "--list-ids")) {
+            if (o->list_ids) {
+                arg_error("duplicate option", a, NULL);
+                return 2;
+            }
+            o->list_ids = 1;
+            continue;
+        }
         static const char *const valued[] = {
             "--res", "--res-manifest", "--out", "--channels", "--samplerate", "--samples", "--vth",
             "--mode", "--trigger", "--trigpos", "--timeout", "--parent-fd", "--log-level", "--device",
@@ -407,7 +417,16 @@ static int parse_args(int argc, char **argv, struct options *o)
             arg_error("missing option value before --device", a, NULL);
             return 2;
         }
+        if (o->list_ids && strcmp(a, "--parent-fd")) {
+            arg_error("--list-ids accepts only --parent-fd", a, NULL);
+            return 2;
+        }
         const char *v = argv[++i];
+        /* A swallowed listing-mode token must never reach the legacy scan. */
+        if (!strcmp(v, "--list-ids") || g_str_has_prefix(v, "--list-ids=")) {
+            arg_error("listing option token is not an option value", a, v);
+            return 2;
+        }
         int bad = 0;
         if (!strcmp(a, "--res")) o->res = v;
         else if (!strcmp(a, "--device")) {
@@ -473,6 +492,15 @@ static int parse_args(int argc, char **argv, struct options *o)
         }
     }
 
+    if (o->list_ids) {
+        for (int i = 1; i < argc; i++) {
+            if (!strcmp(argv[i], "--list-ids")) continue;
+            if (!strcmp(argv[i], "--parent-fd")) { i++; continue; }
+            arg_error("--list-ids accepts only --parent-fd", argv[i], NULL);
+            return 2;
+        }
+        return 0;
+    }
     if (strcmp(o->mode, "buffer") && strcmp(o->mode, "stream")) {
         arg_error("invalid option value", "--mode", o->mode);
         return 2;
@@ -865,6 +893,10 @@ int main(int argc, char **argv)
         json_str(o.device);
         printf("}\n");
         return finish_stdout(2);
+    }
+    if (o.list_ids) {
+        parent_check();
+        return finish_stdout(dslcap_list_ids());
     }
 
     char *res_found = NULL;

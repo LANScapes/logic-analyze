@@ -76,7 +76,7 @@ static void get_file_short_name(const char *file, char *buf, int buflen)
     char *wr = buf;
     char c;
 
-    while (pos >= 0)
+    while (pos > 0)
     {
         pos--;
         c = *(file + pos);
@@ -87,7 +87,7 @@ static void get_file_short_name(const char *file, char *buf, int buflen)
         }
     }
 
-    while (pos < len && (wr - buf) <= buflen)
+    while (pos < len && (wr - buf) < buflen)
     {
         *wr = *(file + pos);
         wr++;
@@ -450,13 +450,16 @@ static int receive_data_logic_dso_v2(int fd, int revents, const struct sr_dev_in
     chan_num = vdev->num_probes;
     byte_align = sdi->mode == LOGIC ? 8 : 1;
 
+    // The freewheel loop ignores return values: end the session on errors.
     if (chan_num < 1){
         sr_err("%s: channel count < 1.", __func__);
-        return SR_ERR_ARG;
+        send_error_packet(sdi, vdev, &packet);
+        return FALSE;
     }
     if (chan_num > SESSION_MAX_CHANNEL_COUNT){
         sr_err("%s: channel count is to big.", __func__);
-        return SR_ERR_ARG;
+        send_error_packet(sdi, vdev, &packet);
+        return FALSE;
     }
 
     // Make buffer
@@ -466,7 +469,8 @@ static int receive_data_logic_dso_v2(int fd, int revents, const struct sr_dev_in
         vdev->packet_buffer = g_try_malloc0(sizeof(struct session_packet_buffer));
         if (vdev->packet_buffer == NULL){
             sr_err("%s: vdev->packet_buffer malloc failed", __func__);
-            return SR_ERR_MALLOC;
+            send_error_packet(sdi, vdev, &packet);
+            return FALSE;
         }
         memset(vdev->packet_buffer, 0, sizeof(struct session_packet_buffer));
 
@@ -482,7 +486,9 @@ static int receive_data_logic_dso_v2(int fd, int revents, const struct sr_dev_in
         vdev->packet_buffer->post_buf = g_try_malloc0(vdev->packet_buffer->post_buf_len + 1);
         if (vdev->packet_buffer->post_buf == NULL){
             sr_err("%s: vdev->packet_buffer->post_buf malloc failed", __func__);
-            return SR_ERR_MALLOC;
+            safe_free(vdev->packet_buffer);
+            send_error_packet(sdi, vdev, &packet);
+            return FALSE;
         }
 
         pack_buffer = vdev->packet_buffer;
@@ -523,7 +529,7 @@ static int receive_data_logic_dso_v2(int fd, int revents, const struct sr_dev_in
 
     while (pack_buffer->post_write_len < pack_buffer->post_buf_len)
     { 
-        // The current block is readed end, or the buffer is empty.
+        // The current block has been fully read, or the buffer is empty.
         if (pack_buffer->block_read_len >= pack_buffer->block_data_len)
         { 
             // The block index to end.
@@ -831,6 +837,8 @@ static int dev_destroy(struct sr_dev_inst *sdi)
     assert(sdi);
     dev_close(sdi); 
     sr_dev_inst_free(sdi);
+
+    return SR_OK;
 }
 
 static int config_get(int id, GVariant **data, const struct sr_dev_inst *sdi,
@@ -1624,7 +1632,7 @@ static int sr_load_virtual_device_session(struct sr_dev_inst *sdi)
     }
     if (unzOpenCurrentFile(archive) != UNZ_OK)
     { 
-        sr_err("%s: Cant't open zip inner file.", __func__);
+        sr_err("%s: Can't open zip inner file.", __func__);
         unzClose(archive);
         return SR_ERR;
     }

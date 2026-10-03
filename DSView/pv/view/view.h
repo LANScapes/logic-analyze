@@ -82,7 +82,6 @@ private:
     static const int MaxHeightUnit;
 
 public:
-    //static const int SignalHeight;
 	static const int SignalMargin;
 	static const int SignalSnapGridSize;
 
@@ -163,7 +162,7 @@ public:
 	/**
 	 * Sets the scale and offset.
 	 * @param scale The new view scale in seconds per pixel.
-	 * @param offset The view time offset in seconds.
+	 * @param offset The view offset in pixels.
 	 */
     void set_scale_offset(double scale, int64_t offset);
     void set_preScale_preOffset();
@@ -251,7 +250,7 @@ public:
     void scroll_to_logic_last_data_time();
 
     /*
-     * horizental cursors
+     * horizontal cursors
      */
     inline bool xcursors_shown(){
         return _show_xcursors;
@@ -305,7 +304,7 @@ public:
     }
 
     /*
-     * untils
+     * utils
      */
     double index2pixel(uint64_t index, bool has_hoff = true);
     uint64_t pixel2index(double pixel);

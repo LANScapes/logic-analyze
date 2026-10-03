@@ -20,6 +20,14 @@ static void first_library_call(int level) __attribute__((noreturn));
 #include <stdarg.h>
 #include <sys/wait.h>
 
+/* This harness must remain independent of USB. The dedicated listing harness
+ * exercises the actual guarded implementation; these logger cases never list IDs. */
+int dslcap_list_ids(void)
+{
+    assert(!"unexpected --list-ids in log-level harness");
+    return 1;
+}
+
 static jmp_buf library_boundary;
 static int library_calls, chosen_level, expect_parent_watch;
 

@@ -785,7 +785,7 @@ endif(ENABLE_TESTS)
 # The tool uses POSIX file and executable-path APIs, so it is not built on
 # Windows; the GUI build there is unchanged.
 if(NOT WIN32)
-	add_executable(dslcap tools/dslcap/dslcap.c ${common_SOURCES} ${libsigrok4DSL_SOURCES})
+	add_executable(dslcap tools/dslcap/dslcap.c tools/dslcap/list_ids.c ${common_SOURCES} ${libsigrok4DSL_SOURCES})
 
 	# Only what the C sources need; unlike the C++ link of DSView, the C link
 	# does not pull in libm implicitly.
@@ -795,6 +795,14 @@ if(NOT WIN32)
 		${CMAKE_THREAD_LIBS_INIT}
 		${LIBUSB_1_LIBRARIES}
 	)
+	if(APPLE)
+		find_library(DSLCAP_IOKIT_FRAMEWORK IOKit)
+		find_library(DSLCAP_COREFOUNDATION_FRAMEWORK CoreFoundation)
+		if(NOT DSLCAP_IOKIT_FRAMEWORK OR NOT DSLCAP_COREFOUNDATION_FRAMEWORK)
+			message(FATAL_ERROR "dslcap requires macOS IOKit and CoreFoundation")
+		endif()
+		list(APPEND DSLCAP_LINK_LIBS ${DSLCAP_IOKIT_FRAMEWORK} ${DSLCAP_COREFOUNDATION_FRAMEWORK})
+	endif()
 	find_library(DSLCAP_MATH_LIBRARY m)
 	if(DSLCAP_MATH_LIBRARY)
 		list(APPEND DSLCAP_LINK_LIBS ${DSLCAP_MATH_LIBRARY})
@@ -815,6 +823,26 @@ if(NOT WIN32)
 	set(DSLCAP_RESOURCE_TEST_SOURCES ${libsigrok4DSL_SOURCES})
 	list(REMOVE_ITEM DSLCAP_RESOURCE_TEST_SOURCES libsigrok4DSL/resource.c)
 	add_executable(dslcap_test_resources EXCLUDE_FROM_ALL
-		tools/dslcap/test_resources.c ${common_SOURCES} ${DSLCAP_RESOURCE_TEST_SOURCES})
+		tools/dslcap/test_resources.c tools/dslcap/list_ids.c ${common_SOURCES} ${DSLCAP_RESOURCE_TEST_SOURCES})
 	target_link_libraries(dslcap_test_resources ${DSLCAP_LINK_LIBS})
+	if(APPLE)
+		# Real CoreFoundation memory objects; all registry APIs remain fake and
+		# no IOKit or libusb framework/library is linked into this harness.
+		add_executable(dslcap_test_registry_cf EXCLUDE_FROM_ALL tools/dslcap/test_registry_cf.c)
+		target_link_libraries(dslcap_test_registry_cf -lglib-2.0
+			${DSLCAP_COREFOUNDATION_FRAMEWORK} ${CMAKE_THREAD_LIBS_INIT} ${DSLCAP_MATH_LIBRARY})
+		set_property(TARGET dslcap_test_registry_cf APPEND_STRING PROPERTY LINK_FLAGS " -Wl,-dead_strip")
+	endif()
+
+	# Explicit hardware-free collection lifecycle regression. The harness
+	# includes lib_main.c with mocked session/driver work; no USB is linked.
+	add_executable(ds_test_collect_lifecycle EXCLUDE_FROM_ALL
+		libsigrok4DSL/tests/test_collect_lifecycle.c)
+	target_link_libraries(ds_test_collect_lifecycle -lglib-2.0 ${CMAKE_THREAD_LIBS_INIT})
+	if(APPLE)
+		set_property(TARGET ds_test_collect_lifecycle APPEND_STRING PROPERTY LINK_FLAGS " -Wl,-dead_strip")
+	else()
+		target_compile_options(ds_test_collect_lifecycle PRIVATE -ffunction-sections -fdata-sections)
+		set_property(TARGET ds_test_collect_lifecycle APPEND_STRING PROPERTY LINK_FLAGS " -Wl,--gc-sections")
+	endif()
 endif()

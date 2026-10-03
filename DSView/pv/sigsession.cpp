@@ -182,7 +182,7 @@ namespace pv
         assert(!_is_saving);
         
         if (_is_working){
-            dsv_info("SigSession::set_default_device()，The current device is working, now to stop it.");
+            dsv_info("SigSession::set_default_device(), The current device is working, now to stop it.");
             dsv_info("SigSession::set_default_device(), stop capture");
             stop_capture();
         }
@@ -339,7 +339,7 @@ namespace pv
 
         if (ds_remove_device(dev_handle) != SR_OK)
         {
-            dsv_err("Remove virtual deivice error!");
+            dsv_err("Remove virtual device error!");
         }
 
         if (isCurrent)
@@ -1990,6 +1990,7 @@ namespace pv
             return _decode_traces[index];
         }
         assert(false);
+        return NULL;
     }
 
     view::DecodeTrace *SigSession::get_top_decode_task()
@@ -2013,8 +2014,10 @@ namespace pv
         dsv_info("------->decode thread start");
         auto task = get_top_decode_task();
 
-        while (task != NULL)
+        for (;;)
         {
+          while (task != NULL)
+          {
             if (!task->_delete_flag)
             {
                 task->decoder()->begin_decode_work();
@@ -2033,12 +2036,23 @@ namespace pv
             }
 
             task = get_top_decode_task();
+          }
+
+          _view_data->get_logic()->decode_end();
+
+          // add_decode_task() starts no thread while _is_decoding is set, so
+          // clear it under the queue lock, or take what was queued meanwhile.
+          std::lock_guard<std::mutex> lock(_decode_task_mutex);
+          if (_decode_tasks.empty())
+          {
+              _is_decoding = false;
+              break;
+          }
+          task = _decode_tasks.front();
+          _decode_tasks.erase(_decode_tasks.begin());
         }
 
-        _view_data->get_logic()->decode_end();
-
         dsv_info("------->decode thread end");
-        _is_decoding = false;        
     }
 
     Snapshot *SigSession::get_signal_snapshot()
@@ -2289,7 +2303,7 @@ namespace pv
 
                     _trig_check_timer.Stop();
 
-                    //Switch the caputrued data buffer to view.
+                    //Switch the captured data buffer to view.
                     if (bSwapBuffer)
                     {
                         if (_view_data != _capture_data)
@@ -2333,7 +2347,7 @@ namespace pv
 
     void SigSession::DeviceConfigChanged()
     {
-        // Nonthing.
+        // Nothing.
     }
 
     bool SigSession::switch_work_mode(int mode)
