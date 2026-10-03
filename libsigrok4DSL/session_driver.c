@@ -450,13 +450,16 @@ static int receive_data_logic_dso_v2(int fd, int revents, const struct sr_dev_in
     chan_num = vdev->num_probes;
     byte_align = sdi->mode == LOGIC ? 8 : 1;
 
+    // The freewheel loop ignores return values: end the session on errors.
     if (chan_num < 1){
         sr_err("%s: channel count < 1.", __func__);
-        return SR_ERR_ARG;
+        send_error_packet(sdi, vdev, &packet);
+        return FALSE;
     }
     if (chan_num > SESSION_MAX_CHANNEL_COUNT){
         sr_err("%s: channel count is to big.", __func__);
-        return SR_ERR_ARG;
+        send_error_packet(sdi, vdev, &packet);
+        return FALSE;
     }
 
     // Make buffer
@@ -466,7 +469,8 @@ static int receive_data_logic_dso_v2(int fd, int revents, const struct sr_dev_in
         vdev->packet_buffer = g_try_malloc0(sizeof(struct session_packet_buffer));
         if (vdev->packet_buffer == NULL){
             sr_err("%s: vdev->packet_buffer malloc failed", __func__);
-            return SR_ERR_MALLOC;
+            send_error_packet(sdi, vdev, &packet);
+            return FALSE;
         }
         memset(vdev->packet_buffer, 0, sizeof(struct session_packet_buffer));
 
@@ -482,7 +486,9 @@ static int receive_data_logic_dso_v2(int fd, int revents, const struct sr_dev_in
         vdev->packet_buffer->post_buf = g_try_malloc0(vdev->packet_buffer->post_buf_len + 1);
         if (vdev->packet_buffer->post_buf == NULL){
             sr_err("%s: vdev->packet_buffer->post_buf malloc failed", __func__);
-            return SR_ERR_MALLOC;
+            safe_free(vdev->packet_buffer);
+            send_error_packet(sdi, vdev, &packet);
+            return FALSE;
         }
 
         pack_buffer = vdev->packet_buffer;
