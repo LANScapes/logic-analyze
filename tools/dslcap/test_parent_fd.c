@@ -25,6 +25,7 @@ enum parent_fault {
 };
 enum parent_mode { PM_GOOD, PM_INIT, PM_CAPTURE, PM_EXIT, PM_INIT_ERROR, PM_LIST_ERROR };
 static int test_fault, test_mode, test_phase_fd, test_gate_fd;
+static int test_ids_forbid_library;
 static int test_fcntl(int fd, int cmd, ...);
 static int test_pthread_create(pthread_t *t, const pthread_attr_t *a,
                               void *(*fn)(void *), void *arg);
@@ -163,20 +164,22 @@ static int test_sigaction(int sig, const struct sigaction *act, struct sigaction
 static struct sr_channel test_channel = { .index = 0, .enabled = TRUE };
 static GSList test_channels = { .data = &test_channel };
 static uint64_t test_rate, test_limit;
-void ds_log_level(int level) { (void)level; test_phase('d'); }
-void ds_set_firmware_resource_dir(const char *dir) { (void)dir; test_phase('d'); }
+void ds_log_level(int level) { assert(!test_ids_forbid_library); (void)level; test_phase('d'); }
+void ds_set_firmware_resource_dir(const char *dir) { assert(!test_ids_forbid_library); (void)dir; test_phase('d'); }
 /* This parent-only harness omits the manifest flag. Its main still references
  * the opt-in API; actual combined preflight is covered by test_resources.c. */
 int ds_set_firmware_resource_manifest(int fd, GError **error)
 {
+    assert(!test_ids_forbid_library);
     (void)error;
     assert(fd == -1);
     return SR_OK;
 }
-void ds_set_event_callback(dslib_event_callback_t cb) { (void)cb; test_phase('d'); }
-void ds_set_datafeed_callback(ds_datafeed_callback_t cb) { (void)cb; test_phase('d'); }
+void ds_set_event_callback(dslib_event_callback_t cb) { assert(!test_ids_forbid_library); (void)cb; test_phase('d'); }
+void ds_set_datafeed_callback(ds_datafeed_callback_t cb) { assert(!test_ids_forbid_library); (void)cb; test_phase('d'); }
 int ds_lib_init(void)
 {
+    assert(!test_ids_forbid_library);
     struct sigaction sa;
     assert(!sigaction(SIGPIPE, NULL, &sa));
     assert(sa.sa_handler == (g_parent_fd >= 0 ? SIG_IGN : SIG_DFL));
@@ -186,12 +189,14 @@ int ds_lib_init(void)
 }
 int ds_lib_exit(void)
 {
+    assert(!test_ids_forbid_library);
     test_phase('E');
     if (test_mode == PM_EXIT) test_gate('e');
     return SR_OK;
 }
 int ds_get_device_list(struct ds_device_base_info **list, int *count)
 {
+    assert(!test_ids_forbid_library);
     if (test_mode == PM_LIST_ERROR) return SR_ERR;
     *count = 2;
     *list = g_new0(struct ds_device_base_info, 2);
@@ -200,7 +205,7 @@ int ds_get_device_list(struct ds_device_base_info **list, int *count)
     (*list)[1].handle = 1;
     return SR_OK;
 }
-int ds_active_device(ds_device_handle handle) { assert(handle == 1); return SR_OK; }
+int ds_active_device(ds_device_handle handle) { assert(!test_ids_forbid_library); assert(handle == 1); return SR_OK; }
 int ds_get_actived_device_info(struct ds_device_full_info *info)
 {
     strcpy(info->name, "DSLogic (test stub)");

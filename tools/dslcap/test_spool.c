@@ -12,6 +12,7 @@
  *   ./test_spool /tmp/raw /tmp/output.bin
  */
 #include "test_parent_fd.c"
+#include "test_list_ids.c"
 #undef NDEBUG
 #include <assert.h>
 #include <fcntl.h>
@@ -158,6 +159,7 @@ int main(int argc, char **argv)
     test_arguments();
     test_status();
     test_parent_fd();
+    test_list_ids();
 
     const int channels[] = {1, 2, 16, 32};
     const uint64_t frames = 5003;

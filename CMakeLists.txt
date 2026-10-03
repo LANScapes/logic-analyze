@@ -785,7 +785,7 @@ endif(ENABLE_TESTS)
 # The tool uses POSIX file and executable-path APIs, so it is not built on
 # Windows; the GUI build there is unchanged.
 if(NOT WIN32)
-	add_executable(dslcap tools/dslcap/dslcap.c ${common_SOURCES} ${libsigrok4DSL_SOURCES})
+	add_executable(dslcap tools/dslcap/dslcap.c tools/dslcap/list_ids.c ${common_SOURCES} ${libsigrok4DSL_SOURCES})
 
 	# Only what the C sources need; unlike the C++ link of DSView, the C link
 	# does not pull in libm implicitly.
@@ -815,6 +815,6 @@ if(NOT WIN32)
 	set(DSLCAP_RESOURCE_TEST_SOURCES ${libsigrok4DSL_SOURCES})
 	list(REMOVE_ITEM DSLCAP_RESOURCE_TEST_SOURCES libsigrok4DSL/resource.c)
 	add_executable(dslcap_test_resources EXCLUDE_FROM_ALL
-		tools/dslcap/test_resources.c ${common_SOURCES} ${DSLCAP_RESOURCE_TEST_SOURCES})
+		tools/dslcap/test_resources.c tools/dslcap/list_ids.c ${common_SOURCES} ${DSLCAP_RESOURCE_TEST_SOURCES})
 	target_link_libraries(dslcap_test_resources ${DSLCAP_LINK_LIBS})
 endif()
