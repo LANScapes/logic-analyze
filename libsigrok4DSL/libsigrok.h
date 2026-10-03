@@ -244,7 +244,7 @@ enum {
 	SR_UNIT_SIEMENS,
 	/**
 	 * An absolute measurement of power, in decibels, referenced to
-	 * 1 milliwatt (dBu).
+	 * 1 milliwatt (dBm).
 	 */
 	SR_UNIT_DECIBEL_MW,
 	/** Voltage in decibel, referenced to 1 volt (dBV). */
@@ -613,7 +613,6 @@ struct sr_output_module {
 	 * and the <code>out</code> parameter set to NULL.
 	 *
 	 * @param o Pointer to the respective 'struct sr_output'.
-	 * @param sdi The device instance that generated the packet.
 	 * @param packet The complete packet.
 	 * @param out A pointer where a GString * should be stored if
 	 * the module generates output, or NULL if not.
@@ -1297,7 +1296,7 @@ SR_API void ds_log_level(int level);
 // User can call ds_get_device_list() to get the new list, and update the list view.
 //#define DS_EV_INACTIVE_DEVICE_DETACH    3
 
-// The collect task is ends.
+// The collect task starts.
 #define DS_EV_COLLECT_TASK_START		101
 
 // The collect task is ends.
@@ -1415,7 +1414,7 @@ SR_API int ds_set_firmware_resource_manifest(int fd, GError **error);
 SR_API void ds_set_user_data_dir(const char *dir);
 
 /**
- * Get the device list, if the field _handle is 0, the list visited to end.
+ * Get the device list, if the field handle is 0, the list visited to end.
  * User need call g_free() to release the buffer. If the list is empty, the out_list is null.
  */
 SR_API int ds_get_device_list(struct ds_device_base_info** out_list, int *out_count);

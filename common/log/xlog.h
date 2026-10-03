@@ -76,7 +76,7 @@ XLOG_API xlog_context* xlog_new();
 XLOG_API xlog_context* xlog_new2(int bConsole);
 
 /**
- * 	free a log context, return 0 if success.
+ * 	free a log context.
  * 	and all xlog_writers can no longer be used.
  */
 XLOG_API void xlog_free(xlog_context* ctx);
@@ -103,7 +103,7 @@ XLOG_API int xlog_reset_log_file(xlog_context* ctx, int receiver_index, const ch
 XLOG_API int xlog_remove_receiver_by_index(xlog_context* ctx, int index);
 
 /**
- * Set the log receiver enable to disable.
+ * Enable or disable a log receiver, return 0 if success.
 */
 XLOG_API int xlog_set_receiver_enable(xlog_context* ctx, int index, int bEnable);
 

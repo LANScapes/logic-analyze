@@ -503,7 +503,6 @@ void DecoderStack::decode_data(const uint64_t decode_start, const uint64_t decod
 {
     decode_task_status *status = _stask_stauts;
 
-    //uint8_t *chunk = NULL;
     uint64_t last_cnt = 0;
     uint64_t notify_cnt = (decode_end - decode_start + 1)/100;
     srd_decoder_inst *logic_di = NULL;

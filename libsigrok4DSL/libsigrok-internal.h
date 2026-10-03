@@ -253,7 +253,7 @@ struct ds_trigger {
 };
 
 
-/*--- device.c --------------------------------------------------------------*/
+/*--- dsdevice.c ------------------------------------------------------------*/
 
 SR_PRIV struct sr_channel *sr_channel_new(uint16_t index, int type, gboolean enabled, const char *name);
 

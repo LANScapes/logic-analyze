@@ -345,7 +345,7 @@ static const char *maxHeights[] = {
     "5X",
 };
 
-/* We name the probes 0-7 on our demo driver. */
+/* We name the probes 0-15 on our demo driver. */
 static const char *probe_names[] = {
     "0", "1", "2", "3",
     "4", "5", "6", "7",

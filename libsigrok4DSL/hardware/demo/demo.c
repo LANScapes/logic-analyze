@@ -102,7 +102,6 @@ static const struct DEMO_channels channel_modes[] = {
 /* Private, per-device-instance driver context. */
 /* TODO: struct context as with the other drivers. */
 
-/* List of struct sr_dev_inst, maintained by dev_open()/dev_close(). */
 SR_PRIV struct sr_dev_driver demo_driver_info;
 static struct sr_dev_driver *di = &demo_driver_info;
 

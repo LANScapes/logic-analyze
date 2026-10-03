@@ -232,7 +232,7 @@ public:
 	 * @param p the QPainter to paint into.
 	 * @param right the x-coordinate of the right edge of the header
 	 * 	area.
-     * @param point the mouse point.
+     * @param pt the mouse point.
 	 */
     virtual void paint_label(QPainter &p, int right, const QPoint pt, QColor fore);
 
@@ -245,13 +245,9 @@ public:
 
     /**
      * Determines if a point is in the header rect.
-     * 1 - in color rect
-     * 2 - in name rect
-     * 3 - in posTrig rect
-     * 4 - in higTrig rect
-     * 5 - in negTrig rect
-     * 6 - in lowTrig rect
-     * 7 - in label rect
+     * COLOR (1) - in color rect
+     * NAME (2) - in name rect
+     * LABEL (8) - in label rect
      * 0 - not
      * @param y the y-coordinate of the signal.
      * @param right the x-coordinate of the right edge of the header
@@ -262,8 +258,8 @@ public:
         const QPoint &point);
 
     /**
-     * Computes the outline rectangle of a label.
-     * @param p the QPainter to lay out text with.
+     * Computes the outline rectangle of a header element.
+     * @param s which rect to compute: "name", "label" or "color".
      * @param y the y-coordinate of the signal.
      * @param right the x-coordinate of the right edge of the header
      * 	area.
@@ -308,7 +304,7 @@ protected:
      * @param p the QPainter to paint into.
      * @param right the x-coordinate of the right edge of the header
      * 	area.
-     * @param point the mouse point.
+     * @param pt the mouse point.
      */
     virtual void paint_type_options(QPainter &p, int right, const QPoint pt, QColor fore);
 

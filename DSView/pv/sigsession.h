@@ -120,7 +120,7 @@ private:
 
 using namespace pv::data;
 
-//created by MainWindow
+//created by AppControl
 class SigSession:
     public IMessageListener,
     public IDeviceAgentCallback

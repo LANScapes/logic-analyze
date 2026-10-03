@@ -255,7 +255,7 @@ static int sanity_check_all_output_modules(void)
 			errors++;
 		}*/
 
-		/* All modules must provide a data or recv API callback. */
+		/* All modules must provide a receive API callback. */
 		if (!outputs[i]->receive) {
 			sr_err("No data/receive in module %d ('%s').", i, d);
 			errors++;
@@ -263,7 +263,7 @@ static int sanity_check_all_output_modules(void)
 
 		/*
 		 * Currently most API calls are optional (their function
-		 * pointers can thus be NULL) in theory: init, event, cleanup.
+		 * pointers can thus be NULL) in theory: options, init, cleanup.
 		 */
 
 		if (errors == 0)

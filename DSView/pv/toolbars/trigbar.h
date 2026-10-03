@@ -73,8 +73,8 @@ private:
 signals:
     void sig_setTheme(QString style);
     void sig_protocol(bool visible); //post decode button click event,to show or hide protocol property panel
-    void sig_trigger(bool visible); //post decode button click event,to show or hide trigger property panel
-    void sig_measure(bool visible);//post decode button click event,to show or hide measure property panel
+    void sig_trigger(bool visible); //post trigger button click event,to show or hide trigger property panel
+    void sig_measure(bool visible);//post measure button click event,to show or hide measure property panel
     void sig_search(bool visible);
     void sig_show_lissajous(bool visible);
 

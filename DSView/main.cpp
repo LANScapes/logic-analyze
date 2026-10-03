@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
 
         LocalFree(argvUTF16);
 
-        // Ms::runApplication() wants an argv-style array of raw pointers to the arguments, so let's create a vector of them.
+        // getopt_long() and QApplication want an argv-style array of raw pointers to the arguments, so let's create a vector of them.
         std::vector<char*> argvUTF8;
         for (auto& arg : argvUTF8Q){
             argvUTF8.push_back(arg.data());

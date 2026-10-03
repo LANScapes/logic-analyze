@@ -1488,7 +1488,7 @@ SR_PRIV int dsl_fpga_config(struct libusb_device_handle *hdl, const char *filena
         }
     }
 
-    // step10: recover GPIF to be wordwide
+    // step11: recover GPIF to be wordwide
     wr_cmd.header.dest = DSL_CTL_WORDWIDE;
     wr_cmd.header.size = 1;
     wr_cmd.data[0] = bmWR_WORDWIDE;
@@ -2118,8 +2118,8 @@ static size_t get_buffer_size(const struct sr_dev_inst *sdi)
     devc = sdi->priv;
 
     /*
-     * The buffer should be large enough to hold 10ms of data and
-     * a multiple of 512.
+     * In stream mode the buffer holds 10ms (USB 3.0) or 20ms of data,
+     * rounded up to a multiple of 1024 (USB 3.0) or 512.
      */
     if (sdi->mode == DSO) {
         s = (devc->instant) ? devc->profile->dev_caps.dso_depth : devc->actual_samples * dsl_en_ch_num(sdi) + dsl_header_size(devc);
@@ -2140,7 +2140,7 @@ static unsigned int get_number_of_transfers(const struct sr_dev_inst *sdi)
     devc = sdi->priv;
 
     #ifndef _WIN32
-    /* Total buffer size should be able to hold about 100ms of data. */
+    /* Total buffer size should hold about 40ms (USB 3.0) or 100ms of data. */
     n = (devc->stream) ? ceil(get_total_buffer_time(devc) * 1.0f * to_bytes_per_ms(devc) / get_buffer_size(sdi)) : 1;
     #else
     n = (devc->stream) ? ceil(get_total_buffer_time(devc) * 1.0f * to_bytes_per_ms(devc) / get_buffer_size(sdi)) :

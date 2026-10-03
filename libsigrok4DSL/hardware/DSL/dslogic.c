@@ -840,7 +840,6 @@ static int config_set(int id, GVariant *data, struct sr_dev_inst *sdi,
     else if (id == SR_CONF_HORIZ_TRIGGERPOS) {
         if (sdi->mode == DSO) {
             devc->trigger_hrate = g_variant_get_byte(data);
-            //devc->trigger_hpos = devc->trigger_hrate * dsl_en_ch_num(sdi) * devc->limit_samples / 200.0;
             /*
              * devc->trigger_hpos should be updated before each acquisition
              * because the samplelimits may change
@@ -1444,7 +1443,7 @@ static int dev_acquisition_start(struct sr_dev_inst *sdi, void *cb_data)
     devc->mstatus.trig_hit = 0;
     devc->overflow = FALSE;
 
-	/* Configures devc->trigger_* and devc->sample_wide */
+	/* Configures devc->trigger_* */
     if (dsl_configure_probes(sdi) != SR_OK) {
         sr_err("%s: Failed to configure probes.", __func__);
         return SR_ERR;

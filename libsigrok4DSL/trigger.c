@@ -261,7 +261,7 @@ SR_API int ds_trigger_set_en(uint16_t enable)
 /**
  * get trigger en
  *
- * @return SR_OK upon success.
+ * @return trigger_en, or 0 if the trigger is not initialized.
  */
 SR_API uint16_t ds_trigger_get_en()
 {

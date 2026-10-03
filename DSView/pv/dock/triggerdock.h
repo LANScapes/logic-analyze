@@ -78,8 +78,8 @@ private:
 
       /*
      * commit trigger setting
-     * return 0: simple trigger
-     *        1: advanced trigger
+     * return false: simple trigger
+     *        true: advanced trigger
      */
     bool commit_trigger();
 

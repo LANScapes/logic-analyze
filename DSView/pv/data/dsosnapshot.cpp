@@ -442,7 +442,7 @@ double DsoSnapshot::cal_vrms(double zero_off, int index)
     double vrms = 0;
     double tmp;
 
-    // Iterate through the samples to populate the first level mipmap
+    // Iterate through the samples of this channel
     const uint8_t *const stop_src_ptr = (uint8_t*)_ch_data[index] + _sample_count;
     const uint8_t *src_ptr = (uint8_t*)_ch_data[index];
 
@@ -473,7 +473,7 @@ double DsoSnapshot::cal_vmean(int index)
     double vmean_pre = 0;
     double vmean = 0;
 
-    // Iterate through the samples to populate the first level mipmap
+    // Iterate through the samples of this channel
     const uint8_t *const stop_src_ptr = (uint8_t*)_ch_data[index] + _sample_count;
     const uint8_t *src_ptr = (uint8_t*)_ch_data[index];
 

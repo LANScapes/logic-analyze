@@ -705,7 +705,6 @@ void DeviceOptions::analog_probes(QGridLayout &layout)
         probe_checkBox->setProperty("Layout", vlayout);
         probe_checkBox->setProperty("Enable", true);
         probe_checkBox->setChecked(ch_enabled);
-       // probe_checkBox->setCheckState(probe->enabled ? Qt::Checked : Qt::Unchecked);
         _probes_checkBox_list.push_back(probe_checkBox);
 
         QLabel *en_label = new QLabel(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_ENABLE), "Enable: "), this);

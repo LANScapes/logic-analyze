@@ -82,7 +82,6 @@ private:
     static const int MaxHeightUnit;
 
 public:
-    //static const int SignalHeight;
 	static const int SignalMargin;
 	static const int SignalSnapGridSize;
 
@@ -163,7 +162,7 @@ public:
 	/**
 	 * Sets the scale and offset.
 	 * @param scale The new view scale in seconds per pixel.
-	 * @param offset The view time offset in seconds.
+	 * @param offset The view offset in pixels.
 	 */
     void set_scale_offset(double scale, int64_t offset);
     void set_preScale_preOffset();
