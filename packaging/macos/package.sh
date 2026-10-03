@@ -19,10 +19,10 @@ case "$LANSCAPES_BRAND" in ON|on|TRUE|true|1) ;; *)
   echo "FAIL: this packages Logic Analyze; the build has LANSCAPES_BRAND=$LANSCAPES_BRAND"; exit 1 ;;
 esac
 case "$LANSCAPES_APPSTORE" in ON|on|TRUE|true|1) APPSTORE=1 ;; *) APPSTORE= ;; esac
-# The App Store edition promises the MCP server (About window, EULA), which lives in a
-# private repository. Until its assembly step exists, refuse rather than ship an app
-# that claims a component it does not contain.
-[ -z "$APPSTORE" ] || { echo "FAIL: packaging the App Store edition (LANSCAPES_APPSTORE=ON) is not implemented yet"; exit 1; }
+# The App Store edition promises the MCP agent (About window, EULA), which lives in a
+# private repository. Here it is only laid out, unsigned: the private assembly step
+# embeds the agent, signs for the store and builds the installer.
+[ -z "$APPSTORE" ] || [ $# -eq 0 ] || { echo "FAIL: the App Store layout takes no arguments; the private assembly step signs it"; exit 2; }
 [ -n "$VERSION" ] || { echo "FAIL: no BRAND_VERSION in build.dir/brand.env"; exit 1; }
 [ -n "$BRAND_REPO_URL" ] || { echo "FAIL: no BRAND_REPO_URL in build.dir/brand.env"; exit 1; }
 [ -n "$BRAND_SUPPORT_EMAIL" ] || { echo "FAIL: no BRAND_SUPPORT_EMAIL in build.dir/brand.env"; exit 1; }
@@ -63,7 +63,8 @@ mkdir -p "$C/MacOS" "$C/Resources" "$C/Frameworks"
 
 echo "== executables"
 cp "$SRC/build.dir/DSView" "$C/MacOS/$EXE"
-cp "$SRC/build.dir/dslcap" "$C/MacOS/dslcap"
+# The App Store GUI does not run dslcap; the agent bundle carries its own.
+[ -n "$APPSTORE" ] || cp "$SRC/build.dir/dslcap" "$C/MacOS/dslcap"
 
 echo "== data (Contents/Resources; GetAppDataDir looks here first)"
 cp -R "$SRC/DSView/res" "$SRC/DSView/demo" "$SRC/lang" "$C/Resources/"
@@ -136,6 +137,7 @@ ln -s Versions/Current/Resources "$PF/Resources"
 chmod -R u+w "$PF"
 install_name_tool -id "@rpath/Python.framework/Versions/$PYVER/Python" "$PV/Python"
 for exe in "$C/MacOS/$EXE" "$C/MacOS/dslcap"; do
+  [ -f "$exe" ] || continue
   install_name_tool -change "$PYSRC/Python" "@executable_path/../Frameworks/Python.framework/Versions/$PYVER/Python" "$exe"
 done
 
@@ -151,7 +153,8 @@ echo "== precompiling Python (the bundle is read-only at run time)"
   -d "" "$PV/lib/python$PYVER" "$C/Resources/decoders" >/dev/null
 
 echo "== Qt and other libraries (macdeployqt)"
-"$QTBIN/macdeployqt" "$APP" -executable="$C/MacOS/dslcap" -libpath="$QTSVGLIB" -always-overwrite -verbose=1 > "$DIST/macdeployqt.log" 2>&1 \
+DEPLOY_EXTRA=(); [ -n "$APPSTORE" ] || DEPLOY_EXTRA=(-executable="$C/MacOS/dslcap")
+"$QTBIN/macdeployqt" "$APP" ${DEPLOY_EXTRA[@]+"${DEPLOY_EXTRA[@]}"} -libpath="$QTSVGLIB" -always-overwrite -verbose=1 > "$DIST/macdeployqt.log" 2>&1 \
   || { cat "$DIST/macdeployqt.log"; echo "FAIL: macdeployqt"; exit 1; }
 grep -v '^Log: ' "$DIST/macdeployqt.log" || true
 
@@ -176,6 +179,12 @@ python3 "$SRC/packaging/macos/macho_audit.py" audit "$APP" "$MIN_MACOS"
 
 echo "== third-party notices (every bundled library traced to its Homebrew keg)"
 BRAND_REPO_URL="$BRAND_REPO_URL" BRAND_SUPPORT_EMAIL="$BRAND_SUPPORT_EMAIL" python3 "$SRC/packaging/macos/third_party_notices.py" "$APP" "$SRC" "$C/Resources/licenses/THIRD-PARTY-NOTICES.txt"
+
+if [ -n "$APPSTORE" ]; then
+  du -sh "$APP"
+  echo "Built $APP (App Store layout, unsigned: the private assembly step signs it)"
+  exit 0
+fi
 
 # Sign every Mach-O file individually, inside out, then frameworks and the app.
 # codesign --deep does not reach loose libraries such as Python's lib-dynload.
