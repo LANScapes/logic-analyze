@@ -148,7 +148,7 @@ DeviceOptions::DeviceOptions(QWidget *parent) :
     minWid->setMinimumWidth(230);
     _container_lay->addWidget(minWid);
 
-    // chnnels group box
+    // channels group box
     this->build_dynamic_panel();
 
     // space
@@ -871,7 +871,7 @@ void DeviceOptions::try_resize_scroll()
     // content area height
     int contentHeight = _groupHeight1 + _groupHeight2 + 20; // +space
     //dialog height
-    int dlgHeight = contentHeight + 100; // +bottom buttton
+    int dlgHeight = contentHeight + 100; // +bottom button
 
 #ifdef Q_OS_DARWIN
     dlgHeight += 20;
