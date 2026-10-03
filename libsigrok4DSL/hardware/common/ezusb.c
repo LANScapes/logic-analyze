@@ -49,9 +49,33 @@ SR_PRIV int ezusb_reset(struct libusb_device_handle *hdl, int set_clear)
 	return ret;
 }
 
+static int ezusb_install_buffer(libusb_device_handle *hdl,
+        const unsigned char *data, gsize size)
+{
+    for (gsize offset = 0; offset < size;) {
+        int chunk = MIN((gsize)4096, size - offset);
+        int ret = libusb_control_transfer(hdl, LIBUSB_REQUEST_TYPE_VENDOR |
+                LIBUSB_ENDPOINT_OUT, 0xa0, offset, 0,
+                (unsigned char *)data + offset, chunk, 3000);
+        if (ret != chunk) {
+            sr_err("Verified firmware transfer failed or was short");
+            return SR_ERR;
+        }
+        offset += chunk;
+    }
+    return SR_OK;
+}
+
 SR_PRIV int ezusb_install_firmware(libusb_device_handle *hdl,
 				   const char *filename)
 {
+	if (ds_resource_manifest_enabled()) {
+        const unsigned char *data;
+        gsize size;
+        if (ds_resource_buffer(filename, 0x10000, &data, &size) != SR_OK)
+            return SR_ERR;
+        return ezusb_install_buffer(hdl, data, size);
+    }
 	FILE *fw;
 	int offset, chunksize, ret, result;
 	unsigned char buf[4096];
@@ -95,9 +119,39 @@ SR_PRIV int ezusb_install_firmware(libusb_device_handle *hdl,
 	return result;
 }
 
+static int ezusb_upload_verified(libusb_device *dev, int configuration,
+        const char *filename)
+{
+    const unsigned char *data;
+    gsize size;
+    struct libusb_device_handle *hdl = NULL;
+    int result = SR_ERR;
+
+    /* Even opening/configuring/resetting the device follows verification. */
+    if (ds_resource_buffer(filename, 0x10000, &data, &size) != SR_OK)
+        return SR_ERR;
+    if (libusb_open(dev, &hdl) < 0)
+        return SR_ERR;
+#if !defined(__APPLE__)
+    if (libusb_kernel_driver_active(hdl, 0) == 1 &&
+            libusb_detach_kernel_driver(hdl, 0) < 0)
+        goto done;
+#endif
+    if (libusb_set_configuration(hdl, configuration) < 0 || ezusb_reset(hdl, 1) < 0)
+        goto done;
+    if (ezusb_install_buffer(hdl, data, size) != SR_OK || ezusb_reset(hdl, 0) < 0)
+        goto done;
+    result = SR_OK;
+done:
+    libusb_close(hdl);
+    return result;
+}
+
 SR_PRIV int ezusb_upload_firmware(libusb_device *dev, int configuration,
 				  const char *filename)
 {
+	if (ds_resource_manifest_enabled())
+        return ezusb_upload_verified(dev, configuration, filename);
 	struct libusb_device_handle *hdl;
 	int ret;
 

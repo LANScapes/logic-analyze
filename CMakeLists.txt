@@ -508,6 +508,7 @@ set(libsigrok4DSL_SOURCES
     libsigrok4DSL/hardware/DSL/command.c
     libsigrok4DSL/hardware/DSL/dsl.c
     libsigrok4DSL/lib_main.c
+    libsigrok4DSL/resource.c
 )
 
 set(libsigrok4DSL_HEADERS
@@ -808,4 +809,12 @@ if(NOT WIN32)
 	)
 
 	install(TARGETS dslcap DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+	# Explicit hardware-free regression target; resource.c is included by the
+	# harness for read-failure injection. USB calls and ds_lib_init are stubbed.
+	set(DSLCAP_RESOURCE_TEST_SOURCES ${libsigrok4DSL_SOURCES})
+	list(REMOVE_ITEM DSLCAP_RESOURCE_TEST_SOURCES libsigrok4DSL/resource.c)
+	add_executable(dslcap_test_resources EXCLUDE_FROM_ALL
+		tools/dslcap/test_resources.c ${common_SOURCES} ${DSLCAP_RESOURCE_TEST_SOURCES})
+	target_link_libraries(dslcap_test_resources ${DSLCAP_LINK_LIBS})
 endif()

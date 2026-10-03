@@ -165,6 +165,14 @@ static GSList test_channels = { .data = &test_channel };
 static uint64_t test_rate, test_limit;
 void ds_log_level(int level) { (void)level; test_phase('d'); }
 void ds_set_firmware_resource_dir(const char *dir) { (void)dir; test_phase('d'); }
+/* This parent-only harness omits the manifest flag. Its main still references
+ * the opt-in API; actual combined preflight is covered by test_resources.c. */
+int ds_set_firmware_resource_manifest(int fd, GError **error)
+{
+    (void)error;
+    assert(fd == -1);
+    return SR_OK;
+}
 void ds_set_event_callback(dslib_event_callback_t cb) { (void)cb; test_phase('d'); }
 void ds_set_datafeed_callback(ds_datafeed_callback_t cb) { (void)cb; test_phase('d'); }
 int ds_lib_init(void)
