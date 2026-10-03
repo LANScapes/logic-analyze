@@ -833,4 +833,16 @@ if(NOT WIN32)
 			${DSLCAP_COREFOUNDATION_FRAMEWORK} ${CMAKE_THREAD_LIBS_INIT} ${DSLCAP_MATH_LIBRARY})
 		set_property(TARGET dslcap_test_registry_cf APPEND_STRING PROPERTY LINK_FLAGS " -Wl,-dead_strip")
 	endif()
+
+	# Explicit hardware-free collection lifecycle regression. The harness
+	# includes lib_main.c with mocked session/driver work; no USB is linked.
+	add_executable(ds_test_collect_lifecycle EXCLUDE_FROM_ALL
+		libsigrok4DSL/tests/test_collect_lifecycle.c)
+	target_link_libraries(ds_test_collect_lifecycle -lglib-2.0 ${CMAKE_THREAD_LIBS_INIT})
+	if(APPLE)
+		set_property(TARGET ds_test_collect_lifecycle APPEND_STRING PROPERTY LINK_FLAGS " -Wl,-dead_strip")
+	else()
+		target_compile_options(ds_test_collect_lifecycle PRIVATE -ffunction-sections -fdata-sections)
+		set_property(TARGET ds_test_collect_lifecycle APPEND_STRING PROPERTY LINK_FLAGS " -Wl,--gc-sections")
+	endif()
 endif()

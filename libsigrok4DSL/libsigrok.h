@@ -1469,7 +1469,9 @@ SR_API int ds_get_actived_device_info(struct ds_device_full_info *fill_info);
 SR_API int ds_get_actived_device_mode();
 
 /**
- * Start collect data
+ * Start collect data. Calls from the collection worker's callbacks return
+ * SR_ERR_CALL_STATUS; queue a restart on the caller/control thread instead.
+ * A successful restart waits for the prior worker and its callback to finish.
  */
 SR_API int ds_start_collect();
 
