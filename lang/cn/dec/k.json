@@ -160,10 +160,6 @@
         "text": "错误显示选项"
     },
     {
-        "id": "dec_modbus_opt_channel",
-        "text": "传输方向"
-    },
-    {
         "id": "dec_morse_chan_data",
         "text": "数据线"
     },
@@ -233,7 +229,7 @@
     },
     {
         "id": "dec_ook_opt_preamlen",
-        "text": "过滤器长度 "
+        "text": "过滤器长度"
     },
     {
         "id": "dec_ook_opt_diffmanvar",
@@ -262,5 +258,25 @@
     {
         "id": "dec_ook_oregon_opt_unknown",
         "text": "未知类型"
+    },
+    {
+        "id": "dec_onewire_link_opt_min_height_level_pulse_time",
+        "text": "最小高电平脉冲时间(us)"
+    },
+    {
+        "id": "dec_onewire_link_opt_min_overdrive_height_level_pulse_time",
+        "text": "高速模式最小高电平脉冲时间(us)"
+    },
+    {
+        "id": "dec_modbus_opt_scchannel",
+        "text": "服务器 -> 客户端通道"
+    },
+    {
+        "id": "dec_modbus_opt_cschannel",
+        "text": "客户端 -> 服务器通道"
+    },
+    {
+        "id": "dec_modbus_opt_framegap",
+        "text": "帧间位间隔"
     }
 ]

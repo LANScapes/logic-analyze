@@ -1,0 +1,474 @@
+[
+    {
+        "id": "dec_parallel_opt_clock_edge",
+        "text": "샘플링할 클록 에지"
+    },
+    {
+        "id": "dec_parallel_opt_wordsize",
+        "text": "데이터 워드 크기 (버스 사이클 수)"
+    },
+    {
+        "id": "dec_parallel_opt_endianness",
+        "text": "데이터 엔디언"
+    },
+    {
+        "id": "dec_pjdl_chan_data",
+        "text": "단선 데이터"
+    },
+    {
+        "id": "dec_pjdl_opt_mode",
+        "text": "통신 모드"
+    },
+    {
+        "id": "dec_pjdl_opt_idle_add_us",
+        "text": "추가 유휴 시간 (us)"
+    },
+    {
+        "id": "dec_ps2_chan_clk",
+        "text": "클록 라인"
+    },
+    {
+        "id": "dec_ps2_chan_data",
+        "text": "데이터 라인"
+    },
+    {
+        "id": "dec_ps2_opt_HtoD_Clock",
+        "text": "호스트→장치 클록"
+    },
+    {
+        "id": "dec_ps2_opt_DtoH_Clock",
+        "text": "장치→호스트 클록"
+    },
+    {
+        "id": "dec_pwm_chan_data",
+        "text": "데이터 라인"
+    },
+    {
+        "id": "dec_pwm_opt_polarity",
+        "text": "극성"
+    },
+    {
+        "id": "dec_pxx1_chan_data",
+        "text": "데이터 라인"
+    },
+    {
+        "id": "dec_qi_chan_qi",
+        "text": "복조된 Qi 데이터 라인"
+    },
+    {
+        "id": "dec_qspi_chan_clk",
+        "text": "클록"
+    },
+    {
+        "id": "dec_qspi_chan_io0",
+        "text": "데이터 I/O 0"
+    },
+    {
+        "id": "dec_qspi_opt_chan_io1",
+        "text": "데이터 I/O 1"
+    },
+    {
+        "id": "dec_qspi_opt_chan_io2",
+        "text": "데이터 I/O 2"
+    },
+    {
+        "id": "dec_qspi_opt_chan_io3",
+        "text": "데이터 I/O 3"
+    },
+    {
+        "id": "dec_qspi_opt_chan_cs",
+        "text": "칩 선택"
+    },
+    {
+        "id": "dec_qspi_opt_cs_polarity",
+        "text": "CS# 극성"
+    },
+    {
+        "id": "dec_qspi_opt_cpol",
+        "text": "클록 극성 (CPOL)"
+    },
+    {
+        "id": "dec_qspi_opt_cpha",
+        "text": "클록 위상 (CPHA)"
+    },
+    {
+        "id": "dec_qspi_opt_bitorder",
+        "text": "비트 순서"
+    },
+    {
+        "id": "dec_qspi_opt_wordsize",
+        "text": "워드 크기"
+    },
+    {
+        "id": "dec_rc_encode_chan_data",
+        "text": "데이터 라인"
+    },
+    {
+        "id": "dec_rc_encode_opt_remote",
+        "text": "리모컨"
+    },
+    {
+        "id": "dec_rgb_led_ws281x_chan_din",
+        "text": "DIN 데이터 라인"
+    },
+    {
+        "id": "dec_rgb_led_ws281x_opt_default_color_order",
+        "text": "기본 색상 순서"
+    },
+    {
+        "id": "dec_rgb_led_ws281x_opt_view_color_order",
+        "text": "표시 색상 순서"
+    },
+    {
+        "id": "dec_rgb_led_ws281x_opt_polarity",
+        "text": "극성"
+    },
+    {
+        "id": "dec_sae_j1850_vpw_chan_data",
+        "text": "데이터 라인"
+    },
+    {
+        "id": "dec_sda2506_chan_clk",
+        "text": "클록"
+    },
+    {
+        "id": "dec_sda2506_chan_d",
+        "text": "데이터"
+    },
+    {
+        "id": "dec_sda2506_chan_ce",
+        "text": "칩 활성화"
+    },
+    {
+        "id": "dec_sdcard_sd_chan_cmd",
+        "text": "명령"
+    },
+    {
+        "id": "dec_sdcard_sd_chan_clk",
+        "text": "클록"
+    },
+    {
+        "id": "dec_sdcard_sd_opt_chan_dat0",
+        "text": "데이터 핀 0"
+    },
+    {
+        "id": "dec_sdcard_sd_opt_chan_dat1",
+        "text": "데이터 핀 1"
+    },
+    {
+        "id": "dec_sdcard_sd_opt_chan_dat2",
+        "text": "데이터 핀 2"
+    },
+    {
+        "id": "dec_sdcard_sd_opt_chan_dat3",
+        "text": "데이터 핀 3"
+    },
+    {
+        "id": "dec_sdq_chan_sdq",
+        "text": "단선 SDQ 데이터 라인."
+    },
+    {
+        "id": "dec_sdq_opt_bitrate",
+        "text": "비트레이트"
+    },
+    {
+        "id": "dec_seven_segment_chan_A",
+        "text": "세그먼트 A"
+    },
+    {
+        "id": "dec_seven_segment_chan_B",
+        "text": "세그먼트 B"
+    },
+    {
+        "id": "dec_seven_segment_chan_C",
+        "text": "세그먼트 C"
+    },
+    {
+        "id": "dec_seven_segment_chan_D",
+        "text": "세그먼트 D"
+    },
+    {
+        "id": "dec_seven_segment_chan_E",
+        "text": "세그먼트 E"
+    },
+    {
+        "id": "dec_seven_segment_chan_F",
+        "text": "세그먼트 F"
+    },
+    {
+        "id": "dec_seven_segment_chan_G",
+        "text": "세그먼트 G"
+    },
+    {
+        "id": "dec_seven_segment_opt_chan_dp",
+        "text": "소수점"
+    },
+    {
+        "id": "dec_seven_segment_opt_polarity",
+        "text": "예상 극성"
+    },
+    {
+        "id": "dec_signature_chan_start",
+        "text": "START 채널"
+    },
+    {
+        "id": "dec_signature_chan_stop",
+        "text": "STOP 채널"
+    },
+    {
+        "id": "dec_signature_chan_clk",
+        "text": "CLOCK 채널"
+    },
+    {
+        "id": "dec_signature_chan_data",
+        "text": "DATA 채널"
+    },
+    {
+        "id": "dec_signature_opt_start_edge",
+        "text": "START 에지 극성"
+    },
+    {
+        "id": "dec_signature_opt_stop_edge",
+        "text": "STOP 에지 극성"
+    },
+    {
+        "id": "dec_signature_opt_clk_edge",
+        "text": "CLOCK 에지 극성"
+    },
+    {
+        "id": "dec_signature_opt_annbits",
+        "text": "비트 수준 주석 활성화"
+    },
+    {
+        "id": "dec_sle44xx_chan_rst",
+        "text": "리셋 라인"
+    },
+    {
+        "id": "dec_sle44xx_chan_clk",
+        "text": "클록 라인"
+    },
+    {
+        "id": "dec_sle44xx_chan_io",
+        "text": "I/O 데이터 라인"
+    },
+    {
+        "id": "dec_spdif_chan_data",
+        "text": "데이터 라인"
+    },
+    {
+        "id": "dec_spi_tpm_opt_tpm_version",
+        "text": "TPM 버전 1.2 또는 2.0"
+    },
+    {
+        "id": "dec_spiflash_opt_chip",
+        "text": "칩"
+    },
+    {
+        "id": "dec_spiflash_opt_format",
+        "text": "데이터 형식"
+    },
+    {
+        "id": "dec_ssi32_opt_msgsize",
+        "text": "메시지 크기"
+    },
+    {
+        "id": "dec_st7735_chan_cs",
+        "text": "칩 선택"
+    },
+    {
+        "id": "dec_st7735_chan_clk",
+        "text": "클록"
+    },
+    {
+        "id": "dec_st7735_chan_mosi",
+        "text": "마스터 출력, 슬레이브 입력"
+    },
+    {
+        "id": "dec_st7735_chan_dc",
+        "text": "데이터 또는 명령"
+    },
+    {
+        "id": "dec_st7789_chan_csx",
+        "text": "칩 선택 신호"
+    },
+    {
+        "id": "dec_st7789_chan_dcx",
+        "text": "클록 신호"
+    },
+    {
+        "id": "dec_st7789_chan_sdo",
+        "text": "직렬 출력 데이터"
+    },
+    {
+        "id": "dec_st7789_chan_wrx",
+        "text": "명령 / 데이터"
+    },
+    {
+        "id": "dec_stepper_motor_chan_step",
+        "text": "스텝 펄스"
+    },
+    {
+        "id": "dec_stepper_motor_chan_dir",
+        "text": "방향 선택"
+    },
+    {
+        "id": "dec_stepper_motor_opt_unit",
+        "text": "단위"
+    },
+    {
+        "id": "dec_stepper_motor_opt_steps_per_mm",
+        "text": "mm당 스텝 수"
+    },
+    {
+        "id": "dec_swd_chan_swclk",
+        "text": "마스터 클록"
+    },
+    {
+        "id": "dec_swd_chan_swdio",
+        "text": "데이터 입출력"
+    },
+    {
+        "id": "dec_swd_opt_strict_start",
+        "text": "디코딩 시작 전에 라인 리셋 대기"
+    },
+    {
+        "id": "dec_swim_opt_debug",
+        "text": "디버그"
+    },
+    {
+        "id": "dec_swim_chan_swim",
+        "text": "SWIM 데이터 라인"
+    },
+    {
+        "id": "dec_t55xx_chan_data",
+        "text": "데이터 라인"
+    },
+    {
+        "id": "dec_t55xx_opt_coilfreq",
+        "text": "코일 주파수"
+    },
+    {
+        "id": "dec_t55xx_opt_start_gap",
+        "text": "시작 간격 최소값"
+    },
+    {
+        "id": "dec_t55xx_opt_w_gap",
+        "text": "쓰기 간격 최소값"
+    },
+    {
+        "id": "dec_t55xx_opt_w_one_min",
+        "text": "1 쓰기 최소값"
+    },
+    {
+        "id": "dec_t55xx_opt_w_one_max",
+        "text": "1 쓰기 최대값"
+    },
+    {
+        "id": "dec_t55xx_opt_w_zero_min",
+        "text": "0 쓰기 최소값"
+    },
+    {
+        "id": "dec_t55xx_opt_w_zero_max",
+        "text": "0 쓰기 최대값"
+    },
+    {
+        "id": "dec_t55xx_opt_em4100_decode",
+        "text": "EM4100 디코딩"
+    },
+    {
+        "id": "dec_tdm_audio_chan_clock",
+        "text": "데이터 비트 클록"
+    },
+    {
+        "id": "dec_tdm_audio_chan_frame",
+        "text": "프레임 동기"
+    },
+    {
+        "id": "dec_tdm_audio_chan_data",
+        "text": "직렬 데이터"
+    },
+    {
+        "id": "dec_tdm_audio_opt_bps",
+        "text": "샘플당 비트 수"
+    },
+    {
+        "id": "dec_tdm_audio_opt_channels",
+        "text": "프레임당 채널 수"
+    },
+    {
+        "id": "dec_tdm_audio_opt_edge",
+        "text": "샘플링할 클록 에지"
+    },
+    {
+        "id": "dec_tdm_audio_opt_sampling_edge",
+        "text": "샘플링 에지"
+    },
+    {
+        "id": "dec_timing_chan_data",
+        "text": "데이터 라인"
+    },
+    {
+        "id": "dec_timing_opt_avg_period",
+        "text": "평균화 기간"
+    },
+    {
+        "id": "dec_timing_opt_edge",
+        "text": "검사할 에지"
+    },
+    {
+        "id": "dec_timing_opt_delta",
+        "text": "이전 값과의 차이 표시"
+    },
+    {
+        "id": "dec_tlc5620_chan_clk",
+        "text": "직렬 인터페이스 클록"
+    },
+    {
+        "id": "dec_tlc5620_chan_data",
+        "text": "직렬 인터페이스 데이터"
+    },
+    {
+        "id": "dec_tlc5620_opt_chan_load",
+        "text": "직렬 인터페이스 로드 제어"
+    },
+    {
+        "id": "dec_tlc5620_opt_chan_ldac",
+        "text": "DAC 로드"
+    },
+    {
+        "id": "dec_tlc5620_opt_vref_a",
+        "text": "기준 전압 DACA (V)"
+    },
+    {
+        "id": "dec_tlc5620_opt_vref_b",
+        "text": "기준 전압 DACB (V)"
+    },
+    {
+        "id": "dec_tlc5620_opt_vref_c",
+        "text": "기준 전압 DACC (V)"
+    },
+    {
+        "id": "dec_tlc5620_opt_vref_d",
+        "text": "기준 전압 DACD (V)"
+    },
+    {
+        "id": "dec_qspi_adress_mode",
+        "text": "주소 모드"
+    },
+    {
+        "id": "dec_qspi_opt_frame",
+        "text": "프레임 디코더"
+    },
+    {
+        "id": "dec_qspi_two_lines_mode",
+        "text": "2선 모드"
+    },
+    {
+        "id": "dec_qspi_invalidlevel",
+        "text": "하이 또는 로우 유지를 무효로 처리"
+    },
+    {
+        "id": "dec_timing_opt_format",
+        "text": "'time' 주석 형식"
+    }
+]

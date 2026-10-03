@@ -1,0 +1,50 @@
+[
+    {
+        "id": "Buffer Mode",
+        "text": "버퍼 모드"
+    },
+    {
+        "id": "Stream Mode",
+        "text": "스트림 모드"
+    },
+    {
+        "id": "Internal Test",
+        "text": "내부 테스트"
+    },
+    {
+        "id": "External Test",
+        "text": "외부 테스트"
+    },
+    {
+        "id": "DRAM Loopback Test",
+        "text": "DRAM 루프백 테스트"
+    },
+    {
+        "id": "Stop immediately",
+        "text": "즉시 정지"
+    },
+    {
+        "id": "Upload captured data",
+        "text": "캡처한 데이터 업로드"
+    },
+    {
+        "id": "None",
+        "text": "없음"
+    },
+    {
+        "id": "1 Sample Clock",
+        "text": "1 샘플 클록"
+    },
+    {
+        "id": "Normal",
+        "text": "보통"
+    },
+    {
+        "id": "Full Bandwidth",
+        "text": "전체 대역폭"
+    },
+    {
+        "id": "20MHz",
+        "text": "20MHz"
+    }
+]

@@ -1,0 +1,50 @@
+[
+    {
+        "id": "Buffer Mode",
+        "text": "Chế độ bộ đệm"
+    },
+    {
+        "id": "Stream Mode",
+        "text": "Chế độ luồng"
+    },
+    {
+        "id": "Internal Test",
+        "text": "Kiểm tra nội bộ"
+    },
+    {
+        "id": "External Test",
+        "text": "Kiểm tra bên ngoài"
+    },
+    {
+        "id": "DRAM Loopback Test",
+        "text": "Kiểm tra vòng lặp DRAM"
+    },
+    {
+        "id": "Stop immediately",
+        "text": "Dừng ngay lập tức"
+    },
+    {
+        "id": "Upload captured data",
+        "text": "Tải lên dữ liệu đã thu"
+    },
+    {
+        "id": "None",
+        "text": "Không"
+    },
+    {
+        "id": "1 Sample Clock",
+        "text": "1 chu kỳ lấy mẫu"
+    },
+    {
+        "id": "Normal",
+        "text": "Bình thường"
+    },
+    {
+        "id": "Full Bandwidth",
+        "text": "Toàn băng thông"
+    },
+    {
+        "id": "20MHz",
+        "text": "20MHz"
+    }
+]

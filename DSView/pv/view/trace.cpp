@@ -214,7 +214,7 @@ void Trace::paint_label(QPainter &p, int right, const QPoint pt, QColor fore)
         p.drawText(name_rect, Qt::AlignLeft | Qt::AlignVCenter, _name);
     }
 
-    // Paint the trigButton
+    // Paint the type options (e.g. trigger buttons)
     paint_type_options(p, right, pt, fore);
 
     // Paint the label
@@ -366,7 +366,6 @@ int Trace::rows_size()
 QRectF Trace::get_rect(const char *s, int y, int right)
 {
     const QSizeF color_size(get_leftWidth() - Margin, SquareWidth);
-   // const QSizeF name_size(right - get_leftWidth() - get_rightWidth(), SquareWidth);
     const QSizeF name_size(right - get_leftWidth() - get_rightWidth(), SquareWidth);
     const QSizeF label_size(SquareWidth, SquareWidth);
 

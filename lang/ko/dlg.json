@@ -1,0 +1,794 @@
+[
+    {
+        "id": "IDS_DLG_LOG_OPTIONS",
+        "text": "로그 옵션"
+    },
+    {
+        "id": "IDS_DLG_LOG_LEVEL",
+        "text": "로그 수준"
+    },
+    {
+        "id": "IDS_DLG_SAVE_FILE",
+        "text": "파일로 저장"
+    },
+    {
+        "id": "IDS_DLG_OPEN_FILE",
+        "text": "파일 열기"
+    },
+    {
+        "id": "IDS_DLG_OPEN_SEESION",
+        "text": "세션 열기"
+    },
+    {
+        "id": "IDS_DLG_SAVE_SEESION",
+        "text": "세션 저장"
+    },
+    {
+        "id": "IDS_DLG_DOCUMENT",
+        "text": "문서"
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_DOCK_TITLE",
+        "text": "트리거 설정"
+    },
+    {
+        "id": "IDS_DLG_PROTOCOL_DOCK_TITLE",
+        "text": "디코더"
+    },
+    {
+        "id": "IDS_DLG_MEASURE_DOCK_TITLE",
+        "text": "측정"
+    },
+    {
+        "id": "IDS_DLG_SEARCH_DOCK_TITLE",
+        "text": "검색"
+    },
+    {
+        "id": "IDS_DLG_SAVE_AS",
+        "text": "다른 이름으로 저장"
+    },
+    {
+        "id": "IDS_DLG_CHECK_USB_SPEED_ERROR",
+        "text": "현재 장치를 USB 2.0 포트에 연결하면 성능이 크게 저하됩니다.\nUSB 3.0 포트에 다시 연결하십시오."
+    },
+    {
+        "id": "IDS_DLG_CHECK_SESSION_FILE_VERSION_ERROR",
+        "text": "이 파일은 이전 형식입니다.\n불러오는 속도가 느립니다.\n불러온 후 다시 저장할 수 있습니다."
+    },
+    {
+        "id": "IDS_DLG_ABOUT",
+        "text": "정보"
+    },
+    {
+        "id": "IDS_DLG_DISPLAY_OPTIONS",
+        "text": "표시 옵션"
+    },
+    {
+        "id": "IDS_DLG_QUICK_SCROLL",
+        "text": "마우스 드래그로 파형 스크롤"
+    },
+    {
+        "id": "IDS_DLG_SAVE",
+        "text": "저장"
+    },
+    {
+        "id": "IDS_DLG_RESET",
+        "text": "재설정"
+    },
+    {
+        "id": "IDS_DLG_EXIT",
+        "text": "종료"
+    },
+    {
+        "id": "IDS_DLG_MANUAL_CALIBRATION",
+        "text": "수동 교정"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL",
+        "text": "채널"
+    },
+    {
+        "id": "IDS_DLG_SAVE_CALIBRATION_RESULTS",
+        "text": "교정 결과를 저장하는 중... 잠시 기다려 주십시오."
+    },
+    {
+        "id": "IDS_DLG_CANCEL",
+        "text": "취소"
+    },
+    {
+        "id": "IDS_DLG_RELOAD_CALIBRATION_RESULTS",
+        "text": "이전 교정 결과를 다시 불러오는 중... 잠시 기다려 주십시오."
+    },
+    {
+        "id": "IDS_DLG_DECODER_OPTIONS",
+        "text": "디코더 옵션"
+    },
+    {
+        "id": "IDS_DLG_CURSOR",
+        "text": "커서 "
+    },
+    {
+        "id": "IDS_DLG_CURSOR_FOR_DECODE_START",
+        "text": "디코딩 시작 위치"
+    },
+    {
+        "id": "IDS_DLG_CURSOR_FOR_DECODE_END",
+        "text": "디코딩 끝 위치"
+    },
+    {
+        "id": "IDS_DLG_DEVICE_OPTIONS",
+        "text": "장치 옵션"
+    },
+    {
+        "id": "IDS_DLG_MODE",
+        "text": "옵션"
+    },
+    {
+        "id": "IDS_DLG_ENABLE_ALL",
+        "text": "모두 활성화"
+    },
+    {
+        "id": "IDS_DLG_DISABLE_ALL",
+        "text": "모두 비활성화"
+    },
+    {
+        "id": "IDS_DLG_ENABLE",
+        "text": "활성화: "
+    },
+    {
+        "id": "IDS_DLG_AUTO_CALIBRATION",
+        "text": "자동 교정"
+    },
+    {
+        "id": "IDS_DLG_CALIBRATION",
+        "text": "교정"
+    },
+    {
+        "id": "IDS_DLG_MEASUREMENTS",
+        "text": "측정"
+    },
+    {
+        "id": "IDS_DLG_FFT_ENABLE",
+        "text": "FFT 활성화: "
+    },
+    {
+        "id": "IDS_DLG_FFT_LENGTH",
+        "text": "FFT 길이: "
+    },
+    {
+        "id": "IDS_DLG_SAMPLE_INTERVAL",
+        "text": "샘플 간격: "
+    },
+    {
+        "id": "IDS_DLG_FFT_SOURCE",
+        "text": "FFT 소스: "
+    },
+    {
+        "id": "IDS_DLG_FFT_WINDOW",
+        "text": "FFT 윈도우: "
+    },
+    {
+        "id": "IDS_DLG_DC_IGNORED",
+        "text": "DC 무시: "
+    },
+    {
+        "id": "IDS_DLG_Y-AXIS_MODE",
+        "text": "Y축 모드: "
+    },
+    {
+        "id": "IDS_DLG_DBV_RANGE",
+        "text": "DBV 범위: "
+    },
+    {
+        "id": "IDS_DLG_FFT_OPTIONS",
+        "text": "FFT 옵션"
+    },
+    {
+        "id": "IDS_DLG_INTERVAL_S",
+        "text": "간격(s): "
+    },
+    {
+        "id": "IDS_DLG_REPETITIVE_INTERVAL",
+        "text": "반복 간격"
+    },
+    {
+        "id": "IDS_DLG_X_AXIS",
+        "text": "X축"
+    },
+    {
+        "id": "IDS_DLG_Y_AXIS",
+        "text": "Y축"
+    },
+    {
+        "id": "IDS_DLG_LISSAJOUS_OPTIONS",
+        "text": "리사주 옵션"
+    },
+    {
+        "id": "IDS_DLG_ADD",
+        "text": "더하기"
+    },
+    {
+        "id": "IDS_DLG_SUBSTRACT",
+        "text": "빼기"
+    },
+    {
+        "id": "IDS_DLG_MULTIPLY",
+        "text": "곱하기"
+    },
+    {
+        "id": "IDS_DLG_DIVIDE",
+        "text": "나누기"
+    },
+    {
+        "id": "IDS_DLG_MATH_TYPE",
+        "text": "연산 유형"
+    },
+    {
+        "id": "IDS_DLG_1ST_SOURCE",
+        "text": "첫 번째 소스"
+    },
+    {
+        "id": "IDS_DLG_2ST_SOURCE",
+        "text": "두 번째 소스"
+    },
+    {
+        "id": "IDS_DLG_MATH_OPTIONS",
+        "text": "연산 옵션"
+    },
+    {
+        "id": "IDS_DLG_EXPORT_FORMAT",
+        "text": "내보내기 형식: "
+    },
+    {
+        "id": "IDS_DLG_PROTOCOL_EXPORT",
+        "text": "프로토콜 내보내기"
+    },
+    {
+        "id": "IDS_DLG_EXPORT_DATA",
+        "text": "내보낼 데이터: "
+    },
+    {
+        "id": "IDS_DLG_EXPORT_PROTOCOL_LIST_RESULT",
+        "text": "디코딩 결과를 내보내는 중... 잠시 기다려 주십시오."
+    },
+    {
+        "id": "IDS_DLG_FIT_TO_WINDOW",
+        "text": "창 크기에 맞춤"
+    },
+    {
+        "id": "IDS_DLG_FIXED",
+        "text": "고정"
+    },
+    {
+        "id": "IDS_DLG_MAP_ZOOM",
+        "text": "점프 확대/축소: "
+    },
+    {
+        "id": "IDS_DLG_DECODED_PROTOCOLS",
+        "text": "디코딩된 프로토콜: "
+    },
+    {
+        "id": "IDS_DLG_PROTOCOL_LIST_VIEWER",
+        "text": "디코딩 결과"
+    },
+    {
+        "id": "IDS_DLG_REGION",
+        "text": "영역"
+    },
+    {
+        "id": "IDS_DLG_SEARCH_LABEL",
+        "text": "X: 무관\n0: 로우 레벨\n1: 하이 레벨\nR: 상승 에지\nF: 하강 에지\nC: 상승/하강 에지"
+    },
+    {
+        "id": "IDS_DLG_SEARCH_OPTIONS",
+        "text": "검색 옵션"
+    },
+    {
+        "id": "IDS_DLG_SAVING",
+        "text": "저장 중..."
+    },
+    {
+        "id": "IDS_DLG_ORIGINAL_DATA",
+        "text": "원본 데이터"
+    },
+    {
+        "id": "IDS_DLG_COMPRESSED_DATA",
+        "text": "압축 데이터"
+    },
+    {
+        "id": "IDS_DLG_EXPORT",
+        "text": "내보내기"
+    },
+    {
+        "id": "IDS_DLG_EXPORTING",
+        "text": "내보내는 중..."
+    },
+    {
+        "id": "IDS_DLG_DONT_CONNECT_PROBES",
+        "text": "프로브를 연결하지 마십시오!"
+    },
+    {
+        "id": "IDS_DLG_LOAD_CURRENT_SETTING",
+        "text": "현재 설정을 불러오는 중... 잠시 기다려 주십시오."
+    },
+    {
+        "id": "IDS_DLG_WAITING",
+        "text": "대기 중"
+    },
+    {
+        "id": "IDS_DLG_FINISHED",
+        "text": "완료!"
+    },
+    {
+        "id": "IDS_DLG_US",
+        "text": "uS"
+    },
+    {
+        "id": "IDS_DLG_MS",
+        "text": "mS"
+    },
+    {
+        "id": "IDS_DLG_S",
+        "text": "S"
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_POSITION",
+        "text": "트리거 위치: "
+    },
+    {
+        "id": "IDS_DLG_HOLD_OFF_TIME",
+        "text": "홀드오프 시간: "
+    },
+    {
+        "id": "IDS_DLG_NOISE_SENSITIVITY",
+        "text": "트리거 감도: "
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_SOURCES",
+        "text": "트리거 소스: "
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_TYPES",
+        "text": "트리거 유형: "
+    },
+    {
+        "id": "IDS_DLG_RISING_EDGE",
+        "text": "상승 에지"
+    },
+    {
+        "id": "IDS_DLG_FALLING_EDGE",
+        "text": "하강 에지"
+    },
+    {
+        "id": "IDS_DLG_AUTO",
+        "text": "자동"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_0",
+        "text": "채널 0"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_1",
+        "text": "채널 1"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_0_AND_1",
+        "text": "채널 0 && 1"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_0_OR_1",
+        "text": "채널 0 | 1"
+    },
+    {
+        "id": "IDS_DLG_KEY_DECODER_SEARCH",
+        "text": "디코더 검색..."
+    },
+    {
+        "id": "IDS_DLG_TIME_SAMPLES",
+        "text": "시간/샘플"
+    },
+    {
+        "id": "IDS_DLG_MOUSE_MEASUREMENT",
+        "text": "마우스 측정"
+    },
+    {
+        "id": "IDS_DLG_ENABLE_FLOATING_MEASUREMENT",
+        "text": "플로팅 측정 활성화"
+    },
+    {
+        "id": "IDS_DLG_CURSOR_DISTANCE",
+        "text": "커서 간 거리"
+    },
+    {
+        "id": "IDS_DLG_EDGES",
+        "text": "에지"
+    },
+    {
+        "id": "IDS_DLG_CURSORS",
+        "text": "커서"
+    },
+    {
+        "id": "IDS_DLG_RIS_OR_FAL_EDGE",
+        "text": "상승/하강/에지"
+    },
+    {
+        "id": "IDS_DLG_W",
+        "text": "폭: "
+    },
+    {
+        "id": "IDS_DLG_P",
+        "text": "주기: "
+    },
+    {
+        "id": "IDS_DLG_F",
+        "text": "주파수: "
+    },
+    {
+        "id": "IDS_DLG_D",
+        "text": "듀티: "
+    },
+    {
+        "id": "IDS_DLG_SEARCH",
+        "text": "검색"
+    },
+    {
+        "id": "IDS_DLG_MATCHING_ITEMS",
+        "text": "일치 항목:"
+    },
+    {
+        "id": "IDS_DLG_OUT_OF_MEMORY",
+        "text": "메모리 부족"
+    },
+    {
+        "id": "IDS_DLG_SEARCHING",
+        "text": "검색 중..."
+    },
+    {
+        "id": "IDS_DLG_SEARCH_PREVIOUS",
+        "text": "이전 검색..."
+    },
+    {
+        "id": "IDS_DLG_SEARCH_NEXT",
+        "text": "다음 검색..."
+    },
+    {
+        "id": "IDS_DLG_SIMPLE_TRIGGER",
+        "text": "단순 트리거"
+    },
+    {
+        "id": "IDS_DLG_ADVANCED_TRIGGER",
+        "text": "고급 트리거"
+    },
+    {
+        "id": "IDS_DLG_TOTAL_TRIGGER_STAGES",
+        "text": "전체 트리거 단계: "
+    },
+    {
+        "id": "IDS_DLG_START_FLAG",
+        "text": "시작 플래그: "
+    },
+    {
+        "id": "IDS_DLG_STOP_FLAG",
+        "text": "정지 플래그: "
+    },
+    {
+        "id": "IDS_DLG_CLOCK_FLAG",
+        "text": "클록 플래그: "
+    },
+    {
+        "id": "IDS_DLG_DATA_CHANNEL",
+        "text": "데이터 채널: "
+    },
+    {
+        "id": "IDS_DLG_DATA_VALUE",
+        "text": "데이터 값: "
+    },
+    {
+        "id": "IDS_DLG_SERIAL_TRIGGER",
+        "text": "직렬 트리거"
+    },
+    {
+        "id": "IDS_DLG_STAGE_TRIGGER",
+        "text": "단계 트리거"
+    },
+    {
+        "id": "IDS_DLG_SERIAL_NOTE_LABEL",
+        "text": "X: 무관\n0: 로우 레벨\n1: 하이 레벨\nR: 상승 에지\nF: 하강 에지\nC: 상승/하강 에지"
+    },
+    {
+        "id": "IDS_DLG_DATA_BITS",
+        "text": "데이터 비트"
+    },
+    {
+        "id": "IDS_DLG_INV",
+        "text": "반전"
+    },
+    {
+        "id": "IDS_DLG_COUNTER",
+        "text": "카운터"
+    },
+    {
+        "id": "IDS_DLG_CONTIGUOUS",
+        "text": "연속"
+    },
+    {
+        "id": "IDS_DLG_STAGE",
+        "text": "단계"
+    },
+    {
+        "id": "IDS_DLG_OR",
+        "text": "Or"
+    },
+    {
+        "id": "IDS_DLG_AND",
+        "text": "And"
+    },
+    {
+        "id": "IDS_DLG_HZ",
+        "text": "Hz"
+    },
+    {
+        "id": "IDS_DLG_UNSHOWN",
+        "text": "숨김"
+    },
+    {
+        "id": "ZOOM_IN_FOR_DETAILS",
+        "text": "자세히 보려면 확대하십시오"
+    },
+    {
+        "id": "IDS_DLG_DECODETRACE_ERROR1",
+        "text": "오류: "
+    },
+    {
+        "id": "IDS_DLG_DECODETRACE_ERROR2",
+        "text": "오류: ..."
+    },
+    {
+        "id": "IDS_DLG_ADD_GROUP",
+        "text": "그룹 추가"
+    },
+    {
+        "id": "IDS_DLG_DEL_GROUP",
+        "text": "그룹 삭제"
+    },
+    {
+        "id": "IDS_DLG_SET_CHANNEL_COLOUR",
+        "text": "채널 색상 설정"
+    },
+    {
+        "id": "IDS_DLG_LISSAJOUS_FIGURE",
+        "text": "리사주 도형"
+    },
+    {
+        "id": "IDS_DLG_DATA_SOURCE_ERROR",
+        "text": "데이터 소스 오류."
+    },
+    {
+        "id": "IDS_DLG_ADD_X_CURSOR",
+        "text": "X 커서 추가"
+    },
+    {
+        "id": "IDS_DLG_ADD_Y_CURSOR",
+        "text": "Y 커서 추가"
+    },
+    {
+        "id": "IDS_DLG_AUTO_ROLL",
+        "text": "자동(롤)"
+    },
+    {
+        "id": "IDS_DLG_WAITING_TRIG",
+        "text": "트리거 대기"
+    },
+    {
+        "id": "IDS_DLG_TRIG_D",
+        "text": "트리거됨"
+    },
+    {
+        "id": "IDS_DLG_TRIGGERED",
+        "text": "트리거됨! "
+    },
+    {
+        "id": "IDS_DLG_CAPTURED",
+        "text": "% 캡처됨"
+    },
+    {
+        "id": "IDS_DLG_WAITING_FOR_TRIGGER",
+        "text": "트리거 대기 중! "
+    },
+    {
+        "id": "IDS_DLG_RISING",
+        "text": "상승: "
+    },
+    {
+        "id": "IDS_DLG_FALLING",
+        "text": "하강: "
+    },
+    {
+        "id": "IDS_DLG_Edges_1",
+        "text": "에지: "
+    },
+    {
+        "id": "IDS_DLG_WIDTH",
+        "text": "폭: "
+    },
+    {
+        "id": "IDS_DLG_PERIOD",
+        "text": "주기: "
+    },
+    {
+        "id": "IDS_DLG_FREQUENCY",
+        "text": "주파수: "
+    },
+    {
+        "id": "IDS_DLG_DUTY_CYCLE",
+        "text": "듀티 사이클: "
+    },
+    {
+        "id": "IDS_DLG_MEASURE",
+        "text": "측정"
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_TIME",
+        "text": "트리거 시간: "
+    },
+    {
+        "id": "IDS_DLG_SAMPLES_CAPTURED",
+        "text": "샘플 캡처 완료!"
+    },
+    {
+        "id": "IDS_DLG_FILE_THRESHOLD",
+        "text": "임계값: "
+    },
+    {
+        "id": "IDS_DLG_VIEW_CAPTURE",
+        "text": "캡처 중"
+    },
+    {
+        "id": "IDS_DLG_CHAN_NUM_ERR2",
+        "text": "두 채널의 데이터가 필요합니다."
+    },
+    {
+        "id": "IDS_DLG_PATH_NAME",
+        "text": "경로"
+    },
+    {
+        "id": "IDS_DLG_DECODER_IF_TRANS",
+        "text": "매개변수 이름 번역"
+    },
+    {
+        "id": "IDS_DLG_LOG_PATH",
+        "text": "파일 경로"
+    },
+    {
+        "id": "IDS_DLG_OPEN",
+        "text": "열기"
+    },
+    {
+        "id": "IDS_DLG_CLEARE",
+        "text": "지우기"
+    },
+    {
+        "id": "IDS_DLG_APPEND_MODE",
+        "text": "추가 모드"
+    },
+    {
+        "id": "IDS_DLG_TRIG_DISPLAY_MIDDLE",
+        "text": "트리거 위치를 가운데에 표시"
+    },
+    {
+        "id": "IDS_DLG_DISPLAY_PROFILE_IN_BAR",
+        "text": "제목 표시줄에 세션 이름 표시"
+    },
+    {
+        "id": "IDS_DLG_SERIAL_HEX",
+        "text": "16진수 :"
+    },
+    {
+        "id": "IDS_DLG_SERIAL_INPUT_AS_HEX",
+        "text": "16진수 형식으로 입력"
+    },
+    {
+        "id": "IDS_DLG_USE_ABORT_DATA_REPEAT",
+        "text": "반복 모드 정지 시 최신 데이터로 업데이트"
+    },
+    {
+        "id": "IDS_DLG_FONT_SIZE",
+        "text": "글꼴 크기"
+    },
+    {
+        "id": "IDS_DLG_DEFAULT_FONT",
+        "text": "기본값"
+    },
+    {
+        "id": "IDS_DLG_GROUP_LOGIC",
+        "text": "로직 분석기"
+    },
+    {
+        "id": "IDS_DLG_GROUP_DSO",
+        "text": "오실로스코프"
+    },
+    {
+        "id": "IDS_DLG_GROUP_UI",
+        "text": "UI"
+    },
+    {
+        "id": "IDS_DLG_ABORT",
+        "text": "중단"
+    },
+    {
+        "id": "IDS_DLG_AUTO_SCROLL_LATEAST_DATA",
+        "text": "최신 데이터로 자동 스크롤"
+    },
+    {
+        "id": "IDS_DLG_DATA_OUT_OFF_RANGE",
+        "text": "데이터 범위 초과"
+    },
+    {
+        "id": "IDS_DLG_START_CURSOR",
+        "text": "시작"
+    },
+    {
+        "id": "IDS_DLG_END_CURSOR",
+        "text": "끝"
+    },
+    {
+        "id": "IDS_DSO_CTR_EN",
+        "text": "켬"
+    },
+    {
+        "id": "IDS_DSO_CTR_DIS",
+        "text": "끔"
+    },
+    {
+        "id": "IDS_DSO_CTR_GND",
+        "text": "GND"
+    },
+    {
+        "id": "IDS_DSO_CTR_DC",
+        "text": "DC"
+    },
+    {
+        "id": "IDS_DSO_CTR_AC",
+        "text": "AC"
+    },
+    {
+        "id": "IDS_DSO_CTR_AUTO",
+        "text": "자동"
+    },
+    {
+        "id": "IDS_CALIB_VGAIN",
+        "text": "VGAIN"
+    },
+    {
+        "id": "IDS_CALIB_VOFF",
+        "text": "VOFF"
+    },
+    {
+        "id": "IDS_CALIB_VCOMB",
+        "text": "VCOMB"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_RECTANGLE",
+        "text": "사각형"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_HANN",
+        "text": "Hann"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_HAMMING",
+        "text": "Hamming"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_BLACKMAN",
+        "text": "Blackman"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_FLATTOP",
+        "text": "Flat-top"
+    },
+    {
+        "id": "IDS_FFT_MODE_LINEARRSM",
+        "text": "선형 RMS"
+    }
+]

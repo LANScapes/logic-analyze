@@ -80,7 +80,7 @@ struct AppOptions
     std::vector<StringPair> m_protocolFormats;
 };
  
- // The dock pannel open status.
+ // The dock panel open status.
  struct DockOptions
  {
   bool        decodeDock;
@@ -92,7 +92,8 @@ struct AppOptions
 struct FrameOptions
 { 
   QString     style;
-  int         language; 
+  int         language;       // the language in use
+  int         languageChoice; // picked in the menu; -1 follows the system
   int         left; //frame region
   int         top;
   int         right;

@@ -1,0 +1,334 @@
+[
+    {
+        "id": "dec_ac97_chan_sync",
+        "text": "Sincronización de trama"
+    },
+    {
+        "id": "dec_ac97_chan_clk",
+        "text": "Reloj de bits de datos"
+    },
+    {
+        "id": "dec_ac97_opt_chan_out",
+        "text": "Salida de datos"
+    },
+    {
+        "id": "dec_ac97_opt_chan_in",
+        "text": "Entrada de datos"
+    },
+    {
+        "id": "dec_ac97_opt_chan_rst",
+        "text": "Línea de reinicio"
+    },
+    {
+        "id": "dec_ad79x0_opt_vref",
+        "text": "Tensión de referencia (V)"
+    },
+    {
+        "id": "dec_am230x_chan_sda",
+        "text": "Línea de datos serie de un solo hilo"
+    },
+    {
+        "id": "dec_am230x_opt_device",
+        "text": "Tipo de dispositivo"
+    },
+    {
+        "id": "dec_amulet_ascii_opt_ms_chan",
+        "text": "Canal maestro -> esclavo"
+    },
+    {
+        "id": "dec_amulet_ascii_opt_sm_chan",
+        "text": "Canal esclavo -> maestro"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_objdump",
+        "text": "Ruta de objdump"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_objdump_opts",
+        "text": "Opciones de objdump"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_elffile",
+        "text": "Ruta del .elf"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_branch_enc",
+        "text": "Codificación de saltos"
+    },
+    {
+        "id": "dec_arm_itm_opt_objdump",
+        "text": "Ruta de objdump"
+    },
+    {
+        "id": "dec_arm_itm_opt_objdump_opts",
+        "text": "Opciones de objdump"
+    },
+    {
+        "id": "dec_arm_itm_opt_elffile",
+        "text": "Ruta del .elf"
+    },
+    {
+        "id": "dec_arm_tpiu_opt_stream",
+        "text": "Índice de flujo"
+    },
+    {
+        "id": "dec_arm_tpiu_sync_offset",
+        "text": "Desplazamiento inicial de sincronización"
+    },
+    {
+        "id": "dec_aud_chan_audck",
+        "text": "Reloj AUD"
+    },
+    {
+        "id": "dec_aud_chan_naudsync",
+        "text": "Sincronización AUD"
+    },
+    {
+        "id": "dec_aud_chan_audata3",
+        "text": "Línea de datos AUD 3"
+    },
+    {
+        "id": "dec_aud_chan_audata2",
+        "text": "Línea de datos AUD 2"
+    },
+    {
+        "id": "dec_aud_chan_audata1",
+        "text": "Línea de datos AUD 1"
+    },
+    {
+        "id": "dec_aud_chan_audata0",
+        "text": "Línea de datos AUD 0"
+    },
+    {
+        "id": "dec_avr_pdi_chan_reset",
+        "text": "RESET / PDI_CLK"
+    },
+    {
+        "id": "dec_avr_pdi_chan_data",
+        "text": "PDI_DATA"
+    },
+    {
+        "id": "dec_c2_chan_c2ck",
+        "text": "Reloj"
+    },
+    {
+        "id": "dec_c2_chan_c2d",
+        "text": "Datos"
+    },
+    {
+        "id": "dec_caliper_chan_clk",
+        "text": "Línea de reloj serie"
+    },
+    {
+        "id": "dec_caliper_chan_data",
+        "text": "Línea de datos serie"
+    },
+    {
+        "id": "dec_caliper_opt_timeout_ms",
+        "text": "Tiempo de espera de paquete en ms, 0 para desactivar"
+    },
+    {
+        "id": "dec_caliper_opt_unit",
+        "text": "Convertir unidades"
+    },
+    {
+        "id": "dec_caliper_opt_changes",
+        "text": "Solo cambios"
+    },
+    {
+        "id": "dec_can_chan_can_rx",
+        "text": "Línea de bus CAN FD"
+    },
+    {
+        "id": "dec_can_opt_bitrate",
+        "text": "Tasa de bits (bits/s)"
+    },
+    {
+        "id": "dec_can_opt_nominal_bitrate",
+        "text": "Tasa de bits nominal (bits/s)"
+    },
+    {
+        "id": "dec_can_opt_fast_bitrate",
+        "text": "Tasa de bits rápida (bits/s)"
+    },
+    {
+        "id": "dec_can_opt_sample_point",
+        "text": "Punto de muestreo (%)"
+    },
+    {
+        "id": "dec_cec_chan_cec",
+        "text": "Datos del bus CEC"
+    },
+    {
+        "id": "dec_1uart_chan_rxtx",
+        "text": "Línea de transmisión/recepción UART"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tdi",
+        "text": "Entrada de datos de prueba"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tdo",
+        "text": "Salida de datos de prueba"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tck",
+        "text": "Reloj de prueba"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tms",
+        "text": "Selección de modo de prueba"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_trst",
+        "text": "Reinicio de prueba"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_srst",
+        "text": "Reinicio del sistema"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_rtck",
+        "text": "Señal de reloj de retorno"
+    },
+    {
+        "id": "dec_counter_chan_data",
+        "text": "Línea de datos"
+    },
+    {
+        "id": "dec_counter_opt_chan_reset",
+        "text": "Línea de reinicio"
+    },
+    {
+        "id": "dec_counter_opt_data_edge",
+        "text": "Flancos a contar (datos)"
+    },
+    {
+        "id": "dec_counter_opt_divider",
+        "text": "Divisor de cuenta (ancho de palabra)"
+    },
+    {
+        "id": "dec_counter_opt_reset_edge",
+        "text": "Flanco que borra los contadores (reinicio)"
+    },
+    {
+        "id": "dec_counter_opt_edge_off",
+        "text": "Valor del contador de flancos tras inicio/reinicio"
+    },
+    {
+        "id": "dec_counter_opt_word_off",
+        "text": "Valor del contador de palabras tras inicio/reinicio"
+    },
+    {
+        "id": "dec_counter_opt_dead_cycles",
+        "text": "Flancos a ignorar tras el reinicio"
+    },
+    {
+        "id": "dec_counter_opt_start_with_reset",
+        "text": "Suponer que la decodificación empieza con reinicio"
+    },
+    {
+        "id": "dec_dali_chan_dali",
+        "text": "Línea de datos DALI"
+    },
+    {
+        "id": "dec_dali_opt_polarity",
+        "text": "Polaridad"
+    },
+    {
+        "id": "dec_dcf77_chan_data",
+        "text": "Línea DATA"
+    },
+    {
+        "id": "dec_dmx512_chan_dmx",
+        "text": "Cualquier línea de datos DMX"
+    },
+    {
+        "id": "dec_dmx512_opt_invert",
+        "text": "¿Invertir señal?"
+    },
+    {
+        "id": "dec_dsi_chan_dsi",
+        "text": "Línea de datos DSI"
+    },
+    {
+        "id": "dec_dsi_opt_polarity",
+        "text": "Polaridad"
+    },
+    {
+        "id": "dec_eeprom24xx_opt_chip",
+        "text": "Chip"
+    },
+    {
+        "id": "dec_eeprom24xx_opt_addr_counter",
+        "text": "Valor inicial del contador de direcciones"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_addresssize",
+        "text": "Tamaño de dirección"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_wordsize",
+        "text": "Tamaño de palabra"
+    },
+    {
+        "id": "dec_em4100_chan_data",
+        "text": "Línea de datos"
+    },
+    {
+        "id": "dec_em4100_opt_polarity",
+        "text": "Polaridad"
+    },
+    {
+        "id": "dec_em4100_opt_datarate",
+        "text": "Velocidad de datos"
+    },
+    {
+        "id": "dec_em4100_opt_coilfreq",
+        "text": "Frecuencia de la bobina"
+    },
+    {
+        "id": "dec_em4305_chan_data",
+        "text": "Línea de datos"
+    },
+    {
+        "id": "dec_em4305_opt_coilfreq",
+        "text": "Frecuencia de la bobina"
+    },
+    {
+        "id": "dec_em4305_opt_first_field_stop",
+        "text": "Mín. parada del primer campo"
+    },
+    {
+        "id": "dec_em4305_opt_w_gap",
+        "text": "Mín. intervalo de escritura"
+    },
+    {
+        "id": "dec_em4305_opt_w_one_max",
+        "text": "Máx. escritura de uno"
+    },
+    {
+        "id": "dec_em4305_opt_w_zero_on_min",
+        "text": "Mín. escritura de cero (activo)"
+    },
+    {
+        "id": "dec_em4305_opt_w_zero_off_max",
+        "text": "Máx. escritura de cero (inactivo)"
+    },
+    {
+        "id": "dec_em4305_opt_em4100_decode",
+        "text": "Decodificación EM4100"
+    },
+    {
+        "id": "dec_eth_an_chan_dp",
+        "text": "Señal ETH TX+"
+    },
+    {
+        "id": "dec_can_opt_data_order",
+        "text": "Orden de datos"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_format",
+        "text": "Formato de datos"
+    }
+]

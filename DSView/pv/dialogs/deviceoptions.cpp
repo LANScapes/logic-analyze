@@ -148,7 +148,7 @@ DeviceOptions::DeviceOptions(QWidget *parent) :
     minWid->setMinimumWidth(230);
     _container_lay->addWidget(minWid);
 
-    // chnnels group box
+    // channels group box
     this->build_dynamic_panel();
 
     // space
@@ -405,7 +405,9 @@ void DeviceOptions::logic_probes(QVBoxLayout &layout)
     enable_all_probes->setFont(font);
     disable_all_probes->setFont(font);
 
-    int bt_width = enable_all_probes->fontMetrics().horizontalAdvance(enable_all_probes->text()) + 20;
+    // Both buttons take the width of the longer label.
+    int bt_width = std::max(enable_all_probes->fontMetrics().horizontalAdvance(enable_all_probes->text()),
+                            disable_all_probes->fontMetrics().horizontalAdvance(disable_all_probes->text())) + 20;
     enable_all_probes->setMaximumWidth(bt_width);
     disable_all_probes->setMaximumWidth(bt_width);
 
@@ -705,7 +707,6 @@ void DeviceOptions::analog_probes(QGridLayout &layout)
         probe_checkBox->setProperty("Layout", vlayout);
         probe_checkBox->setProperty("Enable", true);
         probe_checkBox->setChecked(ch_enabled);
-       // probe_checkBox->setCheckState(probe->enabled ? Qt::Checked : Qt::Unchecked);
         _probes_checkBox_list.push_back(probe_checkBox);
 
         QLabel *en_label = new QLabel(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_ENABLE), "Enable: "), this);
@@ -871,7 +872,7 @@ void DeviceOptions::try_resize_scroll()
     // content area height
     int contentHeight = _groupHeight1 + _groupHeight2 + 20; // +space
     //dialog height
-    int dlgHeight = contentHeight + 100; // +bottom buttton
+    int dlgHeight = contentHeight + 100; // +bottom button
 
 #ifdef Q_OS_DARWIN
     dlgHeight += 20;

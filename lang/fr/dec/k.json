@@ -1,0 +1,278 @@
+[
+    {
+        "id": "dec_lfast_chan_data",
+        "text": "TXP ou RXP"
+    },
+    {
+        "id": "dec_lin_opt_version",
+        "text": "Version du protocole"
+    },
+    {
+        "id": "dec_lm75_opt_sensor",
+        "text": "Type de capteur"
+    },
+    {
+        "id": "dec_lm75_opt_resolution",
+        "text": "Résolution (bits)"
+    },
+    {
+        "id": "dec_lpc_chan_lframe",
+        "text": "Trame"
+    },
+    {
+        "id": "dec_lpc_chan_lclk",
+        "text": "Horloge"
+    },
+    {
+        "id": "dec_lpc_chan_lad0",
+        "text": "Adresse/contrôle/données 0"
+    },
+    {
+        "id": "dec_lpc_chan_lad1",
+        "text": "Adresse/contrôle/données 1"
+    },
+    {
+        "id": "dec_lpc_chan_lad2",
+        "text": "Adresse/contrôle/données 2"
+    },
+    {
+        "id": "dec_lpc_chan_lad3",
+        "text": "Adresse/contrôle/données 3"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lreset",
+        "text": "Réinitialisation"
+    },
+    {
+        "id": "dec_lpc_opt_chan_ldrq",
+        "text": "Requête DMA / maître de bus codée"
+    },
+    {
+        "id": "dec_lpc_opt_chan_serirq",
+        "text": "IRQ sérialisée"
+    },
+    {
+        "id": "dec_lpc_opt_chan_clkrun",
+        "text": "Clock run (CLKRUN)"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lpme",
+        "text": "Événement de gestion d'alimentation LPC"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lpcpd",
+        "text": "Mise hors tension"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lsmi",
+        "text": "Interruption de gestion système (SMI)"
+    },
+    {
+        "id": "dec_ltc26x7_opt_chip",
+        "text": "Puce"
+    },
+    {
+        "id": "dec_ltc26x7_opt_vref",
+        "text": "Tension de référence (V)"
+    },
+    {
+        "id": "dec_ltc242x_opt_vref",
+        "text": "Tension de référence (V)"
+    },
+    {
+        "id": "dec_maple_bus_chan_sdcka",
+        "text": "Ligne données/horloge A"
+    },
+    {
+        "id": "dec_maple_bus_chan_sdckb",
+        "text": "Ligne données/horloge B"
+    },
+    {
+        "id": "dec_mcs48_chan_ale",
+        "text": "Validation du verrou d'adresse (ALE)"
+    },
+    {
+        "id": "dec_mcs48_chan_psen",
+        "text": "Validation de la mémoire programme (PSEN)"
+    },
+    {
+        "id": "dec_mdio_chan_mdc",
+        "text": "Horloge"
+    },
+    {
+        "id": "dec_mdio_chan_mdio",
+        "text": "Données"
+    },
+    {
+        "id": "dec_mdio_opt_show_debug_bits",
+        "text": "Afficher les bits de débogage"
+    },
+    {
+        "id": "dec_mdio_opt_read_edge",
+        "text": "front de lecture"
+    },
+    {
+        "id": "dec_microwire_chan_cs",
+        "text": "Sélection de puce"
+    },
+    {
+        "id": "dec_microwire_chan_sk",
+        "text": "Horloge"
+    },
+    {
+        "id": "dec_microwire_chan_si",
+        "text": "Entrée esclave"
+    },
+    {
+        "id": "dec_microwire_chan_so",
+        "text": "Sortie esclave"
+    },
+    {
+        "id": "dec_miller_chan_data",
+        "text": "Signal de données"
+    },
+    {
+        "id": "dec_miller_opt_baudrate",
+        "text": "Débit en bauds"
+    },
+    {
+        "id": "dec_miller_opt_edge",
+        "text": "Front"
+    },
+    {
+        "id": "dec_mipi_dsi_chan_D0N",
+        "text": "Données LP 0 nég."
+    },
+    {
+        "id": "dec_mipi_dsi_chan_D0P",
+        "text": "Données LP 0 pos."
+    },
+    {
+        "id": "dec_mipi_rffe_chan_sclk",
+        "text": "Ligne d'horloge série"
+    },
+    {
+        "id": "dec_mipi_rffe_chan_sdata",
+        "text": "Ligne de données série"
+    },
+    {
+        "id": "dec_mipi_rffe_opt_error_display",
+        "text": "Options d'affichage des erreurs"
+    },
+    {
+        "id": "dec_morse_chan_data",
+        "text": "Ligne de données"
+    },
+    {
+        "id": "dec_morse_opt_timeunit",
+        "text": "Unité de temps (estimation)"
+    },
+    {
+        "id": "dec_nes_gamepad_opt_variant",
+        "text": "Variante de manette"
+    },
+    {
+        "id": "dec_nrf24l01_opt_chip",
+        "text": "Type de puce"
+    },
+    {
+        "id": "dec_numbers_and_state_chan_clk",
+        "text": "Horloge"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_clkedge",
+        "text": "Front d'horloge"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_count",
+        "text": "Nombre total de bits"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_interp",
+        "text": "Interprétation"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_fracbits",
+        "text": "Nombre de bits fractionnaires"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_mapping",
+        "text": "Fichier de correspondance énumération-texte"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_format",
+        "text": "Format des nombres"
+    },
+    {
+        "id": "dec_onewire_link_chan_owr",
+        "text": "Ligne de signal 1-Wire"
+    },
+    {
+        "id": "dec_onewire_link_opt_overdrive",
+        "text": "Démarrer en vitesse overdrive"
+    },
+    {
+        "id": "dec_ook_chan_data",
+        "text": "Ligne de données"
+    },
+    {
+        "id": "dec_ook_opt_invert",
+        "text": "Inverser les données"
+    },
+    {
+        "id": "dec_ook_opt_decodeas",
+        "text": "Type de décodage"
+    },
+    {
+        "id": "dec_ook_opt_preamble",
+        "text": "Préambule"
+    },
+    {
+        "id": "dec_ook_opt_preamlen",
+        "text": "Longueur du filtre"
+    },
+    {
+        "id": "dec_ook_opt_diffmanvar",
+        "text": "Transition au début"
+    },
+    {
+        "id": "dec_ook_oregon_opt_unknown",
+        "text": "Type inconnu traité comme"
+    },
+    {
+        "id": "dec_ook_vis_opt_displayas",
+        "text": "Afficher en"
+    },
+    {
+        "id": "dec_ook_vis_opt_synclen",
+        "text": "Longueur de synchro"
+    },
+    {
+        "id": "dec_ook_vis_opt_syncoffset",
+        "text": "Décalage de synchro"
+    },
+    {
+        "id": "dec_ook_vis_opt_refsample",
+        "text": "Comparer"
+    },
+    {
+        "id": "dec_onewire_link_opt_min_height_level_pulse_time",
+        "text": "durée min. d'impulsion niveau haut (us)"
+    },
+    {
+        "id": "dec_onewire_link_opt_min_overdrive_height_level_pulse_time",
+        "text": "durée min. d'impulsion niveau haut en overdrive (us)"
+    },
+    {
+        "id": "dec_modbus_opt_scchannel",
+        "text": "Voie serveur -> client"
+    },
+    {
+        "id": "dec_modbus_opt_cschannel",
+        "text": "Voie client -> serveur"
+    },
+    {
+        "id": "dec_modbus_opt_framegap",
+        "text": "Intervalle inter-trame (bits)"
+    }
+]

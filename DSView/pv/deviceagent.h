@@ -138,7 +138,7 @@ public:
     const GSList *get_device_mode_list();
 
     /**
-     * Check whether the trigger exists
+     * Check whether the trigger is enabled
      */
     bool is_trigger_enabled();
 

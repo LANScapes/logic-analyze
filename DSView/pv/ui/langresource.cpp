@@ -24,6 +24,8 @@
 #include "../log.h"
 #include "../config/appconfig.h"
 #include <QFile>
+#include <QLocale>
+#include <QRegularExpression>
 #include <QByteArray>
 #include <QJsonParseError>
 #include <QJsonValue>
@@ -69,21 +71,85 @@ LangResource *LangResource::Instance()
     return ins;
 }
 
-const char *LangResource::get_lang_key(int lang)
+const lang_key_item* LangResource::find_lang(int lang)
 {
-    int num = sizeof(lang_id_keys) / sizeof(lang_key_item);
-    const char *lan_name = NULL;
-
-    for (int i = 0; i < num; i++)
+    for (const lang_key_item &item : lang_id_keys)
     {
-        if (lang_id_keys[i].id == lang)
+        if (item.id == lang)
+            return &item;
+    }
+    return NULL;
+}
+
+int LangResource::system_lang()
+{
+    // In the order of the user's preference, e.g. "de-DE", "zh-Hant-TW", "pt-PT".
+    // A language matches on its language and script, so any region matches.
+    for (const QString &name : QLocale::system().uiLanguages())
+    {
+        QLocale sys(name);
+
+        for (const lang_key_item &item : lang_id_keys)
         {
-            lan_name = lang_id_keys[i].name;
-            break;
+            QLocale cand(QString::fromLatin1(item.locale));
+            if (cand.language() == sys.language() && cand.script() == sys.script())
+                return item.id;
         }
     }
+    return LAN_EN;
+}
 
-    return lan_name;
+#ifdef LANG_PSEUDO
+QString LangResource::pseudo(const QString &text)
+{
+    // Placeholders, markup, "&&" and line breaks stay as they are.
+    static const QRegularExpression keep("%\\d|%[a-zA-Z]|\\{\\d*\\}|<[^>]*>|&&|\\n");
+    static const QString from = QString::fromUtf8("AaCcEeIiNnOoSsUuYyZz");
+    static const QString to = QString::fromUtf8("ÅåÇçÉéÎîÑñÖöŠšÛûÝýŽž");
+
+    QString core = text.trimmed();
+    if (core.isEmpty())
+        return text;
+    int lead = text.indexOf(core);
+    QString out;
+    int letters = 0;
+    auto accent = [&](const QString &s){
+        for (QChar c : s){
+            int i = from.indexOf(c);
+            out += i >= 0 ? to[i] : c;
+            if (c.isLetter())
+                letters++;
+        }
+    };
+    int pos = 0;
+    auto it = keep.globalMatch(core);
+    while (it.hasNext()){
+        QRegularExpressionMatch m = it.next();
+        accent(core.mid(pos, m.capturedStart() - pos));
+        out += m.captured();
+        pos = m.capturedEnd();
+    }
+    accent(core.mid(pos));
+    QString pad((letters * 2 + 4) / 5, QChar(0x1E8D)); // "ẍ", about 40% more letters
+    return text.left(lead) + "[" + out + (pad.isEmpty() ? "" : " " + pad) + "]"
+           + text.mid(lead + core.length());
+}
+
+// The pseudo form of a fallback text, kept for the life of the process.
+static const char* pseudo_default(const char *text)
+{
+    static std::map<std::string, std::string> cache;
+    auto it = cache.find(text);
+    if (it == cache.end())
+        it = cache.emplace(text, LangResource::pseudo(QString::fromUtf8(text)).toStdString()).first;
+    return it->second.c_str();
+}
+#endif
+
+const char *LangResource::get_lang_key(int lang)
+{
+    const lang_key_item *item = find_lang(lang);
+    return item ? item->name : NULL;
 }
 
 bool LangResource::Load(int lang)
@@ -170,7 +236,7 @@ void LangResource::load_page(Lang_resource_page &p, QString file)
     if (raw_bytes.length() == 0)
         return;
 
-    //dsv_info("Load lang resouce file: %s", file.toLocal8Bit().data());
+    //dsv_info("Load lang resource file: %s", file.toLocal8Bit().data());
 
     QJsonParseError error;
     QString jsonStr(raw_bytes.data());
@@ -196,6 +262,16 @@ void LangResource::load_page(Lang_resource_page &p, QString file)
 #ifdef LANSCAPES_BRAND
             text.replace("DSView", BRAND_APP_NAME);
 #endif
+#ifdef Q_OS_MACOS
+            // macOS shows no accelerators. Qt hides the CJK form "(&S)" when it
+            // draws, but still sizes buttons and fields for it, so drop it here.
+            static const QRegularExpression cjk_mnemonic("\\(&\\w\\)");
+            text.remove(cjk_mnemonic);
+#endif
+#ifdef LANG_PSEUDO
+            if (_cur_lang == LAN_PSEUDO)
+                text = pseudo(text);
+#endif
             p._res[id.toStdString()] = text.toStdString();
         }
     }
@@ -220,6 +296,11 @@ static const char* branded_default(const char *text)
 #define DEFAULT_TEXT(t) branded_default(t)
 #else
 #define DEFAULT_TEXT(t) (t)
+#endif
+#ifdef LANG_PSEUDO
+#define FALLBACK_TEXT(t) (_cur_lang == LAN_PSEUDO ? pseudo_default(DEFAULT_TEXT(t)) : DEFAULT_TEXT(t))
+#else
+#define FALLBACK_TEXT(t) DEFAULT_TEXT(t)
 #endif
 
 const char* LangResource::get_lang_text(int page_id, const char *str_id, const char *default_str)
@@ -247,7 +328,7 @@ const char* LangResource::get_lang_text(int page_id, const char *str_id, const c
     if (_current_page == NULL){
         if (_cur_lang != LAN_EN)
             dsv_warn("Warning:Can't find language source page:%d", page_id);
-        return DEFAULT_TEXT(default_str);
+        return FALLBACK_TEXT(default_str);
     }
 
     if (_current_page->_loaded == false){
@@ -276,7 +357,7 @@ const char* LangResource::get_lang_text(int page_id, const char *str_id, const c
         dsv_warn("Warning:Can't get language text:%s", str_id);
     }
 
-    return DEFAULT_TEXT(default_str);
+    return FALLBACK_TEXT(default_str);
 }
 
 bool LangResource::is_new_decoder(const char *decoder_id)

@@ -1,0 +1,82 @@
+[
+    {
+        "id": "Use 16 Channels (Max 20MHz)",
+        "text": "16 チャンネル使用 (最大 20MHz)"
+    },
+    {
+        "id": "Use 12 Channels (Max 25MHz)",
+        "text": "12 チャンネル使用 (最大 25MHz)"
+    },
+    {
+        "id": "Use 6 Channels (Max 50MHz)",
+        "text": "6 チャンネル使用 (最大 50MHz)"
+    },
+    {
+        "id": "Use 3 Channels (Max 100MHz)",
+        "text": "3 チャンネル使用 (最大 100MHz)"
+    },
+    {
+        "id": "Use 32 Channels (Max 10MHz)",
+        "text": "32 チャンネル使用 (最大 10MHz)"
+    },
+    {
+        "id": "Use 32 Channels (Max 50MHz)",
+        "text": "32 チャンネル使用 (最大 50MHz)"
+    },
+    {
+        "id": "Use 30 Channels (Max 100MHz)",
+        "text": "30 チャンネル使用 (最大 100MHz)"
+    },
+    {
+        "id": "Use 12 Channels (Max 250MHz)",
+        "text": "12 チャンネル使用 (最大 250MHz)"
+    },
+    {
+        "id": "Use 16 Channels (Max 125MHz)",
+        "text": "16 チャンネル使用 (最大 125MHz)"
+    },
+    {
+        "id": "Use 6 Channels (Max 500MHz)",
+        "text": "6 チャンネル使用 (最大 500MHz)"
+    },
+    {
+        "id": "Use 3 Channels (Max 1GHz)",
+        "text": "3 チャンネル使用 (最大 1GHz)"
+    },
+    {
+        "id": "Use Channels 0~15 (Max 100MHz)",
+        "text": "チャンネル 0~15 を使用 (最大 100MHz)"
+    },
+    {
+        "id": "Use Channels 0~7 (Max 200MHz)",
+        "text": "チャンネル 0~7 を使用 (最大 200MHz)"
+    },
+    {
+        "id": "Use Channels 0~3 (Max 400MHz)",
+        "text": "チャンネル 0~3 を使用 (最大 400MHz)"
+    },
+    {
+        "id": "Use Channels 0~31 (Max 250MHz)",
+        "text": "チャンネル 0~31 を使用 (最大 250MHz)"
+    },
+    {
+        "id": "Use Channels 0~15 (Max 500MHz)",
+        "text": "チャンネル 0~15 を使用 (最大 500MHz)"
+    },
+    {
+        "id": "Use Channels 0~7 (Max 1GHz)",
+        "text": "チャンネル 0~7 を使用 (最大 1GHz)"
+    },
+    {
+        "id": "Use Channels 0~1 (Max 10MHz)",
+        "text": "チャンネル 0~1 を使用 (最大 10MHz)"
+    },
+    {
+        "id": "Use Channels 0~1 (Max 200MHz)",
+        "text": "チャンネル 0~1 を使用 (最大 200MHz)"
+    },
+    {
+        "id": "Use Channels 0~1 (Max 1GHz)",
+        "text": "チャンネル 0~1 を使用 (最大 1GHz)"
+    }
+]

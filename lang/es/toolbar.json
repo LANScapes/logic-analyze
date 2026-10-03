@@ -1,0 +1,182 @@
+[
+    {
+        "id": "IDS_DEVICE_MODE_LOGIC",
+        "text": "&Analizador lógico"
+    },
+    {
+        "id": "IDS_DEVICE_MODE_ANALOG",
+        "text": "&Registrador"
+    },
+    {
+        "id": "IDS_DEVICE_MODE_DSO",
+        "text": "&Osciloscopio"
+    },
+    {
+        "id": "IDS_TOOLBAR_DEVICE_TYPE_DEMO",
+        "text": "Demo"
+    },
+    {
+        "id": "IDS_TOOLBAR_DEVICE_TYPE_FILE",
+        "text": "Archivo"
+    },
+    {
+        "id": "IDS_TOOLBAR_DEVICE_OPTION",
+        "text": "&Opciones"
+    },
+    {
+        "id": "IDS_TOOLBAR_DEVICE_OPTION_ITEM",
+        "text": "Opciones del dispositivo..."
+    },
+    {
+        "id": "IDS_TOOLBAR_CAPTURE_MODE",
+        "text": "&Modo"
+    },
+    {
+        "id": "IDS_TOOLBAR_CAPTURE_MODE_SINGLE",
+        "text": "Ú&nico"
+    },
+    {
+        "id": "IDS_TOOLBAR_CAPTURE_MODE_REPEAT",
+        "text": "&Repetitivo"
+    },
+    {
+        "id": "IDS_TOOLBAR_CAPTURE_MODE_LOOP",
+        "text": "&Bucle"
+    },
+    {
+        "id": "IDS_TOOLBAR_RUN_START",
+        "text": "&Iniciar"
+    },
+    {
+        "id": "IDS_TOOLBAR_RUN_STOP",
+        "text": "&Detener"
+    },
+    {
+        "id": "IDS_TOOLBAR_ONE_SINGLE",
+        "text": "Ú&nico"
+    },
+    {
+        "id": "IDS_TOOLBAR_ONE_INSTANT",
+        "text": "&Inmediato"
+    },
+    {
+        "id": "IDS_TOOLBAR_ONE_STOP",
+        "text": "&Detener"
+    },
+    {
+        "id": "IDS_TOOLBAR_TRIGGER",
+        "text": "&Disparo"
+    },
+    {
+        "id": "IDS_TOOLBAR_DECODE",
+        "text": "D&ecodificar"
+    },
+    {
+        "id": "IDS_TOOLBAR_MEASURE",
+        "text": "&Medir"
+    },
+    {
+        "id": "IDS_TOOLBAR_SEARCH",
+        "text": "&Buscar"
+    },
+    {
+        "id": "IDS_TOOLBAR_FUNCTION",
+        "text": "&Función"
+    },
+    {
+        "id": "IDS_TOOLBAR_FUNCTION_FFT",
+        "text": "&FFT"
+    },
+    {
+        "id": "IDS_TOOLBAR_FUNCTION_MATH",
+        "text": "&Cálculo"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY",
+        "text": "&Pantalla"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_THEMES",
+        "text": "&Temas"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_LISSAJOUS",
+        "text": "Liss&ajous"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_THEMES_DARK",
+        "text": "&Oscuro"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_THEMES_LIGHT",
+        "text": "&Claro"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_OPTIONS",
+        "text": "&Opciones"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE",
+        "text": "&Archivo"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CONFIG",
+        "text": "&Config."
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CONFIG_LOAD",
+        "text": "&Cargar sesión"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CONFIG_STORE",
+        "text": "&Guardar sesión"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CONFIG_DEFAULT",
+        "text": "Cargar sesión por &defecto"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_OPEN",
+        "text": "&Abrir..."
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_SAVE",
+        "text": "&Guardar..."
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_EXPORT",
+        "text": "&Exportar..."
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CAPTURE",
+        "text": "Captura de &pantalla..."
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP",
+        "text": "Ay&uda"
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_LANG",
+        "text": "&Idioma"
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_ABOUT",
+        "text": "&Acerca de..."
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_MANUAL",
+        "text": "&Manual..."
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_BUG",
+        "text": "&Informar error"
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_UPDATE",
+        "text": "&Actualizar"
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_LOG",
+        "text": "Opciones de &registro"
+    }
+]

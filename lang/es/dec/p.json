@@ -1,0 +1,474 @@
+[
+    {
+        "id": "dec_parallel_opt_clock_edge",
+        "text": "Flanco de reloj para muestrear"
+    },
+    {
+        "id": "dec_parallel_opt_wordsize",
+        "text": "Tamaño de palabra de datos (n.º de ciclos de bus)"
+    },
+    {
+        "id": "dec_parallel_opt_endianness",
+        "text": "Orden de bytes de los datos"
+    },
+    {
+        "id": "dec_pjdl_chan_data",
+        "text": "Datos de un solo hilo"
+    },
+    {
+        "id": "dec_pjdl_opt_mode",
+        "text": "Modo de comunicación"
+    },
+    {
+        "id": "dec_pjdl_opt_idle_add_us",
+        "text": "Tiempo de inactividad añadido (us)"
+    },
+    {
+        "id": "dec_ps2_chan_clk",
+        "text": "Línea de reloj"
+    },
+    {
+        "id": "dec_ps2_chan_data",
+        "text": "Línea de datos"
+    },
+    {
+        "id": "dec_ps2_opt_HtoD_Clock",
+        "text": "Reloj host a dispositivo"
+    },
+    {
+        "id": "dec_ps2_opt_DtoH_Clock",
+        "text": "Reloj dispositivo a host"
+    },
+    {
+        "id": "dec_pwm_chan_data",
+        "text": "Línea de datos"
+    },
+    {
+        "id": "dec_pwm_opt_polarity",
+        "text": "Polaridad"
+    },
+    {
+        "id": "dec_pxx1_chan_data",
+        "text": "Línea de datos"
+    },
+    {
+        "id": "dec_qi_chan_qi",
+        "text": "Línea de datos Qi demodulada"
+    },
+    {
+        "id": "dec_qspi_chan_clk",
+        "text": "Reloj"
+    },
+    {
+        "id": "dec_qspi_chan_io0",
+        "text": "E/S de datos 0"
+    },
+    {
+        "id": "dec_qspi_opt_chan_io1",
+        "text": "E/S de datos 1"
+    },
+    {
+        "id": "dec_qspi_opt_chan_io2",
+        "text": "E/S de datos 2"
+    },
+    {
+        "id": "dec_qspi_opt_chan_io3",
+        "text": "E/S de datos 3"
+    },
+    {
+        "id": "dec_qspi_opt_chan_cs",
+        "text": "Selección de chip"
+    },
+    {
+        "id": "dec_qspi_opt_cs_polarity",
+        "text": "Polaridad de CS#"
+    },
+    {
+        "id": "dec_qspi_opt_cpol",
+        "text": "Polaridad del reloj (CPOL)"
+    },
+    {
+        "id": "dec_qspi_opt_cpha",
+        "text": "Fase del reloj (CPHA)"
+    },
+    {
+        "id": "dec_qspi_opt_bitorder",
+        "text": "Orden de bits"
+    },
+    {
+        "id": "dec_qspi_opt_wordsize",
+        "text": "Tamaño de palabra"
+    },
+    {
+        "id": "dec_rc_encode_chan_data",
+        "text": "Línea de datos"
+    },
+    {
+        "id": "dec_rc_encode_opt_remote",
+        "text": "Mando a distancia"
+    },
+    {
+        "id": "dec_rgb_led_ws281x_chan_din",
+        "text": "Línea de datos DIN"
+    },
+    {
+        "id": "dec_rgb_led_ws281x_opt_default_color_order",
+        "text": "Orden de colores predeterminado"
+    },
+    {
+        "id": "dec_rgb_led_ws281x_opt_view_color_order",
+        "text": "Orden de colores de visualización"
+    },
+    {
+        "id": "dec_rgb_led_ws281x_opt_polarity",
+        "text": "Polaridad"
+    },
+    {
+        "id": "dec_sae_j1850_vpw_chan_data",
+        "text": "Línea de datos"
+    },
+    {
+        "id": "dec_sda2506_chan_clk",
+        "text": "Reloj"
+    },
+    {
+        "id": "dec_sda2506_chan_d",
+        "text": "Datos"
+    },
+    {
+        "id": "dec_sda2506_chan_ce",
+        "text": "Habilitación de chip"
+    },
+    {
+        "id": "dec_sdcard_sd_chan_cmd",
+        "text": "Comando"
+    },
+    {
+        "id": "dec_sdcard_sd_chan_clk",
+        "text": "Reloj"
+    },
+    {
+        "id": "dec_sdcard_sd_opt_chan_dat0",
+        "text": "Pin de datos 0"
+    },
+    {
+        "id": "dec_sdcard_sd_opt_chan_dat1",
+        "text": "Pin de datos 1"
+    },
+    {
+        "id": "dec_sdcard_sd_opt_chan_dat2",
+        "text": "Pin de datos 2"
+    },
+    {
+        "id": "dec_sdcard_sd_opt_chan_dat3",
+        "text": "Pin de datos 3"
+    },
+    {
+        "id": "dec_sdq_chan_sdq",
+        "text": "Línea de datos SDQ de un solo hilo."
+    },
+    {
+        "id": "dec_sdq_opt_bitrate",
+        "text": "Tasa de bits"
+    },
+    {
+        "id": "dec_seven_segment_chan_A",
+        "text": "Segmento A"
+    },
+    {
+        "id": "dec_seven_segment_chan_B",
+        "text": "Segmento B"
+    },
+    {
+        "id": "dec_seven_segment_chan_C",
+        "text": "Segmento C"
+    },
+    {
+        "id": "dec_seven_segment_chan_D",
+        "text": "Segmento D"
+    },
+    {
+        "id": "dec_seven_segment_chan_E",
+        "text": "Segmento E"
+    },
+    {
+        "id": "dec_seven_segment_chan_F",
+        "text": "Segmento F"
+    },
+    {
+        "id": "dec_seven_segment_chan_G",
+        "text": "Segmento G"
+    },
+    {
+        "id": "dec_seven_segment_opt_chan_dp",
+        "text": "Punto decimal"
+    },
+    {
+        "id": "dec_seven_segment_opt_polarity",
+        "text": "Polaridad esperada"
+    },
+    {
+        "id": "dec_signature_chan_start",
+        "text": "Canal START"
+    },
+    {
+        "id": "dec_signature_chan_stop",
+        "text": "Canal STOP"
+    },
+    {
+        "id": "dec_signature_chan_clk",
+        "text": "Canal CLOCK"
+    },
+    {
+        "id": "dec_signature_chan_data",
+        "text": "Canal DATA"
+    },
+    {
+        "id": "dec_signature_opt_start_edge",
+        "text": "Polaridad del flanco START"
+    },
+    {
+        "id": "dec_signature_opt_stop_edge",
+        "text": "Polaridad del flanco STOP"
+    },
+    {
+        "id": "dec_signature_opt_clk_edge",
+        "text": "Polaridad del flanco CLOCK"
+    },
+    {
+        "id": "dec_signature_opt_annbits",
+        "text": "Activar anotaciones a nivel de bit"
+    },
+    {
+        "id": "dec_sle44xx_chan_rst",
+        "text": "Línea de reinicio"
+    },
+    {
+        "id": "dec_sle44xx_chan_clk",
+        "text": "Línea de reloj"
+    },
+    {
+        "id": "dec_sle44xx_chan_io",
+        "text": "Línea de datos de E/S"
+    },
+    {
+        "id": "dec_spdif_chan_data",
+        "text": "Línea de datos"
+    },
+    {
+        "id": "dec_spi_tpm_opt_tpm_version",
+        "text": "Versión de TPM 1.2 o 2.0"
+    },
+    {
+        "id": "dec_spiflash_opt_chip",
+        "text": "Chip"
+    },
+    {
+        "id": "dec_spiflash_opt_format",
+        "text": "Formato de datos"
+    },
+    {
+        "id": "dec_ssi32_opt_msgsize",
+        "text": "Tamaño del mensaje"
+    },
+    {
+        "id": "dec_st7735_chan_cs",
+        "text": "Selección de chip"
+    },
+    {
+        "id": "dec_st7735_chan_clk",
+        "text": "Reloj"
+    },
+    {
+        "id": "dec_st7735_chan_mosi",
+        "text": "Salida maestro, entrada esclavo"
+    },
+    {
+        "id": "dec_st7735_chan_dc",
+        "text": "Datos o comando"
+    },
+    {
+        "id": "dec_st7789_chan_csx",
+        "text": "Señal de selección de chip"
+    },
+    {
+        "id": "dec_st7789_chan_dcx",
+        "text": "Señal de reloj"
+    },
+    {
+        "id": "dec_st7789_chan_sdo",
+        "text": "Datos de salida serie"
+    },
+    {
+        "id": "dec_st7789_chan_wrx",
+        "text": "Comando / datos"
+    },
+    {
+        "id": "dec_stepper_motor_chan_step",
+        "text": "Pulso de paso"
+    },
+    {
+        "id": "dec_stepper_motor_chan_dir",
+        "text": "Selección de dirección"
+    },
+    {
+        "id": "dec_stepper_motor_opt_unit",
+        "text": "Unidad"
+    },
+    {
+        "id": "dec_stepper_motor_opt_steps_per_mm",
+        "text": "Pasos por mm"
+    },
+    {
+        "id": "dec_swd_chan_swclk",
+        "text": "Reloj maestro"
+    },
+    {
+        "id": "dec_swd_chan_swdio",
+        "text": "Entrada/salida de datos"
+    },
+    {
+        "id": "dec_swd_opt_strict_start",
+        "text": "Esperar un reinicio de línea antes de decodificar"
+    },
+    {
+        "id": "dec_swim_opt_debug",
+        "text": "Depuración"
+    },
+    {
+        "id": "dec_swim_chan_swim",
+        "text": "Línea de datos SWIM"
+    },
+    {
+        "id": "dec_t55xx_chan_data",
+        "text": "Línea de datos"
+    },
+    {
+        "id": "dec_t55xx_opt_coilfreq",
+        "text": "Frecuencia de la bobina"
+    },
+    {
+        "id": "dec_t55xx_opt_start_gap",
+        "text": "Mín. intervalo de inicio"
+    },
+    {
+        "id": "dec_t55xx_opt_w_gap",
+        "text": "Mín. intervalo de escritura"
+    },
+    {
+        "id": "dec_t55xx_opt_w_one_min",
+        "text": "Mín. escritura de uno"
+    },
+    {
+        "id": "dec_t55xx_opt_w_one_max",
+        "text": "Máx. escritura de uno"
+    },
+    {
+        "id": "dec_t55xx_opt_w_zero_min",
+        "text": "Mín. escritura de cero"
+    },
+    {
+        "id": "dec_t55xx_opt_w_zero_max",
+        "text": "Máx. escritura de cero"
+    },
+    {
+        "id": "dec_t55xx_opt_em4100_decode",
+        "text": "Decodificación EM4100"
+    },
+    {
+        "id": "dec_tdm_audio_chan_clock",
+        "text": "Reloj de bits de datos"
+    },
+    {
+        "id": "dec_tdm_audio_chan_frame",
+        "text": "Sincronización de trama"
+    },
+    {
+        "id": "dec_tdm_audio_chan_data",
+        "text": "Datos serie"
+    },
+    {
+        "id": "dec_tdm_audio_opt_bps",
+        "text": "Bits por muestra"
+    },
+    {
+        "id": "dec_tdm_audio_opt_channels",
+        "text": "Canales por trama"
+    },
+    {
+        "id": "dec_tdm_audio_opt_edge",
+        "text": "Flanco de reloj para muestrear"
+    },
+    {
+        "id": "dec_tdm_audio_opt_sampling_edge",
+        "text": "Flanco de muestreo"
+    },
+    {
+        "id": "dec_timing_chan_data",
+        "text": "Línea de datos"
+    },
+    {
+        "id": "dec_timing_opt_avg_period",
+        "text": "Período de promediado"
+    },
+    {
+        "id": "dec_timing_opt_edge",
+        "text": "Flancos a comprobar"
+    },
+    {
+        "id": "dec_timing_opt_delta",
+        "text": "Mostrar diferencia con el anterior"
+    },
+    {
+        "id": "dec_tlc5620_chan_clk",
+        "text": "Reloj de interfaz serie"
+    },
+    {
+        "id": "dec_tlc5620_chan_data",
+        "text": "Datos de interfaz serie"
+    },
+    {
+        "id": "dec_tlc5620_opt_chan_load",
+        "text": "Control de carga de interfaz serie"
+    },
+    {
+        "id": "dec_tlc5620_opt_chan_ldac",
+        "text": "Cargar DAC"
+    },
+    {
+        "id": "dec_tlc5620_opt_vref_a",
+        "text": "Tensión de referencia DACA (V)"
+    },
+    {
+        "id": "dec_tlc5620_opt_vref_b",
+        "text": "Tensión de referencia DACB (V)"
+    },
+    {
+        "id": "dec_tlc5620_opt_vref_c",
+        "text": "Tensión de referencia DACC (V)"
+    },
+    {
+        "id": "dec_tlc5620_opt_vref_d",
+        "text": "Tensión de referencia DACD (V)"
+    },
+    {
+        "id": "dec_qspi_adress_mode",
+        "text": "Modo de dirección"
+    },
+    {
+        "id": "dec_qspi_opt_frame",
+        "text": "Decodificador de tramas"
+    },
+    {
+        "id": "dec_qspi_two_lines_mode",
+        "text": "Modo de dos líneas"
+    },
+    {
+        "id": "dec_qspi_invalidlevel",
+        "text": "Mantener alto o bajo como no válido"
+    },
+    {
+        "id": "dec_timing_opt_format",
+        "text": "Formato de la anotación 'time'"
+    }
+]

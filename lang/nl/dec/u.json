@@ -1,0 +1,86 @@
+[
+    {
+        "id": "dec_usb_packet_opt_signalling",
+        "text": "Signalering"
+    },
+    {
+        "id": "dec_usb_power_delivery_chan_cc1",
+        "text": "Configuratiekanaal 1"
+    },
+    {
+        "id": "dec_usb_power_delivery_opt_chan_cc2",
+        "text": "Configuratiekanaal 2"
+    },
+    {
+        "id": "dec_usb_power_delivery_opt_fulltext",
+        "text": "Volledige tekstdecodering van pakketten"
+    },
+    {
+        "id": "dec_usb_signalling_chan_dp",
+        "text": "USB D+-signaal"
+    },
+    {
+        "id": "dec_usb_signalling_chan_dm",
+        "text": "USB D--signaal"
+    },
+    {
+        "id": "dec_usb_signalling_opt_signalling",
+        "text": "Signalering"
+    },
+    {
+        "id": "dec_wiegand_chan_d0",
+        "text": "Data 0-lijn"
+    },
+    {
+        "id": "dec_wiegand_chan_d1",
+        "text": "Data 1-lijn"
+    },
+    {
+        "id": "dec_wiegand_opt_active",
+        "text": "Actief niveau datalijnen"
+    },
+    {
+        "id": "dec_wiegand_opt_bitwidth_ms",
+        "text": "Breedte van één bit in milliseconden"
+    },
+    {
+        "id": "dec_xy2-100_chan_clk",
+        "text": "Klok"
+    },
+    {
+        "id": "dec_xy2-100_chan_sync",
+        "text": "Sync"
+    },
+    {
+        "id": "dec_xy2-100_chan_data",
+        "text": "Data X-, Y- of Z-as"
+    },
+    {
+        "id": "dec_xy2-100_opt_chan_status",
+        "text": "Status X-, Y- of Z-as"
+    },
+    {
+        "id": "dec_z80_chan_m1",
+        "text": "Machinecyclus 1"
+    },
+    {
+        "id": "dec_z80_chan_rd",
+        "text": "Geheugen- of I/O-lezen"
+    },
+    {
+        "id": "dec_z80_chan_wr",
+        "text": "Geheugen- of I/O-schrijven"
+    },
+    {
+        "id": "dec_z80_opt_chan_mreq",
+        "text": "Geheugenverzoek"
+    },
+    {
+        "id": "dec_z80_opt_chan_iorq",
+        "text": "I/O-verzoek"
+    },
+    {
+        "id": "dec_usb_request_opt_in_request_start",
+        "text": "IN-verzoeken starten op"
+    }
+]

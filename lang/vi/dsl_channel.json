@@ -1,0 +1,82 @@
+[
+    {
+        "id": "Use 16 Channels (Max 20MHz)",
+        "text": "Dùng 16 kênh (tối đa 20MHz)"
+    },
+    {
+        "id": "Use 12 Channels (Max 25MHz)",
+        "text": "Dùng 12 kênh (tối đa 25MHz)"
+    },
+    {
+        "id": "Use 6 Channels (Max 50MHz)",
+        "text": "Dùng 6 kênh (tối đa 50MHz)"
+    },
+    {
+        "id": "Use 3 Channels (Max 100MHz)",
+        "text": "Dùng 3 kênh (tối đa 100MHz)"
+    },
+    {
+        "id": "Use 32 Channels (Max 10MHz)",
+        "text": "Dùng 32 kênh (tối đa 10MHz)"
+    },
+    {
+        "id": "Use 32 Channels (Max 50MHz)",
+        "text": "Dùng 32 kênh (tối đa 50MHz)"
+    },
+    {
+        "id": "Use 30 Channels (Max 100MHz)",
+        "text": "Dùng 30 kênh (tối đa 100MHz)"
+    },
+    {
+        "id": "Use 12 Channels (Max 250MHz)",
+        "text": "Dùng 12 kênh (tối đa 250MHz)"
+    },
+    {
+        "id": "Use 16 Channels (Max 125MHz)",
+        "text": "Dùng 16 kênh (tối đa 125MHz)"
+    },
+    {
+        "id": "Use 6 Channels (Max 500MHz)",
+        "text": "Dùng 6 kênh (tối đa 500MHz)"
+    },
+    {
+        "id": "Use 3 Channels (Max 1GHz)",
+        "text": "Dùng 3 kênh (tối đa 1GHz)"
+    },
+    {
+        "id": "Use Channels 0~15 (Max 100MHz)",
+        "text": "Dùng kênh 0~15 (tối đa 100MHz)"
+    },
+    {
+        "id": "Use Channels 0~7 (Max 200MHz)",
+        "text": "Dùng kênh 0~7 (tối đa 200MHz)"
+    },
+    {
+        "id": "Use Channels 0~3 (Max 400MHz)",
+        "text": "Dùng kênh 0~3 (tối đa 400MHz)"
+    },
+    {
+        "id": "Use Channels 0~31 (Max 250MHz)",
+        "text": "Dùng kênh 0~31 (tối đa 250MHz)"
+    },
+    {
+        "id": "Use Channels 0~15 (Max 500MHz)",
+        "text": "Dùng kênh 0~15 (tối đa 500MHz)"
+    },
+    {
+        "id": "Use Channels 0~7 (Max 1GHz)",
+        "text": "Dùng kênh 0~7 (tối đa 1GHz)"
+    },
+    {
+        "id": "Use Channels 0~1 (Max 10MHz)",
+        "text": "Dùng kênh 0~1 (tối đa 10MHz)"
+    },
+    {
+        "id": "Use Channels 0~1 (Max 200MHz)",
+        "text": "Dùng kênh 0~1 (tối đa 200MHz)"
+    },
+    {
+        "id": "Use Channels 0~1 (Max 1GHz)",
+        "text": "Dùng kênh 0~1 (tối đa 1GHz)"
+    }
+]

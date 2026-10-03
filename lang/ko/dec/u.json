@@ -1,0 +1,86 @@
+[
+    {
+        "id": "dec_usb_packet_opt_signalling",
+        "text": "시그널링"
+    },
+    {
+        "id": "dec_usb_power_delivery_chan_cc1",
+        "text": "구성 채널 1"
+    },
+    {
+        "id": "dec_usb_power_delivery_opt_chan_cc2",
+        "text": "구성 채널 2"
+    },
+    {
+        "id": "dec_usb_power_delivery_opt_fulltext",
+        "text": "패킷 전체 텍스트 디코딩"
+    },
+    {
+        "id": "dec_usb_signalling_chan_dp",
+        "text": "USB D+ 신호"
+    },
+    {
+        "id": "dec_usb_signalling_chan_dm",
+        "text": "USB D- 신호"
+    },
+    {
+        "id": "dec_usb_signalling_opt_signalling",
+        "text": "시그널링"
+    },
+    {
+        "id": "dec_wiegand_chan_d0",
+        "text": "데이터 0 라인"
+    },
+    {
+        "id": "dec_wiegand_chan_d1",
+        "text": "데이터 1 라인"
+    },
+    {
+        "id": "dec_wiegand_opt_active",
+        "text": "데이터 라인 활성 레벨"
+    },
+    {
+        "id": "dec_wiegand_opt_bitwidth_ms",
+        "text": "단일 비트 폭 (밀리초)"
+    },
+    {
+        "id": "dec_xy2-100_chan_clk",
+        "text": "클록"
+    },
+    {
+        "id": "dec_xy2-100_chan_sync",
+        "text": "동기"
+    },
+    {
+        "id": "dec_xy2-100_chan_data",
+        "text": "X, Y 또는 Z축 데이터"
+    },
+    {
+        "id": "dec_xy2-100_opt_chan_status",
+        "text": "X, Y 또는 Z축 상태"
+    },
+    {
+        "id": "dec_z80_chan_m1",
+        "text": "머신 사이클 1"
+    },
+    {
+        "id": "dec_z80_chan_rd",
+        "text": "메모리 또는 I/O 읽기"
+    },
+    {
+        "id": "dec_z80_chan_wr",
+        "text": "메모리 또는 I/O 쓰기"
+    },
+    {
+        "id": "dec_z80_opt_chan_mreq",
+        "text": "메모리 요청"
+    },
+    {
+        "id": "dec_z80_opt_chan_iorq",
+        "text": "I/O 요청"
+    },
+    {
+        "id": "dec_usb_request_opt_in_request_start",
+        "text": "IN 요청 시작 기준"
+    }
+]

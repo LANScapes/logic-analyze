@@ -125,7 +125,7 @@
     },
     {
         "id": "dec_caliper_opt_timeout_ms",
-        "text": "数据包超时(毫秒),0表示禁用 "
+        "text": "数据包超时(毫秒),0表示禁用"
     },
     {
         "id": "dec_caliper_opt_unit",
@@ -153,7 +153,7 @@
     },
     {
         "id": "dec_can_opt_sample_point",
-        "text": "采样点(%d)"
+        "text": "采样点(%)"
     },
     {
         "id": "dec_cec_chan_cec",
@@ -322,5 +322,13 @@
     {
         "id": "dec_eth_an_chan_dp",
         "text": "ETH TX+信号"
+    },
+    {
+        "id": "dec_can_opt_data_order",
+        "text": "数据顺序"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_format",
+        "text": "数据格式"
     }
 ]

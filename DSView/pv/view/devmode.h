@@ -51,7 +51,7 @@ class SigSession;
 
 namespace view {
 
-//devece work mode select list
+//device work mode select list
 class DevMode : public QWidget, public IUiWindow
 {
 	Q_OBJECT

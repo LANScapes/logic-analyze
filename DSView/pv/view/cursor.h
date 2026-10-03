@@ -52,8 +52,8 @@ public:
 	/**
 	 * Constructor.
 	 * @param view A reference to the view that owns this cursor pair.
-	 * @param time The time to set the flag to.
-	 * @param other A reference to the other cursor.
+	 * @param order The cursor's order number.
+	 * @param sampleIndex The sample index to place the cursor at.
 	 */
     Cursor(View &view, int order, uint64_t sampleIndex);
 

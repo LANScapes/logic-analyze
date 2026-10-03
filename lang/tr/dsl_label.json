@@ -1,0 +1,146 @@
+[
+    {
+        "id": "Connection",
+        "text": "Bağlantı"
+    },
+    {
+        "id": "Serial communication",
+        "text": "Seri iletişim"
+    },
+    {
+        "id": "Sample rate",
+        "text": "Örnekleme hızı"
+    },
+    {
+        "id": "Sample depth",
+        "text": "Örnekleme derinliği"
+    },
+    {
+        "id": "Sample count",
+        "text": "Örnek sayısı"
+    },
+    {
+        "id": "Using External Clock",
+        "text": "Harici Saat Kullan"
+    },
+    {
+        "id": "Using Clock Negedge",
+        "text": "Saatin Düşen Kenarını Kullan"
+    },
+    {
+        "id": "Pre-trigger capture ratio",
+        "text": "Tetikleme öncesi yakalama oranı"
+    },
+    {
+        "id": "Run Length Encoding",
+        "text": "Ardışık Uzunluk Kodlaması (RLE)"
+    },
+    {
+        "id": "Wait Buffer Upload",
+        "text": "Tampon Yüklemesini Bekle"
+    },
+    {
+        "id": "Trigger slope",
+        "text": "Tetikleme eğimi"
+    },
+    {
+        "id": "Trigger source",
+        "text": "Tetikleme kaynağı"
+    },
+    {
+        "id": "Trigger channel",
+        "text": "Tetikleme kanalı"
+    },
+    {
+        "id": "Horizontal trigger position",
+        "text": "Yatay tetikleme konumu"
+    },
+    {
+        "id": "Trigger hold off",
+        "text": "Tetikleme bekletme süresi"
+    },
+    {
+        "id": "Trigger margin",
+        "text": "Tetikleme hassasiyeti"
+    },
+    {
+        "id": "Buffer size",
+        "text": "Tampon boyutu"
+    },
+    {
+        "id": "Time base",
+        "text": "Zaman tabanı"
+    },
+    {
+        "id": "Max Height",
+        "text": "Maks. Yükseklik"
+    },
+    {
+        "id": "Max Height value",
+        "text": "Maks. Yükseklik değeri"
+    },
+    {
+        "id": "Filter Targets",
+        "text": "Filtre Hedefleri"
+    },
+    {
+        "id": "Datalog",
+        "text": "Veri Kaydı"
+    },
+    {
+        "id": "Operation Mode",
+        "text": "Çalışma Modu"
+    },
+    {
+        "id": "Stop Options",
+        "text": "Durdurma Seçenekleri"
+    },
+    {
+        "id": "Channel Mode",
+        "text": "Kanal Modu"
+    },
+    {
+        "id": "Threshold Levels",
+        "text": "Eşik Seviyeleri"
+    },
+    {
+        "id": "Threshold Level",
+        "text": "Eşik Seviyesi"
+    },
+    {
+        "id": "Enable RLE Compress",
+        "text": "RLE Sıkıştırmayı Etkinleştir"
+    },
+    {
+        "id": "Bandwidth Limit",
+        "text": "Bant Genişliği Sınırı"
+    },
+    {
+        "id": "Coupling",
+        "text": "Kuplaj"
+    },
+    {
+        "id": "Volts/div",
+        "text": "Volt/böl"
+    },
+    {
+        "id": "Probe Factor",
+        "text": "Prob Çarpanı"
+    },
+    {
+        "id": "Map Default",
+        "text": "Varsayılan Eşleme"
+    },
+    {
+        "id": "Map Unit",
+        "text": "Eşleme Birimi"
+    },
+    {
+        "id": "Map Min",
+        "text": "Eşleme Min"
+    },
+    {
+        "id": "Map Max",
+        "text": "Eşleme Maks"
+    }
+]

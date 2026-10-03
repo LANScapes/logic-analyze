@@ -195,6 +195,7 @@ void SearchDock::on_previous()
         connect(&dlg, SIGNAL(canceled()), SLOT(on_progress_cancel()));
         watcher.setFuture(future);
         dlg.exec();
+        future.waitForFinished(); // the task writes ret/last_pos on this stack frame
 
         if (!ret) {
             QString strMsg(L_S(STR_PAGE_MSG, S_ID(IDS_MSG_PATTERN_NOT_FOUND), "Pattern not found!"));
@@ -258,6 +259,7 @@ void SearchDock::on_next()
         connect(&dlg, SIGNAL(canceled()), SLOT(on_progress_cancel()));
         watcher.setFuture(future);
         dlg.exec();
+        future.waitForFinished(); // the task writes ret/last_pos on this stack frame
 
         if (!ret) {
             QString strMsg(L_S(STR_PAGE_MSG, S_ID(IDS_MSG_PATTERN_NOT_FOUND), "Pattern not found!"));

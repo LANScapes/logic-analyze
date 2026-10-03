@@ -1,0 +1,182 @@
+[
+    {
+        "id": "dec_0i2c_chan_scl",
+        "text": "Đường xung nhịp nối tiếp"
+    },
+    {
+        "id": "dec_0i2c_chan_sda",
+        "text": "Đường dữ liệu nối tiếp"
+    },
+    {
+        "id": "dec_0i2c_opt_addr",
+        "text": "Định dạng hiển thị địa chỉ slave"
+    },
+    {
+        "id": "dec_0spi_chan_clk",
+        "text": "Xung nhịp"
+    },
+    {
+        "id": "dec_0spi_opt_chan_miso",
+        "text": "Master vào, slave ra"
+    },
+    {
+        "id": "dec_0spi_opt_chan_mosi",
+        "text": "Master ra, slave vào"
+    },
+    {
+        "id": "dec_0spi_opt_chan_cs",
+        "text": "Chọn chip"
+    },
+    {
+        "id": "dec_0spi_opt_cs_pol",
+        "text": "Cực tính CS#"
+    },
+    {
+        "id": "dec_0spi_opt_cpol",
+        "text": "Cực tính xung nhịp (CPOL)"
+    },
+    {
+        "id": "dec_0spi_opt_cpha",
+        "text": "Pha xung nhịp (CPHA)"
+    },
+    {
+        "id": "dec_0spi_opt_bitorder",
+        "text": "Thứ tự bit"
+    },
+    {
+        "id": "dec_0spi_opt_wordsize",
+        "text": "Kích thước từ"
+    },
+    {
+        "id": "dec_0uart_chan_rxtx",
+        "text": "Đường thu phát UART"
+    },
+    {
+        "id": "dec_0uart_opt_baudrate",
+        "text": "Tốc độ baud"
+    },
+    {
+        "id": "dec_0uart_opt_num_data_bits",
+        "text": "Số bit dữ liệu"
+    },
+    {
+        "id": "dec_0uart_opt_parity_type",
+        "text": "Kiểu chẵn lẻ"
+    },
+    {
+        "id": "dec_0uart_opt_parity_check",
+        "text": "Kiểm tra chẵn lẻ?"
+    },
+    {
+        "id": "dec_0uart_opt_num_stop_bits",
+        "text": "Số bit dừng"
+    },
+    {
+        "id": "dec_0uart_opt_bit_order",
+        "text": "Thứ tự bit"
+    },
+    {
+        "id": "dec_0uart_opt_format",
+        "text": "Định dạng dữ liệu"
+    },
+    {
+        "id": "dec_0uart_opt_invert",
+        "text": "Đảo tín hiệu?"
+    },
+    {
+        "id": "dec_0uart_anno_startstop",
+        "text": "Hiển thị Start/Stop?"
+    },
+    {
+        "id": "dec_1i2c_chan_scl",
+        "text": "Đường xung nhịp nối tiếp"
+    },
+    {
+        "id": "dec_1i2c_chan_sda",
+        "text": "Đường dữ liệu nối tiếp"
+    },
+    {
+        "id": "dec_1i2c_opt_addr",
+        "text": "Định dạng hiển thị địa chỉ slave"
+    },
+    {
+        "id": "dec_1spi_chan_clk",
+        "text": "Xung nhịp"
+    },
+    {
+        "id": "dec_1spi_opt_chan_miso",
+        "text": "Master vào, slave ra"
+    },
+    {
+        "id": "dec_1spi_opt_chan_mosi",
+        "text": "Master ra, slave vào"
+    },
+    {
+        "id": "dec_1spi_opt_chan_cs",
+        "text": "Chọn chip"
+    },
+    {
+        "id": "dec_1spi_opt_cs_pol",
+        "text": "Cực tính CS#"
+    },
+    {
+        "id": "dec_1spi_opt_cpol",
+        "text": "Cực tính xung nhịp (CPOL)"
+    },
+    {
+        "id": "dec_1spi_opt_cpha",
+        "text": "Pha xung nhịp (CPHA)"
+    },
+    {
+        "id": "dec_1spi_opt_bitorder",
+        "text": "Thứ tự bit"
+    },
+    {
+        "id": "dec_1spi_opt_wordsize",
+        "text": "Kích thước từ"
+    },
+    {
+        "id": "dec_1spi_opt_frame",
+        "text": "Bộ giải mã khung"
+    },
+    {
+        "id": "dec_1uart_chan_rxtx",
+        "text": "Đường thu phát UART"
+    },
+    {
+        "id": "dec_1uart_opt_baudrate",
+        "text": "Tốc độ baud"
+    },
+    {
+        "id": "dec_1uart_opt_num_data_bits",
+        "text": "Số bit dữ liệu"
+    },
+    {
+        "id": "dec_1uart_opt_parity_type",
+        "text": "Kiểu chẵn lẻ"
+    },
+    {
+        "id": "dec_1uart_opt_parity_check",
+        "text": "Kiểm tra chẵn lẻ?"
+    },
+    {
+        "id": "dec_1uart_opt_num_stop_bits",
+        "text": "Số bit dừng"
+    },
+    {
+        "id": "dec_1uart_opt_bit_order",
+        "text": "Thứ tự bit"
+    },
+    {
+        "id": "dec_1uart_opt_format",
+        "text": "Định dạng dữ liệu"
+    },
+    {
+        "id": "dec_1uart_opt_invert",
+        "text": "Đảo tín hiệu?"
+    },
+    {
+        "id": "dec_1uart_anno_startstop",
+        "text": "Hiển thị Start/Stop?"
+    }
+]

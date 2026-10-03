@@ -722,6 +722,44 @@ message(STATUS "Output dir: ${CMAKE_CURRENT_SOURCE_DIR}/build.dir")
 set(EXECUTABLE_OUTPUT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/build.dir")
 
 #===============================================================================
+#= Language checks (test builds only): cmake -DLANG_UI_CHECK=ON, then ctest -R lang
+#-------------------------------------------------------------------------------
+# lang_ui_check builds the main window offscreen and checks every language for
+# text that does not fit (see tools/lang_ui_check). It is the app compiled
+# again with a test pseudo-language (LANG_PSEUDO) and its own main().
+option(LANG_UI_CHECK "Build the offscreen language layout check" OFF)
+if(LANG_UI_CHECK)
+	set(LANG_UI_CHECK_SOURCES ${DSView_SOURCES})
+	list(REMOVE_ITEM LANG_UI_CHECK_SOURCES DSView/main.cpp)
+	add_executable(lang_ui_check
+		tools/lang_ui_check/lang_ui_check.cpp
+		${common_SOURCES}
+		${LANG_UI_CHECK_SOURCES}
+		${DSView_HEADERS_MOC}
+		${DSView_FORMS_HEADERS}
+		${DSView_RESOURCES_RCC}
+		${libsigrok4DSL_SOURCES}
+		${libsigrokdecode4DSL_SOURCES}
+	)
+	target_compile_definitions(lang_ui_check PRIVATE LANG_PSEUDO)
+	target_link_libraries(lang_ui_check ${DSVIEW_LINK_LIBS})
+	# It finds its data as the app bundle does, in ../Resources.
+	set(LANG_UI_CHECK_DIR "${CMAKE_CURRENT_BINARY_DIR}/lang_ui_check")
+	set_target_properties(lang_ui_check PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${LANG_UI_CHECK_DIR}/MacOS")
+	file(MAKE_DIRECTORY "${LANG_UI_CHECK_DIR}/Resources")
+	foreach(link res=DSView/res demo=DSView/demo lang=lang decoders=libsigrokdecode4DSL/decoders)
+		string(REPLACE "=" ";" link "${link}")
+		list(GET link 0 name)
+		list(GET link 1 src)
+		file(CREATE_LINK "${CMAKE_CURRENT_SOURCE_DIR}/${src}" "${LANG_UI_CHECK_DIR}/Resources/${name}" SYMBOLIC)
+	endforeach()
+
+	enable_testing()
+	add_test(NAME lang_tables COMMAND python3 "${CMAKE_CURRENT_SOURCE_DIR}/tools/check_lang.py")
+	add_test(NAME lang_ui_check COMMAND lang_ui_check "${LANG_UI_CHECK_DIR}/out")
+endif()
+
+#===============================================================================
 #= Installation
 #-------------------------------------------------------------------------------
 
@@ -837,5 +875,17 @@ if(NOT WIN32)
 		target_link_libraries(dslcap_test_registry_cf -lglib-2.0
 			${DSLCAP_COREFOUNDATION_FRAMEWORK} ${CMAKE_THREAD_LIBS_INIT} ${DSLCAP_MATH_LIBRARY})
 		set_property(TARGET dslcap_test_registry_cf APPEND_STRING PROPERTY LINK_FLAGS " -Wl,-dead_strip")
+	endif()
+
+	# Explicit hardware-free collection lifecycle regression. The harness
+	# includes lib_main.c with mocked session/driver work; no USB is linked.
+	add_executable(ds_test_collect_lifecycle EXCLUDE_FROM_ALL
+		libsigrok4DSL/tests/test_collect_lifecycle.c)
+	target_link_libraries(ds_test_collect_lifecycle -lglib-2.0 ${CMAKE_THREAD_LIBS_INIT})
+	if(APPLE)
+		set_property(TARGET ds_test_collect_lifecycle APPEND_STRING PROPERTY LINK_FLAGS " -Wl,-dead_strip")
+	else()
+		target_compile_options(ds_test_collect_lifecycle PRIVATE -ffunction-sections -fdata-sections)
+		set_property(TARGET ds_test_collect_lifecycle APPEND_STRING PROPERTY LINK_FLAGS " -Wl,--gc-sections")
 	endif()
 endif()

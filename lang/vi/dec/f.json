@@ -1,0 +1,334 @@
+[
+    {
+        "id": "dec_flexray_chan_channel",
+        "text": "Kênh bus FlexRay"
+    },
+    {
+        "id": "dec_flexray_opt_channel_type",
+        "text": "Loại kênh"
+    },
+    {
+        "id": "dec_flexray_opt_bitrate",
+        "text": "Tốc độ bit (bit/s)"
+    },
+    {
+        "id": "dec_fsi_chan_data",
+        "text": "Khung"
+    },
+    {
+        "id": "dec_fsi_chan_clock",
+        "text": "Xung nhịp"
+    },
+    {
+        "id": "dec_gpib_chan_dio1",
+        "text": "Bit dữ liệu vào/ra 1"
+    },
+    {
+        "id": "dec_gpib_chan_dio2",
+        "text": "Bit dữ liệu vào/ra 2"
+    },
+    {
+        "id": "dec_gpib_chan_dio3",
+        "text": "Bit dữ liệu vào/ra 3"
+    },
+    {
+        "id": "dec_gpib_chan_dio4",
+        "text": "Bit dữ liệu vào/ra 4"
+    },
+    {
+        "id": "dec_gpib_chan_dio5",
+        "text": "Bit dữ liệu vào/ra 5"
+    },
+    {
+        "id": "dec_gpib_chan_dio6",
+        "text": "Bit dữ liệu vào/ra 6"
+    },
+    {
+        "id": "dec_gpib_chan_dio7",
+        "text": "Bit dữ liệu vào/ra 7"
+    },
+    {
+        "id": "dec_gpib_chan_dio8",
+        "text": "Bit dữ liệu vào/ra 8"
+    },
+    {
+        "id": "dec_gpib_chan_eoi",
+        "text": "Kết thúc hoặc nhận dạng"
+    },
+    {
+        "id": "dec_gpib_chan_dav",
+        "text": "Dữ liệu hợp lệ"
+    },
+    {
+        "id": "dec_gpib_chan_nrfd",
+        "text": "Chưa sẵn sàng nhận dữ liệu"
+    },
+    {
+        "id": "dec_gpib_chan_ndac",
+        "text": "Dữ liệu chưa được chấp nhận"
+    },
+    {
+        "id": "dec_gpib_chan_ifc",
+        "text": "Xóa giao diện"
+    },
+    {
+        "id": "dec_gpib_chan_srq",
+        "text": "Yêu cầu phục vụ"
+    },
+    {
+        "id": "dec_gpib_chan_atn",
+        "text": "Chú ý"
+    },
+    {
+        "id": "dec_gpib_chan_ren",
+        "text": "Cho phép từ xa"
+    },
+    {
+        "id": "dec_graycode_opt_edges",
+        "text": "Số sườn mỗi vòng quay"
+    },
+    {
+        "id": "dec_graycode_opt_avg_period",
+        "text": "Chu kỳ lấy trung bình"
+    },
+    {
+        "id": "dec_guess_bitrate_chan_data",
+        "text": "Đường dữ liệu"
+    },
+    {
+        "id": "dec_i2cfilter_opt_address",
+        "text": "Địa chỉ cần lọc ra khỏi luồng I²C"
+    },
+    {
+        "id": "dec_i2cfilter_opt_direction",
+        "text": "Hướng cần lọc"
+    },
+    {
+        "id": "dec_i2s_chan_sck",
+        "text": "Đường xung nhịp bit"
+    },
+    {
+        "id": "dec_i2s_chan_ws",
+        "text": "Đường chọn từ"
+    },
+    {
+        "id": "dec_i2s_chan_sd",
+        "text": "Đường dữ liệu nối tiếp"
+    },
+    {
+        "id": "dec_i2s_opt_ws_polarity",
+        "text": "Cực tính WS"
+    },
+    {
+        "id": "dec_i2s_opt_clk_edge",
+        "text": "Sườn tích cực của SCK"
+    },
+    {
+        "id": "dec_i2s_opt_bit_shift",
+        "text": "Dịch bit"
+    },
+    {
+        "id": "dec_i2s_opt_bit_align",
+        "text": "Căn chỉnh bit"
+    },
+    {
+        "id": "dec_i2s_opt_bitorder",
+        "text": "Thứ tự bit"
+    },
+    {
+        "id": "dec_i2s_opt_wordsize",
+        "text": "Kích thước từ"
+    },
+    {
+        "id": "dec_iec_chan_data",
+        "text": "Dữ liệu vào/ra"
+    },
+    {
+        "id": "dec_iec_chan_clk",
+        "text": "Xung nhịp"
+    },
+    {
+        "id": "dec_iec_chan_atn",
+        "text": "Chú ý"
+    },
+    {
+        "id": "dec_iec_opt_chan_srq",
+        "text": "Yêu cầu phục vụ"
+    },
+    {
+        "id": "dec_ieee488_chan_dio1",
+        "text": "Bit dữ liệu vào/ra 1, hoặc dữ liệu nối tiếp"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio2",
+        "text": "Bit dữ liệu vào/ra 2"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio3",
+        "text": "Bit dữ liệu vào/ra 3"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio4",
+        "text": "Bit dữ liệu vào/ra 4"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio5",
+        "text": "Bit dữ liệu vào/ra 5"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio6",
+        "text": "Bit dữ liệu vào/ra 6"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio7",
+        "text": "Bit dữ liệu vào/ra 7"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio8",
+        "text": "Bit dữ liệu vào/ra 8"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_eoi",
+        "text": "Kết thúc hoặc nhận dạng"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dav",
+        "text": "Dữ liệu hợp lệ"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_nrfd",
+        "text": "Chưa sẵn sàng nhận dữ liệu"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_ndac",
+        "text": "Dữ liệu chưa được chấp nhận"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_ifc",
+        "text": "Xóa giao diện"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_srq",
+        "text": "Yêu cầu phục vụ"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_atn",
+        "text": "Chú ý"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_ren",
+        "text": "Cho phép từ xa"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_clk",
+        "text": "Xung nhịp nối tiếp"
+    },
+    {
+        "id": "dec_ieee488_opt_iec_periph",
+        "text": "Giải mã chi tiết thiết bị ngoại vi bus IEC của Commodore"
+    },
+    {
+        "id": "dec_ieee488_opt_delim",
+        "text": "Ký tự phân cách dữ liệu tải"
+    },
+    {
+        "id": "dec_ir_irmp_chan_ir",
+        "text": "Đường dữ liệu"
+    },
+    {
+        "id": "dec_ir_irmp_opt_polarity",
+        "text": "Cực tính"
+    },
+    {
+        "id": "dec_ir_nec_chan_ir",
+        "text": "Đường dữ liệu"
+    },
+    {
+        "id": "dec_ir_nec_opt_polarity",
+        "text": "Cực tính"
+    },
+    {
+        "id": "dec_ir_nec_opt_cd_freq",
+        "text": "Tần số sóng mang"
+    },
+    {
+        "id": "dec_ir_rc5_chan_ir",
+        "text": "Đường dữ liệu IR"
+    },
+    {
+        "id": "dec_ir_rc5_opt_polarity",
+        "text": "Cực tính"
+    },
+    {
+        "id": "dec_ir_rc5_opt_protocol",
+        "text": "Loại giao thức"
+    },
+    {
+        "id": "dec_ir_rc6_chan_ir",
+        "text": "Đường dữ liệu IR"
+    },
+    {
+        "id": "dec_ir_rc6_opt_polarity",
+        "text": "Cực tính"
+    },
+    {
+        "id": "dec_ir_sirc_chan_ir",
+        "text": "Đường dữ liệu IR"
+    },
+    {
+        "id": "dec_ir_sirc_opt_polarity",
+        "text": "Cực tính"
+    },
+    {
+        "id": "dec_jitter_chan_clk",
+        "text": "Kênh xung nhịp tham chiếu"
+    },
+    {
+        "id": "dec_jitter_chan_sig",
+        "text": "Tín hiệu kết quả do xung nhịp điều khiển"
+    },
+    {
+        "id": "dec_jitter_opt_clk_polarity",
+        "text": "Cực tính sườn xung nhịp"
+    },
+    {
+        "id": "dec_jitter_opt_sig_polarity",
+        "text": "Cực tính sườn tín hiệu kết quả"
+    },
+    {
+        "id": "dec_jtag_chan_tdi",
+        "text": "Dữ liệu kiểm thử vào"
+    },
+    {
+        "id": "dec_jtag_chan_tdo",
+        "text": "Dữ liệu kiểm thử ra"
+    },
+    {
+        "id": "dec_jtag_chan_tck",
+        "text": "Xung nhịp kiểm thử"
+    },
+    {
+        "id": "dec_jtag_chan_tms",
+        "text": "Chọn chế độ kiểm thử"
+    },
+    {
+        "id": "dec_jtag_opt_chan_trst",
+        "text": "Reset kiểm thử"
+    },
+    {
+        "id": "dec_jtag_opt_chan_srst",
+        "text": "Reset hệ thống"
+    },
+    {
+        "id": "dec_jtag_opt_chan_rtck",
+        "text": "Tín hiệu xung nhịp phản hồi"
+    },
+    {
+        "id": "dec_gpib_opt_sample_total",
+        "text": "Tổng số mẫu"
+    },
+    {
+        "id": "dec_ir_nec_opt_extended",
+        "text": "Giao thức NEC mở rộng"
+    }
+]

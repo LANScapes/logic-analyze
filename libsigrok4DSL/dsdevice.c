@@ -270,7 +270,7 @@ SR_PRIV void sr_usb_dev_inst_free(struct sr_usb_dev_inst *usb)
  * Both parameters are copied to newly allocated strings, and freed
  * automatically by sr_serial_dev_inst_free().
  *
- * @param pathname OS-specific serial port specification. Examples:
+ * @param port OS-specific serial port specification. Examples:
  *                 "/dev/ttyUSB0", "/dev/ttyACM1", "/dev/tty.Modem-0", "COM1".
  * @param serialcomm A serial communication parameters string, in the form
  *                   of <speed>/<data bits><parity><stopbits>, for example

@@ -71,6 +71,8 @@ cp -R "$SRC/libsigrokdecode4DSL/decoders" "$C/Resources/decoders"
 rm -rf "$C/Resources/decoders/ir_irmp"  # needs the native libirmp, which is not built
 rm -rf "$C/Resources/decoders/pxx1"     # declares no license ("Pirate"); not redistributable
 cp "$SRC/NEWS25" "$SRC/NEWS31" "$SRC/ug25.pdf" "$SRC/ug31.pdf" "$C/Resources/"
+# The manual in each UI language (doc/manual); Help > Manual opens manual/<lang>/index.html.
+python3 "$SRC/tools/manual/build_manual.py" --out "$C/Resources/manual" >/dev/null
 cp "$SRC/DSView/icons/showDoc25.png" "$SRC/DSView/icons/showDoc31.png" "$C/Resources/"
 cp "$SRC/packaging/macos/icon/$EXE.icns" "$C/Resources/$EXE.icns"
 sips -Z 256 "$SRC/packaging/macos/icon/$EXE-1024.png" --out "$C/Resources/about-icon.png" >/dev/null
@@ -92,6 +94,13 @@ cat > "$C/Info.plist" <<PLIST
 <key>CFBundleName</key><string>$NAME</string>
 <key>CFBundleDisplayName</key><string>$NAME</string>
 <key>CFBundlePackageType</key><string>APPL</string>
+<key>CFBundleDevelopmentRegion</key><string>en</string>
+<key>CFBundleLocalizations</key><array>
+<string>en</string><string>de</string><string>es</string><string>fr</string><string>it</string>
+<string>nl</string><string>pl</string><string>pt-BR</string><string>vi</string><string>tr</string>
+<string>ru</string><string>uk</string><string>ja</string><string>ko</string>
+<string>zh-Hans</string><string>zh-Hant</string>
+</array>
 <key>CFBundleShortVersionString</key><string>$VERSION</string>
 <key>CFBundleVersion</key><string>$BUILD</string>
 <key>LSMinimumSystemVersion</key><string>$MIN_MACOS</string>

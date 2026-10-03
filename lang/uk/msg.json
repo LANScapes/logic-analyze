@@ -1,0 +1,390 @@
+[
+    {
+        "id": "IDS_MSG_OK",
+        "text": "OK"
+    },
+    {
+        "id": "IDS_MSG_SKIP",
+        "text": "Пропустити"
+    },
+    {
+        "id": "IDS_MSG_CANCEL",
+        "text": "Скасувати"
+    },
+    {
+        "id": "IDS_MSG_ATTENTION",
+        "text": "Увага"
+    },
+    {
+        "id": "IDS_MSG_ERROR",
+        "text": "Помилка"
+    },
+    {
+        "id": "IDS_MSG_INFORMATION",
+        "text": "Інформація"
+    },
+    {
+        "id": "IDS_MSG_CONTINUE",
+        "text": "Продовжити"
+    },
+    {
+        "id": "IDS_MSG_AUTO_CALIB_START",
+        "text": "Буде запущено автоматичне калібрування. Не під'єднуйте жодних щупів. \nЦе може тривати деякий час!"
+    },
+    {
+        "id": "IDS_MSG_AUTO_CALIB",
+        "text": "Автокалібрування"
+    },
+    {
+        "id": "IDS_MSG_ADJUST_SAVE",
+        "text": "Відрегулюйте зміщення нуля та збережіть результат"
+    },
+    {
+        "id": "IDS_MSG_SAVE_CAPDATE",
+        "text": "Зберегти захоплені дані?"
+    },
+    {
+        "id": "IDS_MSG_NOT_FOND_DEFAULT_PROFILE",
+        "text": "Не знайдено типовий сеанс для цього пристрою!"
+    },
+    {
+        "id": "IDS_MSG_OPEN_FILE_ERROR",
+        "text": "Помилка відкриття файлу!"
+    },
+    {
+        "id": "IDS_MSG_PROFILE_NOT_COMPATIBLE",
+        "text": "Сеанс несумісний з поточним пристроєм або режимом!"
+    },
+    {
+        "id": "IDS_MSG_RESTORE_WINDOW_ERROR",
+        "text": "Помилка відновлення стану вікна!"
+    },
+    {
+        "id": "IDS_MSG_DECODE_INVAILD_CURSOR",
+        "text": "Неправильний індекс курсора для діапазону відліків!"
+    },
+    {
+        "id": "IDS_MSG_SEL_FILENAME",
+        "text": "Потрібно вибрати ім'я файлу."
+    },
+    {
+        "id": "IDS_MSG_DECODER_REPEAT",
+        "text": "У декодерах знайдено повторюваний ідентифікатор або назву:"
+    },
+    {
+        "id": "IDS_MSG_DECODER_LIST_EMPTY",
+        "text": "Список декодерів порожній!"
+    },
+    {
+        "id": "IDS_MSG_NO_SEL_DECODER",
+        "text": "Виберіть декодер!"
+    },
+    {
+        "id": "IDS_MSG_FIND_BASE_DECODER_ERROR",
+        "text": "Відповідний базовий декодер не знайдено!"
+    },
+    {
+        "id": "IDS_MSG_NO_DECODER_DEL",
+        "text": "Немає декодерів для видалення!"
+    },
+    {
+        "id": "IDS_MSG_DECODER_CONFIRM_DEL_ALL",
+        "text": "Видалити всі декодери?"
+    },
+    {
+        "id": "IDS_MSG_DECODER_CONFIRM_DEL",
+        "text": "Видалити цей декодер?"
+    },
+    {
+        "id": "IDS_MSG_CLOSE_DEVICE",
+        "text": "Видалити цей пристрій?"
+    },
+    {
+        "id": "IDS_MSG_SET_DEF_CAL_SETTING",
+        "text": "Усі параметри калібрування буде збережено як типові!"
+    },
+    {
+        "id": "IDS_MSG_ALL_CHANNEL_DISABLE",
+        "text": "Усі канали вимкнено! Увімкніть принаймні один канал."
+    },
+    {
+        "id": "IDS_MSG_MAX_CHANNEL_COUNT_WARNING",
+        "text": "Поточний режим підтримує не більше {0} каналів!"
+    },
+    {
+        "id": "IDS_MSG_TRI_SET_ISSUE",
+        "text": "Проблема з налаштуванням тригера"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_HOR_TRI_POS_FAIL",
+        "text": "Не вдалося змінити горизонтальну позицію тригера!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_TRI_HOLDOFF_TIME_FAIL",
+        "text": "Не вдалося змінити час утримання тригера!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_SENSITIVITY_FAIL",
+        "text": "Не вдалося змінити чутливість тригера!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_SOURCE_FAIL",
+        "text": "Не вдалося змінити джерело тригера!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_CHANNEL_FAIL",
+        "text": "Не вдалося змінити канал тригера!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_TYPE_FAIL",
+        "text": "Не вдалося змінити тип тригера!"
+    },
+    {
+        "id": "IDS_MSG_PLEASE_INSERT_CURSOR",
+        "text": "Додайте курсор, щоб використовувати вимірювання курсорами."
+    },
+    {
+        "id": "IDS_MSG_SEARCH",
+        "text": "Пошук"
+    },
+    {
+        "id": "IDS_MSG_NO_SAMPLE_DATA",
+        "text": "Немає даних вибірки!"
+    },
+    {
+        "id": "IDS_MSG_SEARCH_AT_START",
+        "text": "Курсор пошуку на початковій позиції!"
+    },
+    {
+        "id": "IDS_MSG_PATTERN_NOT_FOUND",
+        "text": "Шаблон не знайдено!"
+    },
+    {
+        "id": "IDS_MSG_SEARCH_AT_END",
+        "text": "Курсор пошуку на кінцевій позиції!"
+    },
+    {
+        "id": "IDS_MSG_TRIGGER",
+        "text": "Тригер"
+    },
+    {
+        "id": "IDS_MSG_STREAM_NO_AD_TRIGGER",
+        "text": "Потоковий режим не підтримує розширений тригер!"
+    },
+    {
+        "id": "IDS_MSG_AD_TRIGGER_NEED_HARDWARE",
+        "text": "Розширений тригер потребує апаратної підтримки DSLogic!"
+    },
+    {
+        "id": "IDS_MSG_SET_TRI_MULTI_CHANNEL",
+        "text": "Тригер задано на кількох каналах!\nЗахоплення спрацює лише тоді, коли всі задані канали одночасно виконають умову в одному відліку"
+    },
+    {
+        "id": "IDS_MSG_NOT_SHOW_AGAIN",
+        "text": "Більше не показувати"
+    },
+    {
+        "id": "IDS_MSG_CLEAR_TRIG",
+        "text": "Скинути тригер"
+    },
+    {
+        "id": "IDS_MSG_IGNORE",
+        "text": "Ігнорувати"
+    },
+    {
+        "id": "IDS_MSG_OPEN",
+        "text": "Відкрити"
+    },
+    {
+        "id": "IDS_MSG_FAIL_TO_LOAD",
+        "text": "Не вдалося завантажити"
+    },
+    {
+        "id": "IDS_MSG_HARDWARE_ERROR",
+        "text": "Помилка апаратної операції"
+    },
+    {
+        "id": "IDS_MSG_HARDWARE_ERROR_DET",
+        "text": "Перепід'єднайте пристрій, щоб оновити апаратну конфігурацію!"
+    },
+    {
+        "id": "IDS_MSG_MALLOC_ERROR",
+        "text": "Помилка виділення пам'яті"
+    },
+    {
+        "id": "IDS_MSG_MALLOC_ERROR_DET",
+        "text": "Недостатньо пам'яті для цієї вибірки!\nЗменште глибину вибірки!"
+    },
+    {
+        "id": "IDS_MSG_PACKET_ERROR",
+        "text": "Помилка пакета"
+    },
+    {
+        "id": "IDS_MSG_PACKET_ERROR_DET",
+        "text": "Отримано пакет неправильного формату!"
+    },
+    {
+        "id": "IDS_MSG_DATA_OVERFLOW",
+        "text": "Переповнення даних"
+    },
+    {
+        "id": "IDS_MSG_DATA_OVERFLOW_DET",
+        "text": "Пропускної здатності USB недостатньо для поточної частоти дискретизації!\nЗменште частоту дискретизації!"
+    },
+    {
+        "id": "IDS_MSG_UNDEFINED_ERROR",
+        "text": "Невизначена помилка"
+    },
+    {
+        "id": "IDS_MSG_UNDEFINED_ERROR_DET",
+        "text": "Неочікувана помилка!"
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR1",
+        "text": "DSView наразі не підтримує\nзбереження файлів із кількома типами даних."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR2",
+        "text": "Немає даних для збереження."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR3",
+        "text": "Не вказано ім'я файлу."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR4",
+        "text": "Не вдалося створити дані тимчасового файлу."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR5",
+        "text": "Не вдалося створити дані файлу декодера."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR6",
+        "text": "Не вдалося створити дані файлу сеансу."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR7",
+        "text": "Не вдалося створити zip-файл."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVEPROC_ERROR1",
+        "text": "Не вдалося створити zip-файл: помилка виділення пам'яті."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVEPROC_ERROR2",
+        "text": "Не вдалося створити zip-файл. Перевірте права на запис до цього шляху."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR1",
+        "text": "DSView наразі не підтримує\nекспорт файлів із кількома типами даних."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR2",
+        "text": "Немає даних для збереження."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR3",
+        "text": "Не вказано ім'я файлу."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR4",
+        "text": "Неправильний формат експорту."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTPROC_ERROR1",
+        "text": "Тип даних не підтримується."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTPROC_ERROR2",
+        "text": "Не вдалося виділити пам'ять для буфера."
+    },
+    {
+        "id": "IDS_MSG_SAVE_FILE",
+        "text": "Зберегти файл"
+    },
+    {
+        "id": "IDS_MSG_EXPORT_DATA",
+        "text": "Експорт даних"
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_WORK_ERROR",
+        "text": "Не вказано один або кілька обов'язкових каналів!"
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_DATA_ERROR",
+        "text": "Принаймні один із вибраних каналів не ввімкнено."
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_STACK_ERROR",
+        "text": "Не вдалося створити екземпляр декодера"
+    },
+    {
+        "id": "IDS_MSG_MESSAGE",
+        "text": "Повідомлення"
+    },
+    {
+        "id": "IDS_MSG_BOX_CONFIRM",
+        "text": "Підтвердження"
+    },
+    {
+        "id": "IDS_MSG_NO_DATA",
+        "text": "Немає даних!"
+    },
+    {
+        "id": "IDS_MSG_TO_SWITCH_DEVICE",
+        "text": "Перейти на новий пристрій?"
+    },
+    {
+        "id": "IDS_MSG_DISABLED_CHANNEL_TRIG",
+        "text": "Вимкнені канали не можна використовувати для тригера!"
+    },
+    {
+        "id": "IDS_MSG_TO_RECONNECT_FOR_FIRMWARE",
+        "text": "Неправильна версія мікропрограми, перепід'єднайте пристрій!"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_BUSY_SWITCH_FAILED",
+        "text": "Пристрій зайнятий, не вдалося перемкнутися!"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_NO_DRIVER",
+        "text": "Можливо, драйвер пристрою не встановлено!"
+    },
+    {
+        "id": "IDS_MSG_NO_ENABLED_CHANNEL",
+        "text": "Немає ввімкнених каналів!"
+    },
+    {
+        "id": "IDS_MSG_FILE_NOT_EXIST",
+        "text": "Файл не існує!"
+    },
+    {
+        "id": "IDS_MSG_TO_CLEAR_LOG",
+        "text": "Очистити файл журналу?"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_SPEED_TOO_LOW",
+        "text": "Помилка: швидкість порту USB занизька (<480Mbps)!"
+    },
+    {
+        "id": "IDS_MSG_FIRMWARE_NOT_EXIST",
+        "text": "Помилка: файл мікропрограми не існує!"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_USB_IO_ERROR",
+        "text": "Помилка: помилка вводу-виводу USB!"
+    },
+    {
+        "id": "IDS_MSG_DATA_RANGE_ERROR",
+        "text": "Неправильний діапазон даних!"
+    },
+    {
+        "id": "IDS_MSG_DATA_RANGE_HAVE_NO_DATA",
+        "text": "У діапазоні немає даних!"
+    },
+    {
+        "id": "IDS_MSG_NO_DECODED_RESULT",
+        "text": "Немає даних для експорту!"
+    }
+]

@@ -61,6 +61,7 @@ struct sr_lib_context
 	struct sr_dev_inst *actived_device_instance;
 	GThread *hotplug_thread;
 	GThread *collect_thread;
+	int is_collecting;
 	ds_datafeed_callback_t data_forward_callback;
 	int callback_thread_count;
 	int is_delay_destory_actived_device;
@@ -85,6 +86,9 @@ static void process_detach_event();
 static struct libusb_device* get_new_attached_usb_device();
 static struct libusb_device* get_new_detached_usb_device();
 
+/* The worker may run before g_thread_new() publishes collect_thread. */
+static GPrivate in_collect_thread = G_PRIVATE_INIT(NULL);
+
 static struct sr_lib_context lib_ctx = {
 	.event_callback = NULL,
 	.sr_ctx = NULL,
@@ -100,6 +104,7 @@ static struct sr_lib_context lib_ctx = {
 	.actived_device_instance = NULL,
 	.data_forward_callback = NULL,
 	.collect_thread = NULL,
+	.is_collecting = 0,
 	.callback_thread_count = 0,
 	.is_delay_destory_actived_device = 0,
 	.is_stop_by_detached = 0,
@@ -576,7 +581,7 @@ SR_API int ds_device_from_file(const char *file_path)
 }
 
 /**
- * Get the decive supports work mode, mode list: LOGIC、ANALOG、DSO
+ * Get the work modes the device supports, mode list: LOGIC, ANALOG, DSO
  * return type see struct sr_dev_mode.
  */
 SR_API const GSList *ds_get_actived_device_mode_list()
@@ -587,7 +592,8 @@ SR_API const GSList *ds_get_actived_device_mode_list()
 
 	if (dev == NULL)
 	{
-		sr_err("Have no actived device.");
+		sr_err("Have no active device.");
+		return NULL;
 	}
 	if (dev->driver == NULL || dev->driver->dev_mode_list == NULL)
 	{
@@ -599,7 +605,7 @@ SR_API const GSList *ds_get_actived_device_mode_list()
 }
 
 /**
- * Remove one device from the list, and destory it.
+ * Remove one device from the list, and destroy it.
  * User need to call ds_get_device_list() to get the new list.
  */
 SR_API int ds_remove_device(ds_device_handle handle)
@@ -657,8 +663,8 @@ SR_API int ds_remove_device(ds_device_handle handle)
 }
 
 /**
- * Get the actived device info.
- * If the actived device is not exists, the handle filed will be set null.
+ * Get the active device info.
+ * If the active device does not exist, the handle field will be set null.
  */
 SR_API int ds_get_actived_device_info(struct ds_device_full_info *fill_info)
 {
@@ -710,7 +716,7 @@ SR_API int ds_get_actived_device_info(struct ds_device_full_info *fill_info)
 }
 
 /**
- * Get actived device work model. mode list:LOGIC、ANALOG、DSO
+ * Get the active device work mode. mode list: LOGIC, ANALOG, DSO
  */
 SR_API int ds_get_actived_device_mode()
 {
@@ -733,6 +739,15 @@ SR_API int ds_start_collect()
 {
 	int ret;
 	struct sr_dev_inst *di;
+
+	/* Completion callbacks run on this worker. The caller must queue a restart
+	 * on another thread so it can join us after the callback and cleanup end. */
+	if (g_private_get(&in_collect_thread))
+	{
+		sr_err("Cannot restart collection from its worker callback; queue the restart.");
+		return SR_ERR_CALL_STATUS;
+	}
+
 	di = lib_ctx.actived_device_instance;
 
 	lib_ctx.last_error = SR_OK;
@@ -756,13 +771,20 @@ SR_API int ds_start_collect()
 	}
 	if (ds_channel_is_enabled() == 0)
 	{
-		sr_err("There have no useable channel, unable to collect.");
+		sr_err("There have no usable channel, unable to collect.");
 		return SR_ERR_CALL_STATUS;
 	}
 	if (lib_ctx.data_forward_callback == NULL)
 	{
 		sr_err("Error! Data forwarding callback is not set, see \"ds_set_datafeed_callback()\".");
 		return SR_ERR_CALL_STATUS;
+	}
+
+	// Finish the previous callback and cleanup before replacing its session.
+	if (lib_ctx.collect_thread != NULL)
+	{
+		g_thread_join(lib_ctx.collect_thread);
+		lib_ctx.collect_thread = NULL;
 	}
 
 	// Create new session.
@@ -779,6 +801,7 @@ SR_API int ds_start_collect()
 	}
 
 
+	g_atomic_int_set(&lib_ctx.is_collecting, 1);
 	lib_ctx.collect_thread = g_thread_new("collect_proc", collect_run_proc, (gpointer)0);
 
 	return SR_OK;
@@ -787,6 +810,7 @@ SR_API int ds_start_collect()
 static gpointer collect_run_proc(gpointer data)
 {
 	(void)data;
+	g_private_set(&in_collect_thread, GINT_TO_POINTER(1));
 
 	int ret;
 	struct sr_dev_inst *di;
@@ -831,7 +855,7 @@ static gpointer collect_run_proc(gpointer data)
 
 END:
 	sr_info("Collect thread end.");
-	lib_ctx.collect_thread = NULL;
+	g_atomic_int_set(&lib_ctx.is_collecting, 0);
 
 	if (bError)
 		send_event(DS_EV_COLLECT_TASK_END_BY_ERROR);
@@ -841,6 +865,7 @@ END:
 		send_event(DS_EV_COLLECT_TASK_END); // Normal end.
 
 	lib_ctx.is_stop_by_detached = 0;
+	g_private_set(&in_collect_thread, NULL);
 
 	return NULL;
 }
@@ -874,7 +899,7 @@ SR_API int ds_stop_collect()
  */
 SR_API int ds_is_collecting()
 {
-	if (lib_ctx.collect_thread != NULL)
+	if (g_atomic_int_get(&lib_ctx.is_collecting))
 	{
 		return 1;
 	}
@@ -893,13 +918,13 @@ SR_API int ds_release_actived_device()
 
 	if (lib_ctx.actived_device_instance->dev_type == DEV_TYPE_USB)
 	{
-		sr_info("Release current actived device. name:\"%s\", handle:%p", 
+		sr_info("Release current active device. name:\"%s\", handle:%p", 
 			lib_ctx.actived_device_instance->name,
 			lib_ctx.actived_device_instance->handle);
 	}
 	else
 	{
-		sr_info("Release current actived device. name:\"%s\"", 
+		sr_info("Release current active device. name:\"%s\"", 
 			lib_ctx.actived_device_instance->name);
 	}	
 
@@ -951,7 +976,7 @@ SR_API int ds_get_actived_device_config(const struct sr_channel *ch,
 {
 	if (lib_ctx.actived_device_instance == NULL)
 	{
-		sr_err("Have no actived device.");
+		sr_err("Have no active device.");
 		return SR_ERR_CALL_STATUS;
 	}
 
@@ -969,7 +994,7 @@ SR_API int ds_set_actived_device_config(const struct sr_channel *ch,
 {
 	if (lib_ctx.actived_device_instance == NULL)
 	{
-		sr_err("Have no actived device.");
+		sr_err("Have no active device.");
 		return SR_ERR_CALL_STATUS;
 	}
 
@@ -986,7 +1011,7 @@ SR_API int ds_get_actived_device_config_list(const struct sr_channel_group *cg,
 {
 	if (lib_ctx.actived_device_instance == NULL)
 	{
-		sr_err("Have no actived device.");
+		sr_err("Have no active device.");
 		return SR_ERR_CALL_STATUS;
 	}
 
@@ -1001,7 +1026,7 @@ SR_API const struct sr_config_info *ds_get_actived_device_config_info(int key)
 {
 	if (lib_ctx.actived_device_instance == NULL)
 	{
-		sr_err("Have no actived device.");
+		sr_err("Have no active device.");
 		return NULL;
 	}
 
@@ -1012,7 +1037,7 @@ SR_API int ds_get_actived_device_status(struct sr_status *status, gboolean prg)
 {
 	if (lib_ctx.actived_device_instance == NULL)
 	{
-		sr_err("Have no actived device.");
+		sr_err("Have no active device.");
 		return SR_ERR_CALL_STATUS;
 	}
 
@@ -1278,7 +1303,7 @@ static void hotplug_event_listen_callback(struct libusb_context *ctx, struct lib
 
 			if (lib_ctx.detach_device_handle == NULL)
 			{
-				sr_err("The detached device handle is null, but the status is waitting for reconnect.");
+				sr_err("The detached device handle is null, but the status is waiting for reconnect.");
 			}
 			else
 			{
@@ -1296,7 +1321,7 @@ static void hotplug_event_listen_callback(struct libusb_context *ctx, struct lib
 		}
 		if (bDone == 0)
 		{
-			lib_ctx.attach_event_flag = 1; // Is a new device attched.
+			lib_ctx.attach_event_flag = 1; // Is a new device attached.
 			lib_ctx.attach_device_handle = dev;
 		}
 		lib_ctx.is_waitting_reconnect = 0;
@@ -1392,7 +1417,7 @@ static void process_attach_event(int isEvent)
 		drivers++;
 	}
 
-	// Tell user one new device attched, and the list is updated.
+	// Tell user one new device attached, and the list is updated.
 	if (num > 0 && isEvent){
 		post_event_async(DS_EV_NEW_DEVICE_ATTACH);
 	}
@@ -1507,7 +1532,7 @@ static gpointer usb_hotplug_process_proc(gpointer data)
 
 	if (lib_ctx.callback_thread_count > 0)
 	{
-		sr_info("%d callback thread is actived, waiting all ends...", lib_ctx.callback_thread_count);
+		sr_info("%d callback thread is active, waiting all ends...", lib_ctx.callback_thread_count);
 	}
 
 	// Wait all callback thread end.
@@ -1621,7 +1646,7 @@ static void post_event_async(int event)
 	lib_ctx.callback_thread_count++;
 	pthread_mutex_unlock(&lib_ctx.mutext);
 
-	g_thread_new("callback_thread", post_event_proc, (gpointer)((unsigned long)event));
+	g_thread_unref(g_thread_new("callback_thread", post_event_proc, (gpointer)((unsigned long)event)));
 }
 
 static void send_event(int event)

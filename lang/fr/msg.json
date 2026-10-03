@@ -1,0 +1,390 @@
+[
+    {
+        "id": "IDS_MSG_OK",
+        "text": "OK"
+    },
+    {
+        "id": "IDS_MSG_SKIP",
+        "text": "Ignorer"
+    },
+    {
+        "id": "IDS_MSG_CANCEL",
+        "text": "Annuler"
+    },
+    {
+        "id": "IDS_MSG_ATTENTION",
+        "text": "Attention"
+    },
+    {
+        "id": "IDS_MSG_ERROR",
+        "text": "Erreur"
+    },
+    {
+        "id": "IDS_MSG_INFORMATION",
+        "text": "Information"
+    },
+    {
+        "id": "IDS_MSG_CONTINUE",
+        "text": "Continuer"
+    },
+    {
+        "id": "IDS_MSG_AUTO_CALIB_START",
+        "text": "Le programme d'étalonnage automatique va démarrer. Ne branchez aucune sonde. \nCela peut prendre un certain temps !"
+    },
+    {
+        "id": "IDS_MSG_AUTO_CALIB",
+        "text": "Étalonnage automatique"
+    },
+    {
+        "id": "IDS_MSG_ADJUST_SAVE",
+        "text": "Veuillez ajuster le décalage du zéro et enregistrer le résultat"
+    },
+    {
+        "id": "IDS_MSG_SAVE_CAPDATE",
+        "text": "Enregistrer les données acquises ?"
+    },
+    {
+        "id": "IDS_MSG_NOT_FOND_DEFAULT_PROFILE",
+        "text": "Session par défaut introuvable pour cet appareil !"
+    },
+    {
+        "id": "IDS_MSG_OPEN_FILE_ERROR",
+        "text": "Erreur d'ouverture du fichier !"
+    },
+    {
+        "id": "IDS_MSG_PROFILE_NOT_COMPATIBLE",
+        "text": "La session n'est pas compatible avec l'appareil ou le mode actuel !"
+    },
+    {
+        "id": "IDS_MSG_RESTORE_WINDOW_ERROR",
+        "text": "Erreur de restauration de l'état de la fenêtre !"
+    },
+    {
+        "id": "IDS_MSG_DECODE_INVAILD_CURSOR",
+        "text": "Indice de curseur non valide pour la plage d'échantillons !"
+    },
+    {
+        "id": "IDS_MSG_SEL_FILENAME",
+        "text": "Vous devez choisir un nom de fichier."
+    },
+    {
+        "id": "IDS_MSG_DECODER_REPEAT",
+        "text": "ID ou nom en double trouvé dans les décodeurs :"
+    },
+    {
+        "id": "IDS_MSG_DECODER_LIST_EMPTY",
+        "text": "La liste des décodeurs est vide !"
+    },
+    {
+        "id": "IDS_MSG_NO_SEL_DECODER",
+        "text": "Veuillez sélectionner un décodeur !"
+    },
+    {
+        "id": "IDS_MSG_FIND_BASE_DECODER_ERROR",
+        "text": "Aucun décodeur de base correspondant trouvé !"
+    },
+    {
+        "id": "IDS_MSG_NO_DECODER_DEL",
+        "text": "Aucun décodeur à supprimer !"
+    },
+    {
+        "id": "IDS_MSG_DECODER_CONFIRM_DEL_ALL",
+        "text": "Voulez-vous vraiment supprimer tous les décodeurs ?"
+    },
+    {
+        "id": "IDS_MSG_DECODER_CONFIRM_DEL",
+        "text": "Voulez-vous vraiment supprimer ce décodeur ?"
+    },
+    {
+        "id": "IDS_MSG_CLOSE_DEVICE",
+        "text": "Voulez-vous vraiment retirer cet appareil ?"
+    },
+    {
+        "id": "IDS_MSG_SET_DEF_CAL_SETTING",
+        "text": "Tous les paramètres d'étalonnage seront enregistrés par défaut !"
+    },
+    {
+        "id": "IDS_MSG_ALL_CHANNEL_DISABLE",
+        "text": "Toutes les voies sont désactivées ! Veuillez activer au moins une voie."
+    },
+    {
+        "id": "IDS_MSG_MAX_CHANNEL_COUNT_WARNING",
+        "text": "Le mode actuel ne prend en charge que {0} voies au maximum !"
+    },
+    {
+        "id": "IDS_MSG_TRI_SET_ISSUE",
+        "text": "Problème de réglage du déclenchement"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_HOR_TRI_POS_FAIL",
+        "text": "Échec de la modification de la position horizontale du déclenchement !"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_TRI_HOLDOFF_TIME_FAIL",
+        "text": "Échec de la modification du temps d'inhibition du déclenchement !"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_SENSITIVITY_FAIL",
+        "text": "Échec de la modification de la sensibilité du déclenchement !"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_SOURCE_FAIL",
+        "text": "Échec de la modification de la source de déclenchement !"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_CHANNEL_FAIL",
+        "text": "Échec de la modification de la voie de déclenchement !"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_TYPE_FAIL",
+        "text": "Échec de la modification du type de déclenchement !"
+    },
+    {
+        "id": "IDS_MSG_PLEASE_INSERT_CURSOR",
+        "text": "Veuillez insérer un curseur avant d'utiliser la mesure par curseurs."
+    },
+    {
+        "id": "IDS_MSG_SEARCH",
+        "text": "Rechercher"
+    },
+    {
+        "id": "IDS_MSG_NO_SAMPLE_DATA",
+        "text": "Aucune donnée échantillonnée !"
+    },
+    {
+        "id": "IDS_MSG_SEARCH_AT_START",
+        "text": "Le curseur de recherche est en position de début !"
+    },
+    {
+        "id": "IDS_MSG_PATTERN_NOT_FOUND",
+        "text": "Motif introuvable !"
+    },
+    {
+        "id": "IDS_MSG_SEARCH_AT_END",
+        "text": "Le curseur de recherche est en position de fin !"
+    },
+    {
+        "id": "IDS_MSG_TRIGGER",
+        "text": "Déclenchement"
+    },
+    {
+        "id": "IDS_MSG_STREAM_NO_AD_TRIGGER",
+        "text": "Le mode flux ne prend pas en charge le déclenchement avancé !"
+    },
+    {
+        "id": "IDS_MSG_AD_TRIGGER_NEED_HARDWARE",
+        "text": "Le déclenchement avancé nécessite la prise en charge matérielle DSLogic !"
+    },
+    {
+        "id": "IDS_MSG_SET_TRI_MULTI_CHANNEL",
+        "text": "Déclenchement défini sur plusieurs voies !\nL'acquisition ne se déclenchera que lorsque toutes les voies définies seront satisfaites sur un même échantillon"
+    },
+    {
+        "id": "IDS_MSG_NOT_SHOW_AGAIN",
+        "text": "Ne plus afficher"
+    },
+    {
+        "id": "IDS_MSG_CLEAR_TRIG",
+        "text": "Effacer décl."
+    },
+    {
+        "id": "IDS_MSG_IGNORE",
+        "text": "Ignorer"
+    },
+    {
+        "id": "IDS_MSG_OPEN",
+        "text": "Ouvrir"
+    },
+    {
+        "id": "IDS_MSG_FAIL_TO_LOAD",
+        "text": "Échec du chargement"
+    },
+    {
+        "id": "IDS_MSG_HARDWARE_ERROR",
+        "text": "Échec de l'opération matérielle"
+    },
+    {
+        "id": "IDS_MSG_HARDWARE_ERROR_DET",
+        "text": "Veuillez rebrancher l'appareil pour actualiser la configuration matérielle !"
+    },
+    {
+        "id": "IDS_MSG_MALLOC_ERROR",
+        "text": "Erreur d'allocation mémoire"
+    },
+    {
+        "id": "IDS_MSG_MALLOC_ERROR_DET",
+        "text": "Mémoire insuffisante pour cette acquisition !\nVeuillez réduire la profondeur mémoire !"
+    },
+    {
+        "id": "IDS_MSG_PACKET_ERROR",
+        "text": "Erreur de paquet"
+    },
+    {
+        "id": "IDS_MSG_PACKET_ERROR_DET",
+        "text": "Le format du paquet reçu est incorrect !"
+    },
+    {
+        "id": "IDS_MSG_DATA_OVERFLOW",
+        "text": "Débordement de données"
+    },
+    {
+        "id": "IDS_MSG_DATA_OVERFLOW_DET",
+        "text": "La bande passante USB ne permet pas la fréquence d'échantillonnage actuelle !\nVeuillez réduire la fréquence d'échantillonnage !"
+    },
+    {
+        "id": "IDS_MSG_UNDEFINED_ERROR",
+        "text": "Erreur non définie"
+    },
+    {
+        "id": "IDS_MSG_UNDEFINED_ERROR_DET",
+        "text": "Erreur inattendue !"
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR1",
+        "text": "DSView ne prend pas en charge actuellement\nl'enregistrement de fichiers avec plusieurs types de données."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR2",
+        "text": "Aucune donnée à enregistrer."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR3",
+        "text": "Aucun nom de fichier."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR4",
+        "text": "Échec de la génération des données du fichier temporaire."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR5",
+        "text": "Échec de la génération des données du fichier de décodeur."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR6",
+        "text": "Échec de la génération des données du fichier de session."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR7",
+        "text": "Échec de la génération du fichier zip."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVEPROC_ERROR1",
+        "text": "Échec de la création du fichier zip, erreur d'allocation mémoire."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVEPROC_ERROR2",
+        "text": "Échec de la création du fichier zip, veuillez vérifier les droits d'écriture de ce chemin."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR1",
+        "text": "DSView ne prend pas en charge actuellement\nl'exportation de fichiers avec plusieurs types de données."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR2",
+        "text": "Aucune donnée à enregistrer."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR3",
+        "text": "Aucun nom de fichier défini."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR4",
+        "text": "Format d'exportation non valide."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTPROC_ERROR1",
+        "text": "type de données non pris en charge."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTPROC_ERROR2",
+        "text": "échec de l'allocation du tampon."
+    },
+    {
+        "id": "IDS_MSG_SAVE_FILE",
+        "text": "Enregistrer le fichier"
+    },
+    {
+        "id": "IDS_MSG_EXPORT_DATA",
+        "text": "Exporter les données"
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_WORK_ERROR",
+        "text": "Une ou plusieurs voies requises n'ont pas été spécifiées !"
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_DATA_ERROR",
+        "text": "Au moins une des voies sélectionnées n'est pas activée."
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_STACK_ERROR",
+        "text": "Échec de la création de l'instance du décodeur"
+    },
+    {
+        "id": "IDS_MSG_MESSAGE",
+        "text": "Message"
+    },
+    {
+        "id": "IDS_MSG_BOX_CONFIRM",
+        "text": "Confirmer"
+    },
+    {
+        "id": "IDS_MSG_NO_DATA",
+        "text": "Aucune donnée !"
+    },
+    {
+        "id": "IDS_MSG_TO_SWITCH_DEVICE",
+        "text": "Basculer vers le nouvel appareil ?"
+    },
+    {
+        "id": "IDS_MSG_DISABLED_CHANNEL_TRIG",
+        "text": "Les voies désactivées ne peuvent pas servir au déclenchement !"
+    },
+    {
+        "id": "IDS_MSG_TO_RECONNECT_FOR_FIRMWARE",
+        "text": "La version du micrologiciel est incorrecte, veuillez rebrancher l'appareil !"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_BUSY_SWITCH_FAILED",
+        "text": "L'appareil est occupé, échec du basculement !"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_NO_DRIVER",
+        "text": "Le pilote de l'appareil n'est peut-être pas installé !"
+    },
+    {
+        "id": "IDS_MSG_NO_ENABLED_CHANNEL",
+        "text": "Aucune voie activée !"
+    },
+    {
+        "id": "IDS_MSG_FILE_NOT_EXIST",
+        "text": "Le fichier n'existe pas !"
+    },
+    {
+        "id": "IDS_MSG_TO_CLEAR_LOG",
+        "text": "Voulez-vous vraiment effacer le fichier journal ?"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_SPEED_TOO_LOW",
+        "text": "Erreur : la vitesse du port USB est trop faible (<480Mbps) !"
+    },
+    {
+        "id": "IDS_MSG_FIRMWARE_NOT_EXIST",
+        "text": "Erreur : le fichier du micrologiciel n'existe pas !"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_USB_IO_ERROR",
+        "text": "Erreur : erreur d'E/S USB !"
+    },
+    {
+        "id": "IDS_MSG_DATA_RANGE_ERROR",
+        "text": "La plage de données est incorrecte !"
+    },
+    {
+        "id": "IDS_MSG_DATA_RANGE_HAVE_NO_DATA",
+        "text": "Aucune donnée dans la plage !"
+    },
+    {
+        "id": "IDS_MSG_NO_DECODED_RESULT",
+        "text": "Aucune donnée à exporter !"
+    }
+]

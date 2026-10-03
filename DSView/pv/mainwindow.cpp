@@ -298,7 +298,7 @@ namespace pv
         _measure_dock->installEventFilter(this);
         _search_dock->installEventFilter(this);
 
-        // defaut language
+        // default language
         AppConfig &app = AppConfig::Instance();
         switchLanguage(app.frameOptions.language);
         switchTheme(app.frameOptions.style);
@@ -790,7 +790,7 @@ namespace pv
                 else if (info->datatype == SR_T_LIST)
                     sessionVar[info->name] =  QJsonValue::fromVariant(g_variant_get_int16(gvar));
                 else{
-                    dsv_err("Unkown config info type:%d", info->datatype);
+                    dsv_err("Unknown config info type:%d", info->datatype);
                     assert(false);
                 }
                 g_variant_unref(gvar);                
@@ -1321,7 +1321,7 @@ namespace pv
             }
         }
 
-        // Resotre the dock pannel.
+        // Restore the dock panel.
         if (_device_agent->have_instance())
             _trig_bar->reload();
     }
@@ -1502,17 +1502,17 @@ namespace pv
             LangResource::Instance()->Load(language);     
         }        
 
-        if (language == LAN_CN)
+        // Qt's own texts (qt_*) and the app's tr() texts (my_*); English has none.
+        qApp->removeTranslator(&_qtTrans);
+        qApp->removeTranslator(&_myTrans);
+        const lang_key_item *lang = LangResource::find_lang(language);
+
+        if (lang != NULL && language != LAN_EN)
         {
-            _qtTrans.load(":/qt_" + QString::number(language));
-            qApp->installTranslator(&_qtTrans);
-            _myTrans.load(":/my_" + QString::number(language));
-            qApp->installTranslator(&_myTrans);
-        }
-        else if (language == LAN_EN)
-        {
-            qApp->removeTranslator(&_qtTrans);
-            qApp->removeTranslator(&_myTrans);
+            if (_qtTrans.load(QString(":/qt_") + lang->name))
+                qApp->installTranslator(&_qtTrans);
+            if (_myTrans.load(QString(":/my_") + lang->name))
+                qApp->installTranslator(&_myTrans);
         }
 
         retranslateUi();
@@ -1582,13 +1582,34 @@ namespace pv
         openDoc();
     }
 
+    // The manual is manual/<code>/index.html in the data directory. <code> is the
+    // folder name of the UI language under lang/, as a language tag: "cn" is
+    // "zh-CN" and "pt_BR" is "pt-BR". English is the fallback, then the PDF guides.
+    static QString manual_path(const QDir &dir, int lan)
+    {
+        QStringList codes;
+        for (const lang_key_item &item : lang_id_keys){
+            if (item.id == lan){
+                QString key = QString::fromLatin1(item.name);
+                codes << (key == "cn" ? QString("zh-CN") : key.replace('_', '-'));
+            }
+        }
+        codes << "en";
+
+        for (const QString &code : codes){
+            QString path = dir.absoluteFilePath("manual/" + code + "/index.html");
+            if (QFile::exists(path))
+                return path;
+        }
+        QString pdf = dir.absoluteFilePath("ug" + QString::number(lan) + ".pdf");
+        return QFile::exists(pdf) ? pdf : dir.absoluteFilePath("ug31.pdf");
+    }
+
     void MainWindow::openDoc()
     {
         QDir dir(GetAppDataDir());
         AppConfig &app = AppConfig::Instance();
-        int lan = app.frameOptions.language;
-        QDesktopServices::openUrl(
-            QUrl("file:///" + dir.absolutePath() + "/ug" + QString::number(lan) + ".pdf"));
+        QDesktopServices::openUrl(QUrl::fromLocalFile(manual_path(dir, app.frameOptions.language)));
     }
 
     void MainWindow::update_capture()
@@ -1620,7 +1641,7 @@ namespace pv
 
     void MainWindow::receive_trigger(quint64 trigger_pos)
     {
-        _event.receive_trigger(trigger_pos); // save call
+        _event.receive_trigger(trigger_pos); // safe call
     }
 
     void MainWindow::on_receive_trigger(quint64 trigger_pos)
@@ -1630,7 +1651,7 @@ namespace pv
 
     void MainWindow::frame_ended()
     {
-        _event.frame_ended(); // save call
+        _event.frame_ended(); // safe call
     }
 
     void MainWindow::on_frame_ended()
@@ -1640,7 +1661,7 @@ namespace pv
 
     void MainWindow::frame_began()
     {
-        _event.frame_began(); // save call
+        _event.frame_began(); // safe call
     }
 
     void MainWindow::on_frame_began()
@@ -1867,7 +1888,7 @@ namespace pv
         if (data != NULL)
         {
             QByteArray raw_bytes = QByteArray::fromRawData(data->data(), data->size());
-            QString jsonStr(raw_bytes.data());
+            QString jsonStr = QString::fromUtf8(raw_bytes.data(), raw_bytes.size());
             QByteArray qbs = jsonStr.toUtf8();
             sessionDoc = QJsonDocument::fromJson(qbs, &error);
 
@@ -1906,7 +1927,7 @@ namespace pv
         if (data != NULL)
         {
             QByteArray raw_bytes = QByteArray::fromRawData(data->data(), data->size());
-            QString jsonStr(raw_bytes.data());
+            QString jsonStr = QString::fromUtf8(raw_bytes.data(), raw_bytes.size());
             QByteArray qbs = jsonStr.toUtf8();
             QJsonDocument sessionDoc = QJsonDocument::fromJson(qbs, &error);
 
@@ -2129,13 +2150,13 @@ namespace pv
 
                 // The store confirm is not processed.
                 if (_is_save_confirm_msg){
-                    dsv_info("New device attached:Waitting for the confirm box be closed.");
+                    dsv_info("New device attached:Waiting for the confirm box be closed.");
                     _is_auto_switch_device = true; 
                     return;
                 }
 
                 if (_session->is_saving()){
-                    dsv_info("New device attached:Waitting for store the data. and will switch to new device.");
+                    dsv_info("New device attached:Waiting for store the data. and will switch to new device.");
                     _is_auto_switch_device = true;
                     return;
                 }
@@ -2174,7 +2195,7 @@ namespace pv
                 _view->hide_calibration();
 
                 if (_session->is_saving()){
-                    dsv_info("Device detached:Waitting for store the data. and will switch to new device.");
+                    dsv_info("Device detached:Waiting for store the data. and will switch to new device.");
                     _is_auto_switch_device = true;
                     return;
                 }

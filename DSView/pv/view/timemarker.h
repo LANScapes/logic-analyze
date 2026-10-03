@@ -46,8 +46,7 @@ protected:
 	/**
 	 * Constructor.
 	 * @param view A reference to the view that owns this marker.
-	 * @param colour A reference to the colour of this cursor.
-	 * @param time The time to set the flag to.
+	 * @param index The sample index to place the marker at.
 	 */
     TimeMarker(View &view, uint64_t index);
 
@@ -58,13 +57,13 @@ protected:
 
 public:
 	/**
-	 * Gets the time of the marker.
+	 * Gets the sample index of the marker.
 	 */
 	double time();
     uint64_t index();
 
 	/**
-	 * Sets the time of the marker.
+	 * Sets the sample index of the marker.
 	 */
     void set_index(int64_t index);
 

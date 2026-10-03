@@ -1,0 +1,794 @@
+[
+    {
+        "id": "IDS_DLG_LOG_OPTIONS",
+        "text": "Параметри журналу"
+    },
+    {
+        "id": "IDS_DLG_LOG_LEVEL",
+        "text": "Рівень журналу"
+    },
+    {
+        "id": "IDS_DLG_SAVE_FILE",
+        "text": "Зберегти у файл"
+    },
+    {
+        "id": "IDS_DLG_OPEN_FILE",
+        "text": "Відкрити файл"
+    },
+    {
+        "id": "IDS_DLG_OPEN_SEESION",
+        "text": "Відкрити сеанс"
+    },
+    {
+        "id": "IDS_DLG_SAVE_SEESION",
+        "text": "Зберегти сеанс"
+    },
+    {
+        "id": "IDS_DLG_DOCUMENT",
+        "text": "Документ"
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_DOCK_TITLE",
+        "text": "Налаштування тригера"
+    },
+    {
+        "id": "IDS_DLG_PROTOCOL_DOCK_TITLE",
+        "text": "Декодери"
+    },
+    {
+        "id": "IDS_DLG_MEASURE_DOCK_TITLE",
+        "text": "Вимірювання"
+    },
+    {
+        "id": "IDS_DLG_SEARCH_DOCK_TITLE",
+        "text": "Пошук"
+    },
+    {
+        "id": "IDS_DLG_SAVE_AS",
+        "text": "Зберегти як"
+    },
+    {
+        "id": "IDS_DLG_CHECK_USB_SPEED_ERROR",
+        "text": "Під'єднання цього пристрою до порту USB 2.0 значно знизить його продуктивність.\nПерепід'єднайте його до порту USB 3.0."
+    },
+    {
+        "id": "IDS_DLG_CHECK_SESSION_FILE_VERSION_ERROR",
+        "text": "Цей файл має застарілий формат.\nВін завантажується повільно.\nПісля завантаження його можна зберегти повторно."
+    },
+    {
+        "id": "IDS_DLG_ABOUT",
+        "text": "Про програму"
+    },
+    {
+        "id": "IDS_DLG_DISPLAY_OPTIONS",
+        "text": "Параметри відображення"
+    },
+    {
+        "id": "IDS_DLG_QUICK_SCROLL",
+        "text": "Прокрутка осцилограми перетягуванням мишею"
+    },
+    {
+        "id": "IDS_DLG_SAVE",
+        "text": "Зберегти"
+    },
+    {
+        "id": "IDS_DLG_RESET",
+        "text": "Скинути"
+    },
+    {
+        "id": "IDS_DLG_EXIT",
+        "text": "Вийти"
+    },
+    {
+        "id": "IDS_DLG_MANUAL_CALIBRATION",
+        "text": "Ручне калібрування"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL",
+        "text": "Канал"
+    },
+    {
+        "id": "IDS_DLG_SAVE_CALIBRATION_RESULTS",
+        "text": "Збереження результатів калібрування... Зачекайте."
+    },
+    {
+        "id": "IDS_DLG_CANCEL",
+        "text": "Скасувати"
+    },
+    {
+        "id": "IDS_DLG_RELOAD_CALIBRATION_RESULTS",
+        "text": "Повторне завантаження попередніх результатів калібрування... Зачекайте."
+    },
+    {
+        "id": "IDS_DLG_DECODER_OPTIONS",
+        "text": "Параметри декодера"
+    },
+    {
+        "id": "IDS_DLG_CURSOR",
+        "text": "Курсор "
+    },
+    {
+        "id": "IDS_DLG_CURSOR_FOR_DECODE_START",
+        "text": "Початкова позиція декодування"
+    },
+    {
+        "id": "IDS_DLG_CURSOR_FOR_DECODE_END",
+        "text": "Кінцева позиція декодування"
+    },
+    {
+        "id": "IDS_DLG_DEVICE_OPTIONS",
+        "text": "Параметри пристрою"
+    },
+    {
+        "id": "IDS_DLG_MODE",
+        "text": "Параметри"
+    },
+    {
+        "id": "IDS_DLG_ENABLE_ALL",
+        "text": "Увімкнути всі"
+    },
+    {
+        "id": "IDS_DLG_DISABLE_ALL",
+        "text": "Вимкнути всі"
+    },
+    {
+        "id": "IDS_DLG_ENABLE",
+        "text": "Увімкнути: "
+    },
+    {
+        "id": "IDS_DLG_AUTO_CALIBRATION",
+        "text": "Автокалібрування"
+    },
+    {
+        "id": "IDS_DLG_CALIBRATION",
+        "text": "Калібрування"
+    },
+    {
+        "id": "IDS_DLG_MEASUREMENTS",
+        "text": "Вимірювання"
+    },
+    {
+        "id": "IDS_DLG_FFT_ENABLE",
+        "text": "Увімкнути FFT: "
+    },
+    {
+        "id": "IDS_DLG_FFT_LENGTH",
+        "text": "Довжина FFT: "
+    },
+    {
+        "id": "IDS_DLG_SAMPLE_INTERVAL",
+        "text": "Інтервал вибірки: "
+    },
+    {
+        "id": "IDS_DLG_FFT_SOURCE",
+        "text": "Джерело FFT: "
+    },
+    {
+        "id": "IDS_DLG_FFT_WINDOW",
+        "text": "Вікно FFT: "
+    },
+    {
+        "id": "IDS_DLG_DC_IGNORED",
+        "text": "Ігнорувати DC: "
+    },
+    {
+        "id": "IDS_DLG_Y-AXIS_MODE",
+        "text": "Режим осі Y: "
+    },
+    {
+        "id": "IDS_DLG_DBV_RANGE",
+        "text": "Діапазон DBV: "
+    },
+    {
+        "id": "IDS_DLG_FFT_OPTIONS",
+        "text": "Параметри FFT"
+    },
+    {
+        "id": "IDS_DLG_INTERVAL_S",
+        "text": "Інтервал(s): "
+    },
+    {
+        "id": "IDS_DLG_REPETITIVE_INTERVAL",
+        "text": "Інтервал повторення"
+    },
+    {
+        "id": "IDS_DLG_X_AXIS",
+        "text": "Вісь X"
+    },
+    {
+        "id": "IDS_DLG_Y_AXIS",
+        "text": "Вісь Y"
+    },
+    {
+        "id": "IDS_DLG_LISSAJOUS_OPTIONS",
+        "text": "Параметри фігури Ліссажу"
+    },
+    {
+        "id": "IDS_DLG_ADD",
+        "text": "Додавання"
+    },
+    {
+        "id": "IDS_DLG_SUBSTRACT",
+        "text": "Віднімання"
+    },
+    {
+        "id": "IDS_DLG_MULTIPLY",
+        "text": "Множення"
+    },
+    {
+        "id": "IDS_DLG_DIVIDE",
+        "text": "Ділення"
+    },
+    {
+        "id": "IDS_DLG_MATH_TYPE",
+        "text": "Тип операції"
+    },
+    {
+        "id": "IDS_DLG_1ST_SOURCE",
+        "text": "Джерело 1"
+    },
+    {
+        "id": "IDS_DLG_2ST_SOURCE",
+        "text": "Джерело 2"
+    },
+    {
+        "id": "IDS_DLG_MATH_OPTIONS",
+        "text": "Параметри математики"
+    },
+    {
+        "id": "IDS_DLG_EXPORT_FORMAT",
+        "text": "Формат експорту: "
+    },
+    {
+        "id": "IDS_DLG_PROTOCOL_EXPORT",
+        "text": "Експорт протоколу"
+    },
+    {
+        "id": "IDS_DLG_EXPORT_DATA",
+        "text": "Експортувати дані: "
+    },
+    {
+        "id": "IDS_DLG_EXPORT_PROTOCOL_LIST_RESULT",
+        "text": "Експорт результатів декодування... Зачекайте."
+    },
+    {
+        "id": "IDS_DLG_FIT_TO_WINDOW",
+        "text": "За розміром вікна"
+    },
+    {
+        "id": "IDS_DLG_FIXED",
+        "text": "Фіксований"
+    },
+    {
+        "id": "IDS_DLG_MAP_ZOOM",
+        "text": "Масштаб переходу: "
+    },
+    {
+        "id": "IDS_DLG_DECODED_PROTOCOLS",
+        "text": "Декодовані протоколи: "
+    },
+    {
+        "id": "IDS_DLG_PROTOCOL_LIST_VIEWER",
+        "text": "Результати декодування"
+    },
+    {
+        "id": "IDS_DLG_REGION",
+        "text": "Область"
+    },
+    {
+        "id": "IDS_DLG_SEARCH_LABEL",
+        "text": "X: Будь-який\n0: Низький рівень\n1: Високий рівень\nR: Фронт\nF: Спад\nC: Фронт/спад"
+    },
+    {
+        "id": "IDS_DLG_SEARCH_OPTIONS",
+        "text": "Параметри пошуку"
+    },
+    {
+        "id": "IDS_DLG_SAVING",
+        "text": "Збереження..."
+    },
+    {
+        "id": "IDS_DLG_ORIGINAL_DATA",
+        "text": "Вихідні дані"
+    },
+    {
+        "id": "IDS_DLG_COMPRESSED_DATA",
+        "text": "Стиснені дані"
+    },
+    {
+        "id": "IDS_DLG_EXPORT",
+        "text": "Експорт"
+    },
+    {
+        "id": "IDS_DLG_EXPORTING",
+        "text": "Експорт..."
+    },
+    {
+        "id": "IDS_DLG_DONT_CONNECT_PROBES",
+        "text": "Не під'єднуйте жодних щупів!"
+    },
+    {
+        "id": "IDS_DLG_LOAD_CURRENT_SETTING",
+        "text": "Завантаження поточних налаштувань... Зачекайте."
+    },
+    {
+        "id": "IDS_DLG_WAITING",
+        "text": "Очікування"
+    },
+    {
+        "id": "IDS_DLG_FINISHED",
+        "text": "Готово!"
+    },
+    {
+        "id": "IDS_DLG_US",
+        "text": "uS"
+    },
+    {
+        "id": "IDS_DLG_MS",
+        "text": "mS"
+    },
+    {
+        "id": "IDS_DLG_S",
+        "text": "S"
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_POSITION",
+        "text": "Позиція тригера: "
+    },
+    {
+        "id": "IDS_DLG_HOLD_OFF_TIME",
+        "text": "Час утримання: "
+    },
+    {
+        "id": "IDS_DLG_NOISE_SENSITIVITY",
+        "text": "Чутливість тригера: "
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_SOURCES",
+        "text": "Джерела тригера: "
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_TYPES",
+        "text": "Типи тригера: "
+    },
+    {
+        "id": "IDS_DLG_RISING_EDGE",
+        "text": "Фронт"
+    },
+    {
+        "id": "IDS_DLG_FALLING_EDGE",
+        "text": "Спад"
+    },
+    {
+        "id": "IDS_DLG_AUTO",
+        "text": "Авто"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_0",
+        "text": "Канал 0"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_1",
+        "text": "Канал 1"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_0_AND_1",
+        "text": "Канал 0 && 1"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_0_OR_1",
+        "text": "Канал 0 | 1"
+    },
+    {
+        "id": "IDS_DLG_KEY_DECODER_SEARCH",
+        "text": "Пошук декодера..."
+    },
+    {
+        "id": "IDS_DLG_TIME_SAMPLES",
+        "text": "Час/відліки"
+    },
+    {
+        "id": "IDS_DLG_MOUSE_MEASUREMENT",
+        "text": "Вимірювання мишею"
+    },
+    {
+        "id": "IDS_DLG_ENABLE_FLOATING_MEASUREMENT",
+        "text": "Увімкнути плаваюче вимірювання"
+    },
+    {
+        "id": "IDS_DLG_CURSOR_DISTANCE",
+        "text": "Відстань між курсорами"
+    },
+    {
+        "id": "IDS_DLG_EDGES",
+        "text": "Перепади"
+    },
+    {
+        "id": "IDS_DLG_CURSORS",
+        "text": "Курсори"
+    },
+    {
+        "id": "IDS_DLG_RIS_OR_FAL_EDGE",
+        "text": "Фронт/спад/усі"
+    },
+    {
+        "id": "IDS_DLG_W",
+        "text": "Ш: "
+    },
+    {
+        "id": "IDS_DLG_P",
+        "text": "П: "
+    },
+    {
+        "id": "IDS_DLG_F",
+        "text": "Ч: "
+    },
+    {
+        "id": "IDS_DLG_D",
+        "text": "З: "
+    },
+    {
+        "id": "IDS_DLG_SEARCH",
+        "text": "пошук"
+    },
+    {
+        "id": "IDS_DLG_MATCHING_ITEMS",
+        "text": "Збіги:"
+    },
+    {
+        "id": "IDS_DLG_OUT_OF_MEMORY",
+        "text": "Недостатньо пам'яті"
+    },
+    {
+        "id": "IDS_DLG_SEARCHING",
+        "text": "Пошук..."
+    },
+    {
+        "id": "IDS_DLG_SEARCH_PREVIOUS",
+        "text": "Шукати попередній..."
+    },
+    {
+        "id": "IDS_DLG_SEARCH_NEXT",
+        "text": "Шукати наступний..."
+    },
+    {
+        "id": "IDS_DLG_SIMPLE_TRIGGER",
+        "text": "Простий тригер"
+    },
+    {
+        "id": "IDS_DLG_ADVANCED_TRIGGER",
+        "text": "Розширений тригер"
+    },
+    {
+        "id": "IDS_DLG_TOTAL_TRIGGER_STAGES",
+        "text": "Кількість етапів тригера: "
+    },
+    {
+        "id": "IDS_DLG_START_FLAG",
+        "text": "Ознака старту: "
+    },
+    {
+        "id": "IDS_DLG_STOP_FLAG",
+        "text": "Ознака стопу: "
+    },
+    {
+        "id": "IDS_DLG_CLOCK_FLAG",
+        "text": "Ознака такту: "
+    },
+    {
+        "id": "IDS_DLG_DATA_CHANNEL",
+        "text": "Канал даних: "
+    },
+    {
+        "id": "IDS_DLG_DATA_VALUE",
+        "text": "Значення даних: "
+    },
+    {
+        "id": "IDS_DLG_SERIAL_TRIGGER",
+        "text": "Послідовний тригер"
+    },
+    {
+        "id": "IDS_DLG_STAGE_TRIGGER",
+        "text": "Багатоетапний тригер"
+    },
+    {
+        "id": "IDS_DLG_SERIAL_NOTE_LABEL",
+        "text": "X: Будь-який\n0: Низький рівень\n1: Високий рівень\nR: Фронт\nF: Спад\nC: Фронт/спад"
+    },
+    {
+        "id": "IDS_DLG_DATA_BITS",
+        "text": "Біти даних"
+    },
+    {
+        "id": "IDS_DLG_INV",
+        "text": "Інв."
+    },
+    {
+        "id": "IDS_DLG_COUNTER",
+        "text": "Лічильник"
+    },
+    {
+        "id": "IDS_DLG_CONTIGUOUS",
+        "text": "Поспіль"
+    },
+    {
+        "id": "IDS_DLG_STAGE",
+        "text": "Етап"
+    },
+    {
+        "id": "IDS_DLG_OR",
+        "text": "АБО"
+    },
+    {
+        "id": "IDS_DLG_AND",
+        "text": "І"
+    },
+    {
+        "id": "IDS_DLG_HZ",
+        "text": "Hz"
+    },
+    {
+        "id": "IDS_DLG_UNSHOWN",
+        "text": "Приховано"
+    },
+    {
+        "id": "ZOOM_IN_FOR_DETAILS",
+        "text": "Збільште для деталей"
+    },
+    {
+        "id": "IDS_DLG_DECODETRACE_ERROR1",
+        "text": "Помилка: "
+    },
+    {
+        "id": "IDS_DLG_DECODETRACE_ERROR2",
+        "text": "Помилка: ..."
+    },
+    {
+        "id": "IDS_DLG_ADD_GROUP",
+        "text": "Додати групу"
+    },
+    {
+        "id": "IDS_DLG_DEL_GROUP",
+        "text": "Видалити групу"
+    },
+    {
+        "id": "IDS_DLG_SET_CHANNEL_COLOUR",
+        "text": "Колір каналу"
+    },
+    {
+        "id": "IDS_DLG_LISSAJOUS_FIGURE",
+        "text": "Фігура Ліссажу"
+    },
+    {
+        "id": "IDS_DLG_DATA_SOURCE_ERROR",
+        "text": "Помилка джерела даних."
+    },
+    {
+        "id": "IDS_DLG_ADD_X_CURSOR",
+        "text": "Додати X-курсор"
+    },
+    {
+        "id": "IDS_DLG_ADD_Y_CURSOR",
+        "text": "Додати Y-курсор"
+    },
+    {
+        "id": "IDS_DLG_AUTO_ROLL",
+        "text": "Авто(Прокр.)"
+    },
+    {
+        "id": "IDS_DLG_WAITING_TRIG",
+        "text": "Очік. тригера"
+    },
+    {
+        "id": "IDS_DLG_TRIG_D",
+        "text": "Спрац."
+    },
+    {
+        "id": "IDS_DLG_TRIGGERED",
+        "text": "Тригер спрацював! "
+    },
+    {
+        "id": "IDS_DLG_CAPTURED",
+        "text": "% захоплено"
+    },
+    {
+        "id": "IDS_DLG_WAITING_FOR_TRIGGER",
+        "text": "Очікування тригера! "
+    },
+    {
+        "id": "IDS_DLG_RISING",
+        "text": "Фронти: "
+    },
+    {
+        "id": "IDS_DLG_FALLING",
+        "text": "Спади: "
+    },
+    {
+        "id": "IDS_DLG_Edges_1",
+        "text": "Перепади: "
+    },
+    {
+        "id": "IDS_DLG_WIDTH",
+        "text": "Ширина: "
+    },
+    {
+        "id": "IDS_DLG_PERIOD",
+        "text": "Період: "
+    },
+    {
+        "id": "IDS_DLG_FREQUENCY",
+        "text": "Частота: "
+    },
+    {
+        "id": "IDS_DLG_DUTY_CYCLE",
+        "text": "Коеф. заповнення: "
+    },
+    {
+        "id": "IDS_DLG_MEASURE",
+        "text": "Вимірювання"
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_TIME",
+        "text": "Час тригера: "
+    },
+    {
+        "id": "IDS_DLG_SAMPLES_CAPTURED",
+        "text": "відліків захоплено!"
+    },
+    {
+        "id": "IDS_DLG_FILE_THRESHOLD",
+        "text": "Поріг: "
+    },
+    {
+        "id": "IDS_DLG_VIEW_CAPTURE",
+        "text": "Захоплення"
+    },
+    {
+        "id": "IDS_DLG_CHAN_NUM_ERR2",
+        "text": "Потрібні дані двох каналів."
+    },
+    {
+        "id": "IDS_DLG_PATH_NAME",
+        "text": "шлях"
+    },
+    {
+        "id": "IDS_DLG_DECODER_IF_TRANS",
+        "text": "Перекладати назви параметрів"
+    },
+    {
+        "id": "IDS_DLG_LOG_PATH",
+        "text": "Шлях до файлу"
+    },
+    {
+        "id": "IDS_DLG_OPEN",
+        "text": "Відкрити"
+    },
+    {
+        "id": "IDS_DLG_CLEARE",
+        "text": "Очистити"
+    },
+    {
+        "id": "IDS_DLG_APPEND_MODE",
+        "text": "Режим дописування"
+    },
+    {
+        "id": "IDS_DLG_TRIG_DISPLAY_MIDDLE",
+        "text": "Позиція тригера посередині екрана"
+    },
+    {
+        "id": "IDS_DLG_DISPLAY_PROFILE_IN_BAR",
+        "text": "Показувати сеанс у заголовку вікна"
+    },
+    {
+        "id": "IDS_DLG_SERIAL_HEX",
+        "text": "Шістн. :"
+    },
+    {
+        "id": "IDS_DLG_SERIAL_INPUT_AS_HEX",
+        "text": "Введення в шістнадцятковому форматі"
+    },
+    {
+        "id": "IDS_DLG_USE_ABORT_DATA_REPEAT",
+        "text": "Оновлювати останні дані при зупинці в повторному режимі"
+    },
+    {
+        "id": "IDS_DLG_FONT_SIZE",
+        "text": "Розмір шрифту"
+    },
+    {
+        "id": "IDS_DLG_DEFAULT_FONT",
+        "text": "Типовий"
+    },
+    {
+        "id": "IDS_DLG_GROUP_LOGIC",
+        "text": "Логічний аналізатор"
+    },
+    {
+        "id": "IDS_DLG_GROUP_DSO",
+        "text": "Осцилограф"
+    },
+    {
+        "id": "IDS_DLG_GROUP_UI",
+        "text": "Інтерфейс"
+    },
+    {
+        "id": "IDS_DLG_ABORT",
+        "text": "Перервати"
+    },
+    {
+        "id": "IDS_DLG_AUTO_SCROLL_LATEAST_DATA",
+        "text": "Автопрокрутка до найновіших даних"
+    },
+    {
+        "id": "IDS_DLG_DATA_OUT_OFF_RANGE",
+        "text": "Дані поза діапазоном"
+    },
+    {
+        "id": "IDS_DLG_START_CURSOR",
+        "text": "Початок"
+    },
+    {
+        "id": "IDS_DLG_END_CURSOR",
+        "text": "Кінець"
+    },
+    {
+        "id": "IDS_DSO_CTR_EN",
+        "text": "УВІМК"
+    },
+    {
+        "id": "IDS_DSO_CTR_DIS",
+        "text": "ВИМК"
+    },
+    {
+        "id": "IDS_DSO_CTR_GND",
+        "text": "GND"
+    },
+    {
+        "id": "IDS_DSO_CTR_DC",
+        "text": "DC"
+    },
+    {
+        "id": "IDS_DSO_CTR_AC",
+        "text": "AC"
+    },
+    {
+        "id": "IDS_DSO_CTR_AUTO",
+        "text": "АВТО"
+    },
+    {
+        "id": "IDS_CALIB_VGAIN",
+        "text": "Підсилення"
+    },
+    {
+        "id": "IDS_CALIB_VOFF",
+        "text": "Зміщення"
+    },
+    {
+        "id": "IDS_CALIB_VCOMB",
+        "text": "Чергування"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_RECTANGLE",
+        "text": "Прямокутне"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_HANN",
+        "text": "Ганна"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_HAMMING",
+        "text": "Хеммінга"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_BLACKMAN",
+        "text": "Блекмана"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_FLATTOP",
+        "text": "З плоскою вершиною"
+    },
+    {
+        "id": "IDS_FFT_MODE_LINEARRSM",
+        "text": "Лінійне RMS"
+    }
+]

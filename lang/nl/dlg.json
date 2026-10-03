@@ -1,0 +1,794 @@
+[
+    {
+        "id": "IDS_DLG_LOG_OPTIONS",
+        "text": "Logopties"
+    },
+    {
+        "id": "IDS_DLG_LOG_LEVEL",
+        "text": "Logniveau"
+    },
+    {
+        "id": "IDS_DLG_SAVE_FILE",
+        "text": "Opslaan naar bestand"
+    },
+    {
+        "id": "IDS_DLG_OPEN_FILE",
+        "text": "Bestand openen"
+    },
+    {
+        "id": "IDS_DLG_OPEN_SEESION",
+        "text": "Sessie openen"
+    },
+    {
+        "id": "IDS_DLG_SAVE_SEESION",
+        "text": "Sessie opslaan"
+    },
+    {
+        "id": "IDS_DLG_DOCUMENT",
+        "text": "Document"
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_DOCK_TITLE",
+        "text": "Triggerinstelling"
+    },
+    {
+        "id": "IDS_DLG_PROTOCOL_DOCK_TITLE",
+        "text": "Decoders"
+    },
+    {
+        "id": "IDS_DLG_MEASURE_DOCK_TITLE",
+        "text": "Meting"
+    },
+    {
+        "id": "IDS_DLG_SEARCH_DOCK_TITLE",
+        "text": "Zoeken"
+    },
+    {
+        "id": "IDS_DLG_SAVE_AS",
+        "text": "Opslaan als"
+    },
+    {
+        "id": "IDS_DLG_CHECK_USB_SPEED_ERROR",
+        "text": "Als het huidige apparaat op een USB 2.0-poort is aangesloten, nemen de prestaties aanzienlijk af.\nSluit het opnieuw aan op een USB 3.0-poort."
+    },
+    {
+        "id": "IDS_DLG_CHECK_SESSION_FILE_VERSION_ERROR",
+        "text": "Dit bestand heeft een oud formaat.\nHet laadt langzaam.\nU kunt het na het laden opnieuw opslaan."
+    },
+    {
+        "id": "IDS_DLG_ABOUT",
+        "text": "Over"
+    },
+    {
+        "id": "IDS_DLG_DISPLAY_OPTIONS",
+        "text": "Weergaveopties"
+    },
+    {
+        "id": "IDS_DLG_QUICK_SCROLL",
+        "text": "Golfvorm scrollen door slepen met muis"
+    },
+    {
+        "id": "IDS_DLG_SAVE",
+        "text": "Opslaan"
+    },
+    {
+        "id": "IDS_DLG_RESET",
+        "text": "Herstellen"
+    },
+    {
+        "id": "IDS_DLG_EXIT",
+        "text": "Afsluiten"
+    },
+    {
+        "id": "IDS_DLG_MANUAL_CALIBRATION",
+        "text": "Handmatige kalibratie"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL",
+        "text": "Kanaal"
+    },
+    {
+        "id": "IDS_DLG_SAVE_CALIBRATION_RESULTS",
+        "text": "Kalibratieresultaten worden opgeslagen... Even geduld."
+    },
+    {
+        "id": "IDS_DLG_CANCEL",
+        "text": "Annuleren"
+    },
+    {
+        "id": "IDS_DLG_RELOAD_CALIBRATION_RESULTS",
+        "text": "Vorige kalibratieresultaten worden opnieuw geladen... Even geduld."
+    },
+    {
+        "id": "IDS_DLG_DECODER_OPTIONS",
+        "text": "Decoderopties"
+    },
+    {
+        "id": "IDS_DLG_CURSOR",
+        "text": "Cursor "
+    },
+    {
+        "id": "IDS_DLG_CURSOR_FOR_DECODE_START",
+        "text": "Startpositie decodering"
+    },
+    {
+        "id": "IDS_DLG_CURSOR_FOR_DECODE_END",
+        "text": "Eindpositie decodering"
+    },
+    {
+        "id": "IDS_DLG_DEVICE_OPTIONS",
+        "text": "Apparaatopties"
+    },
+    {
+        "id": "IDS_DLG_MODE",
+        "text": "Opties"
+    },
+    {
+        "id": "IDS_DLG_ENABLE_ALL",
+        "text": "Alles inschakelen"
+    },
+    {
+        "id": "IDS_DLG_DISABLE_ALL",
+        "text": "Alles uitschakelen"
+    },
+    {
+        "id": "IDS_DLG_ENABLE",
+        "text": "Inschakelen: "
+    },
+    {
+        "id": "IDS_DLG_AUTO_CALIBRATION",
+        "text": "Automatische kalibratie"
+    },
+    {
+        "id": "IDS_DLG_CALIBRATION",
+        "text": "Kalibratie"
+    },
+    {
+        "id": "IDS_DLG_MEASUREMENTS",
+        "text": "Metingen"
+    },
+    {
+        "id": "IDS_DLG_FFT_ENABLE",
+        "text": "FFT inschakelen: "
+    },
+    {
+        "id": "IDS_DLG_FFT_LENGTH",
+        "text": "FFT-lengte: "
+    },
+    {
+        "id": "IDS_DLG_SAMPLE_INTERVAL",
+        "text": "Sample-interval: "
+    },
+    {
+        "id": "IDS_DLG_FFT_SOURCE",
+        "text": "FFT-bron: "
+    },
+    {
+        "id": "IDS_DLG_FFT_WINDOW",
+        "text": "FFT-venster: "
+    },
+    {
+        "id": "IDS_DLG_DC_IGNORED",
+        "text": "DC negeren: "
+    },
+    {
+        "id": "IDS_DLG_Y-AXIS_MODE",
+        "text": "Y-asmodus: "
+    },
+    {
+        "id": "IDS_DLG_DBV_RANGE",
+        "text": "DBV-bereik: "
+    },
+    {
+        "id": "IDS_DLG_FFT_OPTIONS",
+        "text": "FFT-opties"
+    },
+    {
+        "id": "IDS_DLG_INTERVAL_S",
+        "text": "Interval(s): "
+    },
+    {
+        "id": "IDS_DLG_REPETITIVE_INTERVAL",
+        "text": "Herhalingsinterval"
+    },
+    {
+        "id": "IDS_DLG_X_AXIS",
+        "text": "X-as"
+    },
+    {
+        "id": "IDS_DLG_Y_AXIS",
+        "text": "Y-as"
+    },
+    {
+        "id": "IDS_DLG_LISSAJOUS_OPTIONS",
+        "text": "Lissajous-opties"
+    },
+    {
+        "id": "IDS_DLG_ADD",
+        "text": "Optellen"
+    },
+    {
+        "id": "IDS_DLG_SUBSTRACT",
+        "text": "Aftrekken"
+    },
+    {
+        "id": "IDS_DLG_MULTIPLY",
+        "text": "Vermenigvuldigen"
+    },
+    {
+        "id": "IDS_DLG_DIVIDE",
+        "text": "Delen"
+    },
+    {
+        "id": "IDS_DLG_MATH_TYPE",
+        "text": "Bewerkingstype"
+    },
+    {
+        "id": "IDS_DLG_1ST_SOURCE",
+        "text": "1e bron"
+    },
+    {
+        "id": "IDS_DLG_2ST_SOURCE",
+        "text": "2e bron"
+    },
+    {
+        "id": "IDS_DLG_MATH_OPTIONS",
+        "text": "Wiskunde-opties"
+    },
+    {
+        "id": "IDS_DLG_EXPORT_FORMAT",
+        "text": "Exportformaat: "
+    },
+    {
+        "id": "IDS_DLG_PROTOCOL_EXPORT",
+        "text": "Protocol exporteren"
+    },
+    {
+        "id": "IDS_DLG_EXPORT_DATA",
+        "text": "Gegevens exporteren: "
+    },
+    {
+        "id": "IDS_DLG_EXPORT_PROTOCOL_LIST_RESULT",
+        "text": "Decoderingsresultaten worden geëxporteerd... Even geduld."
+    },
+    {
+        "id": "IDS_DLG_FIT_TO_WINDOW",
+        "text": "Aanpassen aan venstergrootte"
+    },
+    {
+        "id": "IDS_DLG_FIXED",
+        "text": "Vast"
+    },
+    {
+        "id": "IDS_DLG_MAP_ZOOM",
+        "text": "Spronginzoom: "
+    },
+    {
+        "id": "IDS_DLG_DECODED_PROTOCOLS",
+        "text": "Gedecodeerde protocollen: "
+    },
+    {
+        "id": "IDS_DLG_PROTOCOL_LIST_VIEWER",
+        "text": "Decoderingsresultaten"
+    },
+    {
+        "id": "IDS_DLG_REGION",
+        "text": "Gebied"
+    },
+    {
+        "id": "IDS_DLG_SEARCH_LABEL",
+        "text": "X: Maakt niet uit\n0: Laag niveau\n1: Hoog niveau\nR: Stijgende flank\nF: Dalende flank\nC: Stijgende/dalende flank"
+    },
+    {
+        "id": "IDS_DLG_SEARCH_OPTIONS",
+        "text": "Zoekopties"
+    },
+    {
+        "id": "IDS_DLG_SAVING",
+        "text": "Opslaan..."
+    },
+    {
+        "id": "IDS_DLG_ORIGINAL_DATA",
+        "text": "Oorspronkelijke gegevens"
+    },
+    {
+        "id": "IDS_DLG_COMPRESSED_DATA",
+        "text": "Gecomprimeerde gegevens"
+    },
+    {
+        "id": "IDS_DLG_EXPORT",
+        "text": "Exporteren"
+    },
+    {
+        "id": "IDS_DLG_EXPORTING",
+        "text": "Exporteren..."
+    },
+    {
+        "id": "IDS_DLG_DONT_CONNECT_PROBES",
+        "text": "Sluit geen probes aan!"
+    },
+    {
+        "id": "IDS_DLG_LOAD_CURRENT_SETTING",
+        "text": "Huidige instellingen worden geladen... Even geduld."
+    },
+    {
+        "id": "IDS_DLG_WAITING",
+        "text": "Even wachten"
+    },
+    {
+        "id": "IDS_DLG_FINISHED",
+        "text": "Voltooid!"
+    },
+    {
+        "id": "IDS_DLG_US",
+        "text": "uS"
+    },
+    {
+        "id": "IDS_DLG_MS",
+        "text": "mS"
+    },
+    {
+        "id": "IDS_DLG_S",
+        "text": "S"
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_POSITION",
+        "text": "Triggerpositie: "
+    },
+    {
+        "id": "IDS_DLG_HOLD_OFF_TIME",
+        "text": "Holdofftijd: "
+    },
+    {
+        "id": "IDS_DLG_NOISE_SENSITIVITY",
+        "text": "Triggergevoeligheid: "
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_SOURCES",
+        "text": "Triggerbronnen: "
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_TYPES",
+        "text": "Triggertypen: "
+    },
+    {
+        "id": "IDS_DLG_RISING_EDGE",
+        "text": "Stijgende flank"
+    },
+    {
+        "id": "IDS_DLG_FALLING_EDGE",
+        "text": "Dalende flank"
+    },
+    {
+        "id": "IDS_DLG_AUTO",
+        "text": "Auto"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_0",
+        "text": "Kanaal 0"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_1",
+        "text": "Kanaal 1"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_0_AND_1",
+        "text": "Kanaal 0 && 1"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_0_OR_1",
+        "text": "Kanaal 0 | 1"
+    },
+    {
+        "id": "IDS_DLG_KEY_DECODER_SEARCH",
+        "text": "Decoder zoeken..."
+    },
+    {
+        "id": "IDS_DLG_TIME_SAMPLES",
+        "text": "Tijd/samples"
+    },
+    {
+        "id": "IDS_DLG_MOUSE_MEASUREMENT",
+        "text": "Muismeting"
+    },
+    {
+        "id": "IDS_DLG_ENABLE_FLOATING_MEASUREMENT",
+        "text": "Zwevende meting inschakelen"
+    },
+    {
+        "id": "IDS_DLG_CURSOR_DISTANCE",
+        "text": "Cursorafstand"
+    },
+    {
+        "id": "IDS_DLG_EDGES",
+        "text": "Flanken"
+    },
+    {
+        "id": "IDS_DLG_CURSORS",
+        "text": "Cursors"
+    },
+    {
+        "id": "IDS_DLG_RIS_OR_FAL_EDGE",
+        "text": "Stijg./dal./flanken"
+    },
+    {
+        "id": "IDS_DLG_W",
+        "text": "B: "
+    },
+    {
+        "id": "IDS_DLG_P",
+        "text": "P: "
+    },
+    {
+        "id": "IDS_DLG_F",
+        "text": "F: "
+    },
+    {
+        "id": "IDS_DLG_D",
+        "text": "D: "
+    },
+    {
+        "id": "IDS_DLG_SEARCH",
+        "text": "zoeken"
+    },
+    {
+        "id": "IDS_DLG_MATCHING_ITEMS",
+        "text": "Overeenkomende items:"
+    },
+    {
+        "id": "IDS_DLG_OUT_OF_MEMORY",
+        "text": "Onvoldoende geheugen"
+    },
+    {
+        "id": "IDS_DLG_SEARCHING",
+        "text": "Zoeken..."
+    },
+    {
+        "id": "IDS_DLG_SEARCH_PREVIOUS",
+        "text": "Vorige zoeken..."
+    },
+    {
+        "id": "IDS_DLG_SEARCH_NEXT",
+        "text": "Volgende zoeken..."
+    },
+    {
+        "id": "IDS_DLG_SIMPLE_TRIGGER",
+        "text": "Eenvoudige trigger"
+    },
+    {
+        "id": "IDS_DLG_ADVANCED_TRIGGER",
+        "text": "Geavanceerde trigger"
+    },
+    {
+        "id": "IDS_DLG_TOTAL_TRIGGER_STAGES",
+        "text": "Totaal aantal triggertrappen: "
+    },
+    {
+        "id": "IDS_DLG_START_FLAG",
+        "text": "Startvlag: "
+    },
+    {
+        "id": "IDS_DLG_STOP_FLAG",
+        "text": "Stopvlag: "
+    },
+    {
+        "id": "IDS_DLG_CLOCK_FLAG",
+        "text": "Klokvlag: "
+    },
+    {
+        "id": "IDS_DLG_DATA_CHANNEL",
+        "text": "Datakanaal: "
+    },
+    {
+        "id": "IDS_DLG_DATA_VALUE",
+        "text": "Datawaarde: "
+    },
+    {
+        "id": "IDS_DLG_SERIAL_TRIGGER",
+        "text": "Seriële trigger"
+    },
+    {
+        "id": "IDS_DLG_STAGE_TRIGGER",
+        "text": "Trappentrigger"
+    },
+    {
+        "id": "IDS_DLG_SERIAL_NOTE_LABEL",
+        "text": "X: Maakt niet uit\n0: Laag niveau\n1: Hoog niveau\nR: Stijgende flank\nF: Dalende flank\nC: Stijgende/dalende flank"
+    },
+    {
+        "id": "IDS_DLG_DATA_BITS",
+        "text": "Databits"
+    },
+    {
+        "id": "IDS_DLG_INV",
+        "text": "Inv"
+    },
+    {
+        "id": "IDS_DLG_COUNTER",
+        "text": "Teller"
+    },
+    {
+        "id": "IDS_DLG_CONTIGUOUS",
+        "text": "Aaneengesloten"
+    },
+    {
+        "id": "IDS_DLG_STAGE",
+        "text": "Trap"
+    },
+    {
+        "id": "IDS_DLG_OR",
+        "text": "Of"
+    },
+    {
+        "id": "IDS_DLG_AND",
+        "text": "En"
+    },
+    {
+        "id": "IDS_DLG_HZ",
+        "text": "Hz"
+    },
+    {
+        "id": "IDS_DLG_UNSHOWN",
+        "text": "Niet getoond"
+    },
+    {
+        "id": "ZOOM_IN_FOR_DETAILS",
+        "text": "Zoom in voor details"
+    },
+    {
+        "id": "IDS_DLG_DECODETRACE_ERROR1",
+        "text": "Fout: "
+    },
+    {
+        "id": "IDS_DLG_DECODETRACE_ERROR2",
+        "text": "Fout: ..."
+    },
+    {
+        "id": "IDS_DLG_ADD_GROUP",
+        "text": "Groep toevoegen"
+    },
+    {
+        "id": "IDS_DLG_DEL_GROUP",
+        "text": "Groep verwijderen"
+    },
+    {
+        "id": "IDS_DLG_SET_CHANNEL_COLOUR",
+        "text": "Kanaalkleur instellen"
+    },
+    {
+        "id": "IDS_DLG_LISSAJOUS_FIGURE",
+        "text": "Lissajous-figuur"
+    },
+    {
+        "id": "IDS_DLG_DATA_SOURCE_ERROR",
+        "text": "Fout in gegevensbron."
+    },
+    {
+        "id": "IDS_DLG_ADD_X_CURSOR",
+        "text": "X-cursor toevoegen"
+    },
+    {
+        "id": "IDS_DLG_ADD_Y_CURSOR",
+        "text": "Y-cursor toevoegen"
+    },
+    {
+        "id": "IDS_DLG_AUTO_ROLL",
+        "text": "Auto (Roll)"
+    },
+    {
+        "id": "IDS_DLG_WAITING_TRIG",
+        "text": "Wacht op trig"
+    },
+    {
+        "id": "IDS_DLG_TRIG_D",
+        "text": "Getrigd"
+    },
+    {
+        "id": "IDS_DLG_TRIGGERED",
+        "text": "Getriggerd! "
+    },
+    {
+        "id": "IDS_DLG_CAPTURED",
+        "text": "% vastgelegd"
+    },
+    {
+        "id": "IDS_DLG_WAITING_FOR_TRIGGER",
+        "text": "Wachten op trigger! "
+    },
+    {
+        "id": "IDS_DLG_RISING",
+        "text": "Stijgend: "
+    },
+    {
+        "id": "IDS_DLG_FALLING",
+        "text": "Dalend: "
+    },
+    {
+        "id": "IDS_DLG_Edges_1",
+        "text": "Flanken: "
+    },
+    {
+        "id": "IDS_DLG_WIDTH",
+        "text": "Breedte: "
+    },
+    {
+        "id": "IDS_DLG_PERIOD",
+        "text": "Periode: "
+    },
+    {
+        "id": "IDS_DLG_FREQUENCY",
+        "text": "Frequentie: "
+    },
+    {
+        "id": "IDS_DLG_DUTY_CYCLE",
+        "text": "Duty cycle: "
+    },
+    {
+        "id": "IDS_DLG_MEASURE",
+        "text": "Meten"
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_TIME",
+        "text": "Triggertijd: "
+    },
+    {
+        "id": "IDS_DLG_SAMPLES_CAPTURED",
+        "text": "Samples vastgelegd!"
+    },
+    {
+        "id": "IDS_DLG_FILE_THRESHOLD",
+        "text": "Drempel: "
+    },
+    {
+        "id": "IDS_DLG_VIEW_CAPTURE",
+        "text": "Vastleggen"
+    },
+    {
+        "id": "IDS_DLG_CHAN_NUM_ERR2",
+        "text": "Vereist de gegevens van twee kanalen."
+    },
+    {
+        "id": "IDS_DLG_PATH_NAME",
+        "text": "pad"
+    },
+    {
+        "id": "IDS_DLG_DECODER_IF_TRANS",
+        "text": "Parameternamen vertalen"
+    },
+    {
+        "id": "IDS_DLG_LOG_PATH",
+        "text": "Bestandspad"
+    },
+    {
+        "id": "IDS_DLG_OPEN",
+        "text": "Openen"
+    },
+    {
+        "id": "IDS_DLG_CLEARE",
+        "text": "Wissen"
+    },
+    {
+        "id": "IDS_DLG_APPEND_MODE",
+        "text": "Toevoegmodus"
+    },
+    {
+        "id": "IDS_DLG_TRIG_DISPLAY_MIDDLE",
+        "text": "Triggerpositie in het midden tonen"
+    },
+    {
+        "id": "IDS_DLG_DISPLAY_PROFILE_IN_BAR",
+        "text": "Profiel in titelbalk tonen"
+    },
+    {
+        "id": "IDS_DLG_SERIAL_HEX",
+        "text": "Hex :"
+    },
+    {
+        "id": "IDS_DLG_SERIAL_INPUT_AS_HEX",
+        "text": "Invoer in hexadecimaal formaat"
+    },
+    {
+        "id": "IDS_DLG_USE_ABORT_DATA_REPEAT",
+        "text": "Laatste gegevens bijwerken bij stoppen in herhaalmodus"
+    },
+    {
+        "id": "IDS_DLG_FONT_SIZE",
+        "text": "Lettergrootte"
+    },
+    {
+        "id": "IDS_DLG_DEFAULT_FONT",
+        "text": "Standaard"
+    },
+    {
+        "id": "IDS_DLG_GROUP_LOGIC",
+        "text": "Logische analyser"
+    },
+    {
+        "id": "IDS_DLG_GROUP_DSO",
+        "text": "Oscilloscoop"
+    },
+    {
+        "id": "IDS_DLG_GROUP_UI",
+        "text": "Interface"
+    },
+    {
+        "id": "IDS_DLG_ABORT",
+        "text": "Afbreken"
+    },
+    {
+        "id": "IDS_DLG_AUTO_SCROLL_LATEAST_DATA",
+        "text": "Automatisch naar nieuwste gegevens scrollen"
+    },
+    {
+        "id": "IDS_DLG_DATA_OUT_OFF_RANGE",
+        "text": "Gegevens buiten bereik"
+    },
+    {
+        "id": "IDS_DLG_START_CURSOR",
+        "text": "Start"
+    },
+    {
+        "id": "IDS_DLG_END_CURSOR",
+        "text": "Einde"
+    },
+    {
+        "id": "IDS_DSO_CTR_EN",
+        "text": "AAN"
+    },
+    {
+        "id": "IDS_DSO_CTR_DIS",
+        "text": "UIT"
+    },
+    {
+        "id": "IDS_DSO_CTR_GND",
+        "text": "GND"
+    },
+    {
+        "id": "IDS_DSO_CTR_DC",
+        "text": "DC"
+    },
+    {
+        "id": "IDS_DSO_CTR_AC",
+        "text": "AC"
+    },
+    {
+        "id": "IDS_DSO_CTR_AUTO",
+        "text": "AUTO"
+    },
+    {
+        "id": "IDS_CALIB_VGAIN",
+        "text": "VGAIN"
+    },
+    {
+        "id": "IDS_CALIB_VOFF",
+        "text": "VOFF"
+    },
+    {
+        "id": "IDS_CALIB_VCOMB",
+        "text": "VCOMB"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_RECTANGLE",
+        "text": "Rechthoek"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_HANN",
+        "text": "Hann"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_HAMMING",
+        "text": "Hamming"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_BLACKMAN",
+        "text": "Blackman"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_FLATTOP",
+        "text": "Flat_top"
+    },
+    {
+        "id": "IDS_FFT_MODE_LINEARRSM",
+        "text": "Lineaire RMS"
+    }
+]

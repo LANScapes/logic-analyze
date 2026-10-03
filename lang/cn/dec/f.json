@@ -322,5 +322,13 @@
     {
         "id": "dec_jtag_opt_chan_rtck",
         "text": "返回时钟信号"
+    },
+    {
+        "id": "dec_gpib_opt_sample_total",
+        "text": "总采样数"
+    },
+    {
+        "id": "dec_ir_nec_opt_extended",
+        "text": "扩展NEC协议"
     }
 ]

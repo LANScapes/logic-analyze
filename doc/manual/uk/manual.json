@@ -1,0 +1,14 @@
+{
+  "html_lang": "uk",
+  "name": "Українська",
+  "title": "Посібник користувача Logic Analyze",
+  "subtitle": "Для логічних аналізаторів DSLogic. Переклад тексту, написаного за ASD-STE100 Simplified Technical English.",
+  "footer": "Logic Analyze — вільне програмне забезпечення за ліцензією GNU General Public License версії 3 або пізнішої. Цей посібник створено на основі DSView User Guide компанії DreamSourceLab.",
+  "labels": {
+    "contents": "Зміст",
+    "figure": "Рисунок",
+    "warning": "ПОПЕРЕДЖЕННЯ",
+    "caution": "УВАГА",
+    "note": "ПРИМІТКА"
+  }
+}

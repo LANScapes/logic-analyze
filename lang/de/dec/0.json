@@ -1,0 +1,182 @@
+[
+    {
+        "id": "dec_0i2c_chan_scl",
+        "text": "Serielle Taktleitung"
+    },
+    {
+        "id": "dec_0i2c_chan_sda",
+        "text": "Serielle Datenleitung"
+    },
+    {
+        "id": "dec_0i2c_opt_addr",
+        "text": "Format der angezeigten Slave-Adresse"
+    },
+    {
+        "id": "dec_0spi_chan_clk",
+        "text": "Takt"
+    },
+    {
+        "id": "dec_0spi_opt_chan_miso",
+        "text": "Master-Eingang, Slave-Ausgang"
+    },
+    {
+        "id": "dec_0spi_opt_chan_mosi",
+        "text": "Master-Ausgang, Slave-Eingang"
+    },
+    {
+        "id": "dec_0spi_opt_chan_cs",
+        "text": "Chip-Select"
+    },
+    {
+        "id": "dec_0spi_opt_cs_pol",
+        "text": "CS#-Polarität"
+    },
+    {
+        "id": "dec_0spi_opt_cpol",
+        "text": "Taktpolarität (CPOL)"
+    },
+    {
+        "id": "dec_0spi_opt_cpha",
+        "text": "Taktphase (CPHA)"
+    },
+    {
+        "id": "dec_0spi_opt_bitorder",
+        "text": "Bitreihenfolge"
+    },
+    {
+        "id": "dec_0spi_opt_wordsize",
+        "text": "Wortbreite"
+    },
+    {
+        "id": "dec_0uart_chan_rxtx",
+        "text": "UART-Sende-/Empfangsleitung"
+    },
+    {
+        "id": "dec_0uart_opt_baudrate",
+        "text": "Baudrate"
+    },
+    {
+        "id": "dec_0uart_opt_num_data_bits",
+        "text": "Datenbits"
+    },
+    {
+        "id": "dec_0uart_opt_parity_type",
+        "text": "Paritätstyp"
+    },
+    {
+        "id": "dec_0uart_opt_parity_check",
+        "text": "Parität prüfen?"
+    },
+    {
+        "id": "dec_0uart_opt_num_stop_bits",
+        "text": "Stoppbits"
+    },
+    {
+        "id": "dec_0uart_opt_bit_order",
+        "text": "Bitreihenfolge"
+    },
+    {
+        "id": "dec_0uart_opt_format",
+        "text": "Datenformat"
+    },
+    {
+        "id": "dec_0uart_opt_invert",
+        "text": "Signal invertieren?"
+    },
+    {
+        "id": "dec_0uart_anno_startstop",
+        "text": "Start/Stopp anzeigen?"
+    },
+    {
+        "id": "dec_1i2c_chan_scl",
+        "text": "Serielle Taktleitung"
+    },
+    {
+        "id": "dec_1i2c_chan_sda",
+        "text": "Serielle Datenleitung"
+    },
+    {
+        "id": "dec_1i2c_opt_addr",
+        "text": "Format der angezeigten Slave-Adresse"
+    },
+    {
+        "id": "dec_1spi_chan_clk",
+        "text": "Takt"
+    },
+    {
+        "id": "dec_1spi_opt_chan_miso",
+        "text": "Master-Eingang, Slave-Ausgang"
+    },
+    {
+        "id": "dec_1spi_opt_chan_mosi",
+        "text": "Master-Ausgang, Slave-Eingang"
+    },
+    {
+        "id": "dec_1spi_opt_chan_cs",
+        "text": "Chip-Select"
+    },
+    {
+        "id": "dec_1spi_opt_cs_pol",
+        "text": "CS#-Polarität"
+    },
+    {
+        "id": "dec_1spi_opt_cpol",
+        "text": "Taktpolarität (CPOL)"
+    },
+    {
+        "id": "dec_1spi_opt_cpha",
+        "text": "Taktphase (CPHA)"
+    },
+    {
+        "id": "dec_1spi_opt_bitorder",
+        "text": "Bitreihenfolge"
+    },
+    {
+        "id": "dec_1spi_opt_wordsize",
+        "text": "Wortbreite"
+    },
+    {
+        "id": "dec_1spi_opt_frame",
+        "text": "Frame-Dekoder"
+    },
+    {
+        "id": "dec_1uart_chan_rxtx",
+        "text": "UART-Sende-/Empfangsleitung"
+    },
+    {
+        "id": "dec_1uart_opt_baudrate",
+        "text": "Baudrate"
+    },
+    {
+        "id": "dec_1uart_opt_num_data_bits",
+        "text": "Datenbits"
+    },
+    {
+        "id": "dec_1uart_opt_parity_type",
+        "text": "Paritätstyp"
+    },
+    {
+        "id": "dec_1uart_opt_parity_check",
+        "text": "Parität prüfen?"
+    },
+    {
+        "id": "dec_1uart_opt_num_stop_bits",
+        "text": "Stoppbits"
+    },
+    {
+        "id": "dec_1uart_opt_bit_order",
+        "text": "Bitreihenfolge"
+    },
+    {
+        "id": "dec_1uart_opt_format",
+        "text": "Datenformat"
+    },
+    {
+        "id": "dec_1uart_opt_invert",
+        "text": "Signal invertieren?"
+    },
+    {
+        "id": "dec_1uart_anno_startstop",
+        "text": "Start/Stopp anzeigen?"
+    }
+]
