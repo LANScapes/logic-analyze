@@ -155,6 +155,65 @@ an available serial mismatch, claim failure, detach and any new device object
 after re-enumeration must terminate it with JSON exit 2 or 3.
 Successful exact-device capture and those runtime checks remain unimplemented.
 
+### P8 runtime-only transport checkpoint (blocked)
+
+Source-only review of the configured **libusb 1.0.30** establishes a transport
+blocker even for one already-running DSLogic profile. The official tag resolves
+to commit `87a55632db62c9bdc58cd31d3ccfa673f1bb017f`. No downloaded backend code
+was executed, built, vendored or changed.
+
+| Current call path | Concrete ownership / ordering problem |
+| --- | --- |
+| `sr_init` → `libusb_init` → [`darwin_init_context` / `darwin_scan_devices`](https://github.com/libusb/libusb/blob/87a55632db62c9bdc58cd31d3ccfa673f1bb017f/libusb/os/darwin_usb.c#L914) → `darwin_get_cached_device` → [`darwin_cache_device_descriptor`](https://github.com/libusb/libusb/blob/87a55632db62c9bdc58cd31d3ccfa673f1bb017f/libusb/os/darwin_usb.c#L1174) | Global discovery precedes application selection/claim. Caching attempts `USBDeviceOpenSeize`, requests descriptors, and can set configuration or change suspend state. |
+| `libusb_open` → [`darwin_open`](https://github.com/libusb/libusb/blob/87a55632db62c9bdc58cd31d3ccfa673f1bb017f/libusb/os/darwin_usb.c#L1586) | Normal open also attempts `USBDeviceOpenSeize`; exclusive-access failure can continue with `is_open == false`. It is not the required non-seizing owned open. |
+| `libusb_claim_interface` → [`darwin_claim_interface`](https://github.com/libusb/libusb/blob/87a55632db62c9bdc58cd31d3ccfa673f1bb017f/libusb/os/darwin_usb.c#L1836) | A missing interface can cause configuration changes before `USBInterfaceOpen` establishes the claim. |
+| [`LIBUSB_OPTION_NO_DEVICE_DISCOVERY`](https://github.com/libusb/libusb/blob/87a55632db62c9bdc58cd31d3ccfa673f1bb017f/libusb/libusb.h#L1631); [`libusb_wrap_sys_device`](https://github.com/libusb/libusb/blob/87a55632db62c9bdc58cd31d3ccfa673f1bb017f/libusb/core.c#L1406); [Darwin backend table](https://github.com/libusb/libusb/blob/87a55632db62c9bdc58cd31d3ccfa673f1bb017f/libusb/os/darwin_usb.c#L3002) | No-discovery is Linux-only. Darwin has no wrap hook; core returns `LIBUSB_ERROR_NOT_SUPPORTED`. Neither API supplies selected entry/handle adoption. |
+
+The `--list-ids` location/generation identifies a registry entry, not a libusb
+transport handle; listing releases its entry references.
+`sr_usb_dev_inst` holds opaque `libusb_device` / `libusb_device_handle` pointers,
+and current control, FPGA/bulk, asynchronous capture and event paths depend on
+that transport. Casting an IOKit object to those types is invalid. Comparing
+only bus/address/location or a cached serial cannot bind the original selected
+registry generation and is not an acceptable substitute.
+
+Moving the claim above the firmware-version `command_ctl_rd` in `dsl.c`, or
+adding scan-free driver construction, would fix only the later driver ordering.
+It cannot undo the backend's earlier discovery, seize or configuration paths.
+Mocking an unavailable transport-adoption API cannot validate its real binding.
+This checkpoint leaves selected initialization/adoption unimplemented; the
+rejecting CLI path remains unchanged and its zero-call mocks continue to cover
+all selections.
+
+**Decision before further implementation:** choose one explicit transport change:
+
+1. A maintained, pinned libusb Darwin backend patch: introduce discovery-free
+   initialization and exact original-entry/owned-handle adoption, ordinary
+   non-seizing open, and claim failure without automatic configuration or
+   replacement. This retains the existing DSL transfer/event machinery, but
+   changes the dependency and its build/bundle contract; it is a backend fork.
+2. A native selected IOKit transport adapter within `dslcap`: open/claim the
+   retained entry directly and port the current `command_ctl_wr`/`command_ctl_rd`,
+   FPGA/bulk writes, `dsl_start_transfers`/completion/cancellation and event
+   handling. This is a separate transport implementation, not a handle wrapper
+   or a new USB service.
+
+After that choice, the first capture scope remains one confirmed runtime DSLogic
+profile and finite buffer capture on the original claimed handle. Bootloader
+upload and reconnect are explicitly unsupported. Missing/ambiguous/changed
+attachment, busy/failed claim or detach must fail closed; no detach, auto-detach,
+force takeover, selection fallback or reattach. Optional serial checks still
+apply when a serial exists. Preserve GUI → helper → `dslcap`; the selected
+transport lives in that process. No app-session or no-selector behavior changes
+are needed for this transport decision.
+
+Implementation stopped at this documented blocker, as requested, before either
+overhaul. All selected requests still receive the explicit
+`device_selection_unavailable` JSON/exit-2 refusal, including runtime, bootloader
+and reconnect cases, without inspecting or touching their devices. The earlier
+10–15 engineer-day estimate below assumed an available exact-handle adapter;
+that assumption is not met by this backend and is not a current delivery promise.
+
 ### Proposed macOS lifecycle changes (design only)
 
 Source review identifies the following minimum work for a future selected
