@@ -29,39 +29,15 @@ else()
 	set(MCP_QTCORE Qt5::Core)
 endif()
 
-# AppTransaction and AppStore.deviceVerificationID are Swift-only, so one small
-# Swift file is compiled to an object here (the Makefile generator has no Swift).
-execute_process(COMMAND xcrun --show-sdk-path OUTPUT_VARIABLE MCP_SDK OUTPUT_STRIP_TRAILING_WHITESPACE
-	RESULT_VARIABLE mcp_rc)
-if(NOT mcp_rc EQUAL 0)
-	message(FATAL_ERROR "xcrun --show-sdk-path failed")
-endif()
-if(CMAKE_OSX_DEPLOYMENT_TARGET)
-	set(MCP_MIN_MACOS ${CMAKE_OSX_DEPLOYMENT_TARGET})
-else()
-	set(MCP_MIN_MACOS 26.0)
-endif()
-set(MCP_SWIFT_OBJ ${CMAKE_CURRENT_BINARY_DIR}/mcpstorekit.o)
-add_custom_command(OUTPUT ${MCP_SWIFT_OBJ}
-	COMMAND xcrun swiftc -parse-as-library -O -swift-version 5 -module-name LogicAnalyzeStoreKit
-		-target ${CMAKE_HOST_SYSTEM_PROCESSOR}-apple-macos${MCP_MIN_MACOS} -sdk ${MCP_SDK}
-		-emit-object -o ${MCP_SWIFT_OBJ} ${MCP_DIR}/mcpstorekit.swift
-	DEPENDS ${MCP_DIR}/mcpstorekit.swift
-	COMMENT "Compiling mcpstorekit.swift")
-set_source_files_properties(${MCP_SWIFT_OBJ} PROPERTIES EXTERNAL_OBJECT TRUE GENERATED TRUE)
 set_source_files_properties(${MCP_DIR}/mcpplatform.mm PROPERTIES COMPILE_FLAGS "-fobjc-arc")
 
 target_sources(${PROJECT_NAME} PRIVATE
 	${MCP_DIR}/mcpprotocol.cpp
 	${MCP_DIR}/mcpbridge.cpp
 	${MCP_DIR}/mcpplatform.mm
-	${MCP_MOC}
-	${MCP_SWIFT_OBJ})
+	${MCP_MOC})
 target_compile_definitions(${PROJECT_NAME} PRIVATE LANSCAPES_MCP_SUFFIX="${MCP_SUFFIX}")
-# The Swift runtime and its overlays come from the OS (/usr/lib/swift).
-target_link_directories(${PROJECT_NAME} PRIVATE ${MCP_SDK}/usr/lib/swift)
-target_link_libraries(${PROJECT_NAME} "-framework AppKit" "-framework Security"
-	"-framework StoreKit" "-Wl,-rpath,/usr/lib/swift")
+target_link_libraries(${PROJECT_NAME} "-framework AppKit" "-framework Security")
 
 # Hardware-free test of the framing, messages and lease state machine:
 #   cmake --build build --target mcp_protocol_test && build/mcp_protocol_test

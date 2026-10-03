@@ -21,7 +21,6 @@
 
 #include <QJsonDocument>
 #include <QJsonValue>
-#include <QRandomGenerator>
 #include <QVariant>
 
 namespace pv {
@@ -84,43 +83,11 @@ QJsonObject hello_message()
     return m;
 }
 
-QJsonObject evidence_message(const QString &jws, const QString &device_verification_id)
-{
-    QJsonObject m = base("evidence");
-    m["jws"] = jws;
-    m["device_verification_id"] = device_verification_id;
-    return m;
-}
-
-QJsonObject lease_message(const QString &op, const QString &nonce,
-                          const QString &boot_epoch, qint64 device_generation)
+QJsonObject lease_message(const QString &op)
 {
     QJsonObject m = base("lease");
     m["op"] = op;
-    m["nonce"] = nonce;
-    m["boot_epoch"] = boot_epoch;
-    m["device"] = QStringLiteral("default");
-    m["device_generation"] = device_generation;
     return m;
-}
-
-bool is_hex32(const QString &s)
-{
-    if (s.size() != 32)
-        return false;
-    for (QChar c : s) {
-        if (!((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f')))
-            return false;
-    }
-    return true;
-}
-
-QString new_nonce()
-{
-    QString s;
-    for (int i = 0; i < 4; i++)
-        s += QString("%1").arg(QRandomGenerator::system()->generate(), 8, 16, QChar('0'));
-    return s;
 }
 
 // A whole JSON number as an integer; false for fractions and other types.
@@ -144,51 +111,16 @@ AgentMessage parse_agent_message(const QJsonObject &m)
     QString type = m.value("type").toString();
 
     if (type == "gui_ok") {
-        a.boot_epoch = m.value("boot_epoch").toString();
-        if (is_hex32(a.boot_epoch) && integer(m.value("build"), a.build)
-                && integer(m.value("min_build"), a.min_build))
+        if (integer(m.value("build"), a.build) && integer(m.value("min_build"), a.min_build))
             a.type = AgentMessage::Ok;
     }
-    else if (type == "gui_error") {
-        a.code = m.value("code").toString();
+    else if (type == "gui_error")
         a.type = AgentMessage::Error;
-    }
-    else if (type == "evidence_result") {
-        a.result = m.value("result").toString();
-        QJsonValue e = m.value("expires_at");
-        bool ok = e.isNull() || integer(e, a.expires_at);
-        if (e.isNull())
-            a.expires_at = -1;
-        if (ok && (a.result == "granted" || a.result == "not_newer"
-                   || a.result == "revoked" || a.result == "rejected"))
-            a.type = AgentMessage::EvidenceResult;
-    }
-    else if (type == "lease_request" || type == "lease_returned") {
-        a.nonce = m.value("nonce").toString();
-        a.boot_epoch = m.value("boot_epoch").toString();
-        if (is_hex32(a.nonce) && is_hex32(a.boot_epoch) && m.value("device").toString() == "default"
-                && integer(m.value("device_generation"), a.device_generation) && a.device_generation >= 0)
-            a.type = type == "lease_request" ? AgentMessage::LeaseRequest : AgentMessage::LeaseReturned;
-    }
+    else if (type == "lease_request")
+        a.type = AgentMessage::LeaseRequest;
+    else if (type == "lease_returned")
+        a.type = AgentMessage::LeaseReturned;
     return a;
-}
-
-static GuiLease::Reply reply(const QString &op, const QString &nonce, qint64 gen)
-{
-    GuiLease::Reply r;
-    r.send = true;
-    r.op = op;
-    r.nonce = nonce;
-    r.device_generation = gen;
-    return r;
-}
-
-GuiLease::Step GuiLease::connected(const QString &boot_epoch)
-{
-    Step s = disconnected();
-    _boot_epoch = boot_epoch;
-    _state = GuiOwned;
-    return s;
 }
 
 GuiLease::Step GuiLease::disconnected()
@@ -196,73 +128,56 @@ GuiLease::Step GuiLease::disconnected()
     Step s;
     s.unpark = lent();
     _state = NoAgent;
-    _boot_epoch.clear();
-    _nonce.clear();
-    _gen = 0;
     return s;
 }
 
-GuiLease::Step GuiLease::lease_request(const QString &nonce, const QString &boot_epoch, qint64 gen)
+GuiLease::Step GuiLease::lease_request()
 {
     Step s;
-    if (_state == NoAgent || boot_epoch != _boot_epoch)
-        return s;
-
     switch (_state) {
     case GuiOwned:
         _state = ReleasePending;
-        _nonce = nonce;
-        _gen = gen;
         s.decide = true;
         break;
-    case ReleasePending:
-        // A newer request while the GUI still decides: answer that one.
-        _nonce = nonce;
-        _gen = gen;
-        break;
     case McpOwned:
-        // The agent lost our earlier answer; the analyzer is already released.
-        _nonce = nonce;
-        _gen = gen;
-        s.reply = reply("released", nonce, gen);
+        // The agent asks again; the analyzer is already released.
+        s.reply = "released";
         break;
     case ReclaimPending:
-        // The agent gave the analyzer back before answering our reclaim; keep it.
+        // The agent wants it again before it answered our reclaim; keep it.
         _state = GuiOwned;
-        _nonce.clear();
-        s.reply = reply("busy", nonce, gen);
+        s.reply = "busy";
         s.unpark = true;
         break;
+    case ReleasePending:   // still deciding; one answer covers both
     case NoAgent:
         break;
     }
     return s;
 }
 
-GuiLease::Reply GuiLease::decide(bool release)
+QString GuiLease::decide(bool release)
 {
     if (_state != ReleasePending)
-        return Reply();
+        return QString();
     _state = release ? McpOwned : GuiOwned;
-    return reply(release ? "released" : "busy", _nonce, _gen);
+    return release ? "released" : "busy";
 }
 
-GuiLease::Reply GuiLease::reclaim(const QString &nonce)
+QString GuiLease::reclaim()
 {
     if (_state != McpOwned)
-        return Reply();
+        return QString();
     _state = ReclaimPending;
-    _nonce = nonce;
-    return reply("reclaim", nonce, _gen);
+    return "reclaim";
 }
 
-GuiLease::Step GuiLease::lease_returned(const QString &nonce, const QString &boot_epoch, qint64 gen)
+GuiLease::Step GuiLease::lease_returned()
 {
     Step s;
-    if (_state != ReclaimPending || nonce != _nonce || boot_epoch != _boot_epoch || gen != _gen)
+    if (_state != ReclaimPending)
         return s;
     _state = GuiOwned;
-    _nonce.clear();
     s.unpark = true;
     return s;
 }

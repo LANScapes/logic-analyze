@@ -31,11 +31,6 @@ static int failures = 0;
 
 #define CHECK(cond) do { if (!(cond)) { std::printf("FAIL %s:%d: %s\n", __FILE__, __LINE__, #cond); failures++; } } while (0)
 
-static const QString E1 = "0123456789abcdef0123456789abcdef";
-static const QString E2 = "fedcba9876543210fedcba9876543210";
-static const QString N1 = "11111111111111111111111111111111";
-static const QString N2 = "22222222222222222222222222222222";
-
 static QJsonObject agent(const char *json)
 {
     return QJsonDocument::fromJson(QByteArray(json)).object();
@@ -57,7 +52,7 @@ static void test_framing()
     CHECK(n == quint32(f.size() - 4));
 
     // Two frames arriving in pieces.
-    QByteArray buf = f + encode_frame(evidence_message("a.b.c", "51E35FBA-0000-4000-8000-000000000000"));
+    QByteArray buf = f + encode_frame(lease_message("released"));
     QByteArray in;
     QJsonObject m;
     bool err = false;
@@ -69,8 +64,7 @@ static void test_framing()
         CHECK(!err);
     }
     CHECK(got == 2);
-    CHECK(m.value("type").toString() == "evidence");
-    CHECK(m.value("jws").toString() == "a.b.c");
+    CHECK(m.value("type").toString() == "lease" && m.value("op").toString() == "released");
     CHECK(in.isEmpty());
 
     // Zero length, oversize and non-object bodies are errors.
@@ -84,9 +78,10 @@ static void test_framing()
     QByteArray bad = raw_frame("{\"v\":");
     CHECK(!take_frame(bad, m, err) && err);
 
-    // An evidence frame with a 16 KiB JWS fits; a 32 KiB one is refused.
-    CHECK(!encode_frame(evidence_message(QString(kMaxJwsBytes, 'x'), "u")).isEmpty());
-    CHECK(encode_frame(evidence_message(QString(kMaxFrameBody, 'x'), "u")).isEmpty());
+    // A body over the limit is not encoded.
+    QJsonObject huge = lease_message("busy");
+    huge["pad"] = QString(kMaxFrameBody, 'x');
+    CHECK(encode_frame(huge).isEmpty());
 }
 
 static void test_messages()
@@ -99,35 +94,21 @@ static void test_messages()
     // Integers go out as JSON integers, never 1.0.
     CHECK(encode_frame(h).contains("\"v\":1,") || encode_frame(h).contains("\"v\":1}"));
 
-    QJsonObject e = evidence_message("j", "d");
-    CHECK(e.size() == 4 && e.value("device_verification_id").toString() == "d");
+    QJsonObject l = lease_message("reclaim");
+    CHECK(l.size() == 3 && l.value("type").toString() == "lease" && l.value("op").toString() == "reclaim");
 
-    QJsonObject l = lease_message("released", N1, E1, 3);
-    CHECK(l.size() == 7);
-    CHECK(l.value("device").toString() == "default" && l.value("device_generation").toInt() == 3);
-    CHECK(encode_frame(l).contains("\"device_generation\":3"));
-
-    AgentMessage a = parse_agent_message(agent("{\"v\":1,\"type\":\"gui_ok\",\"boot_epoch\":\"0123456789abcdef0123456789abcdef\",\"build\":1,\"min_build\":1}"));
-    CHECK(a.type == AgentMessage::Ok && a.boot_epoch == E1 && a.build == 1);
-    CHECK(parse_agent_message(agent("{\"v\":2,\"type\":\"gui_ok\",\"boot_epoch\":\"0123456789abcdef0123456789abcdef\",\"build\":1,\"min_build\":1}")).type == AgentMessage::Invalid);
-    CHECK(parse_agent_message(agent("{\"v\":1,\"type\":\"gui_ok\",\"boot_epoch\":\"0123456789ABCDEF0123456789abcdef\",\"build\":1,\"min_build\":1}")).type == AgentMessage::Invalid);
-    CHECK(parse_agent_message(agent("{\"v\":1,\"type\":\"gui_ok\",\"boot_epoch\":\"0123456789abcdef0123456789abcdef\",\"build\":1.5,\"min_build\":1}")).type == AgentMessage::Invalid);
+    AgentMessage a = parse_agent_message(agent("{\"v\":1,\"type\":\"gui_ok\",\"build\":2,\"min_build\":1}"));
+    CHECK(a.type == AgentMessage::Ok && a.build == 2 && a.min_build == 1);
+    CHECK(parse_agent_message(agent("{\"v\":2,\"type\":\"gui_ok\",\"build\":1,\"min_build\":1}")).type == AgentMessage::Invalid);
+    CHECK(parse_agent_message(agent("{\"v\":1,\"type\":\"gui_ok\",\"build\":1.5,\"min_build\":1}")).type == AgentMessage::Invalid);
+    CHECK(parse_agent_message(agent("{\"v\":1,\"type\":\"gui_ok\",\"build\":1}")).type == AgentMessage::Invalid);
     CHECK(parse_agent_message(agent("{\"v\":1,\"type\":\"gui_error\",\"code\":\"version\"}")).type == AgentMessage::Error);
-
-    a = parse_agent_message(agent("{\"v\":1,\"type\":\"evidence_result\",\"result\":\"granted\",\"expires_at\":1791000000000}"));
-    CHECK(a.type == AgentMessage::EvidenceResult && a.result == "granted" && a.expires_at == 1791000000000LL);
-    a = parse_agent_message(agent("{\"v\":1,\"type\":\"evidence_result\",\"result\":\"not_newer\",\"expires_at\":null}"));
-    CHECK(a.type == AgentMessage::EvidenceResult && a.expires_at == -1);
-    CHECK(parse_agent_message(agent("{\"v\":1,\"type\":\"evidence_result\",\"result\":\"maybe\",\"expires_at\":null}")).type == AgentMessage::Invalid);
-
-    a = parse_agent_message(agent("{\"v\":1,\"type\":\"lease_request\",\"nonce\":\"11111111111111111111111111111111\",\"boot_epoch\":\"0123456789abcdef0123456789abcdef\",\"device\":\"default\",\"device_generation\":2}"));
-    CHECK(a.type == AgentMessage::LeaseRequest && a.nonce == N1 && a.device_generation == 2);
-    CHECK(parse_agent_message(agent("{\"v\":1,\"type\":\"lease_returned\",\"nonce\":\"1111\",\"boot_epoch\":\"0123456789abcdef0123456789abcdef\",\"device\":\"default\",\"device_generation\":2}")).type == AgentMessage::Invalid);
-    CHECK(parse_agent_message(agent("{\"v\":1,\"type\":\"lease_returned\",\"nonce\":\"11111111111111111111111111111111\",\"boot_epoch\":\"0123456789abcdef0123456789abcdef\",\"device\":\"other\",\"device_generation\":2}")).type == AgentMessage::Invalid);
+    CHECK(parse_agent_message(agent("{\"v\":1,\"type\":\"lease_request\"}")).type == AgentMessage::LeaseRequest);
+    CHECK(parse_agent_message(agent("{\"v\":1,\"type\":\"lease_returned\"}")).type == AgentMessage::LeaseReturned);
+    CHECK(parse_agent_message(agent("{\"type\":\"lease_request\"}")).type == AgentMessage::Invalid);
+    // Messages that no longer exist are invalid.
+    CHECK(parse_agent_message(agent("{\"v\":1,\"type\":\"evidence_result\",\"result\":\"granted\",\"expires_at\":1}")).type == AgentMessage::Invalid);
     CHECK(parse_agent_message(agent("{\"v\":1,\"type\":\"status\"}")).type == AgentMessage::Invalid);
-
-    QString n = new_nonce();
-    CHECK(is_hex32(n) && n != new_nonce());
 }
 
 static void test_lease()
@@ -135,67 +116,56 @@ static void test_lease()
     GuiLease l;
     CHECK(l.state() == GuiLease::NoAgent);
     // No lease semantics before gui_ok.
-    CHECK(!l.lease_request(N1, E1, 1).decide);
+    GuiLease::Step s = l.lease_request();
+    CHECK(!s.decide && s.reply.isEmpty() && l.state() == GuiLease::NoAgent);
 
-    l.connected(E1);
+    l.connected();
     CHECK(l.state() == GuiLease::GuiOwned && !l.lent());
 
-    // Wrong boot epoch: ignored.
-    GuiLease::Step s = l.lease_request(N1, E2, 1);
-    CHECK(!s.decide && !s.reply.send && l.state() == GuiLease::GuiOwned);
-
     // Request, then release.
-    s = l.lease_request(N1, E1, 1);
-    CHECK(s.decide && !s.reply.send && l.state() == GuiLease::ReleasePending && !l.lent());
-    GuiLease::Reply r = l.decide(true);
-    CHECK(r.send && r.op == "released" && r.nonce == N1 && r.device_generation == 1);
+    s = l.lease_request();
+    CHECK(s.decide && s.reply.isEmpty() && l.state() == GuiLease::ReleasePending && !l.lent());
+    // A second request while deciding: one answer covers both.
+    s = l.lease_request();
+    CHECK(!s.decide && s.reply.isEmpty());
+    CHECK(l.decide(true) == "released");
     CHECK(l.state() == GuiLease::McpOwned && l.lent());
-    CHECK(!l.decide(true).send);               // a second answer is not sent
+    CHECK(l.decide(true).isEmpty());           // a second answer is not sent
 
-    // The agent asks again (it lost the answer): released at once, no question.
-    s = l.lease_request(N2, E1, 1);
-    CHECK(!s.decide && s.reply.send && s.reply.op == "released" && s.reply.nonce == N2);
+    // The agent asks again: released at once, no question.
+    s = l.lease_request();
+    CHECK(!s.decide && s.reply == "released");
 
-    // Reclaim, with stale and foreign returns ignored.
-    r = l.reclaim(N1);
-    CHECK(r.send && r.op == "reclaim" && r.nonce == N1 && r.device_generation == 1);
+    // Reclaim; returns only count while one is pending.
+    CHECK(l.reclaim() == "reclaim");
     CHECK(l.state() == GuiLease::ReclaimPending && l.lent());
-    CHECK(!l.reclaim(N2).send);                // one reclaim at a time
-    CHECK(!l.lease_returned(N2, E1, 1).unpark);
-    CHECK(!l.lease_returned(N1, E2, 1).unpark);
-    CHECK(!l.lease_returned(N1, E1, 2).unpark);
-    s = l.lease_returned(N1, E1, 1);
+    CHECK(l.reclaim().isEmpty());              // one reclaim at a time
+    s = l.lease_returned();
     CHECK(s.unpark && l.state() == GuiLease::GuiOwned && !l.lent());
-    CHECK(!l.lease_returned(N1, E1, 1).unpark); // duplicate
+    CHECK(!l.lease_returned().unpark);         // duplicate
 
     // Request, then keep it (busy).
-    l.lease_request(N1, E1, 1);
-    r = l.decide(false);
-    CHECK(r.send && r.op == "busy" && r.nonce == N1 && l.state() == GuiLease::GuiOwned);
-
-    // A newer request while deciding: the answer carries the newer nonce.
-    CHECK(l.lease_request(N1, E1, 1).decide);
-    s = l.lease_request(N2, E1, 1);
-    CHECK(!s.decide && !s.reply.send);
-    r = l.decide(true);
-    CHECK(r.nonce == N2);
+    l.lease_request();
+    CHECK(l.decide(false) == "busy" && l.state() == GuiLease::GuiOwned);
 
     // The agent asks while our reclaim is pending: keep the analyzer (busy).
-    l.reclaim(N1);
-    s = l.lease_request(N2, E1, 1);
-    CHECK(s.reply.send && s.reply.op == "busy" && s.unpark && l.state() == GuiLease::GuiOwned);
+    l.lease_request();
+    l.decide(true);
+    l.reclaim();
+    s = l.lease_request();
+    CHECK(s.reply == "busy" && s.unpark && l.state() == GuiLease::GuiOwned);
 
     // Reclaim only from McpOwned.
-    CHECK(!l.reclaim(N1).send);
+    CHECK(l.reclaim().isEmpty());
 
     // Disconnect while lent: unpark; a new connection starts GUI-owned.
-    l.lease_request(N1, E1, 1);
+    l.lease_request();
     l.decide(true);
     s = l.disconnected();
     CHECK(s.unpark && l.state() == GuiLease::NoAgent && !l.lent());
-    CHECK(!l.decide(true).send);
-    s = l.connected(E2);
-    CHECK(!s.unpark && l.state() == GuiLease::GuiOwned && l.boot_epoch() == E2);
+    CHECK(l.decide(true).isEmpty());
+    l.connected();
+    CHECK(l.state() == GuiLease::GuiOwned);
 }
 
 int main()

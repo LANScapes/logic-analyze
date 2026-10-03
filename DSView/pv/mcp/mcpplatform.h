@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// The Apple APIs the MCP pane and the agent connection need (mcpplatform.mm,
-// mcpstorekit.swift). Mac App Store edition only.
+// The Apple APIs the agent connection needs (mcpplatform.mm).
+// Mac App Store edition only.
 
 #pragma once
 
@@ -40,11 +40,3 @@ bool open_agent(QString *error);
 } // namespace platform
 } // namespace mcp
 } // namespace pv
-
-// mcpstorekit.swift. Calls cb once, on some thread, with the JWS of
-// AppTransaction.shared (or refresh() when refresh is nonzero) and the app's
-// AppStore.deviceVerificationID, or with error set.
-extern "C" {
-typedef void (*la_mcp_evidence_cb)(void *ctx, const char *jws, const char *dvid, const char *error);
-void la_mcp_fetch_app_transaction(int refresh, void *ctx, la_mcp_evidence_cb cb);
-}

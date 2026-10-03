@@ -23,9 +23,7 @@
 
 #include <QApplication>
 #include <QGridLayout>
-#include <QHBoxLayout>
 #include <QLabel>
-#include <QLocale>
 #include <QMessageBox>
 #include <QPointer>
 #include <QPushButton>
@@ -50,8 +48,6 @@ namespace mcp {
 static const int kReconnectMs = 3 * 1000;
 static const qint64 kRestartAgentMs = 30 * 1000;    // start the agent again at most this often
 static const char *kEnabledKey = "MCP/enabled";
-static const int kEvidenceEveryMs = 24 * 60 * 60 * 1000;
-static const qint64 kEvidenceGapMs = 5500;          // the agent takes one evidence per 5 s
 static const int kReleasePromptMs = 25 * 1000;      // the agent waits 30 s for an answer
 
 McpBridge *McpBridge::_instance = nullptr;
@@ -63,7 +59,6 @@ McpBridge::McpBridge(SigSession *session, QWidget *window)
 
     _connect_timer.setSingleShot(true);
     connect(&_connect_timer, &QTimer::timeout, this, &McpBridge::try_connect);
-    connect(&_evidence_timer, &QTimer::timeout, this, &McpBridge::fetch_evidence);
 
     // MCP runs only with this app: at launch, if it is enabled, start the agent.
     _enabled = QSettings().value(kEnabledKey, false).toBool();
@@ -106,7 +101,7 @@ void McpBridge::try_connect()
     }
     _fd = fd;
     _inbuf.clear();
-    _boot_epoch.clear();
+    _ok = false;
     _notifier = new QSocketNotifier(_fd, QSocketNotifier::Read, this);
     connect(_notifier, &QSocketNotifier::activated, this, &McpBridge::on_readable);
     // The agent wants gui_hello within 2 s of the connection.
@@ -123,7 +118,7 @@ void McpBridge::drop(const QString &why)
     _notifier = nullptr;
     close(_fd);
     _fd = -1;
-    _boot_epoch.clear();
+    _ok = false;
     if (_prompt)
         _prompt->close();
     apply(_lease.disconnected());
@@ -182,23 +177,16 @@ void McpBridge::on_readable()
 
 void McpBridge::handle(const AgentMessage &m)
 {
-    if (_boot_epoch.isEmpty() && m.type != AgentMessage::Ok && m.type != AgentMessage::Error) {
-        drop("no gui_ok");
-        return;
-    }
-
     switch (m.type) {
     case AgentMessage::Ok:
-        if (!_boot_epoch.isEmpty() || m.build < kGuiMinAgentBuild || m.min_build > kGuiBuild) {
+        if (_ok || m.build < kGuiMinAgentBuild || m.min_build > kGuiBuild) {
             _error = "The Logic Analyze Agent is a different version. Update Logic Analyze.";
             drop("version");
             return;
         }
-        _boot_epoch = m.boot_epoch;
+        _ok = true;
         _error.clear();
-        apply(_lease.connected(_boot_epoch));
-        if (!_jws.isEmpty())
-            send_evidence();
+        _lease.connected();
         emit changed();
         break;
 
@@ -207,21 +195,13 @@ void McpBridge::handle(const AgentMessage &m)
         drop("version");
         break;
 
-    case AgentMessage::EvidenceResult:
-        _evidence_result = m.result;
-        if (m.result == "granted")
-            _expires_at = m.expires_at;
-        else if (m.result == "revoked")
-            _expires_at = -1;
-        emit changed();
-        break;
-
     case AgentMessage::LeaseRequest:
-        apply(_lease.lease_request(m.nonce, m.boot_epoch, m.device_generation));
-        break;
-
     case AgentMessage::LeaseReturned:
-        apply(_lease.lease_returned(m.nonce, m.boot_epoch, m.device_generation));
+        if (!_ok) {
+            drop("no gui_ok");
+            return;
+        }
+        apply(m.type == AgentMessage::LeaseRequest ? _lease.lease_request() : _lease.lease_returned());
         break;
 
     case AgentMessage::Invalid:
@@ -238,95 +218,27 @@ void McpBridge::set_enabled(bool on)
     QSettings().setValue(kEnabledKey, on);
     _error.clear();
     if (on) {
-        if (_jws.isEmpty())
-            fetch_evidence();
-        _evidence_timer.start(kEvidenceEveryMs);
         start_agent();
     }
     else {
         // The agent exits when the GUI disconnects.
-        _evidence_timer.stop();
         _connect_timer.stop();
         drop("MCP turned off");
     }
     emit changed();
 }
 
-// ---------------------------------------------------------------- evidence
-
-static void evidence_cb(void *ctx, const char *jws, const char *dvid, const char *error)
-{
-    bool refresh = ctx != nullptr;
-    QString j = jws ? QString::fromUtf8(jws) : QString();
-    QString d = dvid ? QString::fromUtf8(dvid) : QString();
-    QString e = error ? QString::fromUtf8(error) : QString();
-    QMetaObject::invokeMethod(qApp, [refresh, j, d, e]() {
-        if (McpBridge::instance())
-            McpBridge::instance()->evidence_fetched(refresh, j, d, e);
-    }, Qt::QueuedConnection);
-}
-
-void McpBridge::fetch_evidence()
-{
-    if (_fetching)
-        return;
-    _fetching = true;
-    la_mcp_fetch_app_transaction(0, nullptr, evidence_cb);
-}
-
-void McpBridge::confirm_purchase()
-{
-    if (_fetching)
-        return;
-    _fetching = true;
-    emit changed();
-    la_mcp_fetch_app_transaction(1, (void *)this, evidence_cb);
-}
-
-void McpBridge::evidence_fetched(bool refresh, const QString &jws, const QString &dvid, const QString &error)
-{
-    _fetching = false;
-    if (jws.isEmpty() || jws.toUtf8().size() > kMaxJwsBytes) {
-        _fetch_error = error.isEmpty() ? QString("The App Store returned no usable purchase record.") : error;
-        dsv_info("MCP purchase evidence unavailable (%s): %s", refresh ? "refresh" : "shared",
-                 _fetch_error.toUtf8().constData());
-    }
-    else {
-        _fetch_error.clear();
-        _jws = jws;
-        _dvid = dvid;
-        send_evidence();
-    }
-    emit changed();
-}
-
-void McpBridge::send_evidence()
-{
-    if (!connected() || _jws.isEmpty() || _evidence_queued)
-        return;
-    if (_evidence_sent.isValid() && _evidence_sent.elapsed() < kEvidenceGapMs) {
-        _evidence_queued = true;
-        QTimer::singleShot(int(kEvidenceGapMs - _evidence_sent.elapsed()), this, [this]() {
-            _evidence_queued = false;
-            send_evidence();
-        });
-        return;
-    }
-    if (send(evidence_message(_jws, _dvid)))
-        _evidence_sent.start();
-}
-
 // ---------------------------------------------------------------- device lease
 
-void McpBridge::send_reply(const GuiLease::Reply &r)
+void McpBridge::send_lease(const QString &op)
 {
-    if (r.send)
-        send(lease_message(r.op, r.nonce, _lease.boot_epoch(), r.device_generation));
+    if (!op.isEmpty())
+        send(lease_message(op));
 }
 
 void McpBridge::apply(const GuiLease::Step &s)
 {
-    send_reply(s.reply);
+    send_lease(s.reply);
     if (s.unpark)
         unpark();
     if (s.decide)
@@ -341,13 +253,13 @@ void McpBridge::decide_release()
     // Only a selected analyzer is held open; anything else releases at once.
     if (!dev->is_hardware()) {
         _released = NULL_HANDLE;
-        send_reply(_lease.decide(true));
+        send_lease(_lease.decide(true));
         notice("An MCP client is using the analyzer.");
         return;
     }
     // A save cannot be interrupted: the client gets "busy" and may try again.
     if (_session->is_saving()) {
-        send_reply(_lease.decide(false));
+        send_lease(_lease.decide(false));
         return;
     }
     if (_session->is_working() || _session->have_hardware_data()) {
@@ -368,13 +280,13 @@ void McpBridge::decide_release()
         if (_lease.state() != GuiLease::ReleasePending)
             return;
         if (!yes || _session->is_saving()) {
-            send_reply(_lease.decide(false));
+            send_lease(_lease.decide(false));
             emit changed();
             return;
         }
     }
     release_device();
-    send_reply(_lease.decide(true));
+    send_lease(_lease.decide(true));
     notice("An MCP client is using the analyzer. Select it in the device list to take it back.");
     emit changed();
 }
@@ -395,7 +307,7 @@ void McpBridge::release_device()
 
 void McpBridge::take_back()
 {
-    send_reply(_lease.reclaim(new_nonce()));
+    send_lease(_lease.reclaim());
     emit changed();
 }
 
@@ -464,38 +376,11 @@ void McpBridge::notice(const QString &text)
 
 // ---------------------------------------------------------------- pane
 
-QString McpBridge::connection_text() const
-{
-    if (!_enabled)
-        return "Off";
-    return connected() ? "Running" : "Starting...";
-}
-
-QString McpBridge::purchase_text() const
-{
-    if (_fetching)
-        return "Checking with the App Store...";
-    if (_evidence_result == "granted" && _expires_at > 0)
-        return QString("Confirmed. MCP is available until %1.")
-            .arg(QLocale().toString(QDateTime::fromMSecsSinceEpoch(_expires_at), QLocale::ShortFormat));
-    if (_evidence_result == "not_newer")
-        return "Confirmed earlier (the agent already has this purchase record).";
-    if (_evidence_result == "revoked")
-        return "The App Store reports this purchase as refunded or revoked.";
-    if (_evidence_result == "rejected")
-        return "The agent did not accept the purchase record. Click Confirm Purchase.";
-    if (!_fetch_error.isEmpty())
-        return "Not confirmed yet. Click Confirm Purchase.";
-    if (!_jws.isEmpty())
-        return "Read from the App Store; sent when the agent runs.";
-    return "Not confirmed yet.";
-}
-
 void McpBridge::show_pane()
 {
     dialogs::DSDialog dlg(_window, true, false);
     dlg.setTitle("MCP");
-    dlg.setMinimumSize(520, 300);
+    dlg.setMinimumSize(480, 220);
 
     QWidget *panel = new QWidget(&dlg);
     QVBoxLayout *lay = new QVBoxLayout(panel);
@@ -512,37 +397,19 @@ void McpBridge::show_pane()
     QGridLayout *grid = new QGridLayout();
     grid->setHorizontalSpacing(12);
     grid->setVerticalSpacing(8);
-    QLabel *conn = new QLabel();
-    QLabel *purchase = new QLabel();
+    QLabel *agent = new QLabel();
     QLabel *analyzer = new QLabel();
-    purchase->setWordWrap(true);
     analyzer->setWordWrap(true);
     QPushButton *toggle = new QPushButton();
-    QPushButton *confirm = new QPushButton("Confirm Purchase");
     QPushButton *back = new QPushButton("Take Back");
     grid->addWidget(new QLabel("MCP:"), 0, 0, Qt::AlignLeft | Qt::AlignTop);
-    grid->addWidget(conn, 0, 1);
+    grid->addWidget(agent, 0, 1);
     grid->addWidget(toggle, 0, 2);
-    grid->addWidget(new QLabel("Purchase:"), 2, 0, Qt::AlignLeft | Qt::AlignTop);
-    grid->addWidget(purchase, 2, 1);
-    grid->addWidget(confirm, 2, 2);
-    grid->addWidget(new QLabel("Analyzer:"), 3, 0, Qt::AlignLeft | Qt::AlignTop);
-    grid->addWidget(analyzer, 3, 1);
-    grid->addWidget(back, 3, 2);
+    grid->addWidget(new QLabel("Analyzer:"), 1, 0, Qt::AlignLeft | Qt::AlignTop);
+    grid->addWidget(analyzer, 1, 1);
+    grid->addWidget(back, 1, 2);
     grid->setColumnStretch(1, 1);
     lay->addLayout(grid);
-
-    QLabel *clients = new QLabel(
-        "AI clients are added, listed and revoked in the Logic Analyze Agent's menu-bar item. "
-        "Adding a client gives it a pairing token: anything that can read that client's "
-        "configuration can use the analyzer within the access you grant there.");
-    clients->setWordWrap(true);
-    lay->addWidget(clients);
-    QHBoxLayout *row = new QHBoxLayout();
-    QPushButton *open = new QPushButton("Show Logic Analyze Agent");
-    row->addWidget(open);
-    row->addStretch(1);
-    lay->addLayout(row);
 
     QLabel *err = new QLabel();
     err->setWordWrap(true);
@@ -551,16 +418,16 @@ void McpBridge::show_pane()
 
     auto refresh = [=]() {
         toggle->setText(enabled() ? "Turn Off" : "Turn On");
-        conn->setText(connection_text());
-        open->setEnabled(connected());
-        purchase->setText(purchase_text());
-        confirm->setEnabled(!purchase_busy());
-        if (reclaim_pending())
-            analyzer->setText("Waiting for the MCP client to finish.");
-        else if (analyzer_lent())
-            analyzer->setText("In use by an MCP client.");
+        if (!enabled())
+            agent->setText("Off");
         else
-            analyzer->setText("Used by Logic Analyze. MCP clients ask for it when they need it.");
+            agent->setText(connected() ? "On. The agent is running." : "On. The agent is not running yet.");
+        if (reclaim_pending())
+            analyzer->setText("Lent to an MCP client. Waiting for it to finish.");
+        else if (analyzer_lent())
+            analyzer->setText("Lent to an MCP client.");
+        else
+            analyzer->setText("Held by Logic Analyze. MCP clients ask for it when they need it.");
         back->setVisible(analyzer_lent());
         back->setEnabled(!reclaim_pending());
         err->setText(last_error());
@@ -570,9 +437,7 @@ void McpBridge::show_pane()
 
     connect(this, &McpBridge::changed, panel, refresh);
     connect(toggle, &QPushButton::clicked, panel, [this]() { set_enabled(!enabled()); });
-    connect(confirm, &QPushButton::clicked, panel, [this]() { confirm_purchase(); });
     connect(back, &QPushButton::clicked, panel, [this]() { take_back(); });
-    connect(open, &QPushButton::clicked, panel, [this]() { start_agent(); });
 
     dlg.layout()->addWidget(panel);
     dlg.exec();

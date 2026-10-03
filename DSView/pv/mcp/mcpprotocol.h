@@ -35,7 +35,6 @@ const int kSecurityEpoch = 1;           // the socket is g<kSecurityEpoch>
 const int kGuiBuild = 1;                // this GUI's protocol build
 const int kGuiMinAgentBuild = 1;        // the oldest agent build this GUI talks to
 const int kMaxFrameBody = 32 * 1024 - 4;
-const int kMaxJwsBytes = 16 * 1024;
 
 // One frame: 4-byte big-endian length, then that many bytes of one JSON object.
 // Returns an empty array if the body would be longer than kMaxFrameBody.
@@ -47,71 +46,47 @@ bool take_frame(QByteArray &buf, QJsonObject &msg, bool &error);
 
 // GUI -> agent.
 QJsonObject hello_message();
-QJsonObject evidence_message(const QString &jws, const QString &device_verification_id);
-QJsonObject lease_message(const QString &op, const QString &nonce,
-                          const QString &boot_epoch, qint64 device_generation);
+QJsonObject lease_message(const QString &op);    // released, busy or reclaim
 
 // Agent -> GUI.
 struct AgentMessage
 {
-    enum Type { Invalid, Ok, Error, EvidenceResult, LeaseRequest, LeaseReturned };
+    enum Type { Invalid, Ok, Error, LeaseRequest, LeaseReturned };
 
     Type type = Invalid;
-    QString boot_epoch;          // gui_ok, lease_*
     qint64 build = 0;            // gui_ok
     qint64 min_build = 0;        // gui_ok
-    QString code;                // gui_error
-    QString result;              // evidence_result
-    qint64 expires_at = -1;      // evidence_result (epoch ms), -1 for null
-    QString nonce;               // lease_*
-    qint64 device_generation = 0;// lease_*
 };
 
 AgentMessage parse_agent_message(const QJsonObject &m);
 
-bool is_hex32(const QString &s);
-QString new_nonce();             // 32 lowercase hex digits from the system RNG
-
-// The GUI's view of the device lease (design section 7). The agent keeps the
-// authoritative state; this mirrors it from the messages exchanged.
+// The GUI's view of the device lease on the one open connection.
 class GuiLease
 {
 public:
     enum State { NoAgent, GuiOwned, ReleasePending, McpOwned, ReclaimPending };
 
-    struct Reply
-    {
-        bool send = false;
-        QString op;              // released, busy or reclaim
-        QString nonce;
-        qint64 device_generation = 0;
-    };
-
     struct Step
     {
-        Reply reply;             // send this lease message now
+        QString reply;           // lease op to send now, or empty
         bool decide = false;     // ask whether to release (then call decide())
         bool unpark = false;     // the GUI may use the analyzer again
     };
 
     State state() const { return _state; }
-    const QString &boot_epoch() const { return _boot_epoch; }
 
     // True while an MCP client holds the analyzer or the GUI waits to get it back.
     bool lent() const { return _state == McpOwned || _state == ReclaimPending; }
 
-    Step connected(const QString &boot_epoch);
+    void connected() { _state = GuiOwned; }
     Step disconnected();
-    Step lease_request(const QString &nonce, const QString &boot_epoch, qint64 gen);
-    Reply decide(bool release);
-    Reply reclaim(const QString &nonce);
-    Step lease_returned(const QString &nonce, const QString &boot_epoch, qint64 gen);
+    Step lease_request();
+    QString decide(bool release);
+    QString reclaim();
+    Step lease_returned();
 
 private:
     State _state = NoAgent;
-    QString _boot_epoch;
-    QString _nonce;              // the request being answered, or our reclaim
-    qint64 _gen = 0;
 };
 
 } // namespace mcp
