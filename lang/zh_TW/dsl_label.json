@@ -1,0 +1,146 @@
+[
+    {
+        "id": "Connection",
+        "text": "連線"
+    },
+    {
+        "id": "Serial communication",
+        "text": "序列通訊"
+    },
+    {
+        "id": "Sample rate",
+        "text": "取樣率"
+    },
+    {
+        "id": "Sample depth",
+        "text": "取樣深度"
+    },
+    {
+        "id": "Sample count",
+        "text": "取樣數"
+    },
+    {
+        "id": "Using External Clock",
+        "text": "使用外部時脈"
+    },
+    {
+        "id": "Using Clock Negedge",
+        "text": "使用時脈下降緣"
+    },
+    {
+        "id": "Pre-trigger capture ratio",
+        "text": "觸發前擷取比例"
+    },
+    {
+        "id": "Run Length Encoding",
+        "text": "游程編碼 (RLE)"
+    },
+    {
+        "id": "Wait Buffer Upload",
+        "text": "等待緩衝區上傳"
+    },
+    {
+        "id": "Trigger slope",
+        "text": "觸發斜率"
+    },
+    {
+        "id": "Trigger source",
+        "text": "觸發源"
+    },
+    {
+        "id": "Trigger channel",
+        "text": "觸發通道"
+    },
+    {
+        "id": "Horizontal trigger position",
+        "text": "水平觸發位置"
+    },
+    {
+        "id": "Trigger hold off",
+        "text": "觸發抑制"
+    },
+    {
+        "id": "Trigger margin",
+        "text": "觸發裕度"
+    },
+    {
+        "id": "Buffer size",
+        "text": "緩衝區大小"
+    },
+    {
+        "id": "Time base",
+        "text": "時基"
+    },
+    {
+        "id": "Max Height",
+        "text": "最大高度"
+    },
+    {
+        "id": "Max Height value",
+        "text": "最大高度值"
+    },
+    {
+        "id": "Filter Targets",
+        "text": "濾波目標"
+    },
+    {
+        "id": "Datalog",
+        "text": "資料記錄"
+    },
+    {
+        "id": "Operation Mode",
+        "text": "操作模式"
+    },
+    {
+        "id": "Stop Options",
+        "text": "停止選項"
+    },
+    {
+        "id": "Channel Mode",
+        "text": "通道模式"
+    },
+    {
+        "id": "Threshold Levels",
+        "text": "臨界電壓"
+    },
+    {
+        "id": "Threshold Level",
+        "text": "臨界電壓"
+    },
+    {
+        "id": "Enable RLE Compress",
+        "text": "啟用 RLE 壓縮"
+    },
+    {
+        "id": "Bandwidth Limit",
+        "text": "頻寬限制"
+    },
+    {
+        "id": "Coupling",
+        "text": "耦合"
+    },
+    {
+        "id": "Volts/div",
+        "text": "伏特/格"
+    },
+    {
+        "id": "Probe Factor",
+        "text": "探棒衰減倍率"
+    },
+    {
+        "id": "Map Default",
+        "text": "對應預設值"
+    },
+    {
+        "id": "Map Unit",
+        "text": "對應單位"
+    },
+    {
+        "id": "Map Min",
+        "text": "對應最小值"
+    },
+    {
+        "id": "Map Max",
+        "text": "對應最大值"
+    }
+]

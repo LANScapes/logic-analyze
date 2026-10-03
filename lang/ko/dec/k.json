@@ -1,0 +1,278 @@
+[
+    {
+        "id": "dec_lfast_chan_data",
+        "text": "TXP 또는 RXP"
+    },
+    {
+        "id": "dec_lin_opt_version",
+        "text": "프로토콜 버전"
+    },
+    {
+        "id": "dec_lm75_opt_sensor",
+        "text": "센서 유형"
+    },
+    {
+        "id": "dec_lm75_opt_resolution",
+        "text": "분해능 (비트)"
+    },
+    {
+        "id": "dec_lpc_chan_lframe",
+        "text": "프레임"
+    },
+    {
+        "id": "dec_lpc_chan_lclk",
+        "text": "클록"
+    },
+    {
+        "id": "dec_lpc_chan_lad0",
+        "text": "주소/제어/데이터 0"
+    },
+    {
+        "id": "dec_lpc_chan_lad1",
+        "text": "주소/제어/데이터 1"
+    },
+    {
+        "id": "dec_lpc_chan_lad2",
+        "text": "주소/제어/데이터 2"
+    },
+    {
+        "id": "dec_lpc_chan_lad3",
+        "text": "주소/제어/데이터 3"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lreset",
+        "text": "리셋"
+    },
+    {
+        "id": "dec_lpc_opt_chan_ldrq",
+        "text": "인코딩된 DMA / 버스 마스터 요청"
+    },
+    {
+        "id": "dec_lpc_opt_chan_serirq",
+        "text": "직렬화된 IRQ"
+    },
+    {
+        "id": "dec_lpc_opt_chan_clkrun",
+        "text": "클록 실행"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lpme",
+        "text": "LPC 전원 관리 이벤트"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lpcpd",
+        "text": "전원 차단"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lsmi",
+        "text": "시스템 관리 인터럽트"
+    },
+    {
+        "id": "dec_ltc26x7_opt_chip",
+        "text": "칩"
+    },
+    {
+        "id": "dec_ltc26x7_opt_vref",
+        "text": "기준 전압 (V)"
+    },
+    {
+        "id": "dec_ltc242x_opt_vref",
+        "text": "기준 전압 (V)"
+    },
+    {
+        "id": "dec_maple_bus_chan_sdcka",
+        "text": "데이터/클록 라인 A"
+    },
+    {
+        "id": "dec_maple_bus_chan_sdckb",
+        "text": "데이터/클록 라인 B"
+    },
+    {
+        "id": "dec_mcs48_chan_ale",
+        "text": "주소 래치 활성화"
+    },
+    {
+        "id": "dec_mcs48_chan_psen",
+        "text": "프로그램 저장소 활성화"
+    },
+    {
+        "id": "dec_mdio_chan_mdc",
+        "text": "클록"
+    },
+    {
+        "id": "dec_mdio_chan_mdio",
+        "text": "데이터"
+    },
+    {
+        "id": "dec_mdio_opt_show_debug_bits",
+        "text": "디버그 비트 표시"
+    },
+    {
+        "id": "dec_mdio_opt_read_edge",
+        "text": "읽기 에지"
+    },
+    {
+        "id": "dec_microwire_chan_cs",
+        "text": "칩 선택"
+    },
+    {
+        "id": "dec_microwire_chan_sk",
+        "text": "클록"
+    },
+    {
+        "id": "dec_microwire_chan_si",
+        "text": "슬레이브 입력"
+    },
+    {
+        "id": "dec_microwire_chan_so",
+        "text": "슬레이브 출력"
+    },
+    {
+        "id": "dec_miller_chan_data",
+        "text": "데이터 신호"
+    },
+    {
+        "id": "dec_miller_opt_baudrate",
+        "text": "보드레이트"
+    },
+    {
+        "id": "dec_miller_opt_edge",
+        "text": "에지"
+    },
+    {
+        "id": "dec_mipi_dsi_chan_D0N",
+        "text": "LP 데이터 0 음극"
+    },
+    {
+        "id": "dec_mipi_dsi_chan_D0P",
+        "text": "LP 데이터 0 양극"
+    },
+    {
+        "id": "dec_mipi_rffe_chan_sclk",
+        "text": "직렬 클록 라인"
+    },
+    {
+        "id": "dec_mipi_rffe_chan_sdata",
+        "text": "직렬 데이터 라인"
+    },
+    {
+        "id": "dec_mipi_rffe_opt_error_display",
+        "text": "오류 표시 옵션"
+    },
+    {
+        "id": "dec_morse_chan_data",
+        "text": "데이터 라인"
+    },
+    {
+        "id": "dec_morse_opt_timeunit",
+        "text": "시간 단위 (추정)"
+    },
+    {
+        "id": "dec_nes_gamepad_opt_variant",
+        "text": "게임패드 종류"
+    },
+    {
+        "id": "dec_nrf24l01_opt_chip",
+        "text": "칩 유형"
+    },
+    {
+        "id": "dec_numbers_and_state_chan_clk",
+        "text": "클록"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_clkedge",
+        "text": "클록 에지"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_count",
+        "text": "전체 비트 수"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_interp",
+        "text": "해석 방식"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_fracbits",
+        "text": "소수부 비트 수"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_mapping",
+        "text": "열거값-텍스트 매핑 파일"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_format",
+        "text": "숫자 형식"
+    },
+    {
+        "id": "dec_onewire_link_chan_owr",
+        "text": "1-Wire 신호 라인"
+    },
+    {
+        "id": "dec_onewire_link_opt_overdrive",
+        "text": "오버드라이브 속도로 시작"
+    },
+    {
+        "id": "dec_ook_chan_data",
+        "text": "데이터 라인"
+    },
+    {
+        "id": "dec_ook_opt_invert",
+        "text": "데이터 반전"
+    },
+    {
+        "id": "dec_ook_opt_decodeas",
+        "text": "디코딩 유형"
+    },
+    {
+        "id": "dec_ook_opt_preamble",
+        "text": "프리앰블"
+    },
+    {
+        "id": "dec_ook_opt_preamlen",
+        "text": "필터 길이"
+    },
+    {
+        "id": "dec_ook_opt_diffmanvar",
+        "text": "시작 시 전이"
+    },
+    {
+        "id": "dec_ook_oregon_opt_unknown",
+        "text": "알 수 없는 유형 처리"
+    },
+    {
+        "id": "dec_ook_vis_opt_displayas",
+        "text": "표시 형식"
+    },
+    {
+        "id": "dec_ook_vis_opt_synclen",
+        "text": "동기 길이"
+    },
+    {
+        "id": "dec_ook_vis_opt_syncoffset",
+        "text": "동기 오프셋"
+    },
+    {
+        "id": "dec_ook_vis_opt_refsample",
+        "text": "비교"
+    },
+    {
+        "id": "dec_onewire_link_opt_min_height_level_pulse_time",
+        "text": "최소 하이 레벨 펄스 시간(us)"
+    },
+    {
+        "id": "dec_onewire_link_opt_min_overdrive_height_level_pulse_time",
+        "text": "오버드라이브 최소 하이 레벨 펄스 시간(us)"
+    },
+    {
+        "id": "dec_modbus_opt_scchannel",
+        "text": "서버 -> 클라이언트 채널"
+    },
+    {
+        "id": "dec_modbus_opt_cschannel",
+        "text": "클라이언트 -> 서버 채널"
+    },
+    {
+        "id": "dec_modbus_opt_framegap",
+        "text": "프레임 간 비트 간격"
+    }
+]

@@ -1,0 +1,794 @@
+[
+    {
+        "id": "IDS_DLG_LOG_OPTIONS",
+        "text": "Günlük Ayarları"
+    },
+    {
+        "id": "IDS_DLG_LOG_LEVEL",
+        "text": "Günlük Düzeyi"
+    },
+    {
+        "id": "IDS_DLG_SAVE_FILE",
+        "text": "Dosyaya Kaydet"
+    },
+    {
+        "id": "IDS_DLG_OPEN_FILE",
+        "text": "Dosya Aç"
+    },
+    {
+        "id": "IDS_DLG_OPEN_SEESION",
+        "text": "Oturum Aç"
+    },
+    {
+        "id": "IDS_DLG_SAVE_SEESION",
+        "text": "Oturumu Kaydet"
+    },
+    {
+        "id": "IDS_DLG_DOCUMENT",
+        "text": "Belge"
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_DOCK_TITLE",
+        "text": "Tetikleme Ayarı"
+    },
+    {
+        "id": "IDS_DLG_PROTOCOL_DOCK_TITLE",
+        "text": "Çözücüler"
+    },
+    {
+        "id": "IDS_DLG_MEASURE_DOCK_TITLE",
+        "text": "Ölçüm"
+    },
+    {
+        "id": "IDS_DLG_SEARCH_DOCK_TITLE",
+        "text": "Ara"
+    },
+    {
+        "id": "IDS_DLG_SAVE_AS",
+        "text": "Farklı Kaydet"
+    },
+    {
+        "id": "IDS_DLG_CHECK_USB_SPEED_ERROR",
+        "text": "Geçerli cihazı bir USB 2.0 bağlantı noktasına takmak performansını önemli ölçüde düşürür.\nLütfen cihazı bir USB 3.0 bağlantı noktasına takın."
+    },
+    {
+        "id": "IDS_DLG_CHECK_SESSION_FILE_VERSION_ERROR",
+        "text": "Bu dosya eski bir biçimde.\nYavaş yüklenir.\nYükledikten sonra yeniden kaydedebilirsiniz."
+    },
+    {
+        "id": "IDS_DLG_ABOUT",
+        "text": "Hakkında"
+    },
+    {
+        "id": "IDS_DLG_DISPLAY_OPTIONS",
+        "text": "Görünüm seçenekleri"
+    },
+    {
+        "id": "IDS_DLG_QUICK_SCROLL",
+        "text": "Fareyle Sürükleyerek Dalga Biçimini Kaydır"
+    },
+    {
+        "id": "IDS_DLG_SAVE",
+        "text": "Kaydet"
+    },
+    {
+        "id": "IDS_DLG_RESET",
+        "text": "Sıfırla"
+    },
+    {
+        "id": "IDS_DLG_EXIT",
+        "text": "Çıkış"
+    },
+    {
+        "id": "IDS_DLG_MANUAL_CALIBRATION",
+        "text": "Elle Kalibrasyon"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL",
+        "text": "Kanal"
+    },
+    {
+        "id": "IDS_DLG_SAVE_CALIBRATION_RESULTS",
+        "text": "Kalibrasyon sonuçları kaydediliyor... Lütfen bekleyin."
+    },
+    {
+        "id": "IDS_DLG_CANCEL",
+        "text": "İptal"
+    },
+    {
+        "id": "IDS_DLG_RELOAD_CALIBRATION_RESULTS",
+        "text": "Önceki kalibrasyon sonuçları yeniden yükleniyor... Lütfen bekleyin."
+    },
+    {
+        "id": "IDS_DLG_DECODER_OPTIONS",
+        "text": "Çözücü Seçenekleri"
+    },
+    {
+        "id": "IDS_DLG_CURSOR",
+        "text": "İmleç "
+    },
+    {
+        "id": "IDS_DLG_CURSOR_FOR_DECODE_START",
+        "text": "Kod Çözme Başlangıç Konumu"
+    },
+    {
+        "id": "IDS_DLG_CURSOR_FOR_DECODE_END",
+        "text": "Kod Çözme Bitiş Konumu"
+    },
+    {
+        "id": "IDS_DLG_DEVICE_OPTIONS",
+        "text": "Cihaz Seçenekleri"
+    },
+    {
+        "id": "IDS_DLG_MODE",
+        "text": "Seçenekler"
+    },
+    {
+        "id": "IDS_DLG_ENABLE_ALL",
+        "text": "Tümünü Etkinleştir"
+    },
+    {
+        "id": "IDS_DLG_DISABLE_ALL",
+        "text": "Tümünü Devre Dışı Bırak"
+    },
+    {
+        "id": "IDS_DLG_ENABLE",
+        "text": "Etkin: "
+    },
+    {
+        "id": "IDS_DLG_AUTO_CALIBRATION",
+        "text": "Otomatik Kalibrasyon"
+    },
+    {
+        "id": "IDS_DLG_CALIBRATION",
+        "text": "Kalibrasyon"
+    },
+    {
+        "id": "IDS_DLG_MEASUREMENTS",
+        "text": "Ölçümler"
+    },
+    {
+        "id": "IDS_DLG_FFT_ENABLE",
+        "text": "FFT Etkin: "
+    },
+    {
+        "id": "IDS_DLG_FFT_LENGTH",
+        "text": "FFT Uzunluğu: "
+    },
+    {
+        "id": "IDS_DLG_SAMPLE_INTERVAL",
+        "text": "Örnekleme Aralığı: "
+    },
+    {
+        "id": "IDS_DLG_FFT_SOURCE",
+        "text": "FFT Kaynağı: "
+    },
+    {
+        "id": "IDS_DLG_FFT_WINDOW",
+        "text": "FFT Penceresi: "
+    },
+    {
+        "id": "IDS_DLG_DC_IGNORED",
+        "text": "DC Yoksay: "
+    },
+    {
+        "id": "IDS_DLG_Y-AXIS_MODE",
+        "text": "Y Ekseni Modu: "
+    },
+    {
+        "id": "IDS_DLG_DBV_RANGE",
+        "text": "DBV Aralığı: "
+    },
+    {
+        "id": "IDS_DLG_FFT_OPTIONS",
+        "text": "FFT Seçenekleri"
+    },
+    {
+        "id": "IDS_DLG_INTERVAL_S",
+        "text": "Aralık (s): "
+    },
+    {
+        "id": "IDS_DLG_REPETITIVE_INTERVAL",
+        "text": "Yineleme Aralığı"
+    },
+    {
+        "id": "IDS_DLG_X_AXIS",
+        "text": "X ekseni"
+    },
+    {
+        "id": "IDS_DLG_Y_AXIS",
+        "text": "Y ekseni"
+    },
+    {
+        "id": "IDS_DLG_LISSAJOUS_OPTIONS",
+        "text": "Lissajous Seçenekleri"
+    },
+    {
+        "id": "IDS_DLG_ADD",
+        "text": "Topla"
+    },
+    {
+        "id": "IDS_DLG_SUBSTRACT",
+        "text": "Çıkar"
+    },
+    {
+        "id": "IDS_DLG_MULTIPLY",
+        "text": "Çarp"
+    },
+    {
+        "id": "IDS_DLG_DIVIDE",
+        "text": "Böl"
+    },
+    {
+        "id": "IDS_DLG_MATH_TYPE",
+        "text": "İşlem Türü"
+    },
+    {
+        "id": "IDS_DLG_1ST_SOURCE",
+        "text": "1. Kaynak"
+    },
+    {
+        "id": "IDS_DLG_2ST_SOURCE",
+        "text": "2. Kaynak"
+    },
+    {
+        "id": "IDS_DLG_MATH_OPTIONS",
+        "text": "Matematik Seçenekleri"
+    },
+    {
+        "id": "IDS_DLG_EXPORT_FORMAT",
+        "text": "Dışa Aktarma Biçimi: "
+    },
+    {
+        "id": "IDS_DLG_PROTOCOL_EXPORT",
+        "text": "Protokol Dışa Aktarma"
+    },
+    {
+        "id": "IDS_DLG_EXPORT_DATA",
+        "text": "Dışa Aktarılacak Veri: "
+    },
+    {
+        "id": "IDS_DLG_EXPORT_PROTOCOL_LIST_RESULT",
+        "text": "Kod çözme sonuçları dışa aktarılıyor... Lütfen bekleyin."
+    },
+    {
+        "id": "IDS_DLG_FIT_TO_WINDOW",
+        "text": "Pencereye sığdır"
+    },
+    {
+        "id": "IDS_DLG_FIXED",
+        "text": "Sabit"
+    },
+    {
+        "id": "IDS_DLG_MAP_ZOOM",
+        "text": "Atlama Yakınlaştırması: "
+    },
+    {
+        "id": "IDS_DLG_DECODED_PROTOCOLS",
+        "text": "Çözülen Protokoller: "
+    },
+    {
+        "id": "IDS_DLG_PROTOCOL_LIST_VIEWER",
+        "text": "Kod Çözme Sonuçları"
+    },
+    {
+        "id": "IDS_DLG_REGION",
+        "text": "Bölge"
+    },
+    {
+        "id": "IDS_DLG_SEARCH_LABEL",
+        "text": "X: Önemsiz\n0: Düşük seviye\n1: Yüksek seviye\nR: Yükselen kenar\nF: Düşen kenar\nC: Yükselen/Düşen kenar"
+    },
+    {
+        "id": "IDS_DLG_SEARCH_OPTIONS",
+        "text": "Arama Seçenekleri"
+    },
+    {
+        "id": "IDS_DLG_SAVING",
+        "text": "Kaydediliyor..."
+    },
+    {
+        "id": "IDS_DLG_ORIGINAL_DATA",
+        "text": "Özgün veri"
+    },
+    {
+        "id": "IDS_DLG_COMPRESSED_DATA",
+        "text": "Sıkıştırılmış veri"
+    },
+    {
+        "id": "IDS_DLG_EXPORT",
+        "text": "Dışa Aktar"
+    },
+    {
+        "id": "IDS_DLG_EXPORTING",
+        "text": "Dışa aktarılıyor..."
+    },
+    {
+        "id": "IDS_DLG_DONT_CONNECT_PROBES",
+        "text": "Hiçbir prob bağlamayın!"
+    },
+    {
+        "id": "IDS_DLG_LOAD_CURRENT_SETTING",
+        "text": "Geçerli ayarlar yükleniyor... Lütfen bekleyin."
+    },
+    {
+        "id": "IDS_DLG_WAITING",
+        "text": "Bekleniyor"
+    },
+    {
+        "id": "IDS_DLG_FINISHED",
+        "text": "Tamamlandı!"
+    },
+    {
+        "id": "IDS_DLG_US",
+        "text": "uS"
+    },
+    {
+        "id": "IDS_DLG_MS",
+        "text": "mS"
+    },
+    {
+        "id": "IDS_DLG_S",
+        "text": "S"
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_POSITION",
+        "text": "Tetikleme Konumu: "
+    },
+    {
+        "id": "IDS_DLG_HOLD_OFF_TIME",
+        "text": "Bekletme Süresi: "
+    },
+    {
+        "id": "IDS_DLG_NOISE_SENSITIVITY",
+        "text": "Tetikleme Hassasiyeti: "
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_SOURCES",
+        "text": "Tetikleme Kaynakları: "
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_TYPES",
+        "text": "Tetikleme Türleri: "
+    },
+    {
+        "id": "IDS_DLG_RISING_EDGE",
+        "text": "Yükselen Kenar"
+    },
+    {
+        "id": "IDS_DLG_FALLING_EDGE",
+        "text": "Düşen Kenar"
+    },
+    {
+        "id": "IDS_DLG_AUTO",
+        "text": "Otomatik"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_0",
+        "text": "Kanal 0"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_1",
+        "text": "Kanal 1"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_0_AND_1",
+        "text": "Kanal 0 && 1"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_0_OR_1",
+        "text": "Kanal 0 | 1"
+    },
+    {
+        "id": "IDS_DLG_KEY_DECODER_SEARCH",
+        "text": "Çözücü ara..."
+    },
+    {
+        "id": "IDS_DLG_TIME_SAMPLES",
+        "text": "Zaman/Örnek"
+    },
+    {
+        "id": "IDS_DLG_MOUSE_MEASUREMENT",
+        "text": "Fare ölçümü"
+    },
+    {
+        "id": "IDS_DLG_ENABLE_FLOATING_MEASUREMENT",
+        "text": "Kayan ölçümü etkinleştir"
+    },
+    {
+        "id": "IDS_DLG_CURSOR_DISTANCE",
+        "text": "İmleç Mesafesi"
+    },
+    {
+        "id": "IDS_DLG_EDGES",
+        "text": "Kenarlar"
+    },
+    {
+        "id": "IDS_DLG_CURSORS",
+        "text": "İmleçler"
+    },
+    {
+        "id": "IDS_DLG_RIS_OR_FAL_EDGE",
+        "text": "Yük./Düş./Kenar"
+    },
+    {
+        "id": "IDS_DLG_W",
+        "text": "G: "
+    },
+    {
+        "id": "IDS_DLG_P",
+        "text": "P: "
+    },
+    {
+        "id": "IDS_DLG_F",
+        "text": "F: "
+    },
+    {
+        "id": "IDS_DLG_D",
+        "text": "D: "
+    },
+    {
+        "id": "IDS_DLG_SEARCH",
+        "text": "ara"
+    },
+    {
+        "id": "IDS_DLG_MATCHING_ITEMS",
+        "text": "Eşleşen Öğeler:"
+    },
+    {
+        "id": "IDS_DLG_OUT_OF_MEMORY",
+        "text": "Bellek Yetersiz"
+    },
+    {
+        "id": "IDS_DLG_SEARCHING",
+        "text": "Aranıyor..."
+    },
+    {
+        "id": "IDS_DLG_SEARCH_PREVIOUS",
+        "text": "Öncekini Ara..."
+    },
+    {
+        "id": "IDS_DLG_SEARCH_NEXT",
+        "text": "Sonrakini Ara..."
+    },
+    {
+        "id": "IDS_DLG_SIMPLE_TRIGGER",
+        "text": "Basit Tetikleme"
+    },
+    {
+        "id": "IDS_DLG_ADVANCED_TRIGGER",
+        "text": "Gelişmiş Tetikleme"
+    },
+    {
+        "id": "IDS_DLG_TOTAL_TRIGGER_STAGES",
+        "text": "Toplam Tetikleme Aşaması: "
+    },
+    {
+        "id": "IDS_DLG_START_FLAG",
+        "text": "Başlangıç Bayrağı: "
+    },
+    {
+        "id": "IDS_DLG_STOP_FLAG",
+        "text": "Bitiş Bayrağı: "
+    },
+    {
+        "id": "IDS_DLG_CLOCK_FLAG",
+        "text": "Saat Bayrağı: "
+    },
+    {
+        "id": "IDS_DLG_DATA_CHANNEL",
+        "text": "Veri Kanalı: "
+    },
+    {
+        "id": "IDS_DLG_DATA_VALUE",
+        "text": "Veri Değeri: "
+    },
+    {
+        "id": "IDS_DLG_SERIAL_TRIGGER",
+        "text": "Seri Tetikleme"
+    },
+    {
+        "id": "IDS_DLG_STAGE_TRIGGER",
+        "text": "Aşamalı Tetikleme"
+    },
+    {
+        "id": "IDS_DLG_SERIAL_NOTE_LABEL",
+        "text": "X: Önemsiz\n0: Düşük seviye\n1: Yüksek seviye\nR: Yükselen kenar\nF: Düşen kenar\nC: Yükselen/Düşen kenar"
+    },
+    {
+        "id": "IDS_DLG_DATA_BITS",
+        "text": "Veri Bitleri"
+    },
+    {
+        "id": "IDS_DLG_INV",
+        "text": "Ters"
+    },
+    {
+        "id": "IDS_DLG_COUNTER",
+        "text": "Sayaç"
+    },
+    {
+        "id": "IDS_DLG_CONTIGUOUS",
+        "text": "Ardışık"
+    },
+    {
+        "id": "IDS_DLG_STAGE",
+        "text": "Aşama"
+    },
+    {
+        "id": "IDS_DLG_OR",
+        "text": "Veya"
+    },
+    {
+        "id": "IDS_DLG_AND",
+        "text": "Ve"
+    },
+    {
+        "id": "IDS_DLG_HZ",
+        "text": "Hz"
+    },
+    {
+        "id": "IDS_DLG_UNSHOWN",
+        "text": "Gösterilmeyen"
+    },
+    {
+        "id": "ZOOM_IN_FOR_DETAILS",
+        "text": "Ayrıntılar için yakınlaştırın"
+    },
+    {
+        "id": "IDS_DLG_DECODETRACE_ERROR1",
+        "text": "Hata: "
+    },
+    {
+        "id": "IDS_DLG_DECODETRACE_ERROR2",
+        "text": "Hata: ..."
+    },
+    {
+        "id": "IDS_DLG_ADD_GROUP",
+        "text": "Grup Ekle"
+    },
+    {
+        "id": "IDS_DLG_DEL_GROUP",
+        "text": "Grubu Sil"
+    },
+    {
+        "id": "IDS_DLG_SET_CHANNEL_COLOUR",
+        "text": "Kanal Rengini Ayarla"
+    },
+    {
+        "id": "IDS_DLG_LISSAJOUS_FIGURE",
+        "text": "Lissajous Şekli"
+    },
+    {
+        "id": "IDS_DLG_DATA_SOURCE_ERROR",
+        "text": "Veri kaynağı hatası."
+    },
+    {
+        "id": "IDS_DLG_ADD_X_CURSOR",
+        "text": "X İmleci Ekle"
+    },
+    {
+        "id": "IDS_DLG_ADD_Y_CURSOR",
+        "text": "Y İmleci Ekle"
+    },
+    {
+        "id": "IDS_DLG_AUTO_ROLL",
+        "text": "Otomatik (Kayan)"
+    },
+    {
+        "id": "IDS_DLG_WAITING_TRIG",
+        "text": "Tetikleme Bekleniyor"
+    },
+    {
+        "id": "IDS_DLG_TRIG_D",
+        "text": "Tetiklendi"
+    },
+    {
+        "id": "IDS_DLG_TRIGGERED",
+        "text": "Tetiklendi! "
+    },
+    {
+        "id": "IDS_DLG_CAPTURED",
+        "text": "% Yakalandı"
+    },
+    {
+        "id": "IDS_DLG_WAITING_FOR_TRIGGER",
+        "text": "Tetikleme Bekleniyor! "
+    },
+    {
+        "id": "IDS_DLG_RISING",
+        "text": "Yükselen: "
+    },
+    {
+        "id": "IDS_DLG_FALLING",
+        "text": "Düşen: "
+    },
+    {
+        "id": "IDS_DLG_Edges_1",
+        "text": "Kenarlar: "
+    },
+    {
+        "id": "IDS_DLG_WIDTH",
+        "text": "Genişlik: "
+    },
+    {
+        "id": "IDS_DLG_PERIOD",
+        "text": "Periyot: "
+    },
+    {
+        "id": "IDS_DLG_FREQUENCY",
+        "text": "Frekans: "
+    },
+    {
+        "id": "IDS_DLG_DUTY_CYCLE",
+        "text": "Doluluk Oranı: "
+    },
+    {
+        "id": "IDS_DLG_MEASURE",
+        "text": "Ölçüm"
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_TIME",
+        "text": "Tetikleme Zamanı: "
+    },
+    {
+        "id": "IDS_DLG_SAMPLES_CAPTURED",
+        "text": "Örnek Yakalandı!"
+    },
+    {
+        "id": "IDS_DLG_FILE_THRESHOLD",
+        "text": "Eşik: "
+    },
+    {
+        "id": "IDS_DLG_VIEW_CAPTURE",
+        "text": "Yakalanıyor"
+    },
+    {
+        "id": "IDS_DLG_CHAN_NUM_ERR2",
+        "text": "İki kanalın verisi gerekir."
+    },
+    {
+        "id": "IDS_DLG_PATH_NAME",
+        "text": "yol"
+    },
+    {
+        "id": "IDS_DLG_DECODER_IF_TRANS",
+        "text": "Parametre adlarını çevir"
+    },
+    {
+        "id": "IDS_DLG_LOG_PATH",
+        "text": "Dosya Yolu"
+    },
+    {
+        "id": "IDS_DLG_OPEN",
+        "text": "Aç"
+    },
+    {
+        "id": "IDS_DLG_CLEARE",
+        "text": "Temizle"
+    },
+    {
+        "id": "IDS_DLG_APPEND_MODE",
+        "text": "Ekleme modu"
+    },
+    {
+        "id": "IDS_DLG_TRIG_DISPLAY_MIDDLE",
+        "text": "Tetikleme konumunu ortada göster"
+    },
+    {
+        "id": "IDS_DLG_DISPLAY_PROFILE_IN_BAR",
+        "text": "Oturum adını başlık çubuğunda göster"
+    },
+    {
+        "id": "IDS_DLG_SERIAL_HEX",
+        "text": "Onaltılık :"
+    },
+    {
+        "id": "IDS_DLG_SERIAL_INPUT_AS_HEX",
+        "text": "Onaltılık biçimde gir"
+    },
+    {
+        "id": "IDS_DLG_USE_ABORT_DATA_REPEAT",
+        "text": "Yinelemeli modda durdurunca son veriyi güncelle"
+    },
+    {
+        "id": "IDS_DLG_FONT_SIZE",
+        "text": "Yazı Tipi Boyutu"
+    },
+    {
+        "id": "IDS_DLG_DEFAULT_FONT",
+        "text": "Varsayılan"
+    },
+    {
+        "id": "IDS_DLG_GROUP_LOGIC",
+        "text": "Mantık Analizörü"
+    },
+    {
+        "id": "IDS_DLG_GROUP_DSO",
+        "text": "Osiloskop"
+    },
+    {
+        "id": "IDS_DLG_GROUP_UI",
+        "text": "Arayüz"
+    },
+    {
+        "id": "IDS_DLG_ABORT",
+        "text": "Vazgeç"
+    },
+    {
+        "id": "IDS_DLG_AUTO_SCROLL_LATEAST_DATA",
+        "text": "En son veriye otomatik kaydır"
+    },
+    {
+        "id": "IDS_DLG_DATA_OUT_OFF_RANGE",
+        "text": "Veri aralık dışında"
+    },
+    {
+        "id": "IDS_DLG_START_CURSOR",
+        "text": "Başlangıç"
+    },
+    {
+        "id": "IDS_DLG_END_CURSOR",
+        "text": "Bitiş"
+    },
+    {
+        "id": "IDS_DSO_CTR_EN",
+        "text": "AÇIK"
+    },
+    {
+        "id": "IDS_DSO_CTR_DIS",
+        "text": "KAPALI"
+    },
+    {
+        "id": "IDS_DSO_CTR_GND",
+        "text": "GND"
+    },
+    {
+        "id": "IDS_DSO_CTR_DC",
+        "text": "DC"
+    },
+    {
+        "id": "IDS_DSO_CTR_AC",
+        "text": "AC"
+    },
+    {
+        "id": "IDS_DSO_CTR_AUTO",
+        "text": "OTO"
+    },
+    {
+        "id": "IDS_CALIB_VGAIN",
+        "text": "VKAZANÇ"
+    },
+    {
+        "id": "IDS_CALIB_VOFF",
+        "text": "VOFSET"
+    },
+    {
+        "id": "IDS_CALIB_VCOMB",
+        "text": "VCOMB"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_RECTANGLE",
+        "text": "Dikdörtgen"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_HANN",
+        "text": "Hann"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_HAMMING",
+        "text": "Hamming"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_BLACKMAN",
+        "text": "Blackman"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_FLATTOP",
+        "text": "Düz tepe"
+    },
+    {
+        "id": "IDS_FFT_MODE_LINEARRSM",
+        "text": "Doğrusal RMS"
+    }
+]

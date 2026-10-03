@@ -1,0 +1,182 @@
+[
+    {
+        "id": "dec_0i2c_chan_scl",
+        "text": "Лінія послідовного тактування"
+    },
+    {
+        "id": "dec_0i2c_chan_sda",
+        "text": "Лінія послідовних даних"
+    },
+    {
+        "id": "dec_0i2c_opt_addr",
+        "text": "Формат відображення адреси веденого"
+    },
+    {
+        "id": "dec_0spi_chan_clk",
+        "text": "Тактовий сигнал"
+    },
+    {
+        "id": "dec_0spi_opt_chan_miso",
+        "text": "Вхід ведучого, вихід веденого"
+    },
+    {
+        "id": "dec_0spi_opt_chan_mosi",
+        "text": "Вихід ведучого, вхід веденого"
+    },
+    {
+        "id": "dec_0spi_opt_chan_cs",
+        "text": "Вибір кристала"
+    },
+    {
+        "id": "dec_0spi_opt_cs_pol",
+        "text": "Полярність CS#"
+    },
+    {
+        "id": "dec_0spi_opt_cpol",
+        "text": "Полярність такту (CPOL)"
+    },
+    {
+        "id": "dec_0spi_opt_cpha",
+        "text": "Фаза такту (CPHA)"
+    },
+    {
+        "id": "dec_0spi_opt_bitorder",
+        "text": "Порядок бітів"
+    },
+    {
+        "id": "dec_0spi_opt_wordsize",
+        "text": "Розмір слова"
+    },
+    {
+        "id": "dec_0uart_chan_rxtx",
+        "text": "Лінія приймання/передавання UART"
+    },
+    {
+        "id": "dec_0uart_opt_baudrate",
+        "text": "Швидкість (бод)"
+    },
+    {
+        "id": "dec_0uart_opt_num_data_bits",
+        "text": "Біти даних"
+    },
+    {
+        "id": "dec_0uart_opt_parity_type",
+        "text": "Тип парності"
+    },
+    {
+        "id": "dec_0uart_opt_parity_check",
+        "text": "Перевіряти парність?"
+    },
+    {
+        "id": "dec_0uart_opt_num_stop_bits",
+        "text": "Стоп-біти"
+    },
+    {
+        "id": "dec_0uart_opt_bit_order",
+        "text": "Порядок бітів"
+    },
+    {
+        "id": "dec_0uart_opt_format",
+        "text": "Формат даних"
+    },
+    {
+        "id": "dec_0uart_opt_invert",
+        "text": "Інвертувати сигнал?"
+    },
+    {
+        "id": "dec_0uart_anno_startstop",
+        "text": "Показувати старт/стоп?"
+    },
+    {
+        "id": "dec_1i2c_chan_scl",
+        "text": "Лінія послідовного тактування"
+    },
+    {
+        "id": "dec_1i2c_chan_sda",
+        "text": "Лінія послідовних даних"
+    },
+    {
+        "id": "dec_1i2c_opt_addr",
+        "text": "Формат відображення адреси веденого"
+    },
+    {
+        "id": "dec_1spi_chan_clk",
+        "text": "Тактовий сигнал"
+    },
+    {
+        "id": "dec_1spi_opt_chan_miso",
+        "text": "Вхід ведучого, вихід веденого"
+    },
+    {
+        "id": "dec_1spi_opt_chan_mosi",
+        "text": "Вихід ведучого, вхід веденого"
+    },
+    {
+        "id": "dec_1spi_opt_chan_cs",
+        "text": "Вибір кристала"
+    },
+    {
+        "id": "dec_1spi_opt_cs_pol",
+        "text": "Полярність CS#"
+    },
+    {
+        "id": "dec_1spi_opt_cpol",
+        "text": "Полярність такту (CPOL)"
+    },
+    {
+        "id": "dec_1spi_opt_cpha",
+        "text": "Фаза такту (CPHA)"
+    },
+    {
+        "id": "dec_1spi_opt_bitorder",
+        "text": "Порядок бітів"
+    },
+    {
+        "id": "dec_1spi_opt_wordsize",
+        "text": "Розмір слова"
+    },
+    {
+        "id": "dec_1spi_opt_frame",
+        "text": "Декодер кадрів"
+    },
+    {
+        "id": "dec_1uart_chan_rxtx",
+        "text": "Лінія приймання/передавання UART"
+    },
+    {
+        "id": "dec_1uart_opt_baudrate",
+        "text": "Швидкість (бод)"
+    },
+    {
+        "id": "dec_1uart_opt_num_data_bits",
+        "text": "Біти даних"
+    },
+    {
+        "id": "dec_1uart_opt_parity_type",
+        "text": "Тип парності"
+    },
+    {
+        "id": "dec_1uart_opt_parity_check",
+        "text": "Перевіряти парність?"
+    },
+    {
+        "id": "dec_1uart_opt_num_stop_bits",
+        "text": "Стоп-біти"
+    },
+    {
+        "id": "dec_1uart_opt_bit_order",
+        "text": "Порядок бітів"
+    },
+    {
+        "id": "dec_1uart_opt_format",
+        "text": "Формат даних"
+    },
+    {
+        "id": "dec_1uart_opt_invert",
+        "text": "Інвертувати сигнал?"
+    },
+    {
+        "id": "dec_1uart_anno_startstop",
+        "text": "Показувати старт/стоп?"
+    }
+]

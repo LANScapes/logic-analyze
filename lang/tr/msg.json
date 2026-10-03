@@ -1,0 +1,390 @@
+[
+    {
+        "id": "IDS_MSG_OK",
+        "text": "Tamam"
+    },
+    {
+        "id": "IDS_MSG_SKIP",
+        "text": "Atla"
+    },
+    {
+        "id": "IDS_MSG_CANCEL",
+        "text": "İptal"
+    },
+    {
+        "id": "IDS_MSG_ATTENTION",
+        "text": "Dikkat"
+    },
+    {
+        "id": "IDS_MSG_ERROR",
+        "text": "Hata"
+    },
+    {
+        "id": "IDS_MSG_INFORMATION",
+        "text": "Bilgi"
+    },
+    {
+        "id": "IDS_MSG_CONTINUE",
+        "text": "Devam"
+    },
+    {
+        "id": "IDS_MSG_AUTO_CALIB_START",
+        "text": "Otomatik kalibrasyon programı başlatılacak. Hiçbir prob bağlamayın. \nBu işlem biraz zaman alabilir!"
+    },
+    {
+        "id": "IDS_MSG_AUTO_CALIB",
+        "text": "Otomatik Kalibrasyon"
+    },
+    {
+        "id": "IDS_MSG_ADJUST_SAVE",
+        "text": "Lütfen sıfır ofsetini ayarlayın ve sonucu kaydedin"
+    },
+    {
+        "id": "IDS_MSG_SAVE_CAPDATE",
+        "text": "Yakalanan veriler kaydedilsin mi?"
+    },
+    {
+        "id": "IDS_MSG_NOT_FOND_DEFAULT_PROFILE",
+        "text": "Bu cihaz için varsayılan oturum bulunamadı!"
+    },
+    {
+        "id": "IDS_MSG_OPEN_FILE_ERROR",
+        "text": "Dosya açma hatası!"
+    },
+    {
+        "id": "IDS_MSG_PROFILE_NOT_COMPATIBLE",
+        "text": "Oturum, geçerli cihaz veya modla uyumlu değil!"
+    },
+    {
+        "id": "IDS_MSG_RESTORE_WINDOW_ERROR",
+        "text": "Pencere durumu geri yüklenirken hata oluştu!"
+    },
+    {
+        "id": "IDS_MSG_DECODE_INVAILD_CURSOR",
+        "text": "Örnek aralığı için geçersiz imleç dizini!"
+    },
+    {
+        "id": "IDS_MSG_SEL_FILENAME",
+        "text": "Bir dosya adı seçmeniz gerekiyor."
+    },
+    {
+        "id": "IDS_MSG_DECODER_REPEAT",
+        "text": "Çözücülerde yinelenen kimlik veya ad bulundu:"
+    },
+    {
+        "id": "IDS_MSG_DECODER_LIST_EMPTY",
+        "text": "Çözücü listesi boş!"
+    },
+    {
+        "id": "IDS_MSG_NO_SEL_DECODER",
+        "text": "Lütfen bir çözücü seçin!"
+    },
+    {
+        "id": "IDS_MSG_FIND_BASE_DECODER_ERROR",
+        "text": "Karşılık gelen temel çözücü bulunamadı!"
+    },
+    {
+        "id": "IDS_MSG_NO_DECODER_DEL",
+        "text": "Kaldırılacak çözücü yok!"
+    },
+    {
+        "id": "IDS_MSG_DECODER_CONFIRM_DEL_ALL",
+        "text": "Tüm çözücüleri kaldırmak istediğinizden emin misiniz?"
+    },
+    {
+        "id": "IDS_MSG_DECODER_CONFIRM_DEL",
+        "text": "Bu çözücüyü kaldırmak istediğinizden emin misiniz?"
+    },
+    {
+        "id": "IDS_MSG_CLOSE_DEVICE",
+        "text": "Bu cihazı kaldırmak istediğinizden emin misiniz?"
+    },
+    {
+        "id": "IDS_MSG_SET_DEF_CAL_SETTING",
+        "text": "Tüm kalibrasyon ayarları varsayılan olarak kaydedilecek!"
+    },
+    {
+        "id": "IDS_MSG_ALL_CHANNEL_DISABLE",
+        "text": "Tüm kanallar devre dışı! Lütfen en az bir kanalı etkinleştirin."
+    },
+    {
+        "id": "IDS_MSG_MAX_CHANNEL_COUNT_WARNING",
+        "text": "Geçerli mod en fazla {0} kanalı destekler!"
+    },
+    {
+        "id": "IDS_MSG_TRI_SET_ISSUE",
+        "text": "Tetikleme Ayarı Sorunu"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_HOR_TRI_POS_FAIL",
+        "text": "Yatay tetikleme konumu değiştirilemedi!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_TRI_HOLDOFF_TIME_FAIL",
+        "text": "Tetikleme bekletme süresi değiştirilemedi!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_SENSITIVITY_FAIL",
+        "text": "Tetikleme hassasiyeti değiştirilemedi!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_SOURCE_FAIL",
+        "text": "Tetikleme kaynağı değiştirilemedi!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_CHANNEL_FAIL",
+        "text": "Tetikleme kanalı değiştirilemedi!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_TYPE_FAIL",
+        "text": "Tetikleme türü değiştirilemedi!"
+    },
+    {
+        "id": "IDS_MSG_PLEASE_INSERT_CURSOR",
+        "text": "İmleç ölçümünü kullanmadan önce lütfen imleç ekleyin."
+    },
+    {
+        "id": "IDS_MSG_SEARCH",
+        "text": "Ara"
+    },
+    {
+        "id": "IDS_MSG_NO_SAMPLE_DATA",
+        "text": "Örnek verisi yok!"
+    },
+    {
+        "id": "IDS_MSG_SEARCH_AT_START",
+        "text": "Arama imleci başlangıç konumunda!"
+    },
+    {
+        "id": "IDS_MSG_PATTERN_NOT_FOUND",
+        "text": "Desen bulunamadı!"
+    },
+    {
+        "id": "IDS_MSG_SEARCH_AT_END",
+        "text": "Arama imleci bitiş konumunda!"
+    },
+    {
+        "id": "IDS_MSG_TRIGGER",
+        "text": "Tetikleme"
+    },
+    {
+        "id": "IDS_MSG_STREAM_NO_AD_TRIGGER",
+        "text": "Akış modu gelişmiş tetiklemeyi desteklemez!"
+    },
+    {
+        "id": "IDS_MSG_AD_TRIGGER_NEED_HARDWARE",
+        "text": "Gelişmiş tetikleme için DSLogic donanım desteği gerekir!"
+    },
+    {
+        "id": "IDS_MSG_SET_TRI_MULTI_CHANNEL",
+        "text": "Birden çok kanalda tetikleme ayarlandı!\nYakalama yalnızca ayarlanan tüm kanallar aynı örnekte koşulu sağladığında tetiklenir"
+    },
+    {
+        "id": "IDS_MSG_NOT_SHOW_AGAIN",
+        "text": "Bir Daha Gösterme"
+    },
+    {
+        "id": "IDS_MSG_CLEAR_TRIG",
+        "text": "Tetiklemeyi Temizle"
+    },
+    {
+        "id": "IDS_MSG_IGNORE",
+        "text": "Yoksay"
+    },
+    {
+        "id": "IDS_MSG_OPEN",
+        "text": "Aç"
+    },
+    {
+        "id": "IDS_MSG_FAIL_TO_LOAD",
+        "text": "Yüklenemedi"
+    },
+    {
+        "id": "IDS_MSG_HARDWARE_ERROR",
+        "text": "Donanım İşlemi Başarısız"
+    },
+    {
+        "id": "IDS_MSG_HARDWARE_ERROR_DET",
+        "text": "Donanım yapılandırmasını yenilemek için lütfen cihazı çıkarıp yeniden takın!"
+    },
+    {
+        "id": "IDS_MSG_MALLOC_ERROR",
+        "text": "Bellek Ayırma Hatası"
+    },
+    {
+        "id": "IDS_MSG_MALLOC_ERROR_DET",
+        "text": "Bu örnekleme için yeterli bellek yok!\nLütfen örnekleme derinliğini azaltın!"
+    },
+    {
+        "id": "IDS_MSG_PACKET_ERROR",
+        "text": "Paket Hatası"
+    },
+    {
+        "id": "IDS_MSG_PACKET_ERROR_DET",
+        "text": "Alınan paketin biçimi hatalı!"
+    },
+    {
+        "id": "IDS_MSG_DATA_OVERFLOW",
+        "text": "Veri Taşması"
+    },
+    {
+        "id": "IDS_MSG_DATA_OVERFLOW_DET",
+        "text": "USB bant genişliği geçerli örnekleme hızını desteklemiyor!\nLütfen örnekleme hızını düşürün!"
+    },
+    {
+        "id": "IDS_MSG_UNDEFINED_ERROR",
+        "text": "Tanımsız Hata"
+    },
+    {
+        "id": "IDS_MSG_UNDEFINED_ERROR_DET",
+        "text": "Beklenmeyen hata!"
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR1",
+        "text": "DSView şu anda birden çok veri türü için\ndosya kaydetmeyi desteklemiyor."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR2",
+        "text": "Kaydedilecek veri yok."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR3",
+        "text": "Dosya adı yok."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR4",
+        "text": "Geçici dosya verisi oluşturulamadı."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR5",
+        "text": "Çözücü dosya verisi oluşturulamadı."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR6",
+        "text": "Oturum dosyası verisi oluşturulamadı."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR7",
+        "text": "Zip dosyası oluşturulamadı."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVEPROC_ERROR1",
+        "text": "Zip dosyası oluşturulamadı, bellek ayırma hatası."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVEPROC_ERROR2",
+        "text": "Zip dosyası oluşturulamadı, lütfen bu yolun yazma iznini denetleyin."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR1",
+        "text": "DSView şu anda birden çok veri türü için\ndosya dışa aktarmayı desteklemiyor."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR2",
+        "text": "Kaydedilecek veri yok."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR3",
+        "text": "Dosya adı belirlenmedi."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR4",
+        "text": "Geçersiz dışa aktarma biçimi."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTPROC_ERROR1",
+        "text": "Veri türü desteklenmiyor."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTPROC_ERROR2",
+        "text": "Tampon bellek ayırma başarısız."
+    },
+    {
+        "id": "IDS_MSG_SAVE_FILE",
+        "text": "Dosyayı Kaydet"
+    },
+    {
+        "id": "IDS_MSG_EXPORT_DATA",
+        "text": "Veriyi Dışa Aktar"
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_WORK_ERROR",
+        "text": "Gerekli bir veya daha fazla kanal belirtilmedi!"
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_DATA_ERROR",
+        "text": "Seçilen kanallardan en az biri etkin değil."
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_STACK_ERROR",
+        "text": "Çözücü örneği oluşturulamadı"
+    },
+    {
+        "id": "IDS_MSG_MESSAGE",
+        "text": "İleti"
+    },
+    {
+        "id": "IDS_MSG_BOX_CONFIRM",
+        "text": "Onayla"
+    },
+    {
+        "id": "IDS_MSG_NO_DATA",
+        "text": "Veri yok!"
+    },
+    {
+        "id": "IDS_MSG_TO_SWITCH_DEVICE",
+        "text": "Yeni cihaza geçilsin mi?"
+    },
+    {
+        "id": "IDS_MSG_DISABLED_CHANNEL_TRIG",
+        "text": "Devre dışı kanallar tetikleme için kullanılamaz!"
+    },
+    {
+        "id": "IDS_MSG_TO_RECONNECT_FOR_FIRMWARE",
+        "text": "Donanım yazılımı sürümü hatalı, lütfen cihazı çıkarıp yeniden takın!"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_BUSY_SWITCH_FAILED",
+        "text": "Cihaz meşgul, geçiş başarısız!"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_NO_DRIVER",
+        "text": "Cihaz sürücüsü yüklü olmayabilir!"
+    },
+    {
+        "id": "IDS_MSG_NO_ENABLED_CHANNEL",
+        "text": "Etkin kanal yok!"
+    },
+    {
+        "id": "IDS_MSG_FILE_NOT_EXIST",
+        "text": "Dosya mevcut değil!"
+    },
+    {
+        "id": "IDS_MSG_TO_CLEAR_LOG",
+        "text": "Günlük dosyasını temizlemek istediğinizden emin misiniz?"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_SPEED_TOO_LOW",
+        "text": "Hata: USB bağlantı noktası hızı çok düşük (<480Mbps)!"
+    },
+    {
+        "id": "IDS_MSG_FIRMWARE_NOT_EXIST",
+        "text": "Hata: Donanım yazılımı dosyası mevcut değil!"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_USB_IO_ERROR",
+        "text": "Hata: USB G/Ç hatası!"
+    },
+    {
+        "id": "IDS_MSG_DATA_RANGE_ERROR",
+        "text": "Veri aralığı hatalı!"
+    },
+    {
+        "id": "IDS_MSG_DATA_RANGE_HAVE_NO_DATA",
+        "text": "Veri aralığında veri yok!"
+    },
+    {
+        "id": "IDS_MSG_NO_DECODED_RESULT",
+        "text": "Dışa aktarılacak veri yok!"
+    }
+]

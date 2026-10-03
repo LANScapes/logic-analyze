@@ -1,0 +1,146 @@
+[
+    {
+        "id": "Connection",
+        "text": "接続"
+    },
+    {
+        "id": "Serial communication",
+        "text": "シリアル通信"
+    },
+    {
+        "id": "Sample rate",
+        "text": "サンプリングレート"
+    },
+    {
+        "id": "Sample depth",
+        "text": "メモリ長"
+    },
+    {
+        "id": "Sample count",
+        "text": "サンプル数"
+    },
+    {
+        "id": "Using External Clock",
+        "text": "外部クロックを使用"
+    },
+    {
+        "id": "Using Clock Negedge",
+        "text": "クロックの立ち下がりエッジを使用"
+    },
+    {
+        "id": "Pre-trigger capture ratio",
+        "text": "プリトリガ比率"
+    },
+    {
+        "id": "Run Length Encoding",
+        "text": "ランレングス符号化"
+    },
+    {
+        "id": "Wait Buffer Upload",
+        "text": "バッファのアップロードを待機"
+    },
+    {
+        "id": "Trigger slope",
+        "text": "トリガスロープ"
+    },
+    {
+        "id": "Trigger source",
+        "text": "トリガソース"
+    },
+    {
+        "id": "Trigger channel",
+        "text": "トリガチャンネル"
+    },
+    {
+        "id": "Horizontal trigger position",
+        "text": "水平トリガ位置"
+    },
+    {
+        "id": "Trigger hold off",
+        "text": "トリガホールドオフ"
+    },
+    {
+        "id": "Trigger margin",
+        "text": "トリガマージン"
+    },
+    {
+        "id": "Buffer size",
+        "text": "バッファサイズ"
+    },
+    {
+        "id": "Time base",
+        "text": "タイムベース"
+    },
+    {
+        "id": "Max Height",
+        "text": "最大高さ"
+    },
+    {
+        "id": "Max Height value",
+        "text": "最大高さの値"
+    },
+    {
+        "id": "Filter Targets",
+        "text": "フィルタ対象"
+    },
+    {
+        "id": "Datalog",
+        "text": "データログ"
+    },
+    {
+        "id": "Operation Mode",
+        "text": "動作モード"
+    },
+    {
+        "id": "Stop Options",
+        "text": "停止オプション"
+    },
+    {
+        "id": "Channel Mode",
+        "text": "チャンネルモード"
+    },
+    {
+        "id": "Threshold Levels",
+        "text": "しきい値レベル"
+    },
+    {
+        "id": "Threshold Level",
+        "text": "しきい値レベル"
+    },
+    {
+        "id": "Enable RLE Compress",
+        "text": "RLE 圧縮を有効化"
+    },
+    {
+        "id": "Bandwidth Limit",
+        "text": "帯域制限"
+    },
+    {
+        "id": "Coupling",
+        "text": "カップリング"
+    },
+    {
+        "id": "Volts/div",
+        "text": "V/div"
+    },
+    {
+        "id": "Probe Factor",
+        "text": "プローブ倍率"
+    },
+    {
+        "id": "Map Default",
+        "text": "マップ既定値"
+    },
+    {
+        "id": "Map Unit",
+        "text": "マップ単位"
+    },
+    {
+        "id": "Map Min",
+        "text": "マップ最小値"
+    },
+    {
+        "id": "Map Max",
+        "text": "マップ最大値"
+    }
+]

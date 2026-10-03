@@ -1,0 +1,794 @@
+[
+    {
+        "id": "IDS_DLG_LOG_OPTIONS",
+        "text": "ログ設定"
+    },
+    {
+        "id": "IDS_DLG_LOG_LEVEL",
+        "text": "ログレベル"
+    },
+    {
+        "id": "IDS_DLG_SAVE_FILE",
+        "text": "ファイルに保存"
+    },
+    {
+        "id": "IDS_DLG_OPEN_FILE",
+        "text": "ファイルを開く"
+    },
+    {
+        "id": "IDS_DLG_OPEN_SEESION",
+        "text": "セッションを開く"
+    },
+    {
+        "id": "IDS_DLG_SAVE_SEESION",
+        "text": "セッションを保存"
+    },
+    {
+        "id": "IDS_DLG_DOCUMENT",
+        "text": "ドキュメント"
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_DOCK_TITLE",
+        "text": "トリガ設定"
+    },
+    {
+        "id": "IDS_DLG_PROTOCOL_DOCK_TITLE",
+        "text": "デコーダ"
+    },
+    {
+        "id": "IDS_DLG_MEASURE_DOCK_TITLE",
+        "text": "測定"
+    },
+    {
+        "id": "IDS_DLG_SEARCH_DOCK_TITLE",
+        "text": "検索"
+    },
+    {
+        "id": "IDS_DLG_SAVE_AS",
+        "text": "名前を付けて保存"
+    },
+    {
+        "id": "IDS_DLG_CHECK_USB_SPEED_ERROR",
+        "text": "現在のデバイスを USB 2.0 ポートに接続すると、性能が大きく低下します。\nUSB 3.0 ポートに接続し直してください。"
+    },
+    {
+        "id": "IDS_DLG_CHECK_SESSION_FILE_VERSION_ERROR",
+        "text": "このファイルは旧形式です。\n読み込みに時間がかかります。\n読み込み後に保存し直すことができます。"
+    },
+    {
+        "id": "IDS_DLG_ABOUT",
+        "text": "情報"
+    },
+    {
+        "id": "IDS_DLG_DISPLAY_OPTIONS",
+        "text": "表示オプション"
+    },
+    {
+        "id": "IDS_DLG_QUICK_SCROLL",
+        "text": "マウスドラッグで波形をスクロール"
+    },
+    {
+        "id": "IDS_DLG_SAVE",
+        "text": "保存"
+    },
+    {
+        "id": "IDS_DLG_RESET",
+        "text": "リセット"
+    },
+    {
+        "id": "IDS_DLG_EXIT",
+        "text": "終了"
+    },
+    {
+        "id": "IDS_DLG_MANUAL_CALIBRATION",
+        "text": "手動キャリブレーション"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL",
+        "text": "チャンネル"
+    },
+    {
+        "id": "IDS_DLG_SAVE_CALIBRATION_RESULTS",
+        "text": "キャリブレーション結果を保存しています... しばらくお待ちください。"
+    },
+    {
+        "id": "IDS_DLG_CANCEL",
+        "text": "キャンセル"
+    },
+    {
+        "id": "IDS_DLG_RELOAD_CALIBRATION_RESULTS",
+        "text": "前回のキャリブレーション結果を再読み込みしています... しばらくお待ちください。"
+    },
+    {
+        "id": "IDS_DLG_DECODER_OPTIONS",
+        "text": "デコーダオプション"
+    },
+    {
+        "id": "IDS_DLG_CURSOR",
+        "text": "カーソル "
+    },
+    {
+        "id": "IDS_DLG_CURSOR_FOR_DECODE_START",
+        "text": "デコード開始位置"
+    },
+    {
+        "id": "IDS_DLG_CURSOR_FOR_DECODE_END",
+        "text": "デコード終了位置"
+    },
+    {
+        "id": "IDS_DLG_DEVICE_OPTIONS",
+        "text": "デバイスオプション"
+    },
+    {
+        "id": "IDS_DLG_MODE",
+        "text": "オプション"
+    },
+    {
+        "id": "IDS_DLG_ENABLE_ALL",
+        "text": "すべて有効"
+    },
+    {
+        "id": "IDS_DLG_DISABLE_ALL",
+        "text": "すべて無効"
+    },
+    {
+        "id": "IDS_DLG_ENABLE",
+        "text": "有効: "
+    },
+    {
+        "id": "IDS_DLG_AUTO_CALIBRATION",
+        "text": "自動キャリブレーション"
+    },
+    {
+        "id": "IDS_DLG_CALIBRATION",
+        "text": "キャリブレーション"
+    },
+    {
+        "id": "IDS_DLG_MEASUREMENTS",
+        "text": "測定"
+    },
+    {
+        "id": "IDS_DLG_FFT_ENABLE",
+        "text": "FFT 有効: "
+    },
+    {
+        "id": "IDS_DLG_FFT_LENGTH",
+        "text": "FFT 長: "
+    },
+    {
+        "id": "IDS_DLG_SAMPLE_INTERVAL",
+        "text": "サンプル間隔: "
+    },
+    {
+        "id": "IDS_DLG_FFT_SOURCE",
+        "text": "FFT ソース: "
+    },
+    {
+        "id": "IDS_DLG_FFT_WINDOW",
+        "text": "FFT 窓関数: "
+    },
+    {
+        "id": "IDS_DLG_DC_IGNORED",
+        "text": "DC 除去: "
+    },
+    {
+        "id": "IDS_DLG_Y-AXIS_MODE",
+        "text": "Y 軸モード: "
+    },
+    {
+        "id": "IDS_DLG_DBV_RANGE",
+        "text": "dBV レンジ: "
+    },
+    {
+        "id": "IDS_DLG_FFT_OPTIONS",
+        "text": "FFT オプション"
+    },
+    {
+        "id": "IDS_DLG_INTERVAL_S",
+        "text": "間隔(s): "
+    },
+    {
+        "id": "IDS_DLG_REPETITIVE_INTERVAL",
+        "text": "繰り返し間隔"
+    },
+    {
+        "id": "IDS_DLG_X_AXIS",
+        "text": "X 軸"
+    },
+    {
+        "id": "IDS_DLG_Y_AXIS",
+        "text": "Y 軸"
+    },
+    {
+        "id": "IDS_DLG_LISSAJOUS_OPTIONS",
+        "text": "リサジューオプション"
+    },
+    {
+        "id": "IDS_DLG_ADD",
+        "text": "加算"
+    },
+    {
+        "id": "IDS_DLG_SUBSTRACT",
+        "text": "減算"
+    },
+    {
+        "id": "IDS_DLG_MULTIPLY",
+        "text": "乗算"
+    },
+    {
+        "id": "IDS_DLG_DIVIDE",
+        "text": "除算"
+    },
+    {
+        "id": "IDS_DLG_MATH_TYPE",
+        "text": "演算の種類"
+    },
+    {
+        "id": "IDS_DLG_1ST_SOURCE",
+        "text": "ソース 1"
+    },
+    {
+        "id": "IDS_DLG_2ST_SOURCE",
+        "text": "ソース 2"
+    },
+    {
+        "id": "IDS_DLG_MATH_OPTIONS",
+        "text": "演算オプション"
+    },
+    {
+        "id": "IDS_DLG_EXPORT_FORMAT",
+        "text": "エクスポート形式: "
+    },
+    {
+        "id": "IDS_DLG_PROTOCOL_EXPORT",
+        "text": "プロトコルのエクスポート"
+    },
+    {
+        "id": "IDS_DLG_EXPORT_DATA",
+        "text": "エクスポートデータ: "
+    },
+    {
+        "id": "IDS_DLG_EXPORT_PROTOCOL_LIST_RESULT",
+        "text": "デコード結果をエクスポートしています... しばらくお待ちください。"
+    },
+    {
+        "id": "IDS_DLG_FIT_TO_WINDOW",
+        "text": "ウィンドウサイズに合わせる"
+    },
+    {
+        "id": "IDS_DLG_FIXED",
+        "text": "固定"
+    },
+    {
+        "id": "IDS_DLG_MAP_ZOOM",
+        "text": "ジャンプ時のズーム: "
+    },
+    {
+        "id": "IDS_DLG_DECODED_PROTOCOLS",
+        "text": "デコード済みプロトコル: "
+    },
+    {
+        "id": "IDS_DLG_PROTOCOL_LIST_VIEWER",
+        "text": "デコード結果"
+    },
+    {
+        "id": "IDS_DLG_REGION",
+        "text": "範囲"
+    },
+    {
+        "id": "IDS_DLG_SEARCH_LABEL",
+        "text": "X: 任意\n0: Low レベル\n1: High レベル\nR: 立ち上がりエッジ\nF: 立ち下がりエッジ\nC: 立ち上がり/立ち下がりエッジ"
+    },
+    {
+        "id": "IDS_DLG_SEARCH_OPTIONS",
+        "text": "検索オプション"
+    },
+    {
+        "id": "IDS_DLG_SAVING",
+        "text": "保存中..."
+    },
+    {
+        "id": "IDS_DLG_ORIGINAL_DATA",
+        "text": "元データ"
+    },
+    {
+        "id": "IDS_DLG_COMPRESSED_DATA",
+        "text": "圧縮データ"
+    },
+    {
+        "id": "IDS_DLG_EXPORT",
+        "text": "エクスポート"
+    },
+    {
+        "id": "IDS_DLG_EXPORTING",
+        "text": "エクスポート中..."
+    },
+    {
+        "id": "IDS_DLG_DONT_CONNECT_PROBES",
+        "text": "プローブを接続しないでください。"
+    },
+    {
+        "id": "IDS_DLG_LOAD_CURRENT_SETTING",
+        "text": "現在の設定を読み込んでいます... しばらくお待ちください。"
+    },
+    {
+        "id": "IDS_DLG_WAITING",
+        "text": "待機中"
+    },
+    {
+        "id": "IDS_DLG_FINISHED",
+        "text": "完了しました。"
+    },
+    {
+        "id": "IDS_DLG_US",
+        "text": "uS"
+    },
+    {
+        "id": "IDS_DLG_MS",
+        "text": "mS"
+    },
+    {
+        "id": "IDS_DLG_S",
+        "text": "S"
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_POSITION",
+        "text": "トリガ位置: "
+    },
+    {
+        "id": "IDS_DLG_HOLD_OFF_TIME",
+        "text": "ホールドオフ時間: "
+    },
+    {
+        "id": "IDS_DLG_NOISE_SENSITIVITY",
+        "text": "トリガ感度: "
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_SOURCES",
+        "text": "トリガソース: "
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_TYPES",
+        "text": "トリガタイプ: "
+    },
+    {
+        "id": "IDS_DLG_RISING_EDGE",
+        "text": "立ち上がりエッジ"
+    },
+    {
+        "id": "IDS_DLG_FALLING_EDGE",
+        "text": "立ち下がりエッジ"
+    },
+    {
+        "id": "IDS_DLG_AUTO",
+        "text": "自動"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_0",
+        "text": "チャンネル 0"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_1",
+        "text": "チャンネル 1"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_0_AND_1",
+        "text": "チャンネル 0 && 1"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_0_OR_1",
+        "text": "チャンネル 0 | 1"
+    },
+    {
+        "id": "IDS_DLG_KEY_DECODER_SEARCH",
+        "text": "デコーダを検索..."
+    },
+    {
+        "id": "IDS_DLG_TIME_SAMPLES",
+        "text": "時間/サンプル数"
+    },
+    {
+        "id": "IDS_DLG_MOUSE_MEASUREMENT",
+        "text": "マウス測定"
+    },
+    {
+        "id": "IDS_DLG_ENABLE_FLOATING_MEASUREMENT",
+        "text": "フローティング測定を有効にする"
+    },
+    {
+        "id": "IDS_DLG_CURSOR_DISTANCE",
+        "text": "カーソル間距離"
+    },
+    {
+        "id": "IDS_DLG_EDGES",
+        "text": "エッジ"
+    },
+    {
+        "id": "IDS_DLG_CURSORS",
+        "text": "カーソル"
+    },
+    {
+        "id": "IDS_DLG_RIS_OR_FAL_EDGE",
+        "text": "立上り/立下り/エッジ"
+    },
+    {
+        "id": "IDS_DLG_W",
+        "text": "幅: "
+    },
+    {
+        "id": "IDS_DLG_P",
+        "text": "周期: "
+    },
+    {
+        "id": "IDS_DLG_F",
+        "text": "周波数: "
+    },
+    {
+        "id": "IDS_DLG_D",
+        "text": "デューティ: "
+    },
+    {
+        "id": "IDS_DLG_SEARCH",
+        "text": "検索"
+    },
+    {
+        "id": "IDS_DLG_MATCHING_ITEMS",
+        "text": "一致した項目:"
+    },
+    {
+        "id": "IDS_DLG_OUT_OF_MEMORY",
+        "text": "メモリ不足"
+    },
+    {
+        "id": "IDS_DLG_SEARCHING",
+        "text": "検索中..."
+    },
+    {
+        "id": "IDS_DLG_SEARCH_PREVIOUS",
+        "text": "前を検索..."
+    },
+    {
+        "id": "IDS_DLG_SEARCH_NEXT",
+        "text": "次を検索..."
+    },
+    {
+        "id": "IDS_DLG_SIMPLE_TRIGGER",
+        "text": "シンプルトリガ"
+    },
+    {
+        "id": "IDS_DLG_ADVANCED_TRIGGER",
+        "text": "高度なトリガ"
+    },
+    {
+        "id": "IDS_DLG_TOTAL_TRIGGER_STAGES",
+        "text": "トリガ段数: "
+    },
+    {
+        "id": "IDS_DLG_START_FLAG",
+        "text": "開始フラグ: "
+    },
+    {
+        "id": "IDS_DLG_STOP_FLAG",
+        "text": "停止フラグ: "
+    },
+    {
+        "id": "IDS_DLG_CLOCK_FLAG",
+        "text": "クロックフラグ: "
+    },
+    {
+        "id": "IDS_DLG_DATA_CHANNEL",
+        "text": "データチャンネル: "
+    },
+    {
+        "id": "IDS_DLG_DATA_VALUE",
+        "text": "データ値: "
+    },
+    {
+        "id": "IDS_DLG_SERIAL_TRIGGER",
+        "text": "シリアルトリガ"
+    },
+    {
+        "id": "IDS_DLG_STAGE_TRIGGER",
+        "text": "ステージトリガ"
+    },
+    {
+        "id": "IDS_DLG_SERIAL_NOTE_LABEL",
+        "text": "X: 任意\n0: Low レベル\n1: High レベル\nR: 立ち上がりエッジ\nF: 立ち下がりエッジ\nC: 立ち上がり/立ち下がりエッジ"
+    },
+    {
+        "id": "IDS_DLG_DATA_BITS",
+        "text": "データビット"
+    },
+    {
+        "id": "IDS_DLG_INV",
+        "text": "反転"
+    },
+    {
+        "id": "IDS_DLG_COUNTER",
+        "text": "カウンタ"
+    },
+    {
+        "id": "IDS_DLG_CONTIGUOUS",
+        "text": "連続"
+    },
+    {
+        "id": "IDS_DLG_STAGE",
+        "text": "ステージ"
+    },
+    {
+        "id": "IDS_DLG_OR",
+        "text": "Or"
+    },
+    {
+        "id": "IDS_DLG_AND",
+        "text": "And"
+    },
+    {
+        "id": "IDS_DLG_HZ",
+        "text": "Hz"
+    },
+    {
+        "id": "IDS_DLG_UNSHOWN",
+        "text": "非表示"
+    },
+    {
+        "id": "ZOOM_IN_FOR_DETAILS",
+        "text": "拡大して詳細を表示"
+    },
+    {
+        "id": "IDS_DLG_DECODETRACE_ERROR1",
+        "text": "エラー: "
+    },
+    {
+        "id": "IDS_DLG_DECODETRACE_ERROR2",
+        "text": "エラー: ..."
+    },
+    {
+        "id": "IDS_DLG_ADD_GROUP",
+        "text": "グループを追加"
+    },
+    {
+        "id": "IDS_DLG_DEL_GROUP",
+        "text": "グループを削除"
+    },
+    {
+        "id": "IDS_DLG_SET_CHANNEL_COLOUR",
+        "text": "チャンネルの色を設定"
+    },
+    {
+        "id": "IDS_DLG_LISSAJOUS_FIGURE",
+        "text": "リサジュー図形"
+    },
+    {
+        "id": "IDS_DLG_DATA_SOURCE_ERROR",
+        "text": "データソースエラーです。"
+    },
+    {
+        "id": "IDS_DLG_ADD_X_CURSOR",
+        "text": "X カーソルを追加"
+    },
+    {
+        "id": "IDS_DLG_ADD_Y_CURSOR",
+        "text": "Y カーソルを追加"
+    },
+    {
+        "id": "IDS_DLG_AUTO_ROLL",
+        "text": "自動(ロール)"
+    },
+    {
+        "id": "IDS_DLG_WAITING_TRIG",
+        "text": "トリガ待ち"
+    },
+    {
+        "id": "IDS_DLG_TRIG_D",
+        "text": "トリガ済"
+    },
+    {
+        "id": "IDS_DLG_TRIGGERED",
+        "text": "トリガしました! "
+    },
+    {
+        "id": "IDS_DLG_CAPTURED",
+        "text": "% キャプチャ済み"
+    },
+    {
+        "id": "IDS_DLG_WAITING_FOR_TRIGGER",
+        "text": "トリガ待ち! "
+    },
+    {
+        "id": "IDS_DLG_RISING",
+        "text": "立ち上がり: "
+    },
+    {
+        "id": "IDS_DLG_FALLING",
+        "text": "立ち下がり: "
+    },
+    {
+        "id": "IDS_DLG_Edges_1",
+        "text": "エッジ: "
+    },
+    {
+        "id": "IDS_DLG_WIDTH",
+        "text": "幅: "
+    },
+    {
+        "id": "IDS_DLG_PERIOD",
+        "text": "周期: "
+    },
+    {
+        "id": "IDS_DLG_FREQUENCY",
+        "text": "周波数: "
+    },
+    {
+        "id": "IDS_DLG_DUTY_CYCLE",
+        "text": "デューティ比: "
+    },
+    {
+        "id": "IDS_DLG_MEASURE",
+        "text": "測定"
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_TIME",
+        "text": "トリガ時刻: "
+    },
+    {
+        "id": "IDS_DLG_SAMPLES_CAPTURED",
+        "text": "サンプルをキャプチャしました!"
+    },
+    {
+        "id": "IDS_DLG_FILE_THRESHOLD",
+        "text": "しきい値: "
+    },
+    {
+        "id": "IDS_DLG_VIEW_CAPTURE",
+        "text": "キャプチャ中"
+    },
+    {
+        "id": "IDS_DLG_CHAN_NUM_ERR2",
+        "text": "2 チャンネル分のデータが必要です。"
+    },
+    {
+        "id": "IDS_DLG_PATH_NAME",
+        "text": "パス"
+    },
+    {
+        "id": "IDS_DLG_DECODER_IF_TRANS",
+        "text": "パラメータ名を翻訳する"
+    },
+    {
+        "id": "IDS_DLG_LOG_PATH",
+        "text": "ファイルパス"
+    },
+    {
+        "id": "IDS_DLG_OPEN",
+        "text": "開く"
+    },
+    {
+        "id": "IDS_DLG_CLEARE",
+        "text": "消去"
+    },
+    {
+        "id": "IDS_DLG_APPEND_MODE",
+        "text": "追記モード"
+    },
+    {
+        "id": "IDS_DLG_TRIG_DISPLAY_MIDDLE",
+        "text": "トリガ位置を中央に表示"
+    },
+    {
+        "id": "IDS_DLG_DISPLAY_PROFILE_IN_BAR",
+        "text": "タイトルバーにセッション名を表示"
+    },
+    {
+        "id": "IDS_DLG_SERIAL_HEX",
+        "text": "16進 :"
+    },
+    {
+        "id": "IDS_DLG_SERIAL_INPUT_AS_HEX",
+        "text": "16進形式で入力"
+    },
+    {
+        "id": "IDS_DLG_USE_ABORT_DATA_REPEAT",
+        "text": "繰り返しモード停止時に最新データへ更新"
+    },
+    {
+        "id": "IDS_DLG_FONT_SIZE",
+        "text": "フォントサイズ"
+    },
+    {
+        "id": "IDS_DLG_DEFAULT_FONT",
+        "text": "デフォルト"
+    },
+    {
+        "id": "IDS_DLG_GROUP_LOGIC",
+        "text": "ロジックアナライザ"
+    },
+    {
+        "id": "IDS_DLG_GROUP_DSO",
+        "text": "オシロスコープ"
+    },
+    {
+        "id": "IDS_DLG_GROUP_UI",
+        "text": "UI"
+    },
+    {
+        "id": "IDS_DLG_ABORT",
+        "text": "中止"
+    },
+    {
+        "id": "IDS_DLG_AUTO_SCROLL_LATEAST_DATA",
+        "text": "最新データへ自動スクロール"
+    },
+    {
+        "id": "IDS_DLG_DATA_OUT_OFF_RANGE",
+        "text": "データが範囲外です"
+    },
+    {
+        "id": "IDS_DLG_START_CURSOR",
+        "text": "開始"
+    },
+    {
+        "id": "IDS_DLG_END_CURSOR",
+        "text": "終了"
+    },
+    {
+        "id": "IDS_DSO_CTR_EN",
+        "text": "有効"
+    },
+    {
+        "id": "IDS_DSO_CTR_DIS",
+        "text": "無効"
+    },
+    {
+        "id": "IDS_DSO_CTR_GND",
+        "text": "GND"
+    },
+    {
+        "id": "IDS_DSO_CTR_DC",
+        "text": "DC"
+    },
+    {
+        "id": "IDS_DSO_CTR_AC",
+        "text": "AC"
+    },
+    {
+        "id": "IDS_DSO_CTR_AUTO",
+        "text": "自動"
+    },
+    {
+        "id": "IDS_CALIB_VGAIN",
+        "text": "ゲイン"
+    },
+    {
+        "id": "IDS_CALIB_VOFF",
+        "text": "オフセット"
+    },
+    {
+        "id": "IDS_CALIB_VCOMB",
+        "text": "インターリーブ"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_RECTANGLE",
+        "text": "矩形"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_HANN",
+        "text": "ハン"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_HAMMING",
+        "text": "ハミング"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_BLACKMAN",
+        "text": "ブラックマン"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_FLATTOP",
+        "text": "フラットトップ"
+    },
+    {
+        "id": "IDS_FFT_MODE_LINEARRSM",
+        "text": "リニア RMS"
+    }
+]

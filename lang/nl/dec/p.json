@@ -1,0 +1,474 @@
+[
+    {
+        "id": "dec_parallel_opt_clock_edge",
+        "text": "Klokflank voor sampling"
+    },
+    {
+        "id": "dec_parallel_opt_wordsize",
+        "text": "Datawoordgrootte (# buscycli)"
+    },
+    {
+        "id": "dec_parallel_opt_endianness",
+        "text": "Data-endianness"
+    },
+    {
+        "id": "dec_pjdl_chan_data",
+        "text": "Eendraadsdata"
+    },
+    {
+        "id": "dec_pjdl_opt_mode",
+        "text": "Communicatiemodus"
+    },
+    {
+        "id": "dec_pjdl_opt_idle_add_us",
+        "text": "Extra inactieve tijd (us)"
+    },
+    {
+        "id": "dec_ps2_chan_clk",
+        "text": "Kloklijn"
+    },
+    {
+        "id": "dec_ps2_chan_data",
+        "text": "Datalijn"
+    },
+    {
+        "id": "dec_ps2_opt_HtoD_Clock",
+        "text": "HtoD_Clock"
+    },
+    {
+        "id": "dec_ps2_opt_DtoH_Clock",
+        "text": "DtoH_Clock"
+    },
+    {
+        "id": "dec_pwm_chan_data",
+        "text": "Datalijn"
+    },
+    {
+        "id": "dec_pwm_opt_polarity",
+        "text": "Polariteit"
+    },
+    {
+        "id": "dec_pxx1_chan_data",
+        "text": "Datalijn"
+    },
+    {
+        "id": "dec_qi_chan_qi",
+        "text": "Gedemoduleerde Qi-datalijn"
+    },
+    {
+        "id": "dec_qspi_chan_clk",
+        "text": "Klok"
+    },
+    {
+        "id": "dec_qspi_chan_io0",
+        "text": "Data-i/o 0"
+    },
+    {
+        "id": "dec_qspi_opt_chan_io1",
+        "text": "Data-i/o 1"
+    },
+    {
+        "id": "dec_qspi_opt_chan_io2",
+        "text": "Data-i/o 2"
+    },
+    {
+        "id": "dec_qspi_opt_chan_io3",
+        "text": "Data-i/o 3"
+    },
+    {
+        "id": "dec_qspi_opt_chan_cs",
+        "text": "Chip-select"
+    },
+    {
+        "id": "dec_qspi_opt_cs_polarity",
+        "text": "CS#-polariteit"
+    },
+    {
+        "id": "dec_qspi_opt_cpol",
+        "text": "Klokpolariteit (CPOL)"
+    },
+    {
+        "id": "dec_qspi_opt_cpha",
+        "text": "Klokfase (CPHA)"
+    },
+    {
+        "id": "dec_qspi_opt_bitorder",
+        "text": "Bitvolgorde"
+    },
+    {
+        "id": "dec_qspi_opt_wordsize",
+        "text": "Woordgrootte"
+    },
+    {
+        "id": "dec_rc_encode_chan_data",
+        "text": "Datalijn"
+    },
+    {
+        "id": "dec_rc_encode_opt_remote",
+        "text": "Afstandsbediening"
+    },
+    {
+        "id": "dec_rgb_led_ws281x_chan_din",
+        "text": "DIN-datalijn"
+    },
+    {
+        "id": "dec_rgb_led_ws281x_opt_default_color_order",
+        "text": "Standaardkleurvolgorde"
+    },
+    {
+        "id": "dec_rgb_led_ws281x_opt_view_color_order",
+        "text": "Weergavekleurvolgorde"
+    },
+    {
+        "id": "dec_rgb_led_ws281x_opt_polarity",
+        "text": "Polariteit"
+    },
+    {
+        "id": "dec_sae_j1850_vpw_chan_data",
+        "text": "Datalijn"
+    },
+    {
+        "id": "dec_sda2506_chan_clk",
+        "text": "Klok"
+    },
+    {
+        "id": "dec_sda2506_chan_d",
+        "text": "Data"
+    },
+    {
+        "id": "dec_sda2506_chan_ce",
+        "text": "Chip-enable"
+    },
+    {
+        "id": "dec_sdcard_sd_chan_cmd",
+        "text": "Commando"
+    },
+    {
+        "id": "dec_sdcard_sd_chan_clk",
+        "text": "Klok"
+    },
+    {
+        "id": "dec_sdcard_sd_opt_chan_dat0",
+        "text": "Datapin 0"
+    },
+    {
+        "id": "dec_sdcard_sd_opt_chan_dat1",
+        "text": "Datapin 1"
+    },
+    {
+        "id": "dec_sdcard_sd_opt_chan_dat2",
+        "text": "Datapin 2"
+    },
+    {
+        "id": "dec_sdcard_sd_opt_chan_dat3",
+        "text": "Datapin 3"
+    },
+    {
+        "id": "dec_sdq_chan_sdq",
+        "text": "Eendraads SDQ-datalijn."
+    },
+    {
+        "id": "dec_sdq_opt_bitrate",
+        "text": "Bitsnelheid"
+    },
+    {
+        "id": "dec_seven_segment_chan_A",
+        "text": "Segment A"
+    },
+    {
+        "id": "dec_seven_segment_chan_B",
+        "text": "Segment B"
+    },
+    {
+        "id": "dec_seven_segment_chan_C",
+        "text": "Segment C"
+    },
+    {
+        "id": "dec_seven_segment_chan_D",
+        "text": "Segment D"
+    },
+    {
+        "id": "dec_seven_segment_chan_E",
+        "text": "Segment E"
+    },
+    {
+        "id": "dec_seven_segment_chan_F",
+        "text": "Segment F"
+    },
+    {
+        "id": "dec_seven_segment_chan_G",
+        "text": "Segment G"
+    },
+    {
+        "id": "dec_seven_segment_opt_chan_dp",
+        "text": "Decimale punt"
+    },
+    {
+        "id": "dec_seven_segment_opt_polarity",
+        "text": "Verwachte polariteit"
+    },
+    {
+        "id": "dec_signature_chan_start",
+        "text": "START-kanaal"
+    },
+    {
+        "id": "dec_signature_chan_stop",
+        "text": "STOP-kanaal"
+    },
+    {
+        "id": "dec_signature_chan_clk",
+        "text": "CLOCK-kanaal"
+    },
+    {
+        "id": "dec_signature_chan_data",
+        "text": "DATA-kanaal"
+    },
+    {
+        "id": "dec_signature_opt_start_edge",
+        "text": "Flankpolariteit START"
+    },
+    {
+        "id": "dec_signature_opt_stop_edge",
+        "text": "Flankpolariteit STOP"
+    },
+    {
+        "id": "dec_signature_opt_clk_edge",
+        "text": "Flankpolariteit CLOCK"
+    },
+    {
+        "id": "dec_signature_opt_annbits",
+        "text": "Annotaties op bitniveau inschakelen"
+    },
+    {
+        "id": "dec_sle44xx_chan_rst",
+        "text": "Resetlijn"
+    },
+    {
+        "id": "dec_sle44xx_chan_clk",
+        "text": "Kloklijn"
+    },
+    {
+        "id": "dec_sle44xx_chan_io",
+        "text": "I/O-datalijn"
+    },
+    {
+        "id": "dec_spdif_chan_data",
+        "text": "Datalijn"
+    },
+    {
+        "id": "dec_spi_tpm_opt_tpm_version",
+        "text": "TPM-versie 1.2 of 2.0"
+    },
+    {
+        "id": "dec_spiflash_opt_chip",
+        "text": "Chip"
+    },
+    {
+        "id": "dec_spiflash_opt_format",
+        "text": "Dataformaat"
+    },
+    {
+        "id": "dec_ssi32_opt_msgsize",
+        "text": "Berichtgrootte"
+    },
+    {
+        "id": "dec_st7735_chan_cs",
+        "text": "Chip-select"
+    },
+    {
+        "id": "dec_st7735_chan_clk",
+        "text": "Klok"
+    },
+    {
+        "id": "dec_st7735_chan_mosi",
+        "text": "Master out, slave in"
+    },
+    {
+        "id": "dec_st7735_chan_dc",
+        "text": "Data of commando"
+    },
+    {
+        "id": "dec_st7789_chan_csx",
+        "text": "Chipselectiesignaal"
+    },
+    {
+        "id": "dec_st7789_chan_dcx",
+        "text": "Kloksignaal"
+    },
+    {
+        "id": "dec_st7789_chan_sdo",
+        "text": "Seriële uitgangsdata"
+    },
+    {
+        "id": "dec_st7789_chan_wrx",
+        "text": "Commando / data"
+    },
+    {
+        "id": "dec_stepper_motor_chan_step",
+        "text": "Stappuls"
+    },
+    {
+        "id": "dec_stepper_motor_chan_dir",
+        "text": "Richtingselectie"
+    },
+    {
+        "id": "dec_stepper_motor_opt_unit",
+        "text": "Eenheid"
+    },
+    {
+        "id": "dec_stepper_motor_opt_steps_per_mm",
+        "text": "Stappen per mm"
+    },
+    {
+        "id": "dec_swd_chan_swclk",
+        "text": "Masterklok"
+    },
+    {
+        "id": "dec_swd_chan_swdio",
+        "text": "Data-ingang/-uitgang"
+    },
+    {
+        "id": "dec_swd_opt_strict_start",
+        "text": "Wachten op een lijnreset voordat decodering start"
+    },
+    {
+        "id": "dec_swim_opt_debug",
+        "text": "Debug"
+    },
+    {
+        "id": "dec_swim_chan_swim",
+        "text": "SWIM-datalijn"
+    },
+    {
+        "id": "dec_t55xx_chan_data",
+        "text": "Datalijn"
+    },
+    {
+        "id": "dec_t55xx_opt_coilfreq",
+        "text": "Spoelfrequentie"
+    },
+    {
+        "id": "dec_t55xx_opt_start_gap",
+        "text": "Startgap min."
+    },
+    {
+        "id": "dec_t55xx_opt_w_gap",
+        "text": "Schrijfgap min."
+    },
+    {
+        "id": "dec_t55xx_opt_w_one_min",
+        "text": "Schrijf-één min."
+    },
+    {
+        "id": "dec_t55xx_opt_w_one_max",
+        "text": "Schrijf-één max."
+    },
+    {
+        "id": "dec_t55xx_opt_w_zero_min",
+        "text": "Schrijf-nul min."
+    },
+    {
+        "id": "dec_t55xx_opt_w_zero_max",
+        "text": "Schrijf-nul max."
+    },
+    {
+        "id": "dec_t55xx_opt_em4100_decode",
+        "text": "EM4100 decoderen"
+    },
+    {
+        "id": "dec_tdm_audio_chan_clock",
+        "text": "Databitklok"
+    },
+    {
+        "id": "dec_tdm_audio_chan_frame",
+        "text": "Framesync"
+    },
+    {
+        "id": "dec_tdm_audio_chan_data",
+        "text": "Seriële data"
+    },
+    {
+        "id": "dec_tdm_audio_opt_bps",
+        "text": "Bits per sample"
+    },
+    {
+        "id": "dec_tdm_audio_opt_channels",
+        "text": "Kanalen per frame"
+    },
+    {
+        "id": "dec_tdm_audio_opt_edge",
+        "text": "Klokflank voor sampling"
+    },
+    {
+        "id": "dec_tdm_audio_opt_sampling_edge",
+        "text": "Samplingflank"
+    },
+    {
+        "id": "dec_timing_chan_data",
+        "text": "Datalijn"
+    },
+    {
+        "id": "dec_timing_opt_avg_period",
+        "text": "Middelingsperiode"
+    },
+    {
+        "id": "dec_timing_opt_edge",
+        "text": "Te controleren flanken"
+    },
+    {
+        "id": "dec_timing_opt_delta",
+        "text": "Verschil met vorige tonen"
+    },
+    {
+        "id": "dec_tlc5620_chan_clk",
+        "text": "Klok seriële interface"
+    },
+    {
+        "id": "dec_tlc5620_chan_data",
+        "text": "Data seriële interface"
+    },
+    {
+        "id": "dec_tlc5620_opt_chan_load",
+        "text": "Laadbesturing seriële interface"
+    },
+    {
+        "id": "dec_tlc5620_opt_chan_ldac",
+        "text": "DAC laden"
+    },
+    {
+        "id": "dec_tlc5620_opt_vref_a",
+        "text": "Referentiespanning DACA (V)"
+    },
+    {
+        "id": "dec_tlc5620_opt_vref_b",
+        "text": "Referentiespanning DACB (V)"
+    },
+    {
+        "id": "dec_tlc5620_opt_vref_c",
+        "text": "Referentiespanning DACC (V)"
+    },
+    {
+        "id": "dec_tlc5620_opt_vref_d",
+        "text": "Referentiespanning DACD (V)"
+    },
+    {
+        "id": "dec_qspi_adress_mode",
+        "text": "Adresmodus"
+    },
+    {
+        "id": "dec_qspi_opt_frame",
+        "text": "Framedecoder"
+    },
+    {
+        "id": "dec_qspi_two_lines_mode",
+        "text": "Tweelijnsmodus"
+    },
+    {
+        "id": "dec_qspi_invalidlevel",
+        "text": "Hoog of laag als ongeldig beschouwen"
+    },
+    {
+        "id": "dec_timing_opt_format",
+        "text": "Formaat van 'tijd'-annotatie"
+    }
+]

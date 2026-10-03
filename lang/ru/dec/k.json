@@ -1,0 +1,278 @@
+[
+    {
+        "id": "dec_lfast_chan_data",
+        "text": "TXP или RXP"
+    },
+    {
+        "id": "dec_lin_opt_version",
+        "text": "Версия протокола"
+    },
+    {
+        "id": "dec_lm75_opt_sensor",
+        "text": "Тип датчика"
+    },
+    {
+        "id": "dec_lm75_opt_resolution",
+        "text": "Разрешение (бит)"
+    },
+    {
+        "id": "dec_lpc_chan_lframe",
+        "text": "Кадр"
+    },
+    {
+        "id": "dec_lpc_chan_lclk",
+        "text": "Тактовый сигнал"
+    },
+    {
+        "id": "dec_lpc_chan_lad0",
+        "text": "Адрес/управление/данные 0"
+    },
+    {
+        "id": "dec_lpc_chan_lad1",
+        "text": "Адрес/управление/данные 1"
+    },
+    {
+        "id": "dec_lpc_chan_lad2",
+        "text": "Адрес/управление/данные 2"
+    },
+    {
+        "id": "dec_lpc_chan_lad3",
+        "text": "Адрес/управление/данные 3"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lreset",
+        "text": "Сброс"
+    },
+    {
+        "id": "dec_lpc_opt_chan_ldrq",
+        "text": "Кодированный запрос DMA / захвата шины"
+    },
+    {
+        "id": "dec_lpc_opt_chan_serirq",
+        "text": "Последовательный IRQ"
+    },
+    {
+        "id": "dec_lpc_opt_chan_clkrun",
+        "text": "Работа тактового сигнала"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lpme",
+        "text": "Событие управления питанием LPC"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lpcpd",
+        "text": "Отключение питания"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lsmi",
+        "text": "Прерывание управления системой"
+    },
+    {
+        "id": "dec_ltc26x7_opt_chip",
+        "text": "Микросхема"
+    },
+    {
+        "id": "dec_ltc26x7_opt_vref",
+        "text": "Опорное напряжение (V)"
+    },
+    {
+        "id": "dec_ltc242x_opt_vref",
+        "text": "Опорное напряжение (V)"
+    },
+    {
+        "id": "dec_maple_bus_chan_sdcka",
+        "text": "Линия данных/такта A"
+    },
+    {
+        "id": "dec_maple_bus_chan_sdckb",
+        "text": "Линия данных/такта B"
+    },
+    {
+        "id": "dec_mcs48_chan_ale",
+        "text": "Разрешение защёлки адреса"
+    },
+    {
+        "id": "dec_mcs48_chan_psen",
+        "text": "Разрешение памяти программ"
+    },
+    {
+        "id": "dec_mdio_chan_mdc",
+        "text": "Тактовый сигнал"
+    },
+    {
+        "id": "dec_mdio_chan_mdio",
+        "text": "Данные"
+    },
+    {
+        "id": "dec_mdio_opt_show_debug_bits",
+        "text": "Показывать отладочные биты"
+    },
+    {
+        "id": "dec_mdio_opt_read_edge",
+        "text": "Перепад чтения"
+    },
+    {
+        "id": "dec_microwire_chan_cs",
+        "text": "Выбор кристалла"
+    },
+    {
+        "id": "dec_microwire_chan_sk",
+        "text": "Тактовый сигнал"
+    },
+    {
+        "id": "dec_microwire_chan_si",
+        "text": "Вход ведомого"
+    },
+    {
+        "id": "dec_microwire_chan_so",
+        "text": "Выход ведомого"
+    },
+    {
+        "id": "dec_miller_chan_data",
+        "text": "Сигнал данных"
+    },
+    {
+        "id": "dec_miller_opt_baudrate",
+        "text": "Скорость (бод)"
+    },
+    {
+        "id": "dec_miller_opt_edge",
+        "text": "Перепад"
+    },
+    {
+        "id": "dec_mipi_dsi_chan_D0N",
+        "text": "LP-данные 0, отриц."
+    },
+    {
+        "id": "dec_mipi_dsi_chan_D0P",
+        "text": "LP-данные 0, полож."
+    },
+    {
+        "id": "dec_mipi_rffe_chan_sclk",
+        "text": "Линия тактового сигнала"
+    },
+    {
+        "id": "dec_mipi_rffe_chan_sdata",
+        "text": "Линия данных"
+    },
+    {
+        "id": "dec_mipi_rffe_opt_error_display",
+        "text": "Отображение ошибок"
+    },
+    {
+        "id": "dec_morse_chan_data",
+        "text": "Линия данных"
+    },
+    {
+        "id": "dec_morse_opt_timeunit",
+        "text": "Единица времени (оценка)"
+    },
+    {
+        "id": "dec_nes_gamepad_opt_variant",
+        "text": "Вариант геймпада"
+    },
+    {
+        "id": "dec_nrf24l01_opt_chip",
+        "text": "Тип микросхемы"
+    },
+    {
+        "id": "dec_numbers_and_state_chan_clk",
+        "text": "Тактовый сигнал"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_clkedge",
+        "text": "Перепад такта"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_count",
+        "text": "Общее число битов"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_interp",
+        "text": "Интерпретация"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_fracbits",
+        "text": "Число дробных битов"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_mapping",
+        "text": "Файл сопоставления значений и текста"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_format",
+        "text": "Формат чисел"
+    },
+    {
+        "id": "dec_onewire_link_chan_owr",
+        "text": "Сигнальная линия 1-Wire"
+    },
+    {
+        "id": "dec_onewire_link_opt_overdrive",
+        "text": "Начать в скоростном режиме (overdrive)"
+    },
+    {
+        "id": "dec_ook_chan_data",
+        "text": "Линия данных"
+    },
+    {
+        "id": "dec_ook_opt_invert",
+        "text": "Инвертировать данные"
+    },
+    {
+        "id": "dec_ook_opt_decodeas",
+        "text": "Тип декодирования"
+    },
+    {
+        "id": "dec_ook_opt_preamble",
+        "text": "Преамбула"
+    },
+    {
+        "id": "dec_ook_opt_preamlen",
+        "text": "Длина фильтра"
+    },
+    {
+        "id": "dec_ook_opt_diffmanvar",
+        "text": "Переход в начале"
+    },
+    {
+        "id": "dec_ook_oregon_opt_unknown",
+        "text": "Неизвестный тип —"
+    },
+    {
+        "id": "dec_ook_vis_opt_displayas",
+        "text": "Отображать как"
+    },
+    {
+        "id": "dec_ook_vis_opt_synclen",
+        "text": "Длина синхронизации"
+    },
+    {
+        "id": "dec_ook_vis_opt_syncoffset",
+        "text": "Смещение синхронизации"
+    },
+    {
+        "id": "dec_ook_vis_opt_refsample",
+        "text": "Сравнение"
+    },
+    {
+        "id": "dec_onewire_link_opt_min_height_level_pulse_time",
+        "text": "Мин. длительность импульса высокого уровня (us)"
+    },
+    {
+        "id": "dec_onewire_link_opt_min_overdrive_height_level_pulse_time",
+        "text": "Мин. длительность импульса высокого уровня в режиме overdrive (us)"
+    },
+    {
+        "id": "dec_modbus_opt_scchannel",
+        "text": "Канал сервер -> клиент"
+    },
+    {
+        "id": "dec_modbus_opt_cschannel",
+        "text": "Канал клиент -> сервер"
+    },
+    {
+        "id": "dec_modbus_opt_framegap",
+        "text": "Межкадровый интервал (бит)"
+    }
+]

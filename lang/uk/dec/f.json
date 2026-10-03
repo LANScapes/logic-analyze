@@ -1,0 +1,334 @@
+[
+    {
+        "id": "dec_flexray_chan_channel",
+        "text": "Канал шини FlexRay"
+    },
+    {
+        "id": "dec_flexray_opt_channel_type",
+        "text": "Тип каналу"
+    },
+    {
+        "id": "dec_flexray_opt_bitrate",
+        "text": "Бітова швидкість (біт/с)"
+    },
+    {
+        "id": "dec_fsi_chan_data",
+        "text": "Кадр"
+    },
+    {
+        "id": "dec_fsi_chan_clock",
+        "text": "Тактовий сигнал"
+    },
+    {
+        "id": "dec_gpib_chan_dio1",
+        "text": "Біт вводу-виводу даних 1"
+    },
+    {
+        "id": "dec_gpib_chan_dio2",
+        "text": "Біт вводу-виводу даних 2"
+    },
+    {
+        "id": "dec_gpib_chan_dio3",
+        "text": "Біт вводу-виводу даних 3"
+    },
+    {
+        "id": "dec_gpib_chan_dio4",
+        "text": "Біт вводу-виводу даних 4"
+    },
+    {
+        "id": "dec_gpib_chan_dio5",
+        "text": "Біт вводу-виводу даних 5"
+    },
+    {
+        "id": "dec_gpib_chan_dio6",
+        "text": "Біт вводу-виводу даних 6"
+    },
+    {
+        "id": "dec_gpib_chan_dio7",
+        "text": "Біт вводу-виводу даних 7"
+    },
+    {
+        "id": "dec_gpib_chan_dio8",
+        "text": "Біт вводу-виводу даних 8"
+    },
+    {
+        "id": "dec_gpib_chan_eoi",
+        "text": "Кінець або ідентифікація"
+    },
+    {
+        "id": "dec_gpib_chan_dav",
+        "text": "Дані дійсні"
+    },
+    {
+        "id": "dec_gpib_chan_nrfd",
+        "text": "Не готовий до даних"
+    },
+    {
+        "id": "dec_gpib_chan_ndac",
+        "text": "Дані не прийнято"
+    },
+    {
+        "id": "dec_gpib_chan_ifc",
+        "text": "Очищення інтерфейсу"
+    },
+    {
+        "id": "dec_gpib_chan_srq",
+        "text": "Запит обслуговування"
+    },
+    {
+        "id": "dec_gpib_chan_atn",
+        "text": "Увага"
+    },
+    {
+        "id": "dec_gpib_chan_ren",
+        "text": "Дистанційне керування"
+    },
+    {
+        "id": "dec_graycode_opt_edges",
+        "text": "Перепадів за оберт"
+    },
+    {
+        "id": "dec_graycode_opt_avg_period",
+        "text": "Період усереднення"
+    },
+    {
+        "id": "dec_guess_bitrate_chan_data",
+        "text": "Лінія даних"
+    },
+    {
+        "id": "dec_i2cfilter_opt_address",
+        "text": "Адреса для відфільтрування з потоку I²C"
+    },
+    {
+        "id": "dec_i2cfilter_opt_direction",
+        "text": "Напрямок для фільтрування"
+    },
+    {
+        "id": "dec_i2s_chan_sck",
+        "text": "Лінія тактування бітів"
+    },
+    {
+        "id": "dec_i2s_chan_ws",
+        "text": "Лінія вибору слова"
+    },
+    {
+        "id": "dec_i2s_chan_sd",
+        "text": "Лінія послідовних даних"
+    },
+    {
+        "id": "dec_i2s_opt_ws_polarity",
+        "text": "Полярність WS"
+    },
+    {
+        "id": "dec_i2s_opt_clk_edge",
+        "text": "Активний перепад SCK"
+    },
+    {
+        "id": "dec_i2s_opt_bit_shift",
+        "text": "Зсув бітів"
+    },
+    {
+        "id": "dec_i2s_opt_bit_align",
+        "text": "Вирівнювання бітів"
+    },
+    {
+        "id": "dec_i2s_opt_bitorder",
+        "text": "Порядок бітів"
+    },
+    {
+        "id": "dec_i2s_opt_wordsize",
+        "text": "Розмір слова"
+    },
+    {
+        "id": "dec_iec_chan_data",
+        "text": "Ввід-вивід даних"
+    },
+    {
+        "id": "dec_iec_chan_clk",
+        "text": "Тактовий сигнал"
+    },
+    {
+        "id": "dec_iec_chan_atn",
+        "text": "Увага"
+    },
+    {
+        "id": "dec_iec_opt_chan_srq",
+        "text": "Запит обслуговування"
+    },
+    {
+        "id": "dec_ieee488_chan_dio1",
+        "text": "Біт вводу-виводу даних 1 або послідовні дані"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio2",
+        "text": "Біт вводу-виводу даних 2"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio3",
+        "text": "Біт вводу-виводу даних 3"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio4",
+        "text": "Біт вводу-виводу даних 4"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio5",
+        "text": "Біт вводу-виводу даних 5"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio6",
+        "text": "Біт вводу-виводу даних 6"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio7",
+        "text": "Біт вводу-виводу даних 7"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio8",
+        "text": "Біт вводу-виводу даних 8"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_eoi",
+        "text": "Кінець або ідентифікація"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dav",
+        "text": "Дані дійсні"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_nrfd",
+        "text": "Не готовий до даних"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_ndac",
+        "text": "Дані не прийнято"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_ifc",
+        "text": "Очищення інтерфейсу"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_srq",
+        "text": "Запит обслуговування"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_atn",
+        "text": "Увага"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_ren",
+        "text": "Дистанційне керування"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_clk",
+        "text": "Послідовний тактовий сигнал"
+    },
+    {
+        "id": "dec_ieee488_opt_iec_periph",
+        "text": "Декодувати подробиці периферії шини Commodore IEC"
+    },
+    {
+        "id": "dec_ieee488_opt_delim",
+        "text": "Роздільник корисних даних"
+    },
+    {
+        "id": "dec_ir_irmp_chan_ir",
+        "text": "Лінія даних"
+    },
+    {
+        "id": "dec_ir_irmp_opt_polarity",
+        "text": "Полярність"
+    },
+    {
+        "id": "dec_ir_nec_chan_ir",
+        "text": "Лінія даних"
+    },
+    {
+        "id": "dec_ir_nec_opt_polarity",
+        "text": "Полярність"
+    },
+    {
+        "id": "dec_ir_nec_opt_cd_freq",
+        "text": "Частота несучої"
+    },
+    {
+        "id": "dec_ir_rc5_chan_ir",
+        "text": "Лінія даних ІЧ"
+    },
+    {
+        "id": "dec_ir_rc5_opt_polarity",
+        "text": "Полярність"
+    },
+    {
+        "id": "dec_ir_rc5_opt_protocol",
+        "text": "Тип протоколу"
+    },
+    {
+        "id": "dec_ir_rc6_chan_ir",
+        "text": "Лінія даних ІЧ"
+    },
+    {
+        "id": "dec_ir_rc6_opt_polarity",
+        "text": "Полярність"
+    },
+    {
+        "id": "dec_ir_sirc_chan_ir",
+        "text": "Лінія даних ІЧ"
+    },
+    {
+        "id": "dec_ir_sirc_opt_polarity",
+        "text": "Полярність"
+    },
+    {
+        "id": "dec_jitter_chan_clk",
+        "text": "Опорний канал тактування"
+    },
+    {
+        "id": "dec_jitter_chan_sig",
+        "text": "Результівний сигнал, керований тактом"
+    },
+    {
+        "id": "dec_jitter_opt_clk_polarity",
+        "text": "Полярність перепаду такту"
+    },
+    {
+        "id": "dec_jitter_opt_sig_polarity",
+        "text": "Полярність перепаду результівного сигналу"
+    },
+    {
+        "id": "dec_jtag_chan_tdi",
+        "text": "Вхід тестових даних"
+    },
+    {
+        "id": "dec_jtag_chan_tdo",
+        "text": "Вихід тестових даних"
+    },
+    {
+        "id": "dec_jtag_chan_tck",
+        "text": "Тестовий тактовий сигнал"
+    },
+    {
+        "id": "dec_jtag_chan_tms",
+        "text": "Вибір тестового режиму"
+    },
+    {
+        "id": "dec_jtag_opt_chan_trst",
+        "text": "Тестове скидання"
+    },
+    {
+        "id": "dec_jtag_opt_chan_srst",
+        "text": "Системне скидання"
+    },
+    {
+        "id": "dec_jtag_opt_chan_rtck",
+        "text": "Зворотний тактовий сигнал"
+    },
+    {
+        "id": "dec_gpib_opt_sample_total",
+        "text": "Загальна кількість відліків"
+    },
+    {
+        "id": "dec_ir_nec_opt_extended",
+        "text": "Розширений протокол NEC"
+    }
+]

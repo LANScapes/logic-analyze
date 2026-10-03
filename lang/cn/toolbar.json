@@ -24,6 +24,10 @@
         "text": "选项(&O)"
     },
     {
+        "id": "IDS_TOOLBAR_DEVICE_OPTION_ITEM",
+        "text": "设备选项..."
+    },
+    {
         "id": "IDS_TOOLBAR_CAPTURE_MODE",
         "text": "模式(&E)"
     },
@@ -98,7 +102,7 @@
     {
         "id": "IDS_TOOLBAR_DISPLAY_LISSAJOUS",
         "text": "李萨如图(&A)"
-    },  
+    },
     {
         "id": "IDS_TOOLBAR_DISPLAY_THEMES_DARK",
         "text": "暗黑(&D)"
@@ -106,7 +110,7 @@
     {
         "id": "IDS_TOOLBAR_DISPLAY_THEMES_LIGHT",
         "text": "清新(&L)"
-    },   
+    },
     {
         "id": "IDS_TOOLBAR_DISPLAY_OPTIONS",
         "text": "选项(&O)"
@@ -133,19 +137,19 @@
     },
     {
         "id": "IDS_TOOLBAR_FILE_OPEN",
-        "text": "打开(&O)"
+        "text": "打开(&O)..."
     },
     {
         "id": "IDS_TOOLBAR_FILE_SAVE",
-        "text": "保存(&S)"
+        "text": "保存(&S)..."
     },
     {
         "id": "IDS_TOOLBAR_FILE_EXPORT",
-        "text": "导出(&E)"
+        "text": "导出(&E)..."
     },
     {
         "id": "IDS_TOOLBAR_FILE_CAPTURE",
-        "text": "截屏(&C)"
+        "text": "截屏(&C)..."
     },
     {
         "id": "IDS_TOOLBAR_HELP",
@@ -156,20 +160,12 @@
         "text": "语言(&L)"
     },
     {
-        "id": "IDS_TOOLBAR_HELP_LANG_EN",
-        "text": "&English"
-    },
-    {
-        "id": "IDS_TOOLBAR_HELP_LANG_CN",
-        "text": "中文(&C)"
-    },
-    {
         "id": "IDS_TOOLBAR_HELP_ABOUT",
-        "text": "关于(&A)"
+        "text": "关于(&A)..."
     },
     {
         "id": "IDS_TOOLBAR_HELP_MANUAL",
-        "text": "手册(&M)"
+        "text": "手册(&M)..."
     },
     {
         "id": "IDS_TOOLBAR_HELP_BUG",

@@ -1,0 +1,278 @@
+[
+    {
+        "id": "dec_lfast_chan_data",
+        "text": "TXP hoặc RXP"
+    },
+    {
+        "id": "dec_lin_opt_version",
+        "text": "Phiên bản giao thức"
+    },
+    {
+        "id": "dec_lm75_opt_sensor",
+        "text": "Loại cảm biến"
+    },
+    {
+        "id": "dec_lm75_opt_resolution",
+        "text": "Độ phân giải (bit)"
+    },
+    {
+        "id": "dec_lpc_chan_lframe",
+        "text": "Khung"
+    },
+    {
+        "id": "dec_lpc_chan_lclk",
+        "text": "Xung nhịp"
+    },
+    {
+        "id": "dec_lpc_chan_lad0",
+        "text": "Địa chỉ/điều khiển/dữ liệu 0"
+    },
+    {
+        "id": "dec_lpc_chan_lad1",
+        "text": "Địa chỉ/điều khiển/dữ liệu 1"
+    },
+    {
+        "id": "dec_lpc_chan_lad2",
+        "text": "Địa chỉ/điều khiển/dữ liệu 2"
+    },
+    {
+        "id": "dec_lpc_chan_lad3",
+        "text": "Địa chỉ/điều khiển/dữ liệu 3"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lreset",
+        "text": "Reset"
+    },
+    {
+        "id": "dec_lpc_opt_chan_ldrq",
+        "text": "Yêu cầu DMA / bus master đã mã hóa"
+    },
+    {
+        "id": "dec_lpc_opt_chan_serirq",
+        "text": "IRQ nối tiếp"
+    },
+    {
+        "id": "dec_lpc_opt_chan_clkrun",
+        "text": "Chạy xung nhịp"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lpme",
+        "text": "Sự kiện quản lý nguồn LPC"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lpcpd",
+        "text": "Tắt nguồn"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lsmi",
+        "text": "Ngắt quản lý hệ thống"
+    },
+    {
+        "id": "dec_ltc26x7_opt_chip",
+        "text": "Chip"
+    },
+    {
+        "id": "dec_ltc26x7_opt_vref",
+        "text": "Điện áp tham chiếu (V)"
+    },
+    {
+        "id": "dec_ltc242x_opt_vref",
+        "text": "Điện áp tham chiếu (V)"
+    },
+    {
+        "id": "dec_maple_bus_chan_sdcka",
+        "text": "Đường dữ liệu/xung nhịp A"
+    },
+    {
+        "id": "dec_maple_bus_chan_sdckb",
+        "text": "Đường dữ liệu/xung nhịp B"
+    },
+    {
+        "id": "dec_mcs48_chan_ale",
+        "text": "Cho phép chốt địa chỉ"
+    },
+    {
+        "id": "dec_mcs48_chan_psen",
+        "text": "Cho phép bộ nhớ chương trình"
+    },
+    {
+        "id": "dec_mdio_chan_mdc",
+        "text": "Xung nhịp"
+    },
+    {
+        "id": "dec_mdio_chan_mdio",
+        "text": "Dữ liệu"
+    },
+    {
+        "id": "dec_mdio_opt_show_debug_bits",
+        "text": "Hiển thị bit gỡ lỗi"
+    },
+    {
+        "id": "dec_mdio_opt_read_edge",
+        "text": "Sườn đọc"
+    },
+    {
+        "id": "dec_microwire_chan_cs",
+        "text": "Chọn chip"
+    },
+    {
+        "id": "dec_microwire_chan_sk",
+        "text": "Xung nhịp"
+    },
+    {
+        "id": "dec_microwire_chan_si",
+        "text": "Slave vào"
+    },
+    {
+        "id": "dec_microwire_chan_so",
+        "text": "Slave ra"
+    },
+    {
+        "id": "dec_miller_chan_data",
+        "text": "Tín hiệu dữ liệu"
+    },
+    {
+        "id": "dec_miller_opt_baudrate",
+        "text": "Tốc độ baud"
+    },
+    {
+        "id": "dec_miller_opt_edge",
+        "text": "Sườn"
+    },
+    {
+        "id": "dec_mipi_dsi_chan_D0N",
+        "text": "Dữ liệu LP 0 âm"
+    },
+    {
+        "id": "dec_mipi_dsi_chan_D0P",
+        "text": "Dữ liệu LP 0 dương"
+    },
+    {
+        "id": "dec_mipi_rffe_chan_sclk",
+        "text": "Đường xung nhịp nối tiếp"
+    },
+    {
+        "id": "dec_mipi_rffe_chan_sdata",
+        "text": "Đường dữ liệu nối tiếp"
+    },
+    {
+        "id": "dec_mipi_rffe_opt_error_display",
+        "text": "Tùy chọn hiển thị lỗi"
+    },
+    {
+        "id": "dec_morse_chan_data",
+        "text": "Đường dữ liệu"
+    },
+    {
+        "id": "dec_morse_opt_timeunit",
+        "text": "Đơn vị thời gian (ước đoán)"
+    },
+    {
+        "id": "dec_nes_gamepad_opt_variant",
+        "text": "Biến thể tay cầm"
+    },
+    {
+        "id": "dec_nrf24l01_opt_chip",
+        "text": "Loại chip"
+    },
+    {
+        "id": "dec_numbers_and_state_chan_clk",
+        "text": "Xung nhịp"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_clkedge",
+        "text": "Sườn xung nhịp"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_count",
+        "text": "Tổng số bit"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_interp",
+        "text": "Cách diễn giải"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_fracbits",
+        "text": "Số bit phần thập phân"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_mapping",
+        "text": "Tệp ánh xạ enum sang văn bản"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_format",
+        "text": "Định dạng số"
+    },
+    {
+        "id": "dec_onewire_link_chan_owr",
+        "text": "Đường tín hiệu 1-Wire"
+    },
+    {
+        "id": "dec_onewire_link_opt_overdrive",
+        "text": "Bắt đầu ở tốc độ overdrive"
+    },
+    {
+        "id": "dec_ook_chan_data",
+        "text": "Đường dữ liệu"
+    },
+    {
+        "id": "dec_ook_opt_invert",
+        "text": "Đảo dữ liệu"
+    },
+    {
+        "id": "dec_ook_opt_decodeas",
+        "text": "Kiểu giải mã"
+    },
+    {
+        "id": "dec_ook_opt_preamble",
+        "text": "Phần mở đầu"
+    },
+    {
+        "id": "dec_ook_opt_preamlen",
+        "text": "Độ dài bộ lọc"
+    },
+    {
+        "id": "dec_ook_opt_diffmanvar",
+        "text": "Chuyển mức ở đầu bit"
+    },
+    {
+        "id": "dec_ook_oregon_opt_unknown",
+        "text": "Kiểu không xác định là"
+    },
+    {
+        "id": "dec_ook_vis_opt_displayas",
+        "text": "Hiển thị dạng"
+    },
+    {
+        "id": "dec_ook_vis_opt_synclen",
+        "text": "Độ dài đồng bộ"
+    },
+    {
+        "id": "dec_ook_vis_opt_syncoffset",
+        "text": "Độ lệch đồng bộ"
+    },
+    {
+        "id": "dec_ook_vis_opt_refsample",
+        "text": "So sánh"
+    },
+    {
+        "id": "dec_onewire_link_opt_min_height_level_pulse_time",
+        "text": "Thời gian xung mức cao tối thiểu(us)"
+    },
+    {
+        "id": "dec_onewire_link_opt_min_overdrive_height_level_pulse_time",
+        "text": "Thời gian xung mức cao tối thiểu ở overdrive(us)"
+    },
+    {
+        "id": "dec_modbus_opt_scchannel",
+        "text": "Kênh server -> client"
+    },
+    {
+        "id": "dec_modbus_opt_cschannel",
+        "text": "Kênh client -> server"
+    },
+    {
+        "id": "dec_modbus_opt_framegap",
+        "text": "Khoảng cách bit giữa các khung"
+    }
+]

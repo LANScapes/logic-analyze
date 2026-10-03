@@ -490,7 +490,7 @@
     {
         "id": "IDS_DLG_SERIAL_TRIGGER",
         "text": "Serial Trigger"
-    },   
+    },
     {
         "id": "IDS_DLG_STAGE_TRIGGER",
         "text": "Stage Trigger"
@@ -498,7 +498,7 @@
     {
         "id": "IDS_DLG_SERIAL_NOTE_LABEL",
         "text": "X: Don't care\n0: Low level\n1: High level\nR: Rising edge\nF: Falling edge\nC: Rising/Falling edge"
-    },  
+    },
     {
         "id": "IDS_DLG_DATA_BITS",
         "text": "Data Bits"
@@ -606,7 +606,7 @@
     {
         "id": "IDS_DLG_FALLING",
         "text": "Falling: "
-    },   
+    },
     {
         "id": "IDS_DLG_Edges_1",
         "text": "Edges: "
@@ -698,6 +698,10 @@
     {
         "id": "IDS_DLG_FONT_SIZE",
         "text": "Font Size"
+    },
+    {
+        "id": "IDS_DLG_DEFAULT_FONT",
+        "text": "Default"
     },
     {
         "id": "IDS_DLG_GROUP_LOGIC",

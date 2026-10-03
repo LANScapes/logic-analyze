@@ -1,0 +1,334 @@
+[
+    {
+        "id": "dec_flexray_chan_channel",
+        "text": "Voie du bus FlexRay"
+    },
+    {
+        "id": "dec_flexray_opt_channel_type",
+        "text": "Type de voie"
+    },
+    {
+        "id": "dec_flexray_opt_bitrate",
+        "text": "Débit binaire (bit/s)"
+    },
+    {
+        "id": "dec_fsi_chan_data",
+        "text": "Trame"
+    },
+    {
+        "id": "dec_fsi_chan_clock",
+        "text": "Horloge"
+    },
+    {
+        "id": "dec_gpib_chan_dio1",
+        "text": "Bit d'E/S de données 1"
+    },
+    {
+        "id": "dec_gpib_chan_dio2",
+        "text": "Bit d'E/S de données 2"
+    },
+    {
+        "id": "dec_gpib_chan_dio3",
+        "text": "Bit d'E/S de données 3"
+    },
+    {
+        "id": "dec_gpib_chan_dio4",
+        "text": "Bit d'E/S de données 4"
+    },
+    {
+        "id": "dec_gpib_chan_dio5",
+        "text": "Bit d'E/S de données 5"
+    },
+    {
+        "id": "dec_gpib_chan_dio6",
+        "text": "Bit d'E/S de données 6"
+    },
+    {
+        "id": "dec_gpib_chan_dio7",
+        "text": "Bit d'E/S de données 7"
+    },
+    {
+        "id": "dec_gpib_chan_dio8",
+        "text": "Bit d'E/S de données 8"
+    },
+    {
+        "id": "dec_gpib_chan_eoi",
+        "text": "Fin ou identification (EOI)"
+    },
+    {
+        "id": "dec_gpib_chan_dav",
+        "text": "Données valides"
+    },
+    {
+        "id": "dec_gpib_chan_nrfd",
+        "text": "Non prêt pour les données"
+    },
+    {
+        "id": "dec_gpib_chan_ndac",
+        "text": "Données non acceptées"
+    },
+    {
+        "id": "dec_gpib_chan_ifc",
+        "text": "Effacement de l'interface"
+    },
+    {
+        "id": "dec_gpib_chan_srq",
+        "text": "Demande de service"
+    },
+    {
+        "id": "dec_gpib_chan_atn",
+        "text": "Attention"
+    },
+    {
+        "id": "dec_gpib_chan_ren",
+        "text": "Activation à distance"
+    },
+    {
+        "id": "dec_graycode_opt_edges",
+        "text": "Fronts par rotation"
+    },
+    {
+        "id": "dec_graycode_opt_avg_period",
+        "text": "Période de moyennage"
+    },
+    {
+        "id": "dec_guess_bitrate_chan_data",
+        "text": "Ligne de données"
+    },
+    {
+        "id": "dec_i2cfilter_opt_address",
+        "text": "Adresse à extraire du flux I²C"
+    },
+    {
+        "id": "dec_i2cfilter_opt_direction",
+        "text": "Sens à filtrer"
+    },
+    {
+        "id": "dec_i2s_chan_sck",
+        "text": "Ligne d'horloge bit"
+    },
+    {
+        "id": "dec_i2s_chan_ws",
+        "text": "Ligne de sélection de mot"
+    },
+    {
+        "id": "dec_i2s_chan_sd",
+        "text": "Ligne de données série"
+    },
+    {
+        "id": "dec_i2s_opt_ws_polarity",
+        "text": "Polarité WS"
+    },
+    {
+        "id": "dec_i2s_opt_clk_edge",
+        "text": "Front actif de SCK"
+    },
+    {
+        "id": "dec_i2s_opt_bit_shift",
+        "text": "Décalage de bits"
+    },
+    {
+        "id": "dec_i2s_opt_bit_align",
+        "text": "Alignement des bits"
+    },
+    {
+        "id": "dec_i2s_opt_bitorder",
+        "text": "Ordre des bits"
+    },
+    {
+        "id": "dec_i2s_opt_wordsize",
+        "text": "Taille de mot"
+    },
+    {
+        "id": "dec_iec_chan_data",
+        "text": "E/S de données"
+    },
+    {
+        "id": "dec_iec_chan_clk",
+        "text": "Horloge"
+    },
+    {
+        "id": "dec_iec_chan_atn",
+        "text": "Attention"
+    },
+    {
+        "id": "dec_iec_opt_chan_srq",
+        "text": "Demande de service"
+    },
+    {
+        "id": "dec_ieee488_chan_dio1",
+        "text": "Bit d'E/S de données 1, ou données série"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio2",
+        "text": "Bit d'E/S de données 2"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio3",
+        "text": "Bit d'E/S de données 3"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio4",
+        "text": "Bit d'E/S de données 4"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio5",
+        "text": "Bit d'E/S de données 5"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio6",
+        "text": "Bit d'E/S de données 6"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio7",
+        "text": "Bit d'E/S de données 7"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio8",
+        "text": "Bit d'E/S de données 8"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_eoi",
+        "text": "Fin ou identification (EOI)"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dav",
+        "text": "Données valides"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_nrfd",
+        "text": "Non prêt pour les données"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_ndac",
+        "text": "Données non acceptées"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_ifc",
+        "text": "Effacement de l'interface"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_srq",
+        "text": "Demande de service"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_atn",
+        "text": "Attention"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_ren",
+        "text": "Activation à distance"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_clk",
+        "text": "Horloge série"
+    },
+    {
+        "id": "dec_ieee488_opt_iec_periph",
+        "text": "Décoder les détails des périphériques du bus IEC Commodore"
+    },
+    {
+        "id": "dec_ieee488_opt_delim",
+        "text": "Délimiteur des données utiles"
+    },
+    {
+        "id": "dec_ir_irmp_chan_ir",
+        "text": "Ligne de données"
+    },
+    {
+        "id": "dec_ir_irmp_opt_polarity",
+        "text": "Polarité"
+    },
+    {
+        "id": "dec_ir_nec_chan_ir",
+        "text": "Ligne de données"
+    },
+    {
+        "id": "dec_ir_nec_opt_polarity",
+        "text": "Polarité"
+    },
+    {
+        "id": "dec_ir_nec_opt_cd_freq",
+        "text": "Fréquence porteuse"
+    },
+    {
+        "id": "dec_ir_rc5_chan_ir",
+        "text": "Ligne de données IR"
+    },
+    {
+        "id": "dec_ir_rc5_opt_polarity",
+        "text": "Polarité"
+    },
+    {
+        "id": "dec_ir_rc5_opt_protocol",
+        "text": "Type de protocole"
+    },
+    {
+        "id": "dec_ir_rc6_chan_ir",
+        "text": "Ligne de données IR"
+    },
+    {
+        "id": "dec_ir_rc6_opt_polarity",
+        "text": "Polarité"
+    },
+    {
+        "id": "dec_ir_sirc_chan_ir",
+        "text": "Ligne de données IR"
+    },
+    {
+        "id": "dec_ir_sirc_opt_polarity",
+        "text": "Polarité"
+    },
+    {
+        "id": "dec_jitter_chan_clk",
+        "text": "Voie d'horloge de référence"
+    },
+    {
+        "id": "dec_jitter_chan_sig",
+        "text": "Signal résultant piloté par l'horloge"
+    },
+    {
+        "id": "dec_jitter_opt_clk_polarity",
+        "text": "Polarité du front d'horloge"
+    },
+    {
+        "id": "dec_jitter_opt_sig_polarity",
+        "text": "Polarité du front du signal résultant"
+    },
+    {
+        "id": "dec_jtag_chan_tdi",
+        "text": "Entrée de données de test"
+    },
+    {
+        "id": "dec_jtag_chan_tdo",
+        "text": "Sortie de données de test"
+    },
+    {
+        "id": "dec_jtag_chan_tck",
+        "text": "Horloge de test"
+    },
+    {
+        "id": "dec_jtag_chan_tms",
+        "text": "Sélection du mode de test"
+    },
+    {
+        "id": "dec_jtag_opt_chan_trst",
+        "text": "Réinitialisation de test"
+    },
+    {
+        "id": "dec_jtag_opt_chan_srst",
+        "text": "Réinitialisation système"
+    },
+    {
+        "id": "dec_jtag_opt_chan_rtck",
+        "text": "Signal d'horloge de retour"
+    },
+    {
+        "id": "dec_gpib_opt_sample_total",
+        "text": "Nombre total d'échantillons"
+    },
+    {
+        "id": "dec_ir_nec_opt_extended",
+        "text": "Protocole NEC étendu"
+    }
+]

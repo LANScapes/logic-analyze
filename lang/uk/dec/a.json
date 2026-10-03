@@ -1,0 +1,334 @@
+[
+    {
+        "id": "dec_ac97_chan_sync",
+        "text": "Синхронізація кадрів"
+    },
+    {
+        "id": "dec_ac97_chan_clk",
+        "text": "Тактування бітів даних"
+    },
+    {
+        "id": "dec_ac97_opt_chan_out",
+        "text": "Вихід даних"
+    },
+    {
+        "id": "dec_ac97_opt_chan_in",
+        "text": "Вхід даних"
+    },
+    {
+        "id": "dec_ac97_opt_chan_rst",
+        "text": "Лінія скидання"
+    },
+    {
+        "id": "dec_ad79x0_opt_vref",
+        "text": "Опорна напруга (V)"
+    },
+    {
+        "id": "dec_am230x_chan_sda",
+        "text": "Однопровідна лінія послідовних даних"
+    },
+    {
+        "id": "dec_am230x_opt_device",
+        "text": "Тип пристрою"
+    },
+    {
+        "id": "dec_amulet_ascii_opt_ms_chan",
+        "text": "Канал ведучий -> ведений"
+    },
+    {
+        "id": "dec_amulet_ascii_opt_sm_chan",
+        "text": "Канал ведений -> ведучий"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_objdump",
+        "text": "Шлях до objdump"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_objdump_opts",
+        "text": "Параметри objdump"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_elffile",
+        "text": "Шлях до .elf"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_branch_enc",
+        "text": "Кодування переходів"
+    },
+    {
+        "id": "dec_arm_itm_opt_objdump",
+        "text": "Шлях до objdump"
+    },
+    {
+        "id": "dec_arm_itm_opt_objdump_opts",
+        "text": "Параметри objdump"
+    },
+    {
+        "id": "dec_arm_itm_opt_elffile",
+        "text": "Шлях до .elf"
+    },
+    {
+        "id": "dec_arm_tpiu_opt_stream",
+        "text": "Індекс потоку"
+    },
+    {
+        "id": "dec_arm_tpiu_sync_offset",
+        "text": "Початкове зміщення синхронізації"
+    },
+    {
+        "id": "dec_aud_chan_audck",
+        "text": "Тактовий сигнал AUD"
+    },
+    {
+        "id": "dec_aud_chan_naudsync",
+        "text": "Синхронізація AUD"
+    },
+    {
+        "id": "dec_aud_chan_audata3",
+        "text": "Лінія даних AUD 3"
+    },
+    {
+        "id": "dec_aud_chan_audata2",
+        "text": "Лінія даних AUD 2"
+    },
+    {
+        "id": "dec_aud_chan_audata1",
+        "text": "Лінія даних AUD 1"
+    },
+    {
+        "id": "dec_aud_chan_audata0",
+        "text": "Лінія даних AUD 0"
+    },
+    {
+        "id": "dec_avr_pdi_chan_reset",
+        "text": "RESET / PDI_CLK"
+    },
+    {
+        "id": "dec_avr_pdi_chan_data",
+        "text": "PDI_DATA"
+    },
+    {
+        "id": "dec_c2_chan_c2ck",
+        "text": "Тактовий сигнал"
+    },
+    {
+        "id": "dec_c2_chan_c2d",
+        "text": "Дані"
+    },
+    {
+        "id": "dec_caliper_chan_clk",
+        "text": "Лінія послідовного тактування"
+    },
+    {
+        "id": "dec_caliper_chan_data",
+        "text": "Лінія послідовних даних"
+    },
+    {
+        "id": "dec_caliper_opt_timeout_ms",
+        "text": "Тайм-аут пакета в мс, 0 — вимкнено"
+    },
+    {
+        "id": "dec_caliper_opt_unit",
+        "text": "Перетворювати одиниці"
+    },
+    {
+        "id": "dec_caliper_opt_changes",
+        "text": "Лише зміни"
+    },
+    {
+        "id": "dec_can_chan_can_rx",
+        "text": "Лінія шини CAN FD"
+    },
+    {
+        "id": "dec_can_opt_bitrate",
+        "text": "Бітова швидкість (біт/с)"
+    },
+    {
+        "id": "dec_can_opt_nominal_bitrate",
+        "text": "Номінальна бітова швидкість (біт/с)"
+    },
+    {
+        "id": "dec_can_opt_fast_bitrate",
+        "text": "Швидка бітова швидкість (біт/с)"
+    },
+    {
+        "id": "dec_can_opt_sample_point",
+        "text": "Точка вибірки (%)"
+    },
+    {
+        "id": "dec_cec_chan_cec",
+        "text": "Дані шини CEC"
+    },
+    {
+        "id": "dec_1uart_chan_rxtx",
+        "text": "Лінія приймання/передавання UART"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tdi",
+        "text": "Вхід тестових даних"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tdo",
+        "text": "Вихід тестових даних"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tck",
+        "text": "Тестовий тактовий сигнал"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tms",
+        "text": "Вибір тестового режиму"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_trst",
+        "text": "Тестове скидання"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_srst",
+        "text": "Системне скидання"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_rtck",
+        "text": "Зворотний тактовий сигнал"
+    },
+    {
+        "id": "dec_counter_chan_data",
+        "text": "Лінія даних"
+    },
+    {
+        "id": "dec_counter_opt_chan_reset",
+        "text": "Лінія скидання"
+    },
+    {
+        "id": "dec_counter_opt_data_edge",
+        "text": "Перепади для підрахунку (дані)"
+    },
+    {
+        "id": "dec_counter_opt_divider",
+        "text": "Дільник лічильника (ширина слова)"
+    },
+    {
+        "id": "dec_counter_opt_reset_edge",
+        "text": "Перепад, що скидає лічильники (скидання)"
+    },
+    {
+        "id": "dec_counter_opt_edge_off",
+        "text": "Значення лічильника перепадів після старту/скидання"
+    },
+    {
+        "id": "dec_counter_opt_word_off",
+        "text": "Значення лічильника слів після старту/скидання"
+    },
+    {
+        "id": "dec_counter_opt_dead_cycles",
+        "text": "Скільки перепадів ігнорувати після скидання"
+    },
+    {
+        "id": "dec_counter_opt_start_with_reset",
+        "text": "Вважати, що декодування починається зі скидання"
+    },
+    {
+        "id": "dec_dali_chan_dali",
+        "text": "Лінія даних DALI"
+    },
+    {
+        "id": "dec_dali_opt_polarity",
+        "text": "Полярність"
+    },
+    {
+        "id": "dec_dcf77_chan_data",
+        "text": "Лінія DATA"
+    },
+    {
+        "id": "dec_dmx512_chan_dmx",
+        "text": "Будь-яка лінія даних DMX"
+    },
+    {
+        "id": "dec_dmx512_opt_invert",
+        "text": "Інвертувати сигнал?"
+    },
+    {
+        "id": "dec_dsi_chan_dsi",
+        "text": "Лінія даних DSI"
+    },
+    {
+        "id": "dec_dsi_opt_polarity",
+        "text": "Полярність"
+    },
+    {
+        "id": "dec_eeprom24xx_opt_chip",
+        "text": "Мікросхема"
+    },
+    {
+        "id": "dec_eeprom24xx_opt_addr_counter",
+        "text": "Початкове значення лічильника адрес"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_addresssize",
+        "text": "Розмір адреси"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_wordsize",
+        "text": "Розмір слова"
+    },
+    {
+        "id": "dec_em4100_chan_data",
+        "text": "Лінія даних"
+    },
+    {
+        "id": "dec_em4100_opt_polarity",
+        "text": "Полярність"
+    },
+    {
+        "id": "dec_em4100_opt_datarate",
+        "text": "Швидкість передавання даних"
+    },
+    {
+        "id": "dec_em4100_opt_coilfreq",
+        "text": "Частота котушки"
+    },
+    {
+        "id": "dec_em4305_chan_data",
+        "text": "Лінія даних"
+    },
+    {
+        "id": "dec_em4305_opt_coilfreq",
+        "text": "Частота котушки"
+    },
+    {
+        "id": "dec_em4305_opt_first_field_stop",
+        "text": "Мін. зупинка першого поля"
+    },
+    {
+        "id": "dec_em4305_opt_w_gap",
+        "text": "Мін. проміжок запису"
+    },
+    {
+        "id": "dec_em4305_opt_w_one_max",
+        "text": "Макс. запису одиниці"
+    },
+    {
+        "id": "dec_em4305_opt_w_zero_on_min",
+        "text": "Мін. увімкнення запису нуля"
+    },
+    {
+        "id": "dec_em4305_opt_w_zero_off_max",
+        "text": "Макс. вимкнення запису нуля"
+    },
+    {
+        "id": "dec_em4305_opt_em4100_decode",
+        "text": "Декодування EM4100"
+    },
+    {
+        "id": "dec_eth_an_chan_dp",
+        "text": "Сигнал ETH TX+"
+    },
+    {
+        "id": "dec_can_opt_data_order",
+        "text": "Порядок даних"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_format",
+        "text": "Формат даних"
+    }
+]

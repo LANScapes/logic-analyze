@@ -1124,7 +1124,9 @@ void MainFrame::show_doc()
 {
      AppConfig &app = AppConfig::Instance(); 
      int lan = app.frameOptions.language;
-      
+     if (lan != LAN_CN)
+         lan = LAN_EN; // the picture exists in Chinese and English only
+
     if (app.userHistory.showDocuments) {
         dialogs::DSDialog dlg(this, true);
         dlg.setTitle(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_DOCUMENT), "Document"));

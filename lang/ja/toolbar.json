@@ -1,0 +1,182 @@
+[
+    {
+        "id": "IDS_DEVICE_MODE_LOGIC",
+        "text": "ロジックアナライザ(&L)"
+    },
+    {
+        "id": "IDS_DEVICE_MODE_ANALOG",
+        "text": "データ収集(&A)"
+    },
+    {
+        "id": "IDS_DEVICE_MODE_DSO",
+        "text": "オシロスコープ(&C)"
+    },
+    {
+        "id": "IDS_TOOLBAR_DEVICE_TYPE_DEMO",
+        "text": "デモ"
+    },
+    {
+        "id": "IDS_TOOLBAR_DEVICE_TYPE_FILE",
+        "text": "ファイル"
+    },
+    {
+        "id": "IDS_TOOLBAR_DEVICE_OPTION",
+        "text": "オプション(&O)"
+    },
+    {
+        "id": "IDS_TOOLBAR_DEVICE_OPTION_ITEM",
+        "text": "デバイスオプション..."
+    },
+    {
+        "id": "IDS_TOOLBAR_CAPTURE_MODE",
+        "text": "モード(&E)"
+    },
+    {
+        "id": "IDS_TOOLBAR_CAPTURE_MODE_SINGLE",
+        "text": "単発(&S)"
+    },
+    {
+        "id": "IDS_TOOLBAR_CAPTURE_MODE_REPEAT",
+        "text": "繰り返し(&R)"
+    },
+    {
+        "id": "IDS_TOOLBAR_CAPTURE_MODE_LOOP",
+        "text": "ループ(&L)"
+    },
+    {
+        "id": "IDS_TOOLBAR_RUN_START",
+        "text": "開始(&S)"
+    },
+    {
+        "id": "IDS_TOOLBAR_RUN_STOP",
+        "text": "停止(&S)"
+    },
+    {
+        "id": "IDS_TOOLBAR_ONE_SINGLE",
+        "text": "単発(&I)"
+    },
+    {
+        "id": "IDS_TOOLBAR_ONE_INSTANT",
+        "text": "即時(&I)"
+    },
+    {
+        "id": "IDS_TOOLBAR_ONE_STOP",
+        "text": "停止(&S)"
+    },
+    {
+        "id": "IDS_TOOLBAR_TRIGGER",
+        "text": "トリガ(&T)"
+    },
+    {
+        "id": "IDS_TOOLBAR_DECODE",
+        "text": "デコード(&D)"
+    },
+    {
+        "id": "IDS_TOOLBAR_MEASURE",
+        "text": "測定(&M)"
+    },
+    {
+        "id": "IDS_TOOLBAR_SEARCH",
+        "text": "検索(&R)"
+    },
+    {
+        "id": "IDS_TOOLBAR_FUNCTION",
+        "text": "機能(&N)"
+    },
+    {
+        "id": "IDS_TOOLBAR_FUNCTION_FFT",
+        "text": "&FFT"
+    },
+    {
+        "id": "IDS_TOOLBAR_FUNCTION_MATH",
+        "text": "演算(&M)"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY",
+        "text": "表示(&P)"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_THEMES",
+        "text": "テーマ(&T)"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_LISSAJOUS",
+        "text": "リサジュー(&A)"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_THEMES_DARK",
+        "text": "ダーク(&D)"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_THEMES_LIGHT",
+        "text": "ライト(&L)"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_OPTIONS",
+        "text": "オプション(&O)"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE",
+        "text": "ファイル(&F)"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CONFIG",
+        "text": "設定(&G)"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CONFIG_LOAD",
+        "text": "セッション読込(&L)"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CONFIG_STORE",
+        "text": "セッション保存(&S)"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CONFIG_DEFAULT",
+        "text": "既定セッション読込(&D)"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_OPEN",
+        "text": "開く(&O)..."
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_SAVE",
+        "text": "保存(&S)..."
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_EXPORT",
+        "text": "エクスポート(&E)..."
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CAPTURE",
+        "text": "画面取込(&C)..."
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP",
+        "text": "ヘルプ(&H)"
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_LANG",
+        "text": "言語(&L)"
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_ABOUT",
+        "text": "情報(&A)..."
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_MANUAL",
+        "text": "マニュアル(&M)..."
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_BUG",
+        "text": "不具合報告(&B)"
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_UPDATE",
+        "text": "更新(&U)"
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_LOG",
+        "text": "ログ設定(&O)"
+    }
+]

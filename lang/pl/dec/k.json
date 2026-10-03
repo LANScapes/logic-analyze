@@ -1,0 +1,278 @@
+[
+    {
+        "id": "dec_lfast_chan_data",
+        "text": "TXP lub RXP"
+    },
+    {
+        "id": "dec_lin_opt_version",
+        "text": "Wersja protokołu"
+    },
+    {
+        "id": "dec_lm75_opt_sensor",
+        "text": "Typ czujnika"
+    },
+    {
+        "id": "dec_lm75_opt_resolution",
+        "text": "Rozdzielczość (bity)"
+    },
+    {
+        "id": "dec_lpc_chan_lframe",
+        "text": "Ramka"
+    },
+    {
+        "id": "dec_lpc_chan_lclk",
+        "text": "Zegar"
+    },
+    {
+        "id": "dec_lpc_chan_lad0",
+        "text": "Adres/sterowanie/dane 0"
+    },
+    {
+        "id": "dec_lpc_chan_lad1",
+        "text": "Adres/sterowanie/dane 1"
+    },
+    {
+        "id": "dec_lpc_chan_lad2",
+        "text": "Adres/sterowanie/dane 2"
+    },
+    {
+        "id": "dec_lpc_chan_lad3",
+        "text": "Adres/sterowanie/dane 3"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lreset",
+        "text": "Reset"
+    },
+    {
+        "id": "dec_lpc_opt_chan_ldrq",
+        "text": "Zakodowane żądanie DMA / bus master"
+    },
+    {
+        "id": "dec_lpc_opt_chan_serirq",
+        "text": "Szeregowe IRQ"
+    },
+    {
+        "id": "dec_lpc_opt_chan_clkrun",
+        "text": "Praca zegara (CLKRUN)"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lpme",
+        "text": "Zdarzenie zarządzania energią LPC"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lpcpd",
+        "text": "Wyłączenie zasilania"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lsmi",
+        "text": "Przerwanie zarządzania systemem (SMI)"
+    },
+    {
+        "id": "dec_ltc26x7_opt_chip",
+        "text": "Układ"
+    },
+    {
+        "id": "dec_ltc26x7_opt_vref",
+        "text": "Napięcie odniesienia (V)"
+    },
+    {
+        "id": "dec_ltc242x_opt_vref",
+        "text": "Napięcie odniesienia (V)"
+    },
+    {
+        "id": "dec_maple_bus_chan_sdcka",
+        "text": "Linia danych/zegara A"
+    },
+    {
+        "id": "dec_maple_bus_chan_sdckb",
+        "text": "Linia danych/zegara B"
+    },
+    {
+        "id": "dec_mcs48_chan_ale",
+        "text": "Zatrzaśnięcie adresu (ALE)"
+    },
+    {
+        "id": "dec_mcs48_chan_psen",
+        "text": "Odczyt pamięci programu (PSEN)"
+    },
+    {
+        "id": "dec_mdio_chan_mdc",
+        "text": "Zegar"
+    },
+    {
+        "id": "dec_mdio_chan_mdio",
+        "text": "Dane"
+    },
+    {
+        "id": "dec_mdio_opt_show_debug_bits",
+        "text": "Pokaż bity debugowania"
+    },
+    {
+        "id": "dec_mdio_opt_read_edge",
+        "text": "zbocze odczytu"
+    },
+    {
+        "id": "dec_microwire_chan_cs",
+        "text": "Wybór układu"
+    },
+    {
+        "id": "dec_microwire_chan_sk",
+        "text": "Zegar"
+    },
+    {
+        "id": "dec_microwire_chan_si",
+        "text": "Wejście slave"
+    },
+    {
+        "id": "dec_microwire_chan_so",
+        "text": "Wyjście slave"
+    },
+    {
+        "id": "dec_miller_chan_data",
+        "text": "Sygnał danych"
+    },
+    {
+        "id": "dec_miller_opt_baudrate",
+        "text": "Prędkość transmisji"
+    },
+    {
+        "id": "dec_miller_opt_edge",
+        "text": "Zbocze"
+    },
+    {
+        "id": "dec_mipi_dsi_chan_D0N",
+        "text": "Dane LP 0 ujemne"
+    },
+    {
+        "id": "dec_mipi_dsi_chan_D0P",
+        "text": "Dane LP 0 dodatnie"
+    },
+    {
+        "id": "dec_mipi_rffe_chan_sclk",
+        "text": "Linia zegara szeregowego"
+    },
+    {
+        "id": "dec_mipi_rffe_chan_sdata",
+        "text": "Linia danych szeregowych"
+    },
+    {
+        "id": "dec_mipi_rffe_opt_error_display",
+        "text": "Opcje wyświetlania błędów"
+    },
+    {
+        "id": "dec_morse_chan_data",
+        "text": "Linia danych"
+    },
+    {
+        "id": "dec_morse_opt_timeunit",
+        "text": "Jednostka czasu (szacowana)"
+    },
+    {
+        "id": "dec_nes_gamepad_opt_variant",
+        "text": "Wariant gamepada"
+    },
+    {
+        "id": "dec_nrf24l01_opt_chip",
+        "text": "Typ układu"
+    },
+    {
+        "id": "dec_numbers_and_state_chan_clk",
+        "text": "Zegar"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_clkedge",
+        "text": "Zbocze zegara"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_count",
+        "text": "Łączna liczba bitów"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_interp",
+        "text": "Interpretacja"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_fracbits",
+        "text": "Liczba bitów części ułamkowej"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_mapping",
+        "text": "Plik mapowania wartości na tekst"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_format",
+        "text": "Format liczb"
+    },
+    {
+        "id": "dec_onewire_link_chan_owr",
+        "text": "Linia sygnałowa 1-Wire"
+    },
+    {
+        "id": "dec_onewire_link_opt_overdrive",
+        "text": "Rozpocznij w trybie overdrive"
+    },
+    {
+        "id": "dec_ook_chan_data",
+        "text": "Linia danych"
+    },
+    {
+        "id": "dec_ook_opt_invert",
+        "text": "Odwróć dane"
+    },
+    {
+        "id": "dec_ook_opt_decodeas",
+        "text": "Typ dekodowania"
+    },
+    {
+        "id": "dec_ook_opt_preamble",
+        "text": "Preambuła"
+    },
+    {
+        "id": "dec_ook_opt_preamlen",
+        "text": "Długość filtra"
+    },
+    {
+        "id": "dec_ook_opt_diffmanvar",
+        "text": "Przejście na początku"
+    },
+    {
+        "id": "dec_ook_oregon_opt_unknown",
+        "text": "Nieznany typ to"
+    },
+    {
+        "id": "dec_ook_vis_opt_displayas",
+        "text": "Wyświetl jako"
+    },
+    {
+        "id": "dec_ook_vis_opt_synclen",
+        "text": "Długość synchronizacji"
+    },
+    {
+        "id": "dec_ook_vis_opt_syncoffset",
+        "text": "Przesunięcie synchronizacji"
+    },
+    {
+        "id": "dec_ook_vis_opt_refsample",
+        "text": "Porównaj"
+    },
+    {
+        "id": "dec_onewire_link_opt_min_height_level_pulse_time",
+        "text": "min. czas impulsu poziomu wysokiego (us)"
+    },
+    {
+        "id": "dec_onewire_link_opt_min_overdrive_height_level_pulse_time",
+        "text": "min. czas impulsu poziomu wysokiego w overdrive (us)"
+    },
+    {
+        "id": "dec_modbus_opt_scchannel",
+        "text": "Kanał serwer -> klient"
+    },
+    {
+        "id": "dec_modbus_opt_cschannel",
+        "text": "Kanał klient -> serwer"
+    },
+    {
+        "id": "dec_modbus_opt_framegap",
+        "text": "Odstęp bitowy między ramkami"
+    }
+]

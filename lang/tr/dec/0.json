@@ -1,0 +1,182 @@
+[
+    {
+        "id": "dec_0i2c_chan_scl",
+        "text": "Seri saat hattı"
+    },
+    {
+        "id": "dec_0i2c_chan_sda",
+        "text": "Seri veri hattı"
+    },
+    {
+        "id": "dec_0i2c_opt_addr",
+        "text": "Gösterilen bağımlı adres biçimi"
+    },
+    {
+        "id": "dec_0spi_chan_clk",
+        "text": "Saat"
+    },
+    {
+        "id": "dec_0spi_opt_chan_miso",
+        "text": "Ana giriş, bağımlı çıkış"
+    },
+    {
+        "id": "dec_0spi_opt_chan_mosi",
+        "text": "Ana çıkış, bağımlı giriş"
+    },
+    {
+        "id": "dec_0spi_opt_chan_cs",
+        "text": "Yonga seçimi"
+    },
+    {
+        "id": "dec_0spi_opt_cs_pol",
+        "text": "CS# polaritesi"
+    },
+    {
+        "id": "dec_0spi_opt_cpol",
+        "text": "Saat polaritesi (CPOL)"
+    },
+    {
+        "id": "dec_0spi_opt_cpha",
+        "text": "Saat fazı (CPHA)"
+    },
+    {
+        "id": "dec_0spi_opt_bitorder",
+        "text": "Bit sırası"
+    },
+    {
+        "id": "dec_0spi_opt_wordsize",
+        "text": "Kelime boyutu"
+    },
+    {
+        "id": "dec_0uart_chan_rxtx",
+        "text": "UART alma/gönderme hattı"
+    },
+    {
+        "id": "dec_0uart_opt_baudrate",
+        "text": "Baud hızı"
+    },
+    {
+        "id": "dec_0uart_opt_num_data_bits",
+        "text": "Veri bitleri"
+    },
+    {
+        "id": "dec_0uart_opt_parity_type",
+        "text": "Eşlik türü"
+    },
+    {
+        "id": "dec_0uart_opt_parity_check",
+        "text": "Eşlik denetlensin mi?"
+    },
+    {
+        "id": "dec_0uart_opt_num_stop_bits",
+        "text": "Dur bitleri"
+    },
+    {
+        "id": "dec_0uart_opt_bit_order",
+        "text": "Bit sırası"
+    },
+    {
+        "id": "dec_0uart_opt_format",
+        "text": "Veri biçimi"
+    },
+    {
+        "id": "dec_0uart_opt_invert",
+        "text": "Sinyal ters çevrilsin mi?"
+    },
+    {
+        "id": "dec_0uart_anno_startstop",
+        "text": "Başla/Dur gösterilsin mi?"
+    },
+    {
+        "id": "dec_1i2c_chan_scl",
+        "text": "Seri saat hattı"
+    },
+    {
+        "id": "dec_1i2c_chan_sda",
+        "text": "Seri veri hattı"
+    },
+    {
+        "id": "dec_1i2c_opt_addr",
+        "text": "Gösterilen bağımlı adres biçimi"
+    },
+    {
+        "id": "dec_1spi_chan_clk",
+        "text": "Saat"
+    },
+    {
+        "id": "dec_1spi_opt_chan_miso",
+        "text": "Ana giriş, bağımlı çıkış"
+    },
+    {
+        "id": "dec_1spi_opt_chan_mosi",
+        "text": "Ana çıkış, bağımlı giriş"
+    },
+    {
+        "id": "dec_1spi_opt_chan_cs",
+        "text": "Yonga seçimi"
+    },
+    {
+        "id": "dec_1spi_opt_cs_pol",
+        "text": "CS# polaritesi"
+    },
+    {
+        "id": "dec_1spi_opt_cpol",
+        "text": "Saat polaritesi (CPOL)"
+    },
+    {
+        "id": "dec_1spi_opt_cpha",
+        "text": "Saat fazı (CPHA)"
+    },
+    {
+        "id": "dec_1spi_opt_bitorder",
+        "text": "Bit sırası"
+    },
+    {
+        "id": "dec_1spi_opt_wordsize",
+        "text": "Kelime boyutu"
+    },
+    {
+        "id": "dec_1spi_opt_frame",
+        "text": "Çerçeve Çözücü"
+    },
+    {
+        "id": "dec_1uart_chan_rxtx",
+        "text": "UART alma/gönderme hattı"
+    },
+    {
+        "id": "dec_1uart_opt_baudrate",
+        "text": "Baud hızı"
+    },
+    {
+        "id": "dec_1uart_opt_num_data_bits",
+        "text": "Veri bitleri"
+    },
+    {
+        "id": "dec_1uart_opt_parity_type",
+        "text": "Eşlik türü"
+    },
+    {
+        "id": "dec_1uart_opt_parity_check",
+        "text": "Eşlik denetlensin mi?"
+    },
+    {
+        "id": "dec_1uart_opt_num_stop_bits",
+        "text": "Dur bitleri"
+    },
+    {
+        "id": "dec_1uart_opt_bit_order",
+        "text": "Bit sırası"
+    },
+    {
+        "id": "dec_1uart_opt_format",
+        "text": "Veri biçimi"
+    },
+    {
+        "id": "dec_1uart_opt_invert",
+        "text": "Sinyal ters çevrilsin mi?"
+    },
+    {
+        "id": "dec_1uart_anno_startstop",
+        "text": "Başla/Dur gösterilsin mi?"
+    }
+]

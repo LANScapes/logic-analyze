@@ -1,0 +1,334 @@
+[
+    {
+        "id": "dec_ac97_chan_sync",
+        "text": "Синхронизация кадров"
+    },
+    {
+        "id": "dec_ac97_chan_clk",
+        "text": "Тактовый сигнал битов данных"
+    },
+    {
+        "id": "dec_ac97_opt_chan_out",
+        "text": "Выход данных"
+    },
+    {
+        "id": "dec_ac97_opt_chan_in",
+        "text": "Вход данных"
+    },
+    {
+        "id": "dec_ac97_opt_chan_rst",
+        "text": "Линия сброса"
+    },
+    {
+        "id": "dec_ad79x0_opt_vref",
+        "text": "Опорное напряжение (V)"
+    },
+    {
+        "id": "dec_am230x_chan_sda",
+        "text": "Однопроводная линия последовательных данных"
+    },
+    {
+        "id": "dec_am230x_opt_device",
+        "text": "Тип устройства"
+    },
+    {
+        "id": "dec_amulet_ascii_opt_ms_chan",
+        "text": "Канал ведущий -> ведомый"
+    },
+    {
+        "id": "dec_amulet_ascii_opt_sm_chan",
+        "text": "Канал ведомый -> ведущий"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_objdump",
+        "text": "Путь к objdump"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_objdump_opts",
+        "text": "Параметры objdump"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_elffile",
+        "text": "Путь к .elf"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_branch_enc",
+        "text": "Кодирование ветвлений"
+    },
+    {
+        "id": "dec_arm_itm_opt_objdump",
+        "text": "Путь к objdump"
+    },
+    {
+        "id": "dec_arm_itm_opt_objdump_opts",
+        "text": "Параметры objdump"
+    },
+    {
+        "id": "dec_arm_itm_opt_elffile",
+        "text": "Путь к .elf"
+    },
+    {
+        "id": "dec_arm_tpiu_opt_stream",
+        "text": "Индекс потока"
+    },
+    {
+        "id": "dec_arm_tpiu_sync_offset",
+        "text": "Начальное смещение синхронизации"
+    },
+    {
+        "id": "dec_aud_chan_audck",
+        "text": "Тактовый сигнал AUD"
+    },
+    {
+        "id": "dec_aud_chan_naudsync",
+        "text": "Синхронизация AUD"
+    },
+    {
+        "id": "dec_aud_chan_audata3",
+        "text": "Линия данных AUD 3"
+    },
+    {
+        "id": "dec_aud_chan_audata2",
+        "text": "Линия данных AUD 2"
+    },
+    {
+        "id": "dec_aud_chan_audata1",
+        "text": "Линия данных AUD 1"
+    },
+    {
+        "id": "dec_aud_chan_audata0",
+        "text": "Линия данных AUD 0"
+    },
+    {
+        "id": "dec_avr_pdi_chan_reset",
+        "text": "RESET / PDI_CLK"
+    },
+    {
+        "id": "dec_avr_pdi_chan_data",
+        "text": "PDI_DATA"
+    },
+    {
+        "id": "dec_c2_chan_c2ck",
+        "text": "Тактовый сигнал"
+    },
+    {
+        "id": "dec_c2_chan_c2d",
+        "text": "Данные"
+    },
+    {
+        "id": "dec_caliper_chan_clk",
+        "text": "Линия тактового сигнала"
+    },
+    {
+        "id": "dec_caliper_chan_data",
+        "text": "Линия данных"
+    },
+    {
+        "id": "dec_caliper_opt_timeout_ms",
+        "text": "Тайм-аут пакета в ms, 0 — отключить"
+    },
+    {
+        "id": "dec_caliper_opt_unit",
+        "text": "Преобразовать единицы"
+    },
+    {
+        "id": "dec_caliper_opt_changes",
+        "text": "Только изменения"
+    },
+    {
+        "id": "dec_can_chan_can_rx",
+        "text": "Линия шины CAN FD"
+    },
+    {
+        "id": "dec_can_opt_bitrate",
+        "text": "Битовая скорость (бит/с)"
+    },
+    {
+        "id": "dec_can_opt_nominal_bitrate",
+        "text": "Номинальная битовая скорость (бит/с)"
+    },
+    {
+        "id": "dec_can_opt_fast_bitrate",
+        "text": "Быстрая битовая скорость (бит/с)"
+    },
+    {
+        "id": "dec_can_opt_sample_point",
+        "text": "Точка выборки (%)"
+    },
+    {
+        "id": "dec_cec_chan_cec",
+        "text": "Данные шины CEC"
+    },
+    {
+        "id": "dec_1uart_chan_rxtx",
+        "text": "Линия приёма/передачи UART"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tdi",
+        "text": "Вход тестовых данных"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tdo",
+        "text": "Выход тестовых данных"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tck",
+        "text": "Тестовый тактовый сигнал"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tms",
+        "text": "Выбор режима теста"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_trst",
+        "text": "Сброс теста"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_srst",
+        "text": "Системный сброс"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_rtck",
+        "text": "Возвратный тактовый сигнал"
+    },
+    {
+        "id": "dec_counter_chan_data",
+        "text": "Линия данных"
+    },
+    {
+        "id": "dec_counter_opt_chan_reset",
+        "text": "Линия сброса"
+    },
+    {
+        "id": "dec_counter_opt_data_edge",
+        "text": "Считаемые перепады (данные)"
+    },
+    {
+        "id": "dec_counter_opt_divider",
+        "text": "Делитель счёта (ширина слова)"
+    },
+    {
+        "id": "dec_counter_opt_reset_edge",
+        "text": "Перепад, сбрасывающий счётчики (сброс)"
+    },
+    {
+        "id": "dec_counter_opt_edge_off",
+        "text": "Значение счётчика перепадов после старта/сброса"
+    },
+    {
+        "id": "dec_counter_opt_word_off",
+        "text": "Значение счётчика слов после старта/сброса"
+    },
+    {
+        "id": "dec_counter_opt_dead_cycles",
+        "text": "Игнорировать столько перепадов после сброса"
+    },
+    {
+        "id": "dec_counter_opt_start_with_reset",
+        "text": "Считать, что декодирование начинается со сброса"
+    },
+    {
+        "id": "dec_dali_chan_dali",
+        "text": "Линия данных DALI"
+    },
+    {
+        "id": "dec_dali_opt_polarity",
+        "text": "Полярность"
+    },
+    {
+        "id": "dec_dcf77_chan_data",
+        "text": "Линия DATA"
+    },
+    {
+        "id": "dec_dmx512_chan_dmx",
+        "text": "Любая линия данных DMX"
+    },
+    {
+        "id": "dec_dmx512_opt_invert",
+        "text": "Инвертировать сигнал?"
+    },
+    {
+        "id": "dec_dsi_chan_dsi",
+        "text": "Линия данных DSI"
+    },
+    {
+        "id": "dec_dsi_opt_polarity",
+        "text": "Полярность"
+    },
+    {
+        "id": "dec_eeprom24xx_opt_chip",
+        "text": "Микросхема"
+    },
+    {
+        "id": "dec_eeprom24xx_opt_addr_counter",
+        "text": "Начальное значение счётчика адреса"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_addresssize",
+        "text": "Размер адреса"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_wordsize",
+        "text": "Размер слова"
+    },
+    {
+        "id": "dec_em4100_chan_data",
+        "text": "Линия данных"
+    },
+    {
+        "id": "dec_em4100_opt_polarity",
+        "text": "Полярность"
+    },
+    {
+        "id": "dec_em4100_opt_datarate",
+        "text": "Скорость передачи данных"
+    },
+    {
+        "id": "dec_em4100_opt_coilfreq",
+        "text": "Частота катушки"
+    },
+    {
+        "id": "dec_em4305_chan_data",
+        "text": "Линия данных"
+    },
+    {
+        "id": "dec_em4305_opt_coilfreq",
+        "text": "Частота катушки"
+    },
+    {
+        "id": "dec_em4305_opt_first_field_stop",
+        "text": "Мин. первая пауза поля"
+    },
+    {
+        "id": "dec_em4305_opt_w_gap",
+        "text": "Мин. промежуток записи"
+    },
+    {
+        "id": "dec_em4305_opt_w_one_max",
+        "text": "Макс. запись единицы"
+    },
+    {
+        "id": "dec_em4305_opt_w_zero_on_min",
+        "text": "Мин. вкл. при записи нуля"
+    },
+    {
+        "id": "dec_em4305_opt_w_zero_off_max",
+        "text": "Макс. выкл. при записи нуля"
+    },
+    {
+        "id": "dec_em4305_opt_em4100_decode",
+        "text": "Декодирование EM4100"
+    },
+    {
+        "id": "dec_eth_an_chan_dp",
+        "text": "Сигнал ETH TX+"
+    },
+    {
+        "id": "dec_can_opt_data_order",
+        "text": "Порядок данных"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_format",
+        "text": "Формат данных"
+    }
+]

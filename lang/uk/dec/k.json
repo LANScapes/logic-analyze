@@ -1,0 +1,278 @@
+[
+    {
+        "id": "dec_lfast_chan_data",
+        "text": "TXP або RXP"
+    },
+    {
+        "id": "dec_lin_opt_version",
+        "text": "Версія протоколу"
+    },
+    {
+        "id": "dec_lm75_opt_sensor",
+        "text": "Тип датчика"
+    },
+    {
+        "id": "dec_lm75_opt_resolution",
+        "text": "Роздільна здатність (біт)"
+    },
+    {
+        "id": "dec_lpc_chan_lframe",
+        "text": "Кадр"
+    },
+    {
+        "id": "dec_lpc_chan_lclk",
+        "text": "Тактовий сигнал"
+    },
+    {
+        "id": "dec_lpc_chan_lad0",
+        "text": "Адреса/керування/дані 0"
+    },
+    {
+        "id": "dec_lpc_chan_lad1",
+        "text": "Адреса/керування/дані 1"
+    },
+    {
+        "id": "dec_lpc_chan_lad2",
+        "text": "Адреса/керування/дані 2"
+    },
+    {
+        "id": "dec_lpc_chan_lad3",
+        "text": "Адреса/керування/дані 3"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lreset",
+        "text": "Скидання"
+    },
+    {
+        "id": "dec_lpc_opt_chan_ldrq",
+        "text": "Закодований запит DMA / ведучого шини"
+    },
+    {
+        "id": "dec_lpc_opt_chan_serirq",
+        "text": "Послідовний IRQ"
+    },
+    {
+        "id": "dec_lpc_opt_chan_clkrun",
+        "text": "Робота тактування (CLKRUN)"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lpme",
+        "text": "Подія керування живленням LPC"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lpcpd",
+        "text": "Вимкнення живлення"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lsmi",
+        "text": "Переривання керування системою"
+    },
+    {
+        "id": "dec_ltc26x7_opt_chip",
+        "text": "Мікросхема"
+    },
+    {
+        "id": "dec_ltc26x7_opt_vref",
+        "text": "Опорна напруга (V)"
+    },
+    {
+        "id": "dec_ltc242x_opt_vref",
+        "text": "Опорна напруга (V)"
+    },
+    {
+        "id": "dec_maple_bus_chan_sdcka",
+        "text": "Лінія даних/тактування A"
+    },
+    {
+        "id": "dec_maple_bus_chan_sdckb",
+        "text": "Лінія даних/тактування B"
+    },
+    {
+        "id": "dec_mcs48_chan_ale",
+        "text": "Дозвіл фіксації адреси"
+    },
+    {
+        "id": "dec_mcs48_chan_psen",
+        "text": "Дозвіл пам'яті програм"
+    },
+    {
+        "id": "dec_mdio_chan_mdc",
+        "text": "Тактовий сигнал"
+    },
+    {
+        "id": "dec_mdio_chan_mdio",
+        "text": "Дані"
+    },
+    {
+        "id": "dec_mdio_opt_show_debug_bits",
+        "text": "Показувати налагоджувальні біти"
+    },
+    {
+        "id": "dec_mdio_opt_read_edge",
+        "text": "Перепад читання"
+    },
+    {
+        "id": "dec_microwire_chan_cs",
+        "text": "Вибір кристала"
+    },
+    {
+        "id": "dec_microwire_chan_sk",
+        "text": "Тактовий сигнал"
+    },
+    {
+        "id": "dec_microwire_chan_si",
+        "text": "Вхід веденого"
+    },
+    {
+        "id": "dec_microwire_chan_so",
+        "text": "Вихід веденого"
+    },
+    {
+        "id": "dec_miller_chan_data",
+        "text": "Сигнал даних"
+    },
+    {
+        "id": "dec_miller_opt_baudrate",
+        "text": "Швидкість (бод)"
+    },
+    {
+        "id": "dec_miller_opt_edge",
+        "text": "Перепад"
+    },
+    {
+        "id": "dec_mipi_dsi_chan_D0N",
+        "text": "LP дані 0 від'ємн."
+    },
+    {
+        "id": "dec_mipi_dsi_chan_D0P",
+        "text": "LP дані 0 додатн."
+    },
+    {
+        "id": "dec_mipi_rffe_chan_sclk",
+        "text": "Лінія послідовного тактування"
+    },
+    {
+        "id": "dec_mipi_rffe_chan_sdata",
+        "text": "Лінія послідовних даних"
+    },
+    {
+        "id": "dec_mipi_rffe_opt_error_display",
+        "text": "Параметри відображення помилок"
+    },
+    {
+        "id": "dec_morse_chan_data",
+        "text": "Лінія даних"
+    },
+    {
+        "id": "dec_morse_opt_timeunit",
+        "text": "Одиниця часу (оцінка)"
+    },
+    {
+        "id": "dec_nes_gamepad_opt_variant",
+        "text": "Варіант геймпада"
+    },
+    {
+        "id": "dec_nrf24l01_opt_chip",
+        "text": "Тип мікросхеми"
+    },
+    {
+        "id": "dec_numbers_and_state_chan_clk",
+        "text": "Тактовий сигнал"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_clkedge",
+        "text": "Перепад такту"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_count",
+        "text": "Загальна кількість бітів"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_interp",
+        "text": "Інтерпретація"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_fracbits",
+        "text": "Кількість дробових бітів"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_mapping",
+        "text": "Файл відповідності переліку тексту"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_format",
+        "text": "Формат чисел"
+    },
+    {
+        "id": "dec_onewire_link_chan_owr",
+        "text": "Сигнальна лінія 1-Wire"
+    },
+    {
+        "id": "dec_onewire_link_opt_overdrive",
+        "text": "Почати на швидкості overdrive"
+    },
+    {
+        "id": "dec_ook_chan_data",
+        "text": "Лінія даних"
+    },
+    {
+        "id": "dec_ook_opt_invert",
+        "text": "Інвертувати дані"
+    },
+    {
+        "id": "dec_ook_opt_decodeas",
+        "text": "Тип декодування"
+    },
+    {
+        "id": "dec_ook_opt_preamble",
+        "text": "Преамбула"
+    },
+    {
+        "id": "dec_ook_opt_preamlen",
+        "text": "Довжина фільтра"
+    },
+    {
+        "id": "dec_ook_opt_diffmanvar",
+        "text": "Перехід на початку"
+    },
+    {
+        "id": "dec_ook_oregon_opt_unknown",
+        "text": "Невідомий тип вважати"
+    },
+    {
+        "id": "dec_ook_vis_opt_displayas",
+        "text": "Показувати як"
+    },
+    {
+        "id": "dec_ook_vis_opt_synclen",
+        "text": "Довжина синхронізації"
+    },
+    {
+        "id": "dec_ook_vis_opt_syncoffset",
+        "text": "Зміщення синхронізації"
+    },
+    {
+        "id": "dec_ook_vis_opt_refsample",
+        "text": "Порівняння"
+    },
+    {
+        "id": "dec_onewire_link_opt_min_height_level_pulse_time",
+        "text": "мін. тривалість імпульсу високого рівня (us)"
+    },
+    {
+        "id": "dec_onewire_link_opt_min_overdrive_height_level_pulse_time",
+        "text": "мін. тривалість імпульсу високого рівня в режимі overdrive (us)"
+    },
+    {
+        "id": "dec_modbus_opt_scchannel",
+        "text": "Канал сервер -> клієнт"
+    },
+    {
+        "id": "dec_modbus_opt_cschannel",
+        "text": "Канал клієнт -> сервер"
+    },
+    {
+        "id": "dec_modbus_opt_framegap",
+        "text": "Міжкадровий проміжок у бітах"
+    }
+]

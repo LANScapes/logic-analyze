@@ -1,4 +1,4 @@
-[   
+[
     {
         "id": "IDS_DEVICE_MODE_LOGIC",
         "text": "&Logic Analyzer"
@@ -22,6 +22,10 @@
     {
         "id": "IDS_TOOLBAR_DEVICE_OPTION",
         "text": "&Options"
+    },
+    {
+        "id": "IDS_TOOLBAR_DEVICE_OPTION_ITEM",
+        "text": "Device Options..."
     },
     {
         "id": "IDS_TOOLBAR_CAPTURE_MODE",
@@ -90,7 +94,7 @@
     {
         "id": "IDS_TOOLBAR_DISPLAY",
         "text": "Dis&play"
-    },    
+    },
     {
         "id": "IDS_TOOLBAR_DISPLAY_THEMES",
         "text": "&Themes"
@@ -106,7 +110,7 @@
     {
         "id": "IDS_TOOLBAR_DISPLAY_THEMES_LIGHT",
         "text": "&Light"
-    },  
+    },
     {
         "id": "IDS_TOOLBAR_DISPLAY_OPTIONS",
         "text": "&Options"
@@ -156,14 +160,6 @@
         "text": "&Language"
     },
     {
-        "id": "IDS_TOOLBAR_HELP_LANG_EN",
-        "text": "&English"
-    },
-    {
-        "id": "IDS_TOOLBAR_HELP_LANG_CN",
-        "text": "中文(&C)"
-    },  
-    {
         "id": "IDS_TOOLBAR_HELP_ABOUT",
         "text": "&About..."
     },
@@ -183,9 +179,4 @@
         "id": "IDS_TOOLBAR_HELP_LOG",
         "text": "L&og Options"
     }
-
-
-    
-
-    
 ]

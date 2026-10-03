@@ -1,0 +1,334 @@
+[
+    {
+        "id": "dec_ac97_chan_sync",
+        "text": "Çerçeve senkronizasyonu"
+    },
+    {
+        "id": "dec_ac97_chan_clk",
+        "text": "Veri biti saati"
+    },
+    {
+        "id": "dec_ac97_opt_chan_out",
+        "text": "Veri çıkışı"
+    },
+    {
+        "id": "dec_ac97_opt_chan_in",
+        "text": "Veri girişi"
+    },
+    {
+        "id": "dec_ac97_opt_chan_rst",
+        "text": "Sıfırlama hattı"
+    },
+    {
+        "id": "dec_ad79x0_opt_vref",
+        "text": "Referans gerilimi (V)"
+    },
+    {
+        "id": "dec_am230x_chan_sda",
+        "text": "Tek telli seri veri hattı"
+    },
+    {
+        "id": "dec_am230x_opt_device",
+        "text": "Cihaz türü"
+    },
+    {
+        "id": "dec_amulet_ascii_opt_ms_chan",
+        "text": "Ana -> bağımlı kanalı"
+    },
+    {
+        "id": "dec_amulet_ascii_opt_sm_chan",
+        "text": "Bağımlı -> ana kanalı"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_objdump",
+        "text": "objdump yolu"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_objdump_opts",
+        "text": "objdump seçenekleri"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_elffile",
+        "text": ".elf yolu"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_branch_enc",
+        "text": "Dallanma kodlaması"
+    },
+    {
+        "id": "dec_arm_itm_opt_objdump",
+        "text": "objdump yolu"
+    },
+    {
+        "id": "dec_arm_itm_opt_objdump_opts",
+        "text": "objdump seçenekleri"
+    },
+    {
+        "id": "dec_arm_itm_opt_elffile",
+        "text": ".elf yolu"
+    },
+    {
+        "id": "dec_arm_tpiu_opt_stream",
+        "text": "Akış dizini"
+    },
+    {
+        "id": "dec_arm_tpiu_sync_offset",
+        "text": "Başlangıç senkronizasyon ofseti"
+    },
+    {
+        "id": "dec_aud_chan_audck",
+        "text": "AUD saati"
+    },
+    {
+        "id": "dec_aud_chan_naudsync",
+        "text": "AUD senkronizasyonu"
+    },
+    {
+        "id": "dec_aud_chan_audata3",
+        "text": "AUD veri hattı 3"
+    },
+    {
+        "id": "dec_aud_chan_audata2",
+        "text": "AUD veri hattı 2"
+    },
+    {
+        "id": "dec_aud_chan_audata1",
+        "text": "AUD veri hattı 1"
+    },
+    {
+        "id": "dec_aud_chan_audata0",
+        "text": "AUD veri hattı 0"
+    },
+    {
+        "id": "dec_avr_pdi_chan_reset",
+        "text": "RESET / PDI_CLK"
+    },
+    {
+        "id": "dec_avr_pdi_chan_data",
+        "text": "PDI_DATA"
+    },
+    {
+        "id": "dec_c2_chan_c2ck",
+        "text": "Saat"
+    },
+    {
+        "id": "dec_c2_chan_c2d",
+        "text": "Veri"
+    },
+    {
+        "id": "dec_caliper_chan_clk",
+        "text": "Seri saat hattı"
+    },
+    {
+        "id": "dec_caliper_chan_data",
+        "text": "Seri veri hattı"
+    },
+    {
+        "id": "dec_caliper_opt_timeout_ms",
+        "text": "Paket zaman aşımı (ms), 0 ise devre dışı"
+    },
+    {
+        "id": "dec_caliper_opt_unit",
+        "text": "Birimleri dönüştür"
+    },
+    {
+        "id": "dec_caliper_opt_changes",
+        "text": "Yalnızca değişiklikler"
+    },
+    {
+        "id": "dec_can_chan_can_rx",
+        "text": "CAN FD veri yolu hattı"
+    },
+    {
+        "id": "dec_can_opt_bitrate",
+        "text": "Bit hızı (bit/s)"
+    },
+    {
+        "id": "dec_can_opt_nominal_bitrate",
+        "text": "Nominal bit hızı (bit/s)"
+    },
+    {
+        "id": "dec_can_opt_fast_bitrate",
+        "text": "Hızlı bit hızı (bit/s)"
+    },
+    {
+        "id": "dec_can_opt_sample_point",
+        "text": "Örnekleme noktası (%)"
+    },
+    {
+        "id": "dec_cec_chan_cec",
+        "text": "CEC veri yolu verisi"
+    },
+    {
+        "id": "dec_1uart_chan_rxtx",
+        "text": "UART alma/gönderme hattı"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tdi",
+        "text": "Test veri girişi"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tdo",
+        "text": "Test veri çıkışı"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tck",
+        "text": "Test saati"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tms",
+        "text": "Test modu seçimi"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_trst",
+        "text": "Test sıfırlama"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_srst",
+        "text": "Sistem sıfırlama"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_rtck",
+        "text": "Dönüş saat sinyali"
+    },
+    {
+        "id": "dec_counter_chan_data",
+        "text": "Veri hattı"
+    },
+    {
+        "id": "dec_counter_opt_chan_reset",
+        "text": "Sıfırlama hattı"
+    },
+    {
+        "id": "dec_counter_opt_data_edge",
+        "text": "Sayılacak kenarlar (veri)"
+    },
+    {
+        "id": "dec_counter_opt_divider",
+        "text": "Sayma böleni (kelime genişliği)"
+    },
+    {
+        "id": "dec_counter_opt_reset_edge",
+        "text": "Sayaçları temizleyen kenar (sıfırlama)"
+    },
+    {
+        "id": "dec_counter_opt_edge_off",
+        "text": "Başlatma/sıfırlama sonrası kenar sayacı değeri"
+    },
+    {
+        "id": "dec_counter_opt_word_off",
+        "text": "Başlatma/sıfırlama sonrası kelime sayacı değeri"
+    },
+    {
+        "id": "dec_counter_opt_dead_cycles",
+        "text": "Sıfırlamadan sonra yoksayılacak kenar sayısı"
+    },
+    {
+        "id": "dec_counter_opt_start_with_reset",
+        "text": "Kod çözmenin sıfırlamayla başladığını varsay"
+    },
+    {
+        "id": "dec_dali_chan_dali",
+        "text": "DALI veri hattı"
+    },
+    {
+        "id": "dec_dali_opt_polarity",
+        "text": "Polarite"
+    },
+    {
+        "id": "dec_dcf77_chan_data",
+        "text": "DATA hattı"
+    },
+    {
+        "id": "dec_dmx512_chan_dmx",
+        "text": "Herhangi bir DMX veri hattı"
+    },
+    {
+        "id": "dec_dmx512_opt_invert",
+        "text": "Sinyal ters çevrilsin mi?"
+    },
+    {
+        "id": "dec_dsi_chan_dsi",
+        "text": "DSI veri hattı"
+    },
+    {
+        "id": "dec_dsi_opt_polarity",
+        "text": "Polarite"
+    },
+    {
+        "id": "dec_eeprom24xx_opt_chip",
+        "text": "Yonga"
+    },
+    {
+        "id": "dec_eeprom24xx_opt_addr_counter",
+        "text": "Başlangıç adres sayacı değeri"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_addresssize",
+        "text": "Adres boyutu"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_wordsize",
+        "text": "Kelime boyutu"
+    },
+    {
+        "id": "dec_em4100_chan_data",
+        "text": "Veri hattı"
+    },
+    {
+        "id": "dec_em4100_opt_polarity",
+        "text": "Polarite"
+    },
+    {
+        "id": "dec_em4100_opt_datarate",
+        "text": "Veri hızı"
+    },
+    {
+        "id": "dec_em4100_opt_coilfreq",
+        "text": "Bobin frekansı"
+    },
+    {
+        "id": "dec_em4305_chan_data",
+        "text": "Veri hattı"
+    },
+    {
+        "id": "dec_em4305_opt_coilfreq",
+        "text": "Bobin frekansı"
+    },
+    {
+        "id": "dec_em4305_opt_first_field_stop",
+        "text": "İlk alan durdurma min"
+    },
+    {
+        "id": "dec_em4305_opt_w_gap",
+        "text": "Yazma aralığı min"
+    },
+    {
+        "id": "dec_em4305_opt_w_one_max",
+        "text": "Bir yazma maks"
+    },
+    {
+        "id": "dec_em4305_opt_w_zero_on_min",
+        "text": "Sıfır yazma açık min"
+    },
+    {
+        "id": "dec_em4305_opt_w_zero_off_max",
+        "text": "Sıfır yazma kapalı maks"
+    },
+    {
+        "id": "dec_em4305_opt_em4100_decode",
+        "text": "EM4100 kod çözme"
+    },
+    {
+        "id": "dec_eth_an_chan_dp",
+        "text": "ETH TX+ sinyali"
+    },
+    {
+        "id": "dec_can_opt_data_order",
+        "text": "Veri sırası"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_format",
+        "text": "Veri biçimi"
+    }
+]
