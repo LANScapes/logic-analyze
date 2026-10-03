@@ -1570,15 +1570,34 @@ namespace pv
         openDoc();
     }
 
+    // The manual is manual/<code>/index.html in the data directory. <code> is the
+    // folder name of the UI language under lang/, as a language tag: "cn" is
+    // "zh-CN" and "pt_BR" is "pt-BR". English is the fallback, then the PDF guides.
+    static QString manual_path(const QDir &dir, int lan)
+    {
+        QStringList codes;
+        for (const lang_key_item &item : lang_id_keys){
+            if (item.id == lan){
+                QString key = QString::fromLatin1(item.name);
+                codes << (key == "cn" ? QString("zh-CN") : key.replace('_', '-'));
+            }
+        }
+        codes << "en";
+
+        for (const QString &code : codes){
+            QString path = dir.absoluteFilePath("manual/" + code + "/index.html");
+            if (QFile::exists(path))
+                return path;
+        }
+        QString pdf = dir.absoluteFilePath("ug" + QString::number(lan) + ".pdf");
+        return QFile::exists(pdf) ? pdf : dir.absoluteFilePath("ug31.pdf");
+    }
+
     void MainWindow::openDoc()
     {
         QDir dir(GetAppDataDir());
         AppConfig &app = AppConfig::Instance();
-        int lan = app.frameOptions.language;
-        if (!QFile::exists(dir.absolutePath() + "/ug" + QString::number(lan) + ".pdf"))
-            lan = LAN_EN; // no manual in this language
-        QDesktopServices::openUrl(
-            QUrl("file:///" + dir.absolutePath() + "/ug" + QString::number(lan) + ".pdf"));
+        QDesktopServices::openUrl(QUrl::fromLocalFile(manual_path(dir, app.frameOptions.language)));
     }
 
     void MainWindow::update_capture()

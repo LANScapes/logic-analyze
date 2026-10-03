@@ -1,0 +1,14 @@
+{
+  "html_lang": "vi",
+  "name": "Tiếng Việt",
+  "title": "Hướng dẫn sử dụng Logic Analyze",
+  "subtitle": "Cho máy phân tích logic DSLogic. Viết ngắn gọn theo nguyên tắc ASD-STE100 Simplified Technical English.",
+  "footer": "Logic Analyze là phần mềm tự do theo Giấy phép Công cộng GNU, phiên bản 3 trở lên. Hướng dẫn này dựa trên Hướng dẫn sử dụng DSView của DreamSourceLab.",
+  "labels": {
+    "contents": "Mục lục",
+    "figure": "Hình",
+    "warning": "CẢNH BÁO",
+    "caution": "THẬN TRỌNG",
+    "note": "LƯU Ý"
+  }
+}

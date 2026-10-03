@@ -1,0 +1,64 @@
+# Project term list for tools/manual/ste_check.py.
+#
+# ASD-STE100 lets you use technical nouns (rule 1.5) and technical verbs
+# (rule 1.12) that are not in its dictionary. This file lists the ones that the
+# Logic Analyze manual uses. Add a word only if it is a name of an item, a
+# function or a unit in this subject field. Do not add a general word to
+# avoid an approved alternative.
+#
+# Format: words, then "# v" for a technical verb or "# n" for a technical noun.
+
+# Technical verbs: computer processes (rule 1.12, category 2)
+click double-click right-click        # v input
+drag scroll type press enter          # v input
+open close save load export delete    # v user interface
+enable disable select clear erase     # v user interface
+zoom                                  # v user interface ("zoom in", "zoom out")
+install download update upload quit   # v system operations
+extract                               # v system operations (archive)
+calibrate                             # v measurement
+# Technical verbs: signal processing (rule 1.12, category 3a)
+capture sample trigger decode compress encode   # v
+
+# Technical nouns: computer and user interface (rule 1.5, category 6)
+app program software computer Mac file folder window menu toolbar   # n
+dock panel tab button field list label pointer mouse wheel key keyboard  # n
+screen text line page title bar grip icon image theme language log     # n
+setting option session format extension path column row box check     # n
+shortcut focus link browser release version library libraries        # n
+firmware driver decoder script command output input tool bundle       # n
+JSON PNG JPEG CSV TXT ZIP PDF HTML USB API                            # n
+# Technical nouns: electronics and measurement (rule 1.5, categories 6 and 7)
+analyzer oscilloscope probe channel signal waveform frequency period    # n
+voltage threshold ground circuit bus clock pulse edge sample rate        # n
+cursor ruler trigger protocol frame frames byte bytes bit bits baud     # n
+memory buffer stream noise spectrum gain offset attenuation coupling   # n
+bandwidth hexadecimal identifier registry descriptor pipe hub port mains # n
+calibration resolution amplitude division knob slider sensor duty cycle # n
+encoding run-length shift register status exit error JSON object       # n
+percentage millisecond microsecond nanosecond                           # n
+Hz kHz MHz GHz Mbit                                                     # n units
+# Multi-word technical nouns whose parts are not in the dictionary
+logic             # n "logic analyzer", "logic voltage"
+main              # n only in "main window"
+rising falling    # n only in "rising edge", "falling edge" (rule 3.5 modifier)
+stage stages      # n trigger stage
+serial            # n "serial bus", "serial trigger"
+demo instant      # n "demo device", "instant capture"
+cable wire wires connector clip tip switch indicator power model hardware  # n parts
+measurement measurements scale message messages character characters flag  # n
+current reset compression binary prefix pattern region formula  # n
+least significant  # n only in "least significant bit"
+temperature humidity  # n physical quantities
+death              # n safety instructions (rule 7.1 examples)
+web project issue release notes specification environment variable descriptor  # n software
+user interface     # n "user interface"
+second seconds minute minutes hour hours day   # n units of time (rule 1.5, category 9)
+macOS Finder Launchpad sigrok srzip dslcap Gnuplot GTKWave PulseView DSView DreamSourceLab LANScapes  # n names
+duration acquisition       # n "sample duration", "data acquisition"
+search                     # n the search function (use "find" for the verb)
+single repetitive loop     # n capture modes
+simple advanced            # n trigger types
+technical sentence verb verbs   # n only in "technical name", "technical verb"; "sentence" in the writing rules
+red green               # n indicator colors
+shield chapter spreadsheet   # n
