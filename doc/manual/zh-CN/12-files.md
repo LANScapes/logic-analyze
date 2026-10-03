@@ -71,8 +71,7 @@
 
 在示波器模式和数据记录仪模式下，只能使用 CSV。
 
-![CSV 的导出窗口](../figures/export-csv.png)
-<!-- TODO: new screenshot -->
+![CSV 的导出窗口](../figures/zh-CN/export-csv.png)
 
 ## 保存窗口的图像
 

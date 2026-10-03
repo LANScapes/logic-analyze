@@ -30,8 +30,7 @@ Arama, kanallarda seviyelerden ve kenarlardan oluşan bir desen bulur.
 4. **Tamam** düğmesine tıklayın.
 5. Önceki sonuca veya sonraki sonuca gitmek için arama çubuğundaki ok düğmelerine tıklayın.
 
-![Arama Seçenekleri penceresi](../figures/search-options.png)
-<!-- TODO: new screenshot -->
+![Arama Seçenekleri penceresi](../figures/tr/search-options.png)
 
 Örneğin kanal 0 için `C`, diğer tüm kanallar için `X` yazın. Arama bu durumda kanal 0'daki her kenarı bulur.
 

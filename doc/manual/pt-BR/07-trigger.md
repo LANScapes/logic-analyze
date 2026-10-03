@@ -78,8 +78,7 @@ Cada estágio tem estas configurações:
 - **Contador**: O número de vezes que a condição deve ocorrer antes de o estágio estar completo.
 - **Contíguo**: Quando você seleciona esta caixa de seleção, a condição deve ocorrer em amostras seguidas, sem interrupção.
 
-![As configurações do gatilho por estágios](../figures/stage-trigger-panel.png)
-<!-- TODO: new screenshot -->
+![As configurações do gatilho por estágios](../figures/pt-BR/stage-trigger-panel.png)
 
 Para definir um gatilho por estágios, faça estes passos:
 
@@ -132,8 +131,7 @@ Um gatilho serial encontra um valor de dados em um barramento serial. Ele funcio
 
 Depois que o marcador de início ocorre, o dispositivo lê o canal de dados em cada marcador de clock. O dispositivo move esse bit para o registrador de deslocamento. Quando os últimos bits do registrador de deslocamento são iguais ao **Valor dos dados**, o gatilho ocorre. Quando o marcador de parada ocorre, o dispositivo limpa o registrador de deslocamento.
 
-![As configurações do gatilho serial](../figures/serial-trigger-panel.png)
-<!-- TODO: new screenshot -->
+![As configurações do gatilho serial](../figures/pt-BR/serial-trigger-panel.png)
 
 **Exemplo 4.** Gatilho quando o valor `010000100` ocorre em um barramento I2C. O canal 0 é SCL e o canal 1 é SDA.
 

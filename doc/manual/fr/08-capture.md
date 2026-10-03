@@ -54,8 +54,7 @@ Pour sélectionner le mode de capture, cliquez sur **Mode** dans la barre d'outi
 | **Répétitif** | Oui | Oui |
 | **Boucle** | Non | Oui |
 
-![Le menu des modes de capture](../figures/capture-mode-menu.png)
-<!-- TODO: new screenshot -->
+![Le menu des modes de capture](../figures/fr/capture-mode-menu.png)
 
 ### Unique
 

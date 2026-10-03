@@ -71,8 +71,7 @@ Mantık analizörü modunda şu biçimler kullanılabilir:
 
 Osiloskop modunda ve veri toplama modunda yalnızca CSV kullanılabilir.
 
-![CSV için dışa aktarma penceresi](../figures/export-csv.png)
-<!-- TODO: new screenshot -->
+![CSV için dışa aktarma penceresi](../figures/tr/export-csv.png)
 
 ## Pencerenin görüntüsünü kaydetme
 

@@ -11,8 +11,7 @@ Les paramètres de la fenêtre sont différents pour chaque modèle d'appareil. 
 > [!NOTE]
 > Vous ne pouvez pas changer les options de l'appareil pendant une capture.
 
-![La fenêtre Options de l'appareil](../figures/device-options.png)
-<!-- TODO: new screenshot -->
+![La fenêtre Options de l'appareil](../figures/fr/device-options.png)
 
 ## Mode de fonctionnement
 

@@ -11,8 +11,7 @@ Penceredeki ayarlar her cihaz modelinde farklıdır. Bu bölüm DSLogic Plus'ın
 > [!NOTE]
 > Yakalama sırasında cihaz seçeneklerini değiştiremezsiniz.
 
-![Cihaz Seçenekleri penceresi](../figures/device-options.png)
-<!-- TODO: new screenshot -->
+![Cihaz Seçenekleri penceresi](../figures/tr/device-options.png)
 
 ## Çalışma modu
 

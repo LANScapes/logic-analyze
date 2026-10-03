@@ -7,8 +7,7 @@
 - 解码器列表，顶部有 **解码器搜索** 输入框。
 - **解码结果** 列表。此列表把解码器的每一项显示为一行文本。
 
-![解码器停靠面板](../figures/decoder-dock.png)
-<!-- TODO: new screenshot -->
+![解码器停靠面板](../figures/zh-CN/decoder-dock.png)
 
 ## 添加解码器
 

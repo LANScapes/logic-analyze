@@ -11,8 +11,7 @@ As configurações da janela são diferentes para cada modelo de dispositivo. Es
 > [!NOTE]
 > Você não pode mudar as opções do dispositivo durante uma captura.
 
-![A janela Opções do dispositivo](../figures/device-options.png)
-<!-- TODO: new screenshot -->
+![A janela Opções do dispositivo](../figures/pt-BR/device-options.png)
 
 ## Modo de operação
 

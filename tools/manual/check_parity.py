@@ -22,6 +22,7 @@ def shape(path):
     code = re.findall(r'```.*?```', md, re.S)
     body = re.sub(r'```.*?```', '', md, flags=re.S)
     lines = body.split('\n')
+    lang = os.path.basename(os.path.dirname(path))
     return {
         'h1': sum(1 for l in lines if re.match(r'^# ', l)),
         'h2': sum(1 for l in lines if re.match(r'^## ', l)),
@@ -33,7 +34,9 @@ def shape(path):
         'CAUTION': body.count('[!CAUTION]'),
         'NOTE': body.count('[!NOTE]'),
         'TODO': body.count('TODO: new screenshot'),
-        'figures': re.findall(r'!\[[^\]]*\]\(([^)]+)\)', body),
+        # A figure in figures/<lang>/ shows the app in that language.
+        'figures': [f.replace(f'figures/{lang}/', 'figures/<lang>/')
+                    for f in re.findall(r'!\[[^\]]*\]\(([^)]+)\)', body)],
         'ids': re.findall(r'\{#([\w-]+)\}', body),
         'links': sorted(re.findall(r'\]\((\d\d-[\w-]+\.md|#[\w-]+)\)', body)),
         'code': code,

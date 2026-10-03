@@ -78,8 +78,7 @@ Each stage has these settings:
 - **Counter**: The number of times that the condition must occur before the stage is complete.
 - **Contiguous**: When you select this check box, the condition must occur in samples that follow each other without a break.
 
-![The stage trigger settings](../figures/stage-trigger-panel.png)
-<!-- TODO: new screenshot -->
+![The stage trigger settings](../figures/en/stage-trigger-panel.png)
 
 To set a stage trigger, do these steps:
 
@@ -132,8 +131,7 @@ A serial trigger finds a data value on a serial bus. It operates as a shift regi
 
 After the start flag occurs, the device reads the data channel at each clock flag. The device moves this bit into the shift register. When the last bits of the shift register are equal to **Data Value**, the trigger occurs. When the stop flag occurs, the device clears the shift register.
 
-![The serial trigger settings](../figures/serial-trigger-panel.png)
-<!-- TODO: new screenshot -->
+![The serial trigger settings](../figures/en/serial-trigger-panel.png)
 
 **Example 4.** Trigger when the value `010000100` occurs on an I2C bus. Channel 0 is SCL and channel 1 is SDA.
 

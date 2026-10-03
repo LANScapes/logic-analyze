@@ -54,8 +54,7 @@ Aby wybrać tryb rejestracji, kliknij **Tryb** na pasku narzędzi. Następnie wy
 | **Powtarzany** | Tak | Tak |
 | **Pętla** | Nie | Tak |
 
-![Menu trybów rejestracji](../figures/capture-mode-menu.png)
-<!-- TODO: new screenshot -->
+![Menu trybów rejestracji](../figures/pl/capture-mode-menu.png)
 
 ### Pojedynczy
 

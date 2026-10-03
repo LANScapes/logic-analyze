@@ -11,8 +11,7 @@
 > [!NOTE]
 > 캡처 중에는 장치 옵션을 변경할 수 없습니다.
 
-![장치 옵션 창](../figures/device-options.png)
-<!-- TODO: new screenshot -->
+![장치 옵션 창](../figures/ko/device-options.png)
 
 ## 작동 모드
 

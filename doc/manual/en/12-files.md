@@ -71,8 +71,7 @@ In logic analyzer mode, these formats are available:
 
 In oscilloscope mode and in data acquisition mode, only CSV is available.
 
-![The export window for CSV](../figures/export-csv.png)
-<!-- TODO: new screenshot -->
+![The export window for CSV](../figures/en/export-csv.png)
 
 ## Save an image of the window
 

@@ -71,8 +71,7 @@ W trybie analizatora logicznego są dostępne te formaty:
 
 W trybie oscyloskopu i w trybie akwizycji danych jest dostępny tylko format CSV.
 
-![Okno eksportu dla CSV](../figures/export-csv.png)
-<!-- TODO: new screenshot -->
+![Okno eksportu dla CSV](../figures/pl/export-csv.png)
 
 ## Zapisywanie obrazu okna
 

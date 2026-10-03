@@ -7,8 +7,7 @@ Pour ouvrir le panneau des décodeurs, cliquez sur **Décoder** dans la barre d'
 - La liste des décodeurs, avec le champ **Rechercher un décodeur...** en haut.
 - La liste **Résultats du décodage**. Cette liste affiche chaque élément du décodeur sur une ligne de texte.
 
-![Le panneau des décodeurs](../figures/decoder-dock.png)
-<!-- TODO: new screenshot -->
+![Le panneau des décodeurs](../figures/fr/decoder-dock.png)
 
 ## Ajouter un décodeur
 

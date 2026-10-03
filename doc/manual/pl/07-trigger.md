@@ -78,8 +78,7 @@ Każdy etap ma te ustawienia:
 - **Licznik**: Liczba wystąpień warunku, zanim etap się zakończy.
 - **Ciągły**: Gdy zaznaczysz to pole wyboru, warunek musi wystąpić w próbkach, które następują po sobie bez przerwy.
 
-![Ustawienia wyzwalania etapowego](../figures/stage-trigger-panel.png)
-<!-- TODO: new screenshot -->
+![Ustawienia wyzwalania etapowego](../figures/pl/stage-trigger-panel.png)
 
 Aby ustawić wyzwalanie etapowe, wykonaj te kroki:
 
@@ -132,8 +131,7 @@ Wyzwalanie szeregowe znajduje wartość danych na magistrali szeregowej. Działa
 
 Po fladze startu urządzenie odczytuje kanał danych przy każdej fladze zegara. Urządzenie przesuwa ten bit do rejestru przesuwnego. Gdy ostatnie bity rejestru przesuwnego są równe wartości z pola **Wartość danych**, następuje wyzwolenie. Gdy wystąpi flaga stopu, urządzenie czyści rejestr przesuwny.
 
-![Ustawienia wyzwalania szeregowego](../figures/serial-trigger-panel.png)
-<!-- TODO: new screenshot -->
+![Ustawienia wyzwalania szeregowego](../figures/pl/serial-trigger-panel.png)
 
 **Przykład 4.** Wyzwolenie, gdy na magistrali I2C wystąpi wartość `010000100`. Kanał 0 to SCL, a kanał 1 to SDA.
 

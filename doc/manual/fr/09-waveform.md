@@ -30,8 +30,7 @@ La recherche trouve un motif de niveaux et de fronts sur les voies.
 4. Cliquez sur **OK**.
 5. Cliquez sur les boutons fléchés de la barre de recherche pour aller au résultat précédent ou au résultat suivant.
 
-![La fenêtre Options de recherche](../figures/search-options.png)
-<!-- TODO: new screenshot -->
+![La fenêtre Options de recherche](../figures/fr/search-options.png)
 
 Par exemple, saisissez `C` pour la voie 0 et `X` pour toutes les autres voies. La recherche trouve alors chaque front de la voie 0.
 

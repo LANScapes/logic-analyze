@@ -11,8 +11,7 @@ The settings in the window are different for each device model. This chapter giv
 > [!NOTE]
 > You cannot change the device options during a capture.
 
-![The Device Options window](../figures/device-options.png)
-<!-- TODO: new screenshot -->
+![The Device Options window](../figures/en/device-options.png)
 
 ## Operation mode
 

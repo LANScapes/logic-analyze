@@ -30,8 +30,7 @@ Die Suche findet ein Muster aus Pegeln und Flanken auf den Kanälen.
 4. Klicken Sie auf **OK**.
 5. Klicken Sie auf die Pfeil-Schaltflächen in der Suchleiste, um zum vorherigen oder zum nächsten Ergebnis zu gehen.
 
-![Das Fenster Suchoptionen](../figures/search-options.png)
-<!-- TODO: new screenshot -->
+![Das Fenster Suchoptionen](../figures/de/search-options.png)
 
 Geben Sie zum Beispiel `C` für Kanal 0 und `X` für alle anderen Kanäle ein. Die Suche findet dann jede Flanke auf Kanal 0.
 

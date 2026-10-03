@@ -9,8 +9,7 @@ A janela principal tem estas partes:
 - **Rótulos de canal.** Um rótulo à esquerda de cada linha mostra o número do canal, o nome e os botões de gatilho.
 - **Painéis.** Um painel fica ao lado da área da forma de onda. As ferramentas do gatilho, dos decodificadores, das medições e da busca abrem em painéis.
 
-![A janela principal no modo analisador lógico](../figures/main-window.png)
-<!-- TODO: new screenshot -->
+![A janela principal no modo analisador lógico](../figures/pt-BR/main-window.png)
 
 ## A barra de ferramentas
 

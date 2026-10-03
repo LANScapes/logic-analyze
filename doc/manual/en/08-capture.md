@@ -54,8 +54,7 @@ To select the capture mode, click **Mode** on the toolbar. Then select one of th
 | **Repetitive** | Yes | Yes |
 | **Loop** | No | Yes |
 
-![The capture mode menu](../figures/capture-mode-menu.png)
-<!-- TODO: new screenshot -->
+![The capture mode menu](../figures/en/capture-mode-menu.png)
 
 ### Single
 

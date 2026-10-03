@@ -54,8 +54,7 @@ Para selecionar o modo de captura, clique em **Modo** na barra de ferramentas. D
 | **Repetitiva** | Sim | Sim |
 | **Cíclica** | Não | Sim |
 
-![O menu do modo de captura](../figures/capture-mode-menu.png)
-<!-- TODO: new screenshot -->
+![O menu do modo de captura](../figures/pt-BR/capture-mode-menu.png)
 
 ### Única
 

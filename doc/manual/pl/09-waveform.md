@@ -30,8 +30,7 @@ Wyszukiwanie znajduje wzorzec poziomów i zboczy na kanałach.
 4. Kliknij **OK**.
 5. Kliknij przyciski strzałek na pasku wyszukiwania, aby przejść do poprzedniego lub następnego wyniku.
 
-![Okno Opcje wyszukiwania](../figures/search-options.png)
-<!-- TODO: new screenshot -->
+![Okno Opcje wyszukiwania](../figures/pl/search-options.png)
 
 Na przykład wpisz `C` dla kanału 0 i `X` dla wszystkich innych kanałów. Wyszukiwanie znajduje wtedy każde zbocze na kanale 0.
 

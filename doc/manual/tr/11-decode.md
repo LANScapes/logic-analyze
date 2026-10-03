@@ -7,8 +7,7 @@ Bir protokol çözücü, bir yakalamanın verilerini okur ve bir protokolün çe
 - Çözücü listesi; üstünde **Çözücü ara...** alanı vardır.
 - **Kod Çözme Sonuçları** listesi. Bu liste çözücüden gelen her öğeyi bir metin satırı olarak gösterir.
 
-![Çözücü yan paneli](../figures/decoder-dock.png)
-<!-- TODO: new screenshot -->
+![Çözücü yan paneli](../figures/tr/decoder-dock.png)
 
 ## Çözücü ekleme
 

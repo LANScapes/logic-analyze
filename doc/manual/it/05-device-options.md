@@ -11,8 +11,7 @@ Le impostazioni della finestra sono diverse per ogni modello di dispositivo. Que
 > [!NOTE]
 > Non è possibile cambiare le opzioni del dispositivo durante un'acquisizione.
 
-![La finestra Opzioni dispositivo](../figures/device-options.png)
-<!-- TODO: new screenshot -->
+![La finestra Opzioni dispositivo](../figures/it/device-options.png)
 
 ## Modalità operativa
 

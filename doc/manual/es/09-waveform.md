@@ -30,8 +30,7 @@ La búsqueda encuentra un patrón de niveles y flancos en los canales.
 4. Haga clic en **OK**.
 5. Haga clic en los botones de flecha de la barra de búsqueda para ir al resultado anterior o al resultado siguiente.
 
-![La ventana Opciones de búsqueda](../figures/search-options.png)
-<!-- TODO: new screenshot -->
+![La ventana Opciones de búsqueda](../figures/es/search-options.png)
 
 Por ejemplo, escriba `C` para el canal 0 y `X` para todos los otros canales. La búsqueda encuentra entonces cada flanco del canal 0.
 

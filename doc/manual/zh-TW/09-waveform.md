@@ -30,8 +30,7 @@
 4. 按一下 **確定**。
 5. 按一下搜尋列中的箭頭按鈕，前往上一個結果或下一個結果。
 
-![搜尋選項視窗](../figures/search-options.png)
-<!-- TODO: new screenshot -->
+![搜尋選項視窗](../figures/zh-TW/search-options.png)
 
 例如，為通道 0 輸入 `C`，為其他所有通道輸入 `X`。然後搜尋找到通道 0 上的每個邊緣。
 

@@ -11,8 +11,7 @@ De instellingen in het venster zijn voor elk apparaatmodel anders. Dit hoofdstuk
 > [!NOTE]
 > U kunt de apparaatopties niet wijzigen tijdens een opname.
 
-![Het venster Apparaatopties](../figures/device-options.png)
-<!-- TODO: new screenshot -->
+![Het venster Apparaatopties](../figures/nl/device-options.png)
 
 ## Bedrijfsmodus
 

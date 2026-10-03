@@ -9,8 +9,7 @@ Ana pencerede şu bölümler vardır:
 - **Kanal etiketleri.** Her satırın solundaki etiket kanal numarasını, adı ve tetikleme düğmelerini gösterir.
 - **Yan paneller.** Yan panel, dalga biçimi alanının yanındaki bir paneldir. Tetikleme, çözücü, ölçüm ve arama araçları yan panellerde açılır.
 
-![Mantık analizörü modunda ana pencere](../figures/main-window.png)
-<!-- TODO: new screenshot -->
+![Mantık analizörü modunda ana pencere](../figures/tr/main-window.png)
 
 ## Araç çubuğu
 

@@ -30,8 +30,7 @@
 4. 单击 **确定**。
 5. 单击搜索栏中的箭头按钮，转到上一个结果或下一个结果。
 
-![搜索选项窗口](../figures/search-options.png)
-<!-- TODO: new screenshot -->
+![搜索选项窗口](../figures/zh-CN/search-options.png)
 
 例如，为通道 0 输入 `C`，为其他所有通道输入 `X`。然后搜索找到通道 0 上的每个边沿。
 

@@ -9,8 +9,7 @@ La ventana principal tiene estas partes:
 - **Etiquetas de canal.** Una etiqueta a la izquierda de cada fila muestra el número del canal, el nombre y los botones de disparo.
 - **Paneles.** Un panel es una zona al lado del área de formas de onda. Las herramientas de disparo, decodificación, medición y búsqueda se abren en paneles.
 
-![La ventana principal en modo analizador lógico](../figures/main-window.png)
-<!-- TODO: new screenshot -->
+![La ventana principal en modo analizador lógico](../figures/es/main-window.png)
 
 ## La barra de herramientas
 

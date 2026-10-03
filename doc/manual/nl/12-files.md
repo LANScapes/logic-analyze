@@ -71,8 +71,7 @@ In de modus logische analyser zijn deze formaten beschikbaar:
 
 In de oscilloscoopmodus en in de modus data-acquisitie is alleen CSV beschikbaar.
 
-![Het exportvenster voor CSV](../figures/export-csv.png)
-<!-- TODO: new screenshot -->
+![Het exportvenster voor CSV](../figures/nl/export-csv.png)
 
 ## Een afbeelding van het venster opslaan
 

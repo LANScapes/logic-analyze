@@ -7,8 +7,7 @@ Bộ giải mã giao thức đọc dữ liệu của lần thu và tìm các khu
 - Danh sách bộ giải mã, với trường **Tìm bộ giải mã...** ở trên cùng.
 - Danh sách **Kết quả giải mã**. Danh sách này hiển thị mỗi mục từ bộ giải mã thành một hàng văn bản.
 
-![Khung neo bộ giải mã](../figures/decoder-dock.png)
-<!-- TODO: new screenshot -->
+![Khung neo bộ giải mã](../figures/vi/decoder-dock.png)
 
 ## Thêm bộ giải mã
 

@@ -71,8 +71,7 @@
 
 오실로스코프 모드와 데이터 수집 모드에서는 CSV만 사용할 수 있습니다.
 
-![CSV 내보내기 창](../figures/export-csv.png)
-<!-- TODO: new screenshot -->
+![CSV 내보내기 창](../figures/ko/export-csv.png)
 
 ## 창의 이미지 저장
 
