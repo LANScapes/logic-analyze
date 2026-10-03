@@ -1,5 +1,5 @@
-/* Standalone regression harness; no analyzer is accessed. Dead-code
- * stripping drops the CLI's main and with it every hardware reference.
+/* Standalone regression harness; no analyzer is accessed. Parent-fd tests
+ * supply library stubs and run the CLI in bounded child processes.
  *
  * macOS:
  *   cc -Ilibsigrok4DSL -Icommon $(pkg-config --cflags glib-2.0) tools/dslcap/test_spool.c \
@@ -11,9 +11,7 @@
  *
  *   ./test_spool /tmp/raw /tmp/output.bin
  */
-#define main dslcap_main
-#include "dslcap.c"
-#undef main
+#include "test_parent_fd.c"
 #undef NDEBUG
 #include <assert.h>
 #include <fcntl.h>
@@ -133,6 +131,7 @@ int main(int argc, char **argv)
     assert(argc == 3);
     test_arguments();
     test_status();
+    test_parent_fd();
 
     const int channels[] = {1, 2, 16, 32};
     const uint64_t frames = 5003;
