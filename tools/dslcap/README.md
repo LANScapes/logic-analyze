@@ -44,7 +44,7 @@ and exit status is 1. There is no production override.
 One JSON object is printed on stdout; diagnostics use stderr:
 
 ```json
-{"devices":[{"vid":10766,"pid":32,"model":"DSLogic Plus","location":"loc-20121500","serial":"example:exact","state":"unknown"}]}
+{"devices":[{"vid":10766,"pid":32,"model":"DSLogic Plus","location":"loc-20121500","generation":"100003421","serial":null,"state":"unknown"}]}
 ```
 
 | Field | Type and meaning |
@@ -52,17 +52,42 @@ One JSON object is printed on stdout; diagnostics use stderr:
 | `vid`, `pid` | JSON integers, unsigned 16-bit cached `idVendor`/`idProduct`, printed in decimal. Only pairs in both DSL tables in `libsigrok4DSL/hardware/DSL/dsl.h` are included. |
 | `model` | JSON string from that table, independent of the cached product label. Duplicate speed profiles share one table entry. |
 | `location` | JSON string `loc-` plus exactly eight lowercase hexadecimal digits from the complete nonzero 32-bit cached `locationID`; `null` if unavailable or malformed. Decimal 538055936 is `loc-20121500`; decimal 538050560 is `loc-20120000`. No masking or rounding. |
-| `serial` | JSON string converted losslessly from the cached CFString to UTF-8, or `null`. No case folding, normalization, replacement or truncation. JSON escaping preserves controls, quotes and backslashes. |
+| `generation` | JSON string containing the `uint64_t` ID returned by `IORegistryEntryGetRegistryEntryID` for this exact matched entry. Canonical lowercase hexadecimal, 1–16 digits, no `0x` or leading zeros except literal `"0"`; `null` on API failure. JSON string avoids loss of high bits in clients with floating-point JSON numbers. |
+| `serial` | Optional JSON string converted losslessly from the cached CFString to UTF-8, or `null` when absent/unavailable. An absent property is nonfatal and produces no warning. No case folding, normalization, replacement or truncation. JSON escaping preserves controls, quotes and backslashes. |
 | `state` | Always `"unknown"`. VID/PID, product labels and `bcdDevice` do not establish bootloader/runtime, FPGA state or capture readiness. |
 
-The coordinated selector representation is `<location>:<serial>`, split on the
-**first colon**, preserving all subsequent colons and exact UTF-8 serial bytes.
-Both identity fields must be present; unknown serials never become an empty
-string or wildcard. This change does not implement selection or depend on its
-branch. A location describes the host/controller/port arrangement, not a globally
-unique or permanent identifier. Controller changes, hub/port moves and reconnects
-can change it. A device that re-enumerates at the same location is a new device;
-matching identity fields alone cannot prove continuity or distinguish collisions.
+The coordinated selector representation is `<location>:<generation>`. Both are
+required for attachment identity; serial is optional descriptive metadata, not a
+selection key. This change does not implement selection or depend on its branch.
+A location describes the host/controller/port arrangement, not a globally unique
+or permanent identifier. Controller changes and hub/port moves can change it.
+
+Generation identifies the **registry entry object**, not a hardware serial or
+firmware/FPGA generation. It comes from the very same entry handle used to read
+VID/PID/location, with no parent, child, ancestor or other-class lookup. In legacy
+fallback it is the matched `IOUSBDevice` entry's own ID; it is not mapped to or
+borrowed from an `IOUSBHostDevice` object. Consumers must compare the same entry
+mapping. IDs from different objects/classes cannot establish continuity merely
+because VID/PID/location happen to match.
+
+Apple's [API declaration and documentation](https://github.com/apple-oss-distributions/IOKitUser/blob/main/IOKitLib.h)
+specify an ID shared across tasks but valid only within the machine's current
+boot. The API's return status establishes success; it does not document zero as
+an invalid successful value. A successful zero is formatted `"0"`, while any
+failed call yields `null` and status 1, even if it writes zero or another value.
+The [user-space implementation](https://github.com/apple-oss-distributions/IOKitUser/blob/main/IOKitLib.c)
+sets the output to zero on failure, so testing status instead of the number is
+essential. No claim is made that attached USB hardware normally receives ID zero.
+
+Replug/re-enumeration that creates a replacement registry entry gives it a new
+entry ID, even at the same location. The
+[registry implementation](https://github.com/apple-oss-distributions/xnu/blob/main/iokit/Kernel/IORegistryEntry.cpp)
+assigns an ID to an entry when first attached; retaining the same registry object
+can retain its ID. The token therefore does not prove every USB session,
+configuration or firmware transition was observed, and is not portable across
+reboot/hosts. Enumeration/property/ID reads are a snapshot that can race removal
+or re-enumeration. A selector must revalidate identity before its own device
+operation; listing does not open, reserve, pin or lock the device.
 
 Numeric properties must be integer CFNumbers that convert losslessly to a
 nonnegative signed 64-bit value within the relevant unsigned bound. Booleans,
@@ -70,15 +95,22 @@ CFData, floating-point, negative and out-of-range values are rejected; a negativ
 CFNumber is not reinterpreted as unsigned bits. Serial CFStrings must be nonempty,
 contain at most 4096 UTF-16 units / 16384 UTF-8 bytes, and convert completely with
 `lossByte=0`. Empty strings, embedded NUL, unpaired surrogates, oversized values,
-wrong types and allocation failures yield `null`, never a lossy identity.
+wrong types and allocation failures yield `null` and a diagnostic/status 1 when
+the serial property is present, never a lossy serial.
 
 Missing/malformed VID/PID prevents safe filtering: that entry is omitted, a
 stderr diagnostic explains the incomplete inventory, and status is 1. Recognized
-rows retain `null` for unreadable location/serial and also produce a diagnostic
-and status 1. The property API returns NULL for an absent **or** inaccessible
-property; the command cannot distinguish these and does not silently report a
-complete identity. Optional cached product/revision properties are read but are
-not output or used to infer state; their absence does not invalidate identity.
+rows retain `null` for unreadable location or failed generation lookup and also
+produce a diagnostic and status 1; generation is never fabricated from a USB
+address, serial, topology value, other entry or a failed output parameter.
+A missing serial property yields `null`, status 0 and no warning if location and
+generation are complete. A **present** serial that has a wrong type or fails
+strict conversion/allocation yields `null`, a diagnostic and status 1. The
+property API returns NULL for an absent **or** inaccessible property; those cases
+cannot be distinguished and are both optional `null` serial metadata. A null
+serial does not certify that the USB descriptor's `iSerialNumber` was zero.
+Optional cached product/revision properties are read but are not output or used
+to infer state; their absence does not invalidate identity.
 Enumeration, iterator invalidation and handle-release failures also return 1.
 A successful empty result is status 0. Require status 0 and complete JSON before
 using the result. Parent loss exits immediately with status 1 and may leave no
@@ -107,6 +139,7 @@ The complete application registry and CF call inventory is:
 | `IOServiceMatching("IOUSBHostDevice")`, optionally `IOServiceMatching("IOUSBDevice")` | Create one class-matching dictionary per queried class. |
 | `IOServiceGetMatchingServices(kIOMainPortDefault, matching, &iterator)` | Read the class matches. Consumes the dictionary on **success and failure**. A successful null iterator is empty. No user client is opened. |
 | `IOIteratorNext(iterator)` | Obtain each registry entry; zero ends the traversal. |
+| `IORegistryEntryGetRegistryEntryID(entry, &id)` | Once per recognized DSL entry, on the exact matched handle (including legacy fallback). Read the full 64-bit registry ID; check `KERN_SUCCESS` before formatting any value. No USB request, user client or device handle is opened. |
 | `IORegistryEntryCreateCFProperty(entry, key, kCFAllocatorDefault, 0)` | At most one read per key per entry: `idVendor`, `idProduct`; for a recognized pair also `locationID`, `USB Serial Number`, `USB Product Name`, `bcdDevice`. Each returned nonnull property is released exactly once. Unmatched pairs receive only the two ID reads. |
 | `CFGetTypeID`, `CFNumberGetTypeID`, `CFNumberIsFloatType`, `CFNumberGetValue(..., kCFNumberSInt64Type, ...)` | Validate each numeric snapshot and perform checked conversion. |
 | `CFStringGetTypeID`, `CFStringGetLength`, `CFStringGetBytes(..., kCFStringEncodingUTF8, 0, false, ...)` | Validate each string; measure once and, if valid and allocated, copy once. Both conversions must cover the whole UTF-16 range with the exact measured byte count. `CFRangeMake` and `CFSTR` construct the range and constant keys. |
@@ -131,7 +164,9 @@ matching dictionaries and released entries/iterators must balance.
 
 Tests cover all 22 unique pairs / 25 DSL speed profiles in both directions, empty
 and multiple inventories, legacy fallback and duplicate class views, unchanged
-32-bit location values, Unicode and JSON escaping, wrong/missing CF types,
+32-bit location values, same-entry/fallback generation mapping, zero/high-bit/max
+64-bit IDs, failed-ID output rejection, optional missing versus malformed serial,
+seven-field schema/order, Unicode and JSON escaping, wrong/missing CF types,
 negative/floating/out-of-range numbers, strict serial failures, allocation failure,
 registry/query/release/iterator faults, option conflicts/reserved tokens, parent
 loss before/during fake registry calls, stdout errors and actual closed-pipe
@@ -151,15 +186,17 @@ Compile the production `dslcap` target to verify the SDK/link, but do not run
 production inventory, CLI, GUI or packaging as a hardware-free test. No real
 registry or device bench was performed for this change. The owner can separately
 run the following on the intended macOS host while observing USB traffic and
-checking expected cached serial/location values:
+checking expected cached location, registry entry ID and optional serial values:
 
 ```sh
 ./build.dir/dslcap --list-ids
 ```
 
-That owner bench remains necessary to validate installed-driver/cache behavior
-and absence of USB traffic on the intended host. Cached values cannot prove
-firmware state, live-device continuity or capture readiness.
+This revision was verified here with mocks only. The owner must bench the revised
+command for installed-driver/cache behavior and USB traffic, and check that
+replacement entries after replug/re-enumeration receive a changed ID. Cached
+values and entry IDs cannot prove firmware state, every live USB transition or
+capture readiness.
 
 ## Log level
 

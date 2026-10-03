@@ -85,11 +85,13 @@ static int ids_number(io_registry_entry_t entry, CFStringRef key,
     return valid;
 }
 
-static char *ids_string(io_registry_entry_t entry, CFStringRef key)
+static char *ids_string(io_registry_entry_t entry, CFStringRef key, int *malformed)
 {
     CFTypeRef property = IORegistryEntryCreateCFProperty(entry, key, kCFAllocatorDefault, 0);
     char *text = NULL;
+    if (malformed) *malformed = 0;
     if (!property) return NULL;
+    if (malformed) *malformed = 1; /* Present, but not yet successfully decoded. */
     if (CFGetTypeID(property) != CFStringGetTypeID()) goto done;
     CFStringRef string = (CFStringRef)property;
     CFIndex units = CFStringGetLength(string), bytes = 0, written = 0;
@@ -108,6 +110,7 @@ static char *ids_string(io_registry_entry_t entry, CFStringRef key)
         goto done;
     }
     text[bytes] = 0;
+    if (malformed) *malformed = 0;
 done:
     CFRelease(property);
     return text;
@@ -164,16 +167,32 @@ static int ids_registry_class(const char *name, int *first, int *matches)
                     "%04x:%04x; identity is incomplete\n", vid, pid);
             rc = 1;
         }
-        char *serial = ids_string(entry, CFSTR("USB Serial Number"));
-        if (!serial) {
-            fprintf(stderr, "dslcap: --list-ids: cached serial unavailable or malformed for "
+        /* This is the ID of this exact matched entry, including legacy fallback.
+         * API status establishes validity; zero is not a documented exclusion. */
+        uint64_t registry_id = 0;
+        kern_return_t generation_result = IORegistryEntryGetRegistryEntryID(entry, &registry_id);
+        int generation_ok = generation_result == KERN_SUCCESS;
+        char generation[17];
+        if (generation_ok) snprintf(generation, sizeof generation, "%" PRIx64, registry_id);
+        else {
+            fprintf(stderr, "dslcap: --list-ids: registry entry ID unavailable for "
+                    "%04x:%04x at %s (%d); identity is incomplete\n", vid, pid,
+                    location_ok ? location : "unknown location", generation_result);
+            rc = 1;
+        }
+        int serial_malformed = 0;
+        char *serial = ids_string(entry, CFSTR("USB Serial Number"), &serial_malformed);
+        /* A NULL property is optional: identity uses location + generation.
+         * The property API cannot distinguish missing from inaccessible. */
+        if (serial_malformed) {
+            fprintf(stderr, "dslcap: --list-ids: cached serial present but malformed or unreadable for "
                     "%04x:%04x at %s; identity is incomplete\n", vid, pid,
                     location_ok ? location : "unknown location");
             rc = 1;
         }
         /* Read optional cached descriptors, release their snapshots, and do not
          * infer firmware/FPGA state from product labels or a revision number. */
-        char *product_name = ids_string(entry, CFSTR("USB Product Name"));
+        char *product_name = ids_string(entry, CFSTR("USB Product Name"), NULL);
         int bcd_known = ids_number(entry, CFSTR("bcdDevice"), UINT16_MAX, &bcd_device);
         (void)bcd_known;
         g_free(product_name);
@@ -181,6 +200,7 @@ static int ids_registry_class(const char *name, int *first, int *matches)
         *first = 0;
         ids_json_string(model);
         printf(",\"location\":"); ids_json_string(location_ok ? location : NULL);
+        printf(",\"generation\":"); ids_json_string(generation_ok ? generation : NULL);
         printf(",\"serial\":"); ids_json_string(serial);
         printf(",\"state\":\"unknown\"}");
         g_free(serial);

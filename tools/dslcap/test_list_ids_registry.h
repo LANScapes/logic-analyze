@@ -54,6 +54,7 @@ kern_return_t IOServiceGetMatchingServices(mach_port_t port, CFDictionaryRef mat
 io_object_t IOIteratorNext(io_iterator_t iterator);
 boolean_t IOIteratorIsValid(io_iterator_t iterator);
 kern_return_t IOObjectRelease(io_object_t object);
+kern_return_t IORegistryEntryGetRegistryEntryID(io_registry_entry_t entry, uint64_t *entry_id);
 CFTypeRef IORegistryEntryCreateCFProperty(io_registry_entry_t entry, CFStringRef key,
                                          CFAllocatorRef allocator, IOOptionBits options);
 static int ids_test_use_registry = 1;

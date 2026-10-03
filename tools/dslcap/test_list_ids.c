@@ -18,7 +18,10 @@ static CFIndex ids_string_bytes(CFStringRef value, CFRange range, CFStringEncodi
 enum ids_key { ID_VENDOR, ID_PRODUCT, ID_LOCATION, ID_SERIAL, ID_NAME, ID_BCD, ID_KEYS };
 static const char *ids_keys[] = {"idVendor", "idProduct", "locationID",
     "USB Serial Number", "USB Product Name", "bcdDevice"};
-struct ids_fixture { CFTypeRef property[ID_KEYS]; unsigned classes; int live, reads[ID_KEYS]; };
+struct ids_fixture {
+    CFTypeRef property[ID_KEYS]; unsigned classes; int live, reads[ID_KEYS];
+    uint64_t generation; int generation_error, generation_calls;
+};
 static struct ids_fixture ids_fake[32];
 static int ids_count, ids_registry_calls, ids_property_copies, ids_property_releases;
 static int ids_dictionaries_created, ids_dictionaries_consumed, ids_entry_live, ids_iterator_live;
@@ -180,8 +183,13 @@ kern_return_t IOObjectRelease(io_object_t object)
             for (int i = 0; i < ids_count; i++) if (ids_fake[i].classes & (1U << cls)) {
                 struct ids_fixture *f = &ids_fake[i];
                 assert(f->reads[ID_VENDOR] == 1 && f->reads[ID_PRODUCT] == 1);
-                if (f->reads[ID_SERIAL]) for (int k = 0; k < ID_KEYS; k++) assert(f->reads[k] == 1);
-                else for (int k = ID_LOCATION; k < ID_KEYS; k++) assert(!f->reads[k]);
+                if (f->reads[ID_SERIAL]) {
+                    for (int k = 0; k < ID_KEYS; k++) assert(f->reads[k] == 1);
+                    assert(f->generation_calls == 1);
+                } else {
+                    for (int k = ID_LOCATION; k < ID_KEYS; k++) assert(!f->reads[k]);
+                    assert(!f->generation_calls);
+                }
             }
             /* A DSL row in the modern class prohibits any legacy query. */
             if (!cls && ids_position[0]) assert(!ids_class_queries[1]);
@@ -192,6 +200,17 @@ kern_return_t IOObjectRelease(io_object_t object)
         assert(f->live && ids_entry_live == 1); f->live = 0; ids_entry_live--;
     }
     return ids_release_error ? -18 : KERN_SUCCESS;
+}
+kern_return_t IORegistryEntryGetRegistryEntryID(io_registry_entry_t entry, uint64_t *entry_id)
+{
+    ids_registry_calls++;
+    assert(entry && entry <= (unsigned)ids_count && ids_fake[entry - 1].live && entry_id);
+    struct ids_fixture *f = &ids_fake[entry - 1];
+    assert(++f->generation_calls == 1 && f->reads[ID_VENDOR] == 1 && f->reads[ID_PRODUCT] == 1);
+    assert(f->reads[ID_LOCATION] == 1 && !f->reads[ID_SERIAL]);
+    if (ids_block == 3) test_gate('G');
+    *entry_id = f->generation; /* Even a written value is invalid on API error. */
+    return f->generation_error ? -23 : KERN_SUCCESS;
 }
 CFTypeRef IORegistryEntryCreateCFProperty(io_registry_entry_t entry, CFStringRef key,
                                          CFAllocatorRef allocator, IOOptionBits options)
@@ -236,6 +255,7 @@ static struct ids_fixture *ids_add(uint16_t vid, uint16_t pid, unsigned classes)
 {
     assert(ids_count < 32);
     struct ids_fixture *f = &ids_fake[ids_count++]; f->classes = classes;
+    f->generation = UINT64_C(0x100003421) + (uint64_t)ids_count - 1;
     f->property[ID_VENDOR] = ids_new_number(vid); f->property[ID_PRODUCT] = ids_new_number(pid);
     /* Raw locationID, not masked or rounded: 538055936 == 0x20121500. */
     f->property[ID_LOCATION] = ids_new_number(538055936);
@@ -340,9 +360,9 @@ static void ids_check_profiles(void)
 }
 
 
-#define IDS_X "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":\"loc-20121500\",\"serial\":\"X\",\"state\":\"unknown\"}]}\n"
-#define IDS_NULL "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":\"loc-20121500\",\"serial\":null,\"state\":\"unknown\"}]}\n"
-#define IDS_NOLOC "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":null,\"serial\":\"X\",\"state\":\"unknown\"}]}\n"
+#define IDS_X "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":\"loc-20121500\",\"generation\":\"100003421\",\"serial\":\"X\",\"state\":\"unknown\"}]}\n"
+#define IDS_NULL "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":\"loc-20121500\",\"generation\":\"100003421\",\"serial\":null,\"state\":\"unknown\"}]}\n"
+#define IDS_NOLOC "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":null,\"generation\":\"100003421\",\"serial\":\"X\",\"state\":\"unknown\"}]}\n"
 static void ids_case(int rc, const char *json, const char *error)
 {
     struct parent_child p = ids_spawn(0, 0, 0, 0, 1); ids_result(&p, rc, json, error);
@@ -365,24 +385,53 @@ static void test_list_ids(void)
         p = ids_spawn(watched, 0, 0, 0, 1); ids_result(&p, 0, IDS_X, NULL);
     }
     ids_reset(); ids_add(0x1234, 1, 1); ids_add(0x2a0e, 1, 2);
-    ids_case(0, IDS_X, NULL); /* Unrelated modern entries do not block legacy fallback. */
+    ids_case(0, "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":\"loc-20121500\","
+        "\"generation\":\"100003422\",\"serial\":\"X\",\"state\":\"unknown\"}]}\n", NULL);
+    /* Unrelated modern entries do not block fallback; ID comes from the legacy entry. */
     ids_reset(); ids_add(0x2a0e, 1, 2); ids_case(0, IDS_X, NULL);
     for (size_t i = 0; i < G_N_ELEMENTS(ids_profiles); i++) {
         ids_reset(); ids_add(ids_profiles[i].vid, ids_profiles[i].pid, 1);
         char *expected = g_strdup_printf("{\"devices\":[{\"vid\":%u,\"pid\":%u,\"model\":\"%s\","
-            "\"location\":\"loc-20121500\",\"serial\":\"X\",\"state\":\"unknown\"}]}\n",
+            "\"location\":\"loc-20121500\",\"generation\":\"100003421\",\"serial\":\"X\",\"state\":\"unknown\"}]}\n",
             ids_profiles[i].vid, ids_profiles[i].pid, ids_profiles[i].model);
         ids_case(0, expected, NULL); g_free(expected);
     }
     ids_reset(); ids_add(0x2a0e, 1, 1);
     struct ids_fixture *f = ids_add(0x2a0e, 2, 1);
     ids_set(f, ID_LOCATION, ids_new_number(538050560));
-    ids_case(0, "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":\"loc-20121500\",\"serial\":\"X\",\"state\":\"unknown\"},"
-        "{\"vid\":10766,\"pid\":2,\"model\":\"DSCope\",\"location\":\"loc-20120000\",\"serial\":\"X\",\"state\":\"unknown\"}]}\n", NULL);
+    ids_case(0, "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":\"loc-20121500\",\"generation\":\"100003421\",\"serial\":\"X\",\"state\":\"unknown\"},"
+        "{\"vid\":10766,\"pid\":2,\"model\":\"DSCope\",\"location\":\"loc-20120000\",\"generation\":\"100003422\",\"serial\":\"X\",\"state\":\"unknown\"}]}\n", NULL);
     ids_reset(); f = ids_add(0x2a0e, 1, 1);
     ids_set(f, ID_LOCATION, ids_new_number(UINT32_MAX));
     ids_set(f, ID_SERIAL, ids_new_text("\"\\\né:🚀"));
-    ids_case(0, "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":\"loc-ffffffff\",\"serial\":\"\\\"\\\\\\u000aé:🚀\",\"state\":\"unknown\"}]}\n", NULL);
+    ids_case(0, "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":\"loc-ffffffff\",\"generation\":\"100003421\",\"serial\":\"\\\"\\\\\\u000aé:🚀\",\"state\":\"unknown\"}]}\n", NULL);
+    /* Hard-coded canonical outputs exercise all uint64 bits, not a signed or
+     * 32-bit intermediate. Zero is valid only with a successful API result. */
+    const struct { uint64_t id; const char *text; } generations[] = {
+        {0, "0"}, {1, "1"}, {15, "f"}, {UINT64_C(0x100003421), "100003421"},
+        {UINT32_MAX, "ffffffff"}, {UINT64_C(0x100000000), "100000000"},
+        {UINT64_C(0x8000000000000000), "8000000000000000"},
+        {UINT64_MAX, "ffffffffffffffff"},
+    };
+    for (size_t i = 0; i < G_N_ELEMENTS(generations); i++) {
+        ids_reset(); f = ids_add(0x2a0e, 1, 1); f->generation = generations[i].id;
+        char *expected = g_strdup_printf("{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\","
+            "\"location\":\"loc-20121500\",\"generation\":\"%s\",\"serial\":\"X\",\"state\":\"unknown\"}]}\n",
+            generations[i].text);
+        ids_case(0, expected, NULL); g_free(expected);
+    }
+    for (int absent_serial = 0; absent_serial < 2; absent_serial++) {
+        ids_reset(); f = ids_add(0x2a0e, 1, 1);
+        f->generation_error = 1; f->generation = absent_serial ? UINT64_MAX : 0;
+        if (absent_serial) ids_set(f, ID_SERIAL, NULL);
+        const char *expected = absent_serial ?
+            "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":\"loc-20121500\",\"generation\":null,\"serial\":null,\"state\":\"unknown\"}]}\n" :
+            "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":\"loc-20121500\",\"generation\":null,\"serial\":\"X\",\"state\":\"unknown\"}]}\n";
+        ids_case(1, expected, "registry entry ID unavailable");
+    }
+    /* Owner's iSerialNumber==0 case: no serial property, complete location/ID. */
+    ids_reset(); f = ids_add(0x2a0e, 0x20, 1); ids_set(f, ID_SERIAL, NULL);
+    ids_case(0, "{\"devices\":[{\"vid\":10766,\"pid\":32,\"model\":\"DSLogic Plus\",\"location\":\"loc-20121500\",\"generation\":\"100003421\",\"serial\":null,\"state\":\"unknown\"}]}\n", NULL);
     for (int fault = 0; fault < 8; fault++) {
         ids_reset(); f = ids_add(0x2a0e, 1, 1);
         CFTypeRef value = NULL;
@@ -397,21 +446,22 @@ static void test_list_ids(void)
             value = ids_new_string(long_text, G_N_ELEMENTS(long_text));
         }
         if (fault == 7) { value = ids_new_text("X"); ids_alloc_error = 1; }
-        ids_set(f, ID_SERIAL, value); ids_case(1, IDS_NULL, "cached serial unavailable or malformed");
+        ids_set(f, ID_SERIAL, value);
+        ids_case(fault ? 1 : 0, IDS_NULL, fault ? "cached serial present but malformed" : NULL);
     }
     for (int fault = 1; fault <= 4; fault++) {
         ids_reset(); ids_add(0x2a0e, 1, 1); ids_string_fault = fault;
-        ids_case(1, IDS_NULL, "cached serial unavailable or malformed");
+        ids_case(1, IDS_NULL, "cached serial present but malformed");
     }
     ids_reset(); f = ids_add(0x2a0e, 1, 1);
     ids_set(f, ID_LOCATION, ids_new_number(1));
     ids_set(f, ID_SERIAL, ids_new_text("e\u0301:Case:A"));
-    ids_case(0, "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":\"loc-00000001\",\"serial\":\"e\u0301:Case:A\",\"state\":\"unknown\"}]}\n", NULL);
+    ids_case(0, "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":\"loc-00000001\",\"generation\":\"100003421\",\"serial\":\"e\u0301:Case:A\",\"state\":\"unknown\"}]}\n", NULL);
     ids_reset(); f = ids_add(0x2a0e, 1, 1);
     char maximum[4097]; memset(maximum, 'Z', 4096); maximum[4096] = 0;
     ids_set(f, ID_SERIAL, ids_new_text(maximum));
     char *long_expected = g_strdup_printf("{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\","
-        "\"location\":\"loc-20121500\",\"serial\":\"%s\",\"state\":\"unknown\"}]}\n", maximum);
+        "\"location\":\"loc-20121500\",\"generation\":\"100003421\",\"serial\":\"%s\",\"state\":\"unknown\"}]}\n", maximum);
     ids_case(0, long_expected, NULL); g_free(long_expected);
     for (int fault = 0; fault < 7; fault++) {
         ids_reset(); f = ids_add(0x2a0e, 1, 1);
@@ -451,9 +501,9 @@ static void test_list_ids(void)
     }
     ids_reset(); p = ids_spawn(1, 1, 0, 0, 0);
     parent_phase(&p, 'B'); parent_close(&p); parent_resume(&p); ids_result(&p, 1, NULL, NULL);
-    for (int block = 1; block <= 2; block++) {
+    for (int block = 1; block <= 3; block++) {
         ids_reset(); ids_add(0x2a0e, 1, 1); ids_block = block;
-        p = ids_spawn(1, 0, 0, 0, 1); parent_phase(&p, block == 1 ? 'U' : 'P'); parent_close(&p);
+        p = ids_spawn(1, 0, 0, 0, 1); parent_phase(&p, block == 1 ? 'U' : block == 2 ? 'P' : 'G'); parent_close(&p);
         ids_result(&p, 1, NULL, NULL); /* Watcher interrupts fake registry operation. */
     }
     ids_reset(); p = ids_spawn(1, 0, 1, 0, 1);
@@ -483,5 +533,5 @@ static void test_list_ids(void)
     }
     ids_reset();
     puts("list-ids tests passed: registry API/property allowlist, no USB/library calls, table coverage, "
-         "CF types/ownership, raw locationID, Unicode/JSON, fallback, identity errors, parent, stdout and SIGPIPE/EPIPE");
+         "CF types/ownership, raw locationID/entry generation, optional serial, Unicode/JSON, fallback, identity errors, parent, stdout and SIGPIPE/EPIPE");
 }
