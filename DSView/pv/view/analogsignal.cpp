@@ -52,7 +52,13 @@ AnalogSignal::AnalogSignal(data::AnalogSnapshot *data, sr_channel *probe) :
     _hover_point(QPointF(-1, -1)),
     _hover_value(0)
 {
+#ifdef LANSCAPES_BRAND
+    // An analog channel has no trigger buttons in the header (a logic channel has
+    // five); keep the header to its name and colour tab.
+    _typeWidth = 0;
+#else
     _typeWidth = 5;
+#endif
     _colour = SignalColours[probe->index % countof(SignalColours)];
 
     uint32_t ui32;
@@ -92,7 +98,13 @@ AnalogSignal::AnalogSignal(view::AnalogSignal *s, pv::data::AnalogSnapshot *data
     _hover_point(QPointF(-1, -1)),
     _hover_value(0)
 { 
+#ifdef LANSCAPES_BRAND
+    // An analog channel has no trigger buttons in the header (a logic channel has
+    // five); keep the header to its name and colour tab.
+    _typeWidth = 0;
+#else
     _typeWidth = 5;
+#endif
     _bits = s->get_bits();
     _ref_min = s->get_ref_min();
     _ref_max = s->get_ref_max();

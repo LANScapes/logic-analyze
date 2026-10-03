@@ -107,6 +107,10 @@ View::View(SigSession *session, pv::toolbars::SamplingBar *sampling_bar, QWidget
    _device_agent = session->get_device();
 
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+#ifdef LANSCAPES_BRAND
+    // Named so the brand stylesheet can make it 3 px thicker than the theme (see mainwindow.cpp).
+    horizontalScrollBar()->setObjectName("TraceHScroll");
+#endif
   
     // trace viewport map
     _trace_view_map[SR_CHANNEL_LOGIC] = TIME_VIEW;

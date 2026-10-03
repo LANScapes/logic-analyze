@@ -106,22 +106,19 @@ LogoBar::LogoBar(SigSession *session, QWidget *parent) :
     _logo_button.setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     _logo_button.setPopupMode(QToolButton::InstantPopup);
 
-    QWidget *spacer = new QWidget(this);
-    spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 #ifdef LANSCAPES_BRAND
-    QAction *spacer_action = addWidget(spacer);
-    _spacer_action = spacer_action;
-    addWidget(&_logo_button);
+    // Help (with Options before it) follows the other buttons rather than being
+    // pushed to the far end of the window.
+    _help_action = addWidget(&_logo_button);
     QWidget *margin = new QWidget(this);
     margin->setMinimumWidth(20);
     QAction *margin_action = addWidget(margin);
-    // Docked on a side, Help follows the other buttons instead of being pushed
-    // to the far end of the window.
-    connect(this, &QToolBar::orientationChanged, this, [spacer_action, margin_action](Qt::Orientation o) {
-        spacer_action->setVisible(o == Qt::Horizontal);
+    connect(this, &QToolBar::orientationChanged, this, [margin_action](Qt::Orientation o) {
         margin_action->setVisible(o == Qt::Horizontal);
     });
 #else
+    QWidget *spacer = new QWidget(this);
+    spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     addWidget(spacer);
     addWidget(&_logo_button);
     QWidget *margin = new QWidget(this);

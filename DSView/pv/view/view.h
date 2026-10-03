@@ -446,6 +446,11 @@ private:
 	Ruler                   *_ruler;
 	Header                  *_header;
     DevMode                 *_devmode;
+#ifdef LANSCAPES_BRAND
+public:
+    DevMode *get_devmode() { return _devmode; }
+private:
+#endif
     
 
 	/// The view time scale in seconds per pixel.

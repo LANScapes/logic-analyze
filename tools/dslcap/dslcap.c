@@ -1,11 +1,11 @@
 /*
  * dslcap: headless DSLogic capture on libsigrok4DSL (GPL-3.0, as DSView).
  *
- *   dslcap --list [--log-level N]
+ *   dslcap --list [--res DIR] [--parent-fd N] [--log-level N]
  *   dslcap --channels 0,1 --samplerate 10000000 --samples 1000000
  *          [--vth 1.6] [--mode buffer|stream] [--trigger CH[:R|F|C|1|0]]
- *          [--trigpos PERCENT] [--timeout SEC] [--res DIR] [--log-level N]
- *          --out /path/base
+ *          [--trigpos PERCENT] [--timeout SEC] [--res DIR]
+ *          [--parent-fd N] [--log-level N] --out /path/base
  *
  * Log level N is a whole decimal 0..5 (default 1); logs go to stderr.
  *
@@ -16,18 +16,25 @@
  * created for a complete capture.
  *
  * Exit status: 0 success, 1 runtime or I/O error, 2 invalid arguments or
- * unavailable settings, 3 the capture itself failed.
+ * unavailable settings (including parent-watch setup), 3 the capture itself failed.
+ * With --parent-fd, parent loss exits immediately with status 1 without flushing
+ * stdout or emitting a parent-loss JSON result.
  */
 #ifndef _FILE_OFFSET_BITS
 #define _FILE_OFFSET_BITS 64
 #endif
 #include <glib.h>
 #include <errno.h>
+#include <fcntl.h>
+#include <limits.h>
 #include <math.h>
+#include <poll.h>
 #include <pthread.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
 #ifdef __APPLE__
@@ -44,7 +51,7 @@ G_STATIC_ASSERT(sizeof(off_t) >= 8);
 
 /*
  * Capture state. The library delivers data and events on its own threads,
- * so everything below is guarded by g_lock (a pthread mutex, as the library
+ * so the capture fields below are guarded by g_lock (a pthread mutex, as the library
  * itself uses).
  */
 static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
@@ -60,6 +67,58 @@ static int g_io_error = 0;
 static int g_format = -1;
 static long long g_trig_pos = -1;
 static int g_split_seen = 0;
+
+/* Independent of g_lock and all stdio/library locks: parent loss must also
+ * interrupt blocked initialization, callbacks, stdout and library teardown.
+ * Only temporary-name creation/removal and atomic publication hold this lock;
+ * never hold it while converting data, flushing stdout or calling the library.
+ * The watch descriptor and thread live until process exit. */
+static pthread_mutex_t g_parent_lock = PTHREAD_MUTEX_INITIALIZER;
+static int g_parent_fd = -1;
+static gint g_parent_dead = 0;          /* atomic; latch read errors before locking */
+static char *g_parent_tmp = NULL;
+static char *g_parent_bin = NULL;       /* our link, until the result is delivered */
+
+/* Caller holds g_parent_lock. Do not flush stdio or attempt library cleanup. */
+static void parent_lost(void)
+{
+    if (g_parent_tmp) unlink(g_parent_tmp);
+    if (g_parent_bin) unlink(g_parent_bin);
+    _exit(1);
+}
+
+/* Check synchronously at publication boundaries too: a runnable watcher may
+ * not yet have observed EOF, and buffered pipe bytes do not keep a parent alive. */
+static void parent_check_locked(void)
+{
+    if (g_atomic_int_get(&g_parent_dead)) parent_lost();
+    struct pollfd p = { .fd = g_parent_fd, .events = POLLIN };
+    int rc;
+    do { rc = poll(&p, 1, 0); } while (rc < 0 && errno == EINTR);
+    if (rc < 0 || (p.revents & (POLLHUP | POLLERR | POLLNVAL))) parent_lost();
+}
+
+static void parent_check(void)
+{
+    if (g_parent_fd < 0) return;
+    pthread_mutex_lock(&g_parent_lock);
+    parent_check_locked();
+    pthread_mutex_unlock(&g_parent_lock);
+}
+
+static void *watch_parent(void *unused)
+{
+    (void)unused;
+    char bytes[256];
+    for (;;) {
+        ssize_t n = read(g_parent_fd, bytes, sizeof bytes);
+        if (n > 0 || (n < 0 && errno == EINTR)) continue;
+        g_atomic_int_set(&g_parent_dead, 1);
+        pthread_mutex_lock(&g_parent_lock);
+        parent_lost();
+    }
+    return NULL;
+}
 
 static void on_event(int ev)
 {
@@ -147,9 +206,22 @@ static void json_str(const char *s)
 /* The JSON result is the tool's output; failing to deliver it is an error. */
 static int finish_stdout(int rc)
 {
+    parent_check();
     if (fflush(stdout) || ferror(stdout)) {
         fprintf(stderr, "dslcap: cannot write the result to stdout\n");
-        return rc ? rc : 1;
+        rc = rc ? rc : 1;
+    }
+    if (g_parent_fd >= 0) {
+        pthread_mutex_lock(&g_parent_lock);
+        parent_check_locked();
+        /* A complete file is retained only after its result is delivered.
+         * Never unlink an existing destination: g_parent_bin is set only when
+         * our link() succeeded. */
+        if (g_parent_bin && ferror(stdout)) unlink(g_parent_bin);
+        char *bin = g_parent_bin;
+        g_parent_bin = NULL;
+        pthread_mutex_unlock(&g_parent_lock);
+        g_free(bin);
     }
     return rc;
 }
@@ -167,6 +239,52 @@ static void arg_error(const char *what, const char *option, const char *value)
         json_str(value);
     }
     printf("}\n");
+}
+
+/* Fail closed before any ds_* call. A join is deliberately unnecessary: the
+ * watcher remains active through every normal return and dies with the process. */
+static int start_parent_watch(int fd, const char *value)
+{
+    if (fd < 0) return 0;
+    /* A supervising parent normally closes both pipes. Default SIGPIPE could
+     * kill main while writing stdout/stderr before the EOF watcher can remove
+     * our output. With this flag, let stdio report EPIPE and preserve cleanup. */
+    struct sigaction sa;
+    memset(&sa, 0, sizeof sa);
+    sa.sa_handler = SIG_IGN;
+    if (sigemptyset(&sa.sa_mask) || sigaction(SIGPIPE, &sa, NULL)) {
+        arg_error("cannot configure parent watcher signals", "--parent-fd", value);
+        return 2;
+    }
+    int owned = fcntl(fd, F_DUPFD_CLOEXEC, 3);
+    if (owned < 0) {
+        arg_error("cannot duplicate parent pipe", "--parent-fd", value);
+        return 2;
+    }
+    g_parent_fd = owned;
+    struct pollfd p = { .fd = owned, .events = POLLIN };
+    int poll_rc;
+    do { poll_rc = poll(&p, 1, 0); } while (poll_rc < 0 && errno == EINTR);
+    if (poll_rc < 0 || (p.revents & (POLLERR | POLLNVAL))) {
+        g_parent_fd = -1;
+        close(owned);
+        arg_error("cannot check parent pipe", "--parent-fd", value);
+        return 2;
+    }
+    /* An already-dead parent must not reach library initialization. */
+    if (p.revents & POLLHUP) {
+        pthread_mutex_lock(&g_parent_lock);
+        parent_lost();
+    }
+    pthread_t thread;
+    int rc = pthread_create(&thread, NULL, watch_parent, NULL);
+    if (rc) {
+        g_parent_fd = -1;
+        close(owned);
+        arg_error("cannot start parent watcher", "--parent-fd", value);
+        return 2;
+    }
+    return 0;
 }
 
 /* Whole-string unsigned decimal; no sign, whitespace or trailing text. */
@@ -195,12 +313,14 @@ static int parse_double(const char *s, double *out)
 
 struct options {
     const char *res, *out, *chans, *mode, *trig;
+    const char *parent_fd_value;
     uint64_t rate, samples;
     double vth, timeout;
     int trigpos, list_only, stream, vth_given, log_level;
     int enabled[MAX_CHANNELS], nch;
     int trig_ch;
     char trig_type;
+    int parent_fd;
 };
 
 /* Validates every option before the library or the device is touched.
@@ -220,6 +340,7 @@ static int parse_args(int argc, char **argv, struct options *o)
     o->trigpos = 10;
     o->trig_ch = -1;
     o->log_level = 1;
+    o->parent_fd = -1;
 
     for (int i = 1; i < argc; i++) {
         const char *a = argv[i];
@@ -229,7 +350,7 @@ static int parse_args(int argc, char **argv, struct options *o)
         }
         static const char *const valued[] = {
             "--res", "--out", "--channels", "--samplerate", "--samples", "--vth",
-            "--mode", "--trigger", "--trigpos", "--timeout", "--log-level",
+            "--mode", "--trigger", "--trigpos", "--timeout", "--parent-fd", "--log-level",
         };
         int known = 0;
         for (size_t k = 0; k < G_N_ELEMENTS(valued); k++)
@@ -253,6 +374,23 @@ static int parse_args(int argc, char **argv, struct options *o)
         else if (!strcmp(a, "--channels")) o->chans = v;
         else if (!strcmp(a, "--mode")) o->mode = v;
         else if (!strcmp(a, "--trigger")) o->trig = v;
+        else if (!strcmp(a, "--parent-fd")) {
+            if (o->parent_fd_value) {
+                arg_error("duplicate option", a, v);
+                return 2;
+            }
+            bad = parse_u64(v, &u) || u <= 2 || u > INT_MAX;
+            if (!bad) {
+                int flags = fcntl((int)u, F_GETFL);
+                struct stat st;
+                bad = flags < 0 || (flags & O_ACCMODE) != O_RDONLY ||
+                      (flags & O_NONBLOCK) || fstat((int)u, &st) || !S_ISFIFO(st.st_mode);
+            }
+            if (!bad) {
+                o->parent_fd = (int)u;
+                o->parent_fd_value = v;
+            }
+        }
         else if (!strcmp(a, "--samplerate")) bad = parse_u64(v, &o->rate) || o->rate == 0;
         else if (!strcmp(a, "--samples"))
             /* The driver rounds the limit up to SAMPLES_ALIGN + 1. */
@@ -428,11 +566,20 @@ static int write_output(const char *path, int nch, uint64_t per_ch, uint64_t got
     if (fflush(g_raw) || fseeko(g_raw, 0, SEEK_SET)) return -1;
     /* Write to a temporary file and publish it only on success. */
     char *tmp = g_strdup_printf("%s.XXXXXX", path);
+    if (g_parent_fd >= 0) {
+        pthread_mutex_lock(&g_parent_lock);
+        parent_check_locked();
+        g_parent_tmp = tmp;
+    }
     int fd = g_mkstemp(tmp);
+    if (g_parent_fd >= 0) {
+        if (fd < 0) g_parent_tmp = NULL;
+        pthread_mutex_unlock(&g_parent_lock);
+    }
     if (fd < 0) { g_free(tmp); return -1; }
     FILE *f = fdopen(fd, "wb");
-    if (!f) { close(fd); unlink(tmp); g_free(tmp); return -1; }
-    int failed = 0;
+    if (!f) close(fd);
+    int failed = !f;
     for (uint64_t k = 0; k < per_ch && !failed;) {
         size_t count = MIN(per_ch - k, G_N_ELEMENTS(raw) / nch);
         if (fread(raw, sizeof(uint64_t) * nch, count, g_raw) != count) {
@@ -452,10 +599,25 @@ static int write_output(const char *path, int nch, uint64_t per_ch, uint64_t got
         }
         k += count;
     }
-    if (fclose(f)) failed = 1;
+    if (f && fclose(f)) failed = 1;
+    char *published = g_parent_fd >= 0 ? g_strdup(path) : NULL;
+    if (g_parent_fd >= 0) {
+        pthread_mutex_lock(&g_parent_lock);
+        parent_check_locked();
+    }
     /* link() publishes atomically and, unlike rename(), refuses to replace an existing capture. */
     if (!failed && link(tmp, path)) failed = 1;
+    if (!failed && g_parent_fd >= 0) {
+        g_parent_bin = published;
+        published = NULL;
+    }
+    if (g_parent_fd >= 0) parent_check_locked();
     unlink(tmp);  /* after link() the published name keeps the data; drop the temporary one either way */
+    if (g_parent_fd >= 0) {
+        g_parent_tmp = NULL;
+        pthread_mutex_unlock(&g_parent_lock);
+    }
+    g_free(published);
     g_free(tmp);
     return failed ? -1 : 0;
 }
@@ -623,6 +785,8 @@ int main(int argc, char **argv)
     struct options o;
     int rc = parse_args(argc, argv, &o);
     if (rc) return finish_stdout(rc);
+    rc = start_parent_watch(o.parent_fd, o.parent_fd_value);
+    if (rc) return finish_stdout(rc);
 
     char *res_found = NULL;
     const char *res = o.res;
@@ -643,6 +807,7 @@ int main(int argc, char **argv)
         hw_samples = (o.samples + SAMPLES_ALIGN) & ~SAMPLES_ALIGN;
     }
 
+    parent_check();
     ds_log_level(o.log_level);
     ds_set_firmware_resource_dir(res);
     g_free(res_found);
@@ -776,11 +941,17 @@ int main(int argc, char **argv)
     }
 
     char *spool = g_strdup_printf("%s.raw-XXXXXX", o.out);
+    if (g_parent_fd >= 0) {
+        pthread_mutex_lock(&g_parent_lock);
+        parent_check_locked();
+    }
     int fd = g_mkstemp(spool);
+    /* Anonymous before fdopen or collection, including the failure path. */
+    if (fd >= 0) unlink(spool);
+    if (g_parent_fd >= 0) pthread_mutex_unlock(&g_parent_lock);
     if (fd >= 0) {
         g_raw = fdopen(fd, "w+b");
         if (!g_raw) close(fd);
-        unlink(spool);
     }
     g_free(spool);
     if (!g_raw) { printf("{\"error\":\"cannot create capture spool\"}\n"); ds_lib_exit(); return finish_stdout(1); }
@@ -835,6 +1006,7 @@ int main(int argc, char **argv)
         print_report(failure, &r);
         exit_code = 3;
     } else {
+        parent_check();
         r.bin = path;
         print_report(NULL, &r);
     }

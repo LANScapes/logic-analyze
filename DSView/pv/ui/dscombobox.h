@@ -38,12 +38,26 @@ public:
 
     void hidePopup() override;
 
+#ifdef LANSCAPES_BRAND
+    // Lists "<number> <unit>" entries with the numbers right-aligned on their last
+    // digit (the 1 of "1 MHz" under the 0 of "500 kHz").
+    void alignNumbersInList();
+
+    // In a toolbar the brand stylesheet sets the chevron into the right padding, and
+    // the style counts its width against the text as well; reserve that room.
+    QSize sizeHint() const override;
+    QSize minimumSizeHint() const override;
+#endif
+
     inline bool  IsPopup(){
         return _bPopup;
     } 
 
 private:
     void measureSize();
+#ifdef LANSCAPES_BRAND
+    int chevron_room() const;
+#endif
 
 private: 
     bool    _bPopup;
