@@ -1855,7 +1855,7 @@ namespace pv
         if (data != NULL)
         {
             QByteArray raw_bytes = QByteArray::fromRawData(data->data(), data->size());
-            QString jsonStr(raw_bytes.data());
+            QString jsonStr = QString::fromUtf8(raw_bytes.data(), raw_bytes.size());
             QByteArray qbs = jsonStr.toUtf8();
             sessionDoc = QJsonDocument::fromJson(qbs, &error);
 
@@ -1894,7 +1894,7 @@ namespace pv
         if (data != NULL)
         {
             QByteArray raw_bytes = QByteArray::fromRawData(data->data(), data->size());
-            QString jsonStr(raw_bytes.data());
+            QString jsonStr = QString::fromUtf8(raw_bytes.data(), raw_bytes.size());
             QByteArray qbs = jsonStr.toUtf8();
             QJsonDocument sessionDoc = QJsonDocument::fromJson(qbs, &error);
 
