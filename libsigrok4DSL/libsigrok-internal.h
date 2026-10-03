@@ -253,7 +253,7 @@ struct ds_trigger {
 };
 
 
-/*--- device.c --------------------------------------------------------------*/
+/*--- dsdevice.c ------------------------------------------------------------*/
 
 SR_PRIV struct sr_channel *sr_channel_new(uint16_t index, int type, gboolean enabled, const char *name);
 
@@ -401,7 +401,7 @@ SR_PRIV struct sr_session *sr_session_new(void);
 SR_PRIV int sr_session_destroy(void);
 
 /**
- * Create a virtual deivce from file.
+ * Create a virtual device from file.
  */
 SR_PRIV int sr_new_virtual_device(const char *filename, struct sr_dev_inst **out_di);
 

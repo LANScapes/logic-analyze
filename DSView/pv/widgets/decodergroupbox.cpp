@@ -148,7 +148,6 @@ void DecoderGroupBox::tog_icon()
         for (auto i = rows.begin(); i != rows.end(); i++) {
             if (index-- == 0) {
                 _decoder_stack->set_rows_gshow((*i).first, !(*i).second);
-                //rows[(*i).first] = !(*i).second;
                 sc->setIcon(QIcon(rows[(*i).first] ? iconPath+"/hidden.svg" :
                                                     iconPath+"/shown.svg"));
                 break;

@@ -1112,7 +1112,6 @@ void View::set_cursor_middle(int index)
     assert(index < size);
 
     int width = get_view_width();
-   // if (width > 0);
 
     auto i = lst.begin();
 

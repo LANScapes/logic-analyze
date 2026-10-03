@@ -96,7 +96,7 @@
 
 #define ANALOG_RETE(n) ((n/SR_HZ(10)))
 
-//defult value
+//default value
 #define LOGIC_DEFAULT_SAMPLERATE SR_MHZ(1)
 #define LOGIC_DEFAULT_TOTAL_SAMPLES SR_MHZ(1)
 #define LOGIC_DEFAULT_NUM_PROBE 16
@@ -345,7 +345,7 @@ static const char *maxHeights[] = {
     "5X",
 };
 
-/* We name the probes 0-7 on our demo driver. */
+/* We name the probes 0-15 on our demo driver. */
 static const char *probe_names[] = {
     "0", "1", "2", "3",
     "4", "5", "6", "7",
