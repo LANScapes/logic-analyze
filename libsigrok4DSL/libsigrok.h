@@ -1400,6 +1400,16 @@ SR_API void ds_set_datafeed_callback(ds_datafeed_callback_t cb);
 SR_API void ds_set_firmware_resource_dir(const char *dir);
 
 /**
+ * Optional POSIX resource manifest: consume fd through EOF without closing it.
+ * Call after ds_set_firmware_resource_dir and before ds_lib_init. Preflight
+ * caches verified buffers for all entries and requires entries for every .fw
+ * and .bin under that directory. Failure leaves loaders in fail-closed mode.
+ * Do not change configuration while library threads run. After ds_lib_exit,
+ * call with -1 to free buffers and restore ordinary file loading.
+ */
+SR_API int ds_set_firmware_resource_manifest(int fd, GError **error);
+
+/**
  * Set user data directory.
 */
 SR_API void ds_set_user_data_dir(const char *dir);

@@ -65,6 +65,10 @@ enum device_transaction_types
 
 /** global variable */
 extern char DS_RES_PATH[500];
+SR_PRIV gboolean ds_resource_manifest_enabled(void);
+/* Borrowed immutable buffer, valid until manifest configuration is cleared. */
+SR_PRIV int ds_resource_buffer(const char *filename, gsize max_size,
+        const unsigned char **data, gsize *size);
 extern struct ds_trigger *trigger;
 
 typedef void (*hotplug_event_callback)(struct libusb_context *ctx, struct libusb_device *dev, int event);

@@ -56,6 +56,22 @@ static void test_arguments(void)
     assert(o.trig_ch == 15 && o.trig_type == 'F' && o.trigpos == 100);
     assert(parse(&o, "--out", "x", "--trigger", "0", NULL) == 0 && o.trig_type == 'R');
     assert(parse(&o, "--list", NULL) == 0 && o.list_only);
+    int fd = open("/dev/null", O_RDONLY);
+    char fd_text[32];
+    assert(fd >= 0);
+    snprintf(fd_text, sizeof fd_text, "%d", fd);
+    assert(parse(&o, "--list", "--res-manifest", fd_text, NULL) == 0 && o.res_manifest == fd);
+    close(fd);
+    assert(parse(&o, "--list", "--res-manifest", fd_text, NULL) == 2);
+    fd = open("/dev/null", O_WRONLY);
+    assert(fd >= 0);
+    snprintf(fd_text, sizeof fd_text, "%d", fd);
+    assert(parse(&o, "--list", "--res-manifest", fd_text, NULL) == 2);
+    close(fd);
+    const char *bad_fd[] = {"-1", "+3", " 3", "3x", "", "2147483648", "18446744073709551616"};
+    for (size_t i = 0; i < G_N_ELEMENTS(bad_fd); i++)
+        assert(parse(&o, "--list", "--res-manifest", bad_fd[i], NULL) == 2);
+    assert(parse(&o, "--list", "--res-manifest", NULL) == 2);
     /* trigpos% of the aligned sample limit must fit the driver's 32-bit position. */
     assert(parse(&o, "--out", "x", "--samples", "8589934592", "--trigpos", "100", NULL) == 2);
     assert(parse(&o, "--out", "x", "--samples", "4294000000", "--trigpos", "100", NULL) == 0);

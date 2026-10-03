@@ -4,7 +4,8 @@
  *   dslcap --list
  *   dslcap --channels 0,1 --samplerate 10000000 --samples 1000000
  *          [--vth 1.6] [--mode buffer|stream] [--trigger CH[:R|F|C|1|0]]
- *          [--trigpos PERCENT] [--timeout SEC] [--res DIR] --out /path/base
+ *          [--trigpos PERCENT] [--timeout SEC] [--res DIR] [--res-manifest FD]
+ *          --out /path/base
  *
  * Writes <base>.bin: for each enabled channel in ascending order, the
  * channel's samples packed LSB-first, ceil(samples/64)*8 bytes per channel.
@@ -20,6 +21,8 @@
 #endif
 #include <glib.h>
 #include <errno.h>
+#include <fcntl.h>
+#include <limits.h>
 #include <math.h>
 #include <pthread.h>
 #include <stdio.h>
@@ -195,6 +198,7 @@ struct options {
     uint64_t rate, samples;
     double vth, timeout;
     int trigpos, list_only, stream, vth_given;
+    int res_manifest;
     int enabled[MAX_CHANNELS], nch;
     int trig_ch;
     char trig_type;
@@ -215,6 +219,7 @@ static int parse_args(int argc, char **argv, struct options *o)
     o->timeout = 30;
     o->trigpos = 10;
     o->trig_ch = -1;
+    o->res_manifest = -1;
 
     for (int i = 1; i < argc; i++) {
         const char *a = argv[i];
@@ -223,7 +228,7 @@ static int parse_args(int argc, char **argv, struct options *o)
             continue;
         }
         static const char *const valued[] = {
-            "--res", "--out", "--channels", "--samplerate", "--samples", "--vth",
+            "--res", "--res-manifest", "--out", "--channels", "--samplerate", "--samples", "--vth",
             "--mode", "--trigger", "--trigpos", "--timeout",
         };
         int known = 0;
@@ -240,6 +245,14 @@ static int parse_args(int argc, char **argv, struct options *o)
         const char *v = argv[++i];
         int bad = 0;
         if (!strcmp(a, "--res")) o->res = v;
+        else if (!strcmp(a, "--res-manifest")) {
+            bad = parse_u64(v, &u) || u > INT_MAX;
+            if (!bad) {
+                int flags = fcntl((int)u, F_GETFL);
+                bad = flags < 0 || (flags & O_ACCMODE) == O_WRONLY;
+                if (!bad) o->res_manifest = (int)u;
+            }
+        }
         else if (!strcmp(a, "--out")) o->out = v;
         else if (!strcmp(a, "--channels")) o->chans = v;
         else if (!strcmp(a, "--mode")) o->mode = v;
@@ -605,6 +618,11 @@ static void print_report(const char *error, const struct report *r)
            r->overflow ? "true" : "false");
 }
 
+static void clear_resource_manifest(void)
+{
+    ds_set_firmware_resource_manifest(-1, NULL);
+}
+
 int main(int argc, char **argv)
 {
     struct options o;
@@ -633,6 +651,20 @@ int main(int argc, char **argv)
     ds_log_level(1);
     ds_set_firmware_resource_dir(res);
     g_free(res_found);
+    if (o.res_manifest >= 0) {
+        GError *error = NULL;
+        if (ds_set_firmware_resource_manifest(o.res_manifest, &error) != SR_OK) {
+            arg_error(error ? error->message : "resource manifest failed", "--res-manifest", NULL);
+            g_clear_error(&error);
+            clear_resource_manifest();
+            return finish_stdout(2);
+        }
+        if (atexit(clear_resource_manifest)) {
+            arg_error("cannot register resource cleanup", "--res-manifest", NULL);
+            clear_resource_manifest();
+            return finish_stdout(2);
+        }
+    }
     ds_set_event_callback(on_event);
     ds_set_datafeed_callback(on_data);
     if (ds_lib_init() != SR_OK) { printf("{\"error\":\"lib init failed\"}\n"); return finish_stdout(1); }
