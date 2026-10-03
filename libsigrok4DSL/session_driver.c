@@ -76,7 +76,7 @@ static void get_file_short_name(const char *file, char *buf, int buflen)
     char *wr = buf;
     char c;
 
-    while (pos >= 0)
+    while (pos > 0)
     {
         pos--;
         c = *(file + pos);
@@ -87,7 +87,7 @@ static void get_file_short_name(const char *file, char *buf, int buflen)
         }
     }
 
-    while (pos < len && (wr - buf) <= buflen)
+    while (pos < len && (wr - buf) < buflen)
     {
         *wr = *(file + pos);
         wr++;
