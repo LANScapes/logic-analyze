@@ -5,7 +5,7 @@
  *   dslcap --channels 0,1 --samplerate 10000000 --samples 1000000
  *          [--vth 1.6] [--mode buffer|stream] [--trigger CH[:R|F|C|1|0]]
  *          [--trigpos PERCENT] [--timeout SEC] [--res DIR]
- *          [--parent-fd N] [--res-manifest FD]
+ *          [--parent-fd N] [--res-manifest FD] [--device LOCATION:SERIAL]
  *          --out /path/base
  *
  * Writes <base>.bin: for each enabled channel in ascending order, the
@@ -15,7 +15,8 @@
  * created for a complete capture.
  *
  * Exit status: 0 success, 1 runtime or I/O error, 2 invalid arguments or
- * unavailable settings (including parent-watch setup), 3 the capture itself failed.
+ * unavailable settings (including guarded --device selection and parent-watch
+ * setup), 3 the capture itself failed.
  * With --parent-fd, parent loss exits immediately with status 1 without flushing
  * stdout or emitting a parent-loss JSON result.
  */
@@ -310,8 +311,37 @@ static int parse_double(const char *s, double *out)
     return 0;
 }
 
+/* Canonical libusb location: usb-<bus>-<port>[.<port>...]. The serial is
+ * verbatim UTF-8 after the first colon; later colons belong to the serial.
+ * A location alone is never an identity. No USB access occurs here. */
+static int valid_device_identity(const char *s)
+{
+    if (!g_utf8_validate(s, -1, NULL) || !g_str_has_prefix(s, "usb-"))
+        return 0;
+    const char *p = s + 4;
+    for (int component = 0; ; component++) {
+        const char *start = p;
+        unsigned int number = 0;
+        if (!g_ascii_isdigit(*p)) return 0;
+        do {
+            number = number * 10 + (*p++ - '0');
+            if (number > 255) return 0;
+        } while (g_ascii_isdigit(*p));
+        if (p - start > 1 && *start == '0') return 0;
+        if (component == 0) {
+            if (*p++ != '-') return 0;
+        } else {
+            /* libusb port paths contain up to seven nonzero uint8 ports. */
+            if (!number || component > 7) return 0;
+            if (*p == ':') return p[1] != '\0';
+            if (*p++ != '.') return 0;
+        }
+    }
+}
+
 struct options {
     const char *res, *out, *chans, *mode, *trig;
+    const char *device;
     const char *parent_fd_value;
     uint64_t rate, samples;
     double vth, timeout;
@@ -349,7 +379,7 @@ static int parse_args(int argc, char **argv, struct options *o)
         }
         static const char *const valued[] = {
             "--res", "--res-manifest", "--out", "--channels", "--samplerate", "--samples", "--vth",
-            "--mode", "--trigger", "--trigpos", "--timeout", "--parent-fd",
+            "--mode", "--trigger", "--trigpos", "--timeout", "--parent-fd", "--device",
         };
         int known = 0;
         for (size_t k = 0; k < G_N_ELEMENTS(valued); k++)
@@ -365,6 +395,19 @@ static int parse_args(int argc, char **argv, struct options *o)
         const char *v = argv[++i];
         int bad = 0;
         if (!strcmp(a, "--res")) o->res = v;
+        else if (!strcmp(a, "--device")) {
+            if (o->device) {
+                arg_error("duplicate option", a, NULL);
+                return 2;
+            }
+            if (!valid_device_identity(v)) {
+                /* Invalid UTF-8 must not enter a JSON string verbatim. */
+                arg_error("expected usb-BUS-PORT[.PORT...]:nonempty UTF-8 serial", a,
+                          g_utf8_validate(v, -1, NULL) ? v : NULL);
+                return 2;
+            }
+            o->device = v;
+        }
         else if (!strcmp(a, "--res-manifest")) {
             bad = parse_u64(v, &u) || u > INT_MAX;
             if (!bad) {
@@ -420,6 +463,10 @@ static int parse_args(int argc, char **argv, struct options *o)
         return 2;
     }
     o->stream = !strcmp(o->mode, "stream");
+    if (o->device && o->list_only) {
+        arg_error("--device is only for captures; cannot combine with --list", "--device", NULL);
+        return 2;
+    }
     if (o->list_only)
         return 0;
     /* The driver converts trigpos% of the (aligned) sample limit to a 32-bit
@@ -791,6 +838,19 @@ int main(int argc, char **argv)
     if (rc) return finish_stdout(rc);
     rc = start_parent_watch(o.parent_fd, o.parent_fd_value);
     if (rc) return finish_stdout(rc);
+
+    /* Hard capability gate, before resource lookup/preflight and EVERY ds_*
+     * or USB call. ds_lib_init scans and can upload/reset unclaimed devices;
+     * a CLI filter or separately claimed handle cannot make that path safe.
+     * Do not remove this gate without an identity-bound driver lifecycle.
+     * See README.md: Guarded device selection. */
+    if (o.device) {
+        printf("{\"error\":\"exact-device capture is unavailable: driver scans can upload firmware before an exclusive claim\","
+               "\"code\":\"device_selection_unavailable\",\"option\":\"--device\",\"value\":");
+        json_str(o.device);
+        printf("}\n");
+        return finish_stdout(2);
+    }
 
     char *res_found = NULL;
     const char *res = o.res;

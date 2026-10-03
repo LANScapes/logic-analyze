@@ -9,9 +9,105 @@ dslcap --list [--res DIR] [--parent-fd N] [--res-manifest FD]
 dslcap --channels 0,1 --samplerate 10000000 --samples 1000000
        [--vth 1.6] [--mode buffer|stream] [--trigger CH[:R|F|C|1|0]]
        [--trigpos PERCENT] [--timeout SEC] [--res DIR]
-       [--parent-fd N] [--res-manifest FD]
+       [--parent-fd N] [--res-manifest FD] [--device LOCATION:SERIAL]
        --out /path/base
 ```
+
+## Guarded device selection (capture unavailable)
+
+`--device LOCATION:SERIAL` reserves an exact-identity capture interface, but
+**this build cannot perform captures with it**. A syntactically valid request
+returns exit status **2** and one JSON object:
+
+```json
+{"error":"exact-device capture is unavailable: driver scans can upload firmware before an exclusive claim","code":"device_selection_unavailable","option":"--device","value":"usb-1-2.3:ABC123"}
+```
+
+The location format agreed with the separate descriptor-only `--list-ids` work
+is `usb-<decimal bus>-<dot-separated decimal port path>`, for example
+`usb-1-2.3`. Bus is 0..255; the path contains one to seven ports, each 1..255.
+Numbers have no leading zeros. The first colon separates location from the
+nonempty UTF-8 serial. Subsequent colons, spaces, Unicode and case are preserved
+verbatim; there is no trimming or normalization. A null or unavailable location
+or serial in identity-list JSON supplies no selectable identity. Syntax
+validation does not verify that a device exists or that its serial matches.
+USB topology is not a persistent identity across detach or re-enumeration.
+
+Malformed identities, missing values, repeated `--device`, or combining it
+with `--list` also return JSON and exit 2. Invalid UTF-8 is omitted from the
+JSON `value`. Ordinary capture arguments, including `--out`, remain required.
+After argument validation and optional parent-watch setup, the capability gate
+runs before resource lookup, manifest reads, every `ds_*` call, and all USB
+access. **The guarded path makes zero libusb calls and zero USB descriptor
+requests**; it does not enumerate, open, claim, detach, configure, reset,
+upload firmware/FPGA data, start hotplug handling or create capture files.
+There is no fallback to name, address, first device or the legacy capture path.
+Missing/ambiguous identity, changed/unreadable serial, claim busy/failure,
+detach, and same-identity re-enumeration therefore cannot result in a guarded
+capture or mutation: every request is rejected before those conditions are
+inspected. They are not individually detected or given distinct errors yet.
+The existing `--parent-fd` parent-loss behavior still exits immediately with
+status 1 and no additional JSON; it can precede delivery of the guard result.
+
+### Architectural blocker traced before implementation
+
+The existing call graph is:
+
+```text
+dslcap main
+  ds_lib_init                          libsigrok4DSL/lib_main.c
+    process_attach_event(0)
+      hardware driver scan(NULL)       hardware/DSL/{dslogic,dscope}.c
+        dsl_check_conf_profile         hardware/DSL/dsl.c
+        ezusb_upload_firmware          hardware/common/ezusb.c
+          libusb_open (fresh handle)
+          kernel-driver detach (non-macOS, if active)
+          libusb_set_configuration
+          ezusb_reset / install firmware / ezusb_reset
+          libusb_close
+    register hotplug + start USB hotplug thread
+  pick_device (first name containing DSLogic)
+    ds_active_device / open_device_instance
+      driver dev_open / dsl_dev_open   hardware/DSL/dsl.c
+        hw_dev_open (fresh open; vendor firmware-version read)
+        libusb_claim_interface (only here)
+        hardware status / optional dsl_fpga_config / device configuration
+```
+
+Both firmware-loader branches (manifest-verified and legacy) mutate without
+an interface claim. Resource verification authenticates bytes but does not
+establish device ownership. `dsl_check_conf_profile` reads manufacturer/product
+strings rather than a serial, before any claim. DSLogic/DSCope scan accepts only
+the optional `SR_CONF_CONN` bus/address filter, and initialization passes no
+filter. The runtime `hw_dev_open` firmware-version read also calls
+`command_ctl_rd` before claiming; that helper sends a vendor OUT
+`CMD_CTL_RD_PRE` command before its IN response. The public `ds_get_device_list`
+result contains only a handle and name;
+there is no API to initialize without hardware scans or to adopt an exact,
+retained, already-claimed libusb handle. Later hotplug attach processing calls
+the same scans again; firmware upload intentionally waits for reconnect.
+In `lib_main.c`, `hotplug_event_listen_callback` can call `update_device_handle`
+while waiting for reconnect; it substitutes the newly attached device object
+for the old one and schedules reopening without checking a serial. That is
+incompatible with treating every re-enumeration as a new, forbidden device.
+
+A descriptor-only candidate list followed by a CLI claim cannot make this safe:
+the existing library would still scan unrelated devices and its loaders would
+open different handles. Releasing a CLI claim so the driver could reopen would
+also lose the ownership guarantee. A runtime-only shortcut would still expose
+other bootloader devices to initialization and hotplug scans. This change stops
+at the rejecting guard; it changes no driver, firmware loader or no-flag behavior.
+In particular, legacy `--list` still invokes scanning and may mutate hardware;
+it must not be used as safe identity discovery.
+
+Enabling exact capture requires a separately reviewed driver lifecycle change:
+scan-free initialization, descriptor-only exact selection with nonempty serial
+revalidation, retention of the original device object and one exclusive claimed
+handle before every mutation, loaders that use that handle with no detach or
+force takeover, and disabling reconnect/attach scanning for the guarded session.
+Missing or ambiguous matches, changed serial, claim failure, detach and any new
+device object after re-enumeration must terminate it with JSON exit 2 or 3.
+Successful exact-device capture and those runtime checks remain unimplemented.
 
 ## Parent lifetime
 
@@ -99,6 +195,20 @@ reader closure (alone and racing with parent-pipe closure) are also checked.
 Every parent-loss test checks prompt exit, stdout/stderr and file cleanup.
 The same harness is run by the existing CI; no workflow change is needed.
 
+It also includes `test_device_guard.c`. All mocked libsigrok entry points count
+calls and abort if reached by a guarded invocation; this executable does not
+link libusb. The tests use the real parser/main, check strict location syntax,
+missing/empty/non-UTF-8 serials, verbatim serials (including colons, Unicode,
+spaces and JSON escapes), duplicate/conflicting flags, JSON exit 2 and no files.
+A readable empty manifest pipe proves rejection precedes even a potentially
+blocking resource preflight, with and without a valid parent watcher. The
+existing fake captures/lists still verify no-flag behavior. This proves rejection
+ordering and the absence of wrong-device mutation; it does not simulate or
+prove successful claim-before-upload, serial-change detection, claim-busy
+handling, detach handling or object retention across re-enumeration. Those
+runtime tests belong to the blocked driver work. No real analyzer is needed or
+accessed by this harness.
+
 On macOS, from the repository root:
 
 ```sh
@@ -112,9 +222,9 @@ cc -std=c99 -Wall -Wextra -Werror \
 On Linux, add `-D_DEFAULT_SOURCE -ffunction-sections -fdata-sections`, link with
 `-pthread -lm`, and replace `-Wl,-dead_strip` with `-Wl,--gc-sections`.
 
-The built executable can list Demo Device with `dslcap --list`. Capture still
-selects DSLogic as before; these tests do not change selection to enable Demo
-Device capture.
+The fake CLI includes Demo Device and DSLogic for no-flag list/capture tests.
+Do not run the production `dslcap --list` for hardware-free testing: its driver
+scans can upload firmware even if only a demo result is of interest.
 
 ## Resource verification
 

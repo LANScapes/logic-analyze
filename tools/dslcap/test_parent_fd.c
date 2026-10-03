@@ -25,6 +25,12 @@ enum parent_fault {
 };
 enum parent_mode { PM_GOOD, PM_INIT, PM_CAPTURE, PM_EXIT, PM_INIT_ERROR, PM_LIST_ERROR };
 static int test_fault, test_mode, test_phase_fd, test_gate_fd;
+static int test_library_calls, test_forbid_library;
+static void test_library_call(void)
+{
+    ++test_library_calls;
+    assert(!test_forbid_library); /* Guarded selection must never reach a driver. */
+}
 static int test_fcntl(int fd, int cmd, ...);
 static int test_pthread_create(pthread_t *t, const pthread_attr_t *a,
                               void *(*fn)(void *), void *arg);
@@ -163,20 +169,22 @@ static int test_sigaction(int sig, const struct sigaction *act, struct sigaction
 static struct sr_channel test_channel = { .index = 0, .enabled = TRUE };
 static GSList test_channels = { .data = &test_channel };
 static uint64_t test_rate, test_limit;
-void ds_log_level(int level) { (void)level; test_phase('d'); }
-void ds_set_firmware_resource_dir(const char *dir) { (void)dir; test_phase('d'); }
+void ds_log_level(int level) { test_library_call(); (void)level; test_phase('d'); }
+void ds_set_firmware_resource_dir(const char *dir) { test_library_call(); (void)dir; test_phase('d'); }
 /* This parent-only harness omits the manifest flag. Its main still references
  * the opt-in API; actual combined preflight is covered by test_resources.c. */
 int ds_set_firmware_resource_manifest(int fd, GError **error)
 {
+    test_library_call();
     (void)error;
     assert(fd == -1);
     return SR_OK;
 }
-void ds_set_event_callback(dslib_event_callback_t cb) { (void)cb; test_phase('d'); }
-void ds_set_datafeed_callback(ds_datafeed_callback_t cb) { (void)cb; test_phase('d'); }
+void ds_set_event_callback(dslib_event_callback_t cb) { test_library_call(); (void)cb; test_phase('d'); }
+void ds_set_datafeed_callback(ds_datafeed_callback_t cb) { test_library_call(); (void)cb; test_phase('d'); }
 int ds_lib_init(void)
 {
+    test_library_call();
     struct sigaction sa;
     assert(!sigaction(SIGPIPE, NULL, &sa));
     assert(sa.sa_handler == (g_parent_fd >= 0 ? SIG_IGN : SIG_DFL));
@@ -186,12 +194,14 @@ int ds_lib_init(void)
 }
 int ds_lib_exit(void)
 {
+    test_library_call();
     test_phase('E');
     if (test_mode == PM_EXIT) test_gate('e');
     return SR_OK;
 }
 int ds_get_device_list(struct ds_device_base_info **list, int *count)
 {
+    test_library_call();
     if (test_mode == PM_LIST_ERROR) return SR_ERR;
     *count = 2;
     *list = g_new0(struct ds_device_base_info, 2);
@@ -200,15 +210,17 @@ int ds_get_device_list(struct ds_device_base_info **list, int *count)
     (*list)[1].handle = 1;
     return SR_OK;
 }
-int ds_active_device(ds_device_handle handle) { assert(handle == 1); return SR_OK; }
+int ds_active_device(ds_device_handle handle) { test_library_call(); assert(handle == 1); return SR_OK; }
 int ds_get_actived_device_info(struct ds_device_full_info *info)
 {
+    test_library_call();
     strcpy(info->name, "DSLogic (test stub)");
     return SR_OK;
 }
 int ds_set_actived_device_config(const struct sr_channel *ch, const struct sr_channel_group *cg,
                                  int key, GVariant *v)
 {
+    test_library_call();
     (void)ch; (void)cg;
     if (key == SR_CONF_SAMPLERATE) test_rate = g_variant_get_uint64(v);
     if (key == SR_CONF_LIMIT_SAMPLES) test_limit = g_variant_get_uint64(v);
@@ -219,6 +231,7 @@ int ds_set_actived_device_config(const struct sr_channel *ch, const struct sr_ch
 int ds_get_actived_device_config(const struct sr_channel *ch, const struct sr_channel_group *cg,
                                  int key, GVariant **v)
 {
+    test_library_call();
     (void)ch; (void)cg;
     if (key == SR_CONF_VLD_CH_NUM) *v = g_variant_new_int16(1);
     else if (key == SR_CONF_SAMPLERATE) *v = g_variant_new_uint64(test_rate);
@@ -228,6 +241,7 @@ int ds_get_actived_device_config(const struct sr_channel *ch, const struct sr_ch
 }
 int ds_get_actived_device_config_list(const struct sr_channel_group *cg, int key, GVariant **v)
 {
+    test_library_call();
     (void)cg;
     static const struct sr_list_item modes[] = {{0, "test"}, {-1, NULL}};
     if (key == SR_CONF_CHANNEL_MODE) *v = g_variant_new_uint64((uint64_t)(uintptr_t)modes);
@@ -242,25 +256,29 @@ int ds_get_actived_device_config_list(const struct sr_channel_group *cg, int key
     } else return SR_ERR;
     return SR_OK;
 }
-GSList *ds_get_actived_device_channels(void) { return &test_channels; }
+GSList *ds_get_actived_device_channels(void) { test_library_call(); return &test_channels; }
 int ds_enable_device_channel(const struct sr_channel *ch, gboolean enable)
 {
+    test_library_call();
     (void)ch; test_channel.enabled = enable; return SR_OK;
 }
 int ds_enable_device_channel_index(int index, gboolean enable)
 {
+    test_library_call();
     assert(index == 0); test_channel.enabled = enable; return SR_OK;
 }
-int ds_trigger_reset(void) { return SR_OK; }
-int ds_trigger_set_mode(uint16_t mode) { (void)mode; return SR_OK; }
-int ds_trigger_set_pos(uint16_t pos) { (void)pos; return SR_OK; }
-int ds_trigger_set_en(uint16_t enable) { (void)enable; return SR_OK; }
+int ds_trigger_reset(void) { test_library_call(); return SR_OK; }
+int ds_trigger_set_mode(uint16_t mode) { test_library_call(); (void)mode; return SR_OK; }
+int ds_trigger_set_pos(uint16_t pos) { test_library_call(); (void)pos; return SR_OK; }
+int ds_trigger_set_en(uint16_t enable) { test_library_call(); (void)enable; return SR_OK; }
 int ds_trigger_probe_set(uint16_t probe, unsigned char a, unsigned char b)
 {
+    test_library_call();
     (void)probe; (void)a; (void)b; return SR_OK;
 }
 int ds_start_collect(void)
 {
+    test_library_call();
     if (test_mode == PM_CAPTURE) {
         pthread_mutex_lock(&g_lock);
         test_gate('K');  /* watcher must not need the held callback mutex */
@@ -275,9 +293,9 @@ int ds_start_collect(void)
     on_event(DS_EV_COLLECT_TASK_END);
     return SR_OK;
 }
-int ds_is_collecting(void) { return 0; }
-int ds_stop_collect(void) { return SR_OK; }
-int ds_release_actived_device(void) { return SR_OK; }
+int ds_is_collecting(void) { test_library_call(); return 0; }
+int ds_stop_collect(void) { test_library_call(); return SR_OK; }
+int ds_release_actived_device(void) { test_library_call(); return SR_OK; }
 
 struct parent_child { pid_t pid; int writer, out, err, phase, gate, fault; };
 /* NULL uses the actual read fd; "omit" leaves the flag out. Other special
@@ -387,6 +405,8 @@ static void parent_result(struct parent_child *p, int rc, const char *json, int 
     n = read(p->phase, phases, sizeof phases - 1);
     assert(n >= 0); phases[n] = '\0';
     if (json) {
+        if (output[0] != '{' || !strstr(output, json))
+            fprintf(stderr, "expected JSON fragment [%s], got [%s]\n", json, output);
         assert(output[0] == '{' && strstr(output, json));
         assert(strchr(output, '\n') == output + strlen(output) - 1);
     } else assert(!output[0]);

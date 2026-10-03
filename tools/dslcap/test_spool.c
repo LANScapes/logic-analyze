@@ -107,6 +107,8 @@ static void test_arguments(void)
     assert(parse(&o, "--out", "x", "--bogus", NULL) == 2);
 }
 
+#include "test_device_guard.c"
+
 static void test_status(void)
 {
     struct ds_trigger_pos t = {.real_pos = 7};
@@ -156,6 +158,7 @@ int main(int argc, char **argv)
 {
     assert(argc == 3);
     test_arguments();
+    test_device_guard();
     test_status();
     test_parent_fd();
 
