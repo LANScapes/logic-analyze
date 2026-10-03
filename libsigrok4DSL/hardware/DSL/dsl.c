@@ -2590,6 +2590,8 @@ SR_PRIV int dsl_destroy_device(struct sr_dev_inst *sdi)
     }
 
     sr_dev_inst_free(sdi);
+
+    return SR_OK;
 }
 
 SR_PRIV int sr_option_value_to_code(int config_id, const char *value, const struct lang_text_map_item *array, int num)

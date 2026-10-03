@@ -1990,6 +1990,7 @@ namespace pv
             return _decode_traces[index];
         }
         assert(false);
+        return NULL;
     }
 
     view::DecodeTrace *SigSession::get_top_decode_task()
