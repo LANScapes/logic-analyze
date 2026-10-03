@@ -28,6 +28,7 @@
 #include <QJsonObject>
 #include <QObject>
 #include <QString>
+#include <QStringList>
 #include <QTimer>
 
 #include "../interface/icallbacks.h"
@@ -59,6 +60,15 @@ public:
     void cancel(qint64 id);
     // The agent went away: the capture goes on as the user's own.
     void abandon();
+    // The pane's Stop: as the app's Stop button.
+    void user_stop();
+
+    // Writes the logic capture on screen (the user's or an MCP one) as
+    // <staging>/<name>.bin and .json; answers current_done() or failed().
+    void write_current(qint64 id, const QString &name, const QString &staging);
+
+    // While running: the channels, the rate and the depth, for the pane.
+    QStringList activity() const;
 
     // The device to use when the selected one is not an analyzer: the first
     // whose name contains this ("DSLogic", as dslcap; the parity test uses "Demo").
@@ -70,7 +80,8 @@ signals:
     void started(qint64 id);
     void done(qint64 id, const QString &name, const QJsonObject &meta);
     void failed(qint64 id, const QString &code, const QString &message);
-    void active_changed(bool on);   // the toolbar's MCP indicator
+    void current_done(qint64 id, const QString &name, const QJsonObject &meta);
+    void active_changed(bool on);   // an MCP capture started or ended
 
 private:
     void fail(qint64 id, const QString &code, const QString &message);
@@ -94,7 +105,8 @@ private:
     bool _stopped_by_user = false;
     QElapsedTimer _elapsed;
     QTimer _timeout;
-    QTimer _indicator_off;
+    bool _mcp_on_screen = false;     // the data on screen is from an MCP capture
+    bool _stopped_on_screen = false; // and the user stopped it early
 };
 
 } // namespace mcp

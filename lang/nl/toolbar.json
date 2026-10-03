@@ -180,15 +180,19 @@
         "text": "L&ogopties"
     },
     {
-        "id": "IDS_TOOLBAR_MCP_ITEM",
-        "text": "MCP..."
+        "id": "IDS_TOOLBAR_MCP",
+        "text": "MCP"
     },
     {
-        "id": "IDS_TOOLBAR_MCP_ACTIVE",
-        "text": "MCP ●"
+        "id": "IDS_TOOLBAR_MCP_TIP_OFF",
+        "text": "MCP staat uit"
     },
     {
-        "id": "IDS_TOOLBAR_MCP_ACTIVE_TIP",
-        "text": "Een AI-assistent legt vast via MCP"
+        "id": "IDS_TOOLBAR_MCP_TIP_ON",
+        "text": "MCP aan: AI-assistenten kunnen vastleggen zolang Logic Analyze open is"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_TIP_BUSY",
+        "text": "MCP aan: een AI-assistent legt vast"
     }
 ]

@@ -180,15 +180,19 @@
         "text": "&Journalisation"
     },
     {
-        "id": "IDS_TOOLBAR_MCP_ITEM",
-        "text": "MCP..."
+        "id": "IDS_TOOLBAR_MCP",
+        "text": "MCP"
     },
     {
-        "id": "IDS_TOOLBAR_MCP_ACTIVE",
-        "text": "MCP ●"
+        "id": "IDS_TOOLBAR_MCP_TIP_OFF",
+        "text": "MCP est désactivé"
     },
     {
-        "id": "IDS_TOOLBAR_MCP_ACTIVE_TIP",
-        "text": "Un assistant IA effectue une capture via MCP"
+        "id": "IDS_TOOLBAR_MCP_TIP_ON",
+        "text": "MCP activé : les assistants IA peuvent capturer tant que Logic Analyze est ouvert"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_TIP_BUSY",
+        "text": "MCP activé : un assistant IA effectue une capture"
     }
 ]

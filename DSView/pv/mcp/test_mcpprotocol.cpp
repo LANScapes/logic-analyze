@@ -122,6 +122,13 @@ static void test_requests()
     CHECK(parse_agent_message(agent("{\"v\":1,\"type\":\"devices\"}")).type == AgentMessage::Invalid);
     CHECK(parse_agent_message(agent("{\"v\":1,\"type\":\"devices\",\"id\":-1}")).type == AgentMessage::Invalid);
     CHECK(parse_agent_message(agent("{\"v\":1,\"type\":\"devices\",\"id\":1.5}")).type == AgentMessage::Invalid);
+    AgentMessage cur = parse_agent_message(agent("{\"v\":1,\"type\":\"current\",\"id\":5,\"name\":\"now-1\"}"));
+    CHECK(cur.type == AgentMessage::Current && cur.id == 5 && cur.name == "now-1" && cur.req_error.isEmpty());
+    cur = parse_agent_message(agent("{\"v\":1,\"type\":\"current\",\"id\":5}"));
+    CHECK(cur.type == AgentMessage::Current && !cur.req_error.isEmpty());   // the agent names the files
+    cur = parse_agent_message(agent("{\"v\":1,\"type\":\"current\",\"id\":5,\"name\":\"../x\"}"));
+    CHECK(cur.type == AgentMessage::Current && !cur.req_error.isEmpty());
+    CHECK(parse_agent_message(agent("{\"v\":1,\"type\":\"current\"}")).type == AgentMessage::Invalid);
     AgentMessage c = parse_agent_message(agent("{\"v\":1,\"type\":\"capture_cancel\",\"id\":9}"));
     CHECK(c.type == AgentMessage::CaptureCancel && c.id == 9);
 
@@ -201,6 +208,10 @@ static void test_replies()
     QJsonObject done = capture_done_message(7, "n", meta);
     CHECK(done.value("type").toString() == "capture_done" && done.value("name").toString() == "n");
     CHECK(done.value("meta").toObject() == meta);
+
+    QJsonObject cur = current_ok_message(8, "now-1", meta);
+    CHECK(cur.value("type").toString() == "current_ok" && cur.value("id").toInt() == 8);
+    CHECK(cur.value("name").toString() == "now-1" && cur.value("meta").toObject() == meta);
 
     QJsonObject e = capture_error_message(7, "busy", "later");
     CHECK(e.value("type").toString() == "capture_error" && e.value("code").toString() == "busy");

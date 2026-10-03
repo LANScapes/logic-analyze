@@ -8,7 +8,10 @@
  *   1. dslcap --device Demo ... --out <out>/cli/parity
  *   2. the GUI's MCP capture path (McpCapture, offscreen) into <out>/gui/parity
  * and compares the JSON records (all fields but elapsed_s and bin) and the .bin
- * files byte for byte.
+ * files byte for byte. It then asks the GUI for the capture on screen (the
+ * agent's "current") and checks every sample of it against the snapshot that
+ * the view draws. (On the Demo Device the view's copy does not start where the
+ * data feed does: it is not compared with the MCP capture.)
  *
  * Usage: capture_parity <dslcap> <res-dir> <out-dir>
  * Exit status 0 when both agree, 1 when they differ, 2 when a run fails.
@@ -20,6 +23,7 @@
 #include <QDir>
 #include <QEventLoop>
 #include <QFile>
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QProcess>
@@ -36,6 +40,7 @@
 #include "DSView/pv/mcp/mcpbridge.h"
 #include "DSView/pv/mcp/mcpcapture.h"
 #include "DSView/pv/sigsession.h"
+#include "DSView/pv/data/logicsnapshot.h"
 #include "DSView/pv/ui/langresource.h"
 
 namespace {
@@ -215,6 +220,50 @@ int main(int argc, char *argv[])
         else
             printf("capture_parity: .bin identical, %lld bytes\n", (long long)x.size());
     }
+    // 4. "current": the capture on screen, read back from the GUI's own buffers.
+    QJsonObject cur;
+    error.clear();
+    QEventLoop loop2;
+    QObject::connect(cap, &pv::mcp::McpCapture::current_done, [&](qint64, const QString &, const QJsonObject &meta) {
+        cur = meta;
+        loop2.quit();
+    });
+    QObject::connect(cap, &pv::mcp::McpCapture::failed, [&](qint64, const QString &code, const QString &message) {
+        error = code + ": " + message;
+        loop2.quit();
+    });
+    cap->write_current(2, "current", out + "/gui");
+    if (cur.isEmpty() && error.isEmpty())
+        loop2.exec();
+    if (!error.isEmpty()) {
+        printf("DIFFERENT current failed: %s\n", error.toUtf8().constData());
+        differences++;
+    }
+    else {
+        // Every sample against the snapshot's own per-sample reader (what the view draws).
+        QFile cf(out + "/gui/current.bin");
+        cf.open(QFile::ReadOnly);
+        QByteArray x = cf.readAll();
+        auto *snap = dynamic_cast<pv::data::LogicSnapshot *>(session->get_snapshot(SR_CHANNEL_LOGIC));
+        qint64 samples = cur.value("samples").toVariant().toLongLong();
+        qint64 cwords = cur.value("words_per_channel").toVariant().toLongLong();
+        QJsonArray chans = cur.value("channels").toArray();
+        bool same = snap && chans == gui.value("channels").toArray() && cur.value("source").toString() == "mcp"
+                    && samples == (qint64)snap->get_ring_sample_count() && x.size() == cwords * chans.size() * 8;
+        for (int c = 0; same && c < chans.size(); c++) {
+            const uchar *w = (const uchar *)x.constData() + c * cwords * 8;
+            for (qint64 i = 0; same && i < samples; i++)
+                same = (((w[i / 8] >> (i % 8)) & 1) != 0) == snap->get_sample(i, chans[c].toInt());
+        }
+        if (!same) {
+            printf("DIFFERENT current: %s\n", QJsonDocument(cur).toJson(QJsonDocument::Compact).constData());
+            differences++;
+        }
+        else
+            printf("capture_parity: current matches (%lld samples on screen, source %s)\n",
+                   cur.value("samples").toVariant().toLongLong(), cur.value("source").toString().toUtf8().constData());
+    }
+
     printf("capture_parity: %s (%lld samples x %d channels, meta: %s)\n",
            differences ? "DIFFERENT" : "identical", (long long)gui.value("samples").toVariant().toLongLong(),
            (int)(sizeof kChannels / sizeof kChannels[0]),

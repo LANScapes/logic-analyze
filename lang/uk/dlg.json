@@ -822,5 +822,21 @@
     {
         "id": "IDS_DLG_MCP_AGENT_STARTING",
         "text": "Увімкнено. Агент ще не запущено."
+    },
+    {
+        "id": "IDS_DLG_MCP_NOW",
+        "text": "Зараз:"
+    },
+    {
+        "id": "IDS_DLG_MCP_IDLE",
+        "text": "Очікування"
+    },
+    {
+        "id": "IDS_DLG_MCP_CAPTURING",
+        "text": "Захоплення: канали %1, %2, %3 відліків"
+    },
+    {
+        "id": "IDS_DLG_MCP_STOP",
+        "text": "Стоп"
     }
 ]

@@ -63,15 +63,15 @@ struct CaptureRequest
 // Agent -> GUI.
 struct AgentMessage
 {
-    enum Type { Invalid, Ok, Error, Devices, Capture, CaptureCancel };
+    enum Type { Invalid, Ok, Error, Devices, Capture, CaptureCancel, Current };
 
     Type type = Invalid;
     qint64 build = 0;            // gui_ok
     qint64 min_build = 0;        // gui_ok
     qint64 id = -1;              // devices, capture, capture_cancel
-    QString name;                // capture: the file base name
+    QString name;                // capture, current: the file base name
     CaptureRequest req;          // capture
-    QString req_error;           // capture: why the request is unusable (then "unsupported")
+    QString req_error;           // capture, current: why the request is unusable (then "unsupported")
 };
 
 AgentMessage parse_agent_message(const QJsonObject &m);
@@ -82,6 +82,7 @@ QJsonObject devices_ok_message(qint64 id, const QStringList &devices, const QStr
 QJsonObject capture_started_message(qint64 id);
 QJsonObject capture_done_message(qint64 id, const QString &name, const QJsonObject &meta);
 QJsonObject capture_error_message(qint64 id, const QString &code, const QString &message);
+QJsonObject current_ok_message(qint64 id, const QString &name, const QJsonObject &meta);
 
 } // namespace mcp
 } // namespace pv

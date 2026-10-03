@@ -34,7 +34,6 @@
 #endif
 #ifdef LANSCAPES_APPSTORE
 #include "mcp/mcpbridge.h"
-#include "mcp/mcpcapture.h"
 #endif
 #include <QWidget>
 #include <QDesktopServices>
@@ -225,23 +224,8 @@ namespace pv
         _sampling_bar->add_options_submenu(_trig_bar->display_menu());
         _logo_bar->add_before_help(_sampling_bar->options_button());
 #ifdef LANSCAPES_APPSTORE
-        // Mac App Store edition: the agent connection and its pane in Options.
-        {
-            pv::mcp::McpBridge *mcp = new pv::mcp::McpBridge(_session, _sampling_bar, this);
-            QMenu *options = _sampling_bar->options_button()->menu();
-            options->addSeparator();
-            _action_mcp = options->addAction(L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_MCP_ITEM), "MCP..."));
-            connect(_action_mcp, &QAction::triggered, mcp, &pv::mcp::McpBridge::show_pane);
-            // MCP ● while an MCP capture drives the app, after Start/Stop.
-            _mcp_indicator = new QLabel(_sampling_bar);
-            _mcp_indicator->setObjectName("mcp_indicator");
-            _mcp_indicator->setAlignment(Qt::AlignCenter);
-            _mcp_indicator->setContentsMargins(4, 0, 4, 0);
-            _mcp_indicator->setStyleSheet("QLabel { color: #e0483e; font-weight: bold; }");
-            QAction *indicator = _sampling_bar->addWidget(_mcp_indicator);
-            indicator->setVisible(false);
-            connect(mcp->capture(), &pv::mcp::McpCapture::active_changed, indicator, &QAction::setVisible);
-        }
+        // Mac App Store edition: the agent connection; its MCP button ends the sampling bar.
+        _mcp = new pv::mcp::McpBridge(_session, _sampling_bar, this);
 #endif
         // File first; Options and Help close the row.
         for (QToolBar *bar : {(QToolBar*)_file_bar, (QToolBar*)_sampling_bar,
@@ -406,13 +390,8 @@ namespace pv
         _measure_dock->setWindowTitle(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MEASURE_DOCK_TITLE), "Measurement"));
         _search_dock->setWindowTitle(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_SEARCH_DOCK_TITLE), "Search..."));
 #ifdef LANSCAPES_APPSTORE
-        if (_action_mcp)
-            _action_mcp->setText(L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_MCP_ITEM), "MCP..."));
-        if (_mcp_indicator){
-            _mcp_indicator->setText(L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_MCP_ACTIVE), "MCP ●"));
-            _mcp_indicator->setToolTip(L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_MCP_ACTIVE_TIP),
-                                           "An AI assistant is capturing through MCP"));
-        }
+        if (_mcp)
+            _mcp->retranslate();
 #endif
     }
 

@@ -822,5 +822,21 @@
     {
         "id": "IDS_DLG_MCP_AGENT_STARTING",
         "text": "Activé. L'agent n'est pas encore lancé."
+    },
+    {
+        "id": "IDS_DLG_MCP_NOW",
+        "text": "En cours :"
+    },
+    {
+        "id": "IDS_DLG_MCP_IDLE",
+        "text": "Inactif"
+    },
+    {
+        "id": "IDS_DLG_MCP_CAPTURING",
+        "text": "Capture : voie %1, %2, %3 échantillons"
+    },
+    {
+        "id": "IDS_DLG_MCP_STOP",
+        "text": "Arrêter"
     }
 ]

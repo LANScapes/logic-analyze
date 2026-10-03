@@ -180,15 +180,19 @@
         "text": "Opções de &log"
     },
     {
-        "id": "IDS_TOOLBAR_MCP_ITEM",
-        "text": "MCP..."
+        "id": "IDS_TOOLBAR_MCP",
+        "text": "MCP"
     },
     {
-        "id": "IDS_TOOLBAR_MCP_ACTIVE",
-        "text": "MCP ●"
+        "id": "IDS_TOOLBAR_MCP_TIP_OFF",
+        "text": "O MCP está desligado"
     },
     {
-        "id": "IDS_TOOLBAR_MCP_ACTIVE_TIP",
-        "text": "Um assistente de IA está capturando pelo MCP"
+        "id": "IDS_TOOLBAR_MCP_TIP_ON",
+        "text": "MCP ligado: assistentes de IA podem capturar enquanto o Logic Analyze estiver aberto"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_TIP_BUSY",
+        "text": "MCP ligado: um assistente de IA está capturando"
     }
 ]

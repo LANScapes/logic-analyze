@@ -826,5 +826,21 @@
     {
         "id": "IDS_DLG_MCP_AGENT_STARTING",
         "text": "On. The agent is not running yet."
+    },
+    {
+        "id": "IDS_DLG_MCP_NOW",
+        "text": "Now:"
+    },
+    {
+        "id": "IDS_DLG_MCP_IDLE",
+        "text": "Idle"
+    },
+    {
+        "id": "IDS_DLG_MCP_CAPTURING",
+        "text": "Capturing: ch %1, %2, %3 samples"
+    },
+    {
+        "id": "IDS_DLG_MCP_STOP",
+        "text": "Stop"
     }
 ]

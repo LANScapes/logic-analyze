@@ -822,5 +822,21 @@
     {
         "id": "IDS_DLG_MCP_AGENT_STARTING",
         "text": "オン。エージェントはまだ実行されていません。"
+    },
+    {
+        "id": "IDS_DLG_MCP_NOW",
+        "text": "現在："
+    },
+    {
+        "id": "IDS_DLG_MCP_IDLE",
+        "text": "待機中"
+    },
+    {
+        "id": "IDS_DLG_MCP_CAPTURING",
+        "text": "キャプチャ中：チャンネル %1、%2、%3 サンプル"
+    },
+    {
+        "id": "IDS_DLG_MCP_STOP",
+        "text": "停止"
     }
 ]

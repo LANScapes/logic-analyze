@@ -822,5 +822,21 @@
     {
         "id": "IDS_DLG_MCP_AGENT_STARTING",
         "text": "Attivato. L'agente non è ancora in esecuzione."
+    },
+    {
+        "id": "IDS_DLG_MCP_NOW",
+        "text": "Ora:"
+    },
+    {
+        "id": "IDS_DLG_MCP_IDLE",
+        "text": "Inattivo"
+    },
+    {
+        "id": "IDS_DLG_MCP_CAPTURING",
+        "text": "Acquisizione: canale %1, %2, %3 campioni"
+    },
+    {
+        "id": "IDS_DLG_MCP_STOP",
+        "text": "Ferma"
     }
 ]

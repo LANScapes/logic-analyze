@@ -822,5 +822,21 @@
     {
         "id": "IDS_DLG_MCP_AGENT_STARTING",
         "text": "켜짐. 에이전트가 아직 실행되지 않았습니다."
+    },
+    {
+        "id": "IDS_DLG_MCP_NOW",
+        "text": "현재:"
+    },
+    {
+        "id": "IDS_DLG_MCP_IDLE",
+        "text": "대기 중"
+    },
+    {
+        "id": "IDS_DLG_MCP_CAPTURING",
+        "text": "캡처 중: 채널 %1, %2, 샘플 %3개"
+    },
+    {
+        "id": "IDS_DLG_MCP_STOP",
+        "text": "중지"
     }
 ]

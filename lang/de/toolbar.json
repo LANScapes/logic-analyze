@@ -180,15 +180,19 @@
         "text": "L&og-Optionen"
     },
     {
-        "id": "IDS_TOOLBAR_MCP_ITEM",
-        "text": "MCP..."
+        "id": "IDS_TOOLBAR_MCP",
+        "text": "MCP"
     },
     {
-        "id": "IDS_TOOLBAR_MCP_ACTIVE",
-        "text": "MCP ●"
+        "id": "IDS_TOOLBAR_MCP_TIP_OFF",
+        "text": "MCP ist aus"
     },
     {
-        "id": "IDS_TOOLBAR_MCP_ACTIVE_TIP",
-        "text": "Ein KI-Assistent erfasst über MCP"
+        "id": "IDS_TOOLBAR_MCP_TIP_ON",
+        "text": "MCP an: KI-Assistenten können erfassen, solange Logic Analyze geöffnet ist"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_TIP_BUSY",
+        "text": "MCP an: Ein KI-Assistent erfasst gerade"
     }
 ]

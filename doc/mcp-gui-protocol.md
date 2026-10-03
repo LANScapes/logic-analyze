@@ -2,11 +2,14 @@
 
 This is the interface between the Logic Analyze GUI (GPL, this repository) and the Logic Analyze Agent, the proprietary MCP component of the Mac App Store edition. The two programs share no code; this file is the contract. The GUI side is in `DSView/pv/mcp/` and is compiled only with `-DLANSCAPES_APPSTORE=ON`.
 
-The GUI is the only program that opens the analyzer. When an MCP client asks for a capture, the agent asks the GUI, and the GUI runs it in its normal session, on screen, as if the user had pressed Start. The user watches the waveform live; the toolbar shows **MCP ●** while an MCP capture drives the app. The GUI then writes the data to the agent's staging directory in exactly the format `dslcap` writes, so the MCP server's import path is unchanged.
+The GUI is the only program that opens the analyzer. When an MCP client asks for a capture, the agent asks the GUI, and the GUI runs it in its normal session, on screen, as if the user had pressed Start. The user watches the waveform live, and the toolbar's **MCP** button shows an orange dot while an MCP capture drives the app. The GUI then writes the data to the agent's staging directory in exactly the format `dslcap` writes, so the MCP server's import path is unchanged. The agent can also ask for the capture on screen (`current`), whoever made it.
+
+Nothing on the MCP path asks the user anything: no prompts, notices or confirmations, and quitting is never blocked. A request the GUI cannot serve now gets an error code at once.
 
 ## Lifetime
 
-- MCP is off by default. The user turns it on in **Options → MCP…**, and the GUI stores the setting.
+- MCP is off by default. The toolbar's **MCP** button (after Start and Instant) opens the MCP pane, a tool window that is never modal: a short intro, MCP on or off with **Turn On**/**Turn Off**, and what MCP is doing now (**Idle**, or **Capturing: ch 0–3, 10 MHz, 1M samples**) with a **Stop** that ends the MCP capture as the app's Stop does. The GUI stores the setting.
+- The button's mark: none when MCP is off, a green dot when it is on (a green ring while the agent is not connected yet), an orange dot while an MCP capture runs. An agent error (version mismatch, agent missing) shows only in the pane and in the button's tooltip.
 - With MCP on, the GUI opens the nested `Logic Analyze Agent.app` with `NSWorkspace` and connects. If the connection drops, it connects again every 3 s and reopens the agent at most every 30 s. After a version error it stops until MCP is turned off and on.
 - The agent serves only while the GUI is connected, and exits at once when the GUI disconnects. Nothing else starts the agent or the GUI.
 
@@ -45,10 +48,12 @@ Each frame is a big-endian `u32` length N (1 ≤ N ≤ 32764), then N bytes of o
 | GUI → agent | `{"v":1,"type":"capture_done","id":N,"name":"<base name>","meta":{…}}` |
 | GUI → agent | `{"v":1,"type":"capture_error","id":N,"code":"busy"\|"no_device"\|"unsupported"\|"stopped"\|"failed","message":"…"}` |
 | agent → GUI | `{"v":1,"type":"capture_cancel","id":N}` |
+| agent → GUI | `{"v":1,"type":"current","id":N,"name":"<base name>"}` |
+| GUI → agent | `{"v":1,"type":"current_ok","id":N,"name":"<base name>","meta":{…}}`, or `capture_error` (`no_data`, `busy`, `unsupported`, `failed`) |
 
 `id` is a JSON integer ≥ 0 chosen by the agent; every reply carries the request's `id`.
 
-**Handshake.** The GUI sends `gui_hello` as soon as it connects (the agent waits 2 s). The agent answers `gui_ok`, or `gui_error` and closes. The GUI accepts `gui_ok` only if `build` ≥ its `min_build` (2) and `min_build` ≤ its `build` (2). Otherwise it closes and asks the user to update. Build 2 is this capture protocol; build 1 was the device lease (`lease`, `lease_request`, `lease_returned`), which no longer exists. The agent should send `"build":2,"min_build":2`.
+**Handshake.** The GUI sends `gui_hello` as soon as it connects (the agent waits 2 s). The agent answers `gui_ok`, or `gui_error` and closes. The GUI accepts `gui_ok` only if `build` ≥ its `min_build` (2) and `min_build` ≤ its `build` (2). Otherwise it closes and shows the mismatch in the MCP pane and the button's tooltip. Build 2 is this capture protocol; build 1 was the device lease (`lease`, `lease_request`, `lease_returned`), which no longer exists. The agent should send `"build":2,"min_build":2`.
 
 **devices.** The GUI answers at once with the names in its device list, in list order (the demo device first), and the name of the device selected in the GUI (a file opened as a device shows its file name). It does not open or change any device.
 
@@ -80,18 +85,28 @@ The GUI, on `capture`:
 1. Answers `capture_error` `busy` at once if a capture (the user's or another MCP one) or a save is running.
 2. Uses the selected device if it is an analyzer. If the demo device or a file is selected, it switches to the first analyzer in the device list; with none, `no_device`.
 3. Applies the request through `cap_apply()`; a setting the device does not have is `unsupported`. The toolbar then shows the new rate and depth, and only the requested channels are enabled.
-4. Starts the capture as if the user pressed Start, sends `capture_started`, and shows **MCP ●** in the toolbar. The waveform draws live.
+4. Starts the capture as if the user pressed Start (a single capture), sends `capture_started`, and shows the orange dot on the MCP button. The waveform draws live.
 5. Ends the capture after `timeout_ms` from `capture_started` if it has not finished, with `capture_error` `failed` (`"capture timed out"`).
 6. On completion writes `<name>.bin` and then `<name>.json` into the staging directory (below) and sends `capture_done` with `meta` equal to the JSON file's contents.
 
 **Stops.**
 
-- The user presses Stop during an MCP capture: if any samples arrived, the GUI writes what it has and sends `capture_done` with `"stopped_by_user": true` in `meta` (`samples` < `samples_requested`). With no samples at all it sends `capture_error` `stopped`.
+- The user presses Stop (the app's, or the MCP pane's) during an MCP capture: if any samples arrived, the GUI writes what it has and sends `capture_done` with `"stopped_by_user": true` in `meta` (`samples` < `samples_requested`). With no samples at all it sends `capture_error` `stopped`.
 - `capture_cancel` with the running capture's `id`: the GUI stops the capture, writes nothing, and sends `capture_error` `stopped` (`"cancelled by the agent"`). A `capture_cancel` for any other `id` is ignored.
 - A device error, detach, overflow or a write failure: `capture_error` `failed` with `dslcap`'s message for it (for example `"device detached during capture"`, `"cannot write capture data"`).
 - If the connection drops during an MCP capture, the capture goes on as the user's own; nothing is written.
 
-Only one MCP capture runs at a time. After `capture_done` or `capture_error` the data stays on screen as an ordinary capture; the user can save it.
+Only one MCP capture runs at a time. After `capture_done` or `capture_error` the data stays on screen as an ordinary capture; the user can save it, but switching device or quitting does not ask to (the agent has the data).
+
+### current
+
+The agent asks for the logic capture on screen, the user's or an MCP one: `{"v":1,"type":"current","id":N,"name":"<base name>"}`. `name` is chosen by the agent, as for `capture`, and is required. There is no `capture_cancel` for it.
+
+- The GUI writes `<name>.bin` and `<name>.json` into the staging directory in the same layout, through the same writer (`cap_write_bin()`, `cap_format_record()`), and answers `{"v":1,"type":"current_ok","id":N,"name":"<base name>","meta":{…}}`.
+- With nothing on screen (no logic capture, a DSO or analog device), `capture_error` `no_data`; while a capture or a save runs, `busy`.
+- `meta` is the record below for the data on screen: `samplerate` is the capture's rate, `samples` = `samples_requested` = the samples on screen, `channels` the enabled channels that have data, `trigger` null, `trigger_pos` the trigger's sample index if the capture triggered (else -1), `elapsed_s` 0. It carries `"stopped_by_user": true` if that capture was stopped by the user. It adds two keys:
+  - `"source"`: `"mcp"` if an MCP capture made the data, else `"user"`;
+  - `"decoders"`: the protocol decoders on screen, in order, each `{"id":"i2c","name":"I²C","channels":{"scl":1,"sda":0}}` (the decoder's channel ids and the analyzer channels they are bound to).
 
 ### Error codes
 
@@ -101,11 +116,12 @@ Only one MCP capture runs at a time. After `capture_done` or `capture_error` the
 | `no_device` | No analyzer in the device list. |
 | `unsupported` | A malformed request, or a setting the device does not offer (rate, channel/rate combination, trigger channel). `message` is `dslcap`'s message for it where there is one. |
 | `stopped` | Cancelled by the agent, or stopped by the user before any sample arrived. |
+| `no_data` | `current`: no logic capture is on screen. |
 | `failed` | Anything else: timeout, device error, the staging directory is missing, a write failed. |
 
 ## Files in the staging directory
 
-The layout is exactly `dslcap`'s; both are written by the same code (`tools/dslcap/capcore.c`, `cap_write_bin()` and `cap_print_report()`).
+The layout is exactly `dslcap`'s; both are written by the same code (`tools/dslcap/capcore.c`, `cap_write_bin()` and `cap_format_record()`).
 
 **`<name>.bin`**: for each enabled channel in ascending channel order, that channel's samples packed LSB-first in little-endian 64-bit words, `words_per_channel` = ceil(`samples` / 64) words (8 bytes each) per channel, channel after channel. Bits past `samples` in the last word are zero. The file size is `len(channels) × words_per_channel × 8`. Written to a temporary name and published with `link()`, so it never replaces an existing file.
 
@@ -128,7 +144,7 @@ The layout is exactly `dslcap`'s; both are written by the same code (`tools/dslc
 
 ## Errors
 
-The GUI closes the connection on a malformed or oversize frame, an unknown message type, a `devices`, `capture` or `capture_cancel` before `gui_ok`, `gui_error`, a failed write (2 s send timeout) or end of stream. It then reconnects as described in Lifetime.
+The GUI closes the connection on a malformed or oversize frame, an unknown message type, a `devices`, `capture`, `capture_cancel` or `current` before `gui_ok`, `gui_error`, a failed write (2 s send timeout) or end of stream. It then reconnects as described in Lifetime.
 
 ## Parity with dslcap
 

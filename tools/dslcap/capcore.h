@@ -108,6 +108,33 @@ int cap_finish(const struct cap_request *r, const struct cap_setup *s, const cha
 /* Closes the spool without writing anything (cap_finish does this itself). */
 void cap_record_end(void);
 
+/* Reads words k..k+count-1 of every channel into raw, interleaved: word i of
+ * channel c at raw[i * nch + c]. Returns 0, or -1 on a read error. */
+typedef int (*cap_read_fn)(void *ctx, uint64_t k, size_t count, int nch, uint64_t *raw);
+
+/* Writes path in the .bin layout: each channel's per_ch words in turn, bits
+ * past got cleared; through a temporary file and link(). Returns 0 or -1. */
+int cap_write_bin(const char *path, int nch, uint64_t per_ch, uint64_t got, cap_read_fn read_words, void *ctx);
+
+/* The JSON record's fields. */
+struct cap_record {
+    const char *device;
+    uint64_t rate, samples, got, per_ch, limit;
+    const int *channels;
+    int nch;
+    double vth;                      /* NAN: null */
+    const char *mode, *trig;
+    int format;
+    long long trig_pos;
+    int timed_out, err, pkt_error, overflow, stopped_by_user;
+    double secs;
+    const char *bin;
+};
+
+/* The one-line JSON record (with a newline), g_malloc'd; error, when set,
+ * makes it a failure record. */
+char *cap_format_record(const char *error, const struct cap_record *r);
+
 /* Writes len bytes to path through a temporary file and link(), never
  * replacing an existing file. Returns 0 or -1. */
 int cap_publish_file(const char *path, const char *data, size_t len);

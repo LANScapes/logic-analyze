@@ -180,15 +180,19 @@
         "text": "&Журналирование"
     },
     {
-        "id": "IDS_TOOLBAR_MCP_ITEM",
-        "text": "MCP..."
+        "id": "IDS_TOOLBAR_MCP",
+        "text": "MCP"
     },
     {
-        "id": "IDS_TOOLBAR_MCP_ACTIVE",
-        "text": "MCP ●"
+        "id": "IDS_TOOLBAR_MCP_TIP_OFF",
+        "text": "MCP выключен"
     },
     {
-        "id": "IDS_TOOLBAR_MCP_ACTIVE_TIP",
-        "text": "ИИ-ассистент выполняет захват через MCP"
+        "id": "IDS_TOOLBAR_MCP_TIP_ON",
+        "text": "MCP включён: ИИ-ассистенты могут выполнять захват, пока Logic Analyze открыт"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_TIP_BUSY",
+        "text": "MCP включён: ИИ-ассистент выполняет захват"
     }
 ]

@@ -822,5 +822,21 @@
     {
         "id": "IDS_DLG_MCP_AGENT_STARTING",
         "text": "Aan. De agent draait nog niet."
+    },
+    {
+        "id": "IDS_DLG_MCP_NOW",
+        "text": "Nu:"
+    },
+    {
+        "id": "IDS_DLG_MCP_IDLE",
+        "text": "Inactief"
+    },
+    {
+        "id": "IDS_DLG_MCP_CAPTURING",
+        "text": "Vastleggen: kanaal %1, %2, %3 samples"
+    },
+    {
+        "id": "IDS_DLG_MCP_STOP",
+        "text": "Stoppen"
     }
 ]

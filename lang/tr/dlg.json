@@ -822,5 +822,21 @@
     {
         "id": "IDS_DLG_MCP_AGENT_STARTING",
         "text": "Açık. Ajan henüz çalışmıyor."
+    },
+    {
+        "id": "IDS_DLG_MCP_NOW",
+        "text": "Şu an:"
+    },
+    {
+        "id": "IDS_DLG_MCP_IDLE",
+        "text": "Boşta"
+    },
+    {
+        "id": "IDS_DLG_MCP_CAPTURING",
+        "text": "Yakalanıyor: kanal %1, %2, %3 örnek"
+    },
+    {
+        "id": "IDS_DLG_MCP_STOP",
+        "text": "Durdur"
     }
 ]

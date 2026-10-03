@@ -826,5 +826,21 @@
     {
         "id": "IDS_DLG_MCP_AGENT_STARTING",
         "text": "已开启。代理尚未运行。"
+    },
+    {
+        "id": "IDS_DLG_MCP_NOW",
+        "text": "当前："
+    },
+    {
+        "id": "IDS_DLG_MCP_IDLE",
+        "text": "空闲"
+    },
+    {
+        "id": "IDS_DLG_MCP_CAPTURING",
+        "text": "正在采集：通道 %1，%2，%3 个采样"
+    },
+    {
+        "id": "IDS_DLG_MCP_STOP",
+        "text": "停止"
     }
 ]

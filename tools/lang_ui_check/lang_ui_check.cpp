@@ -11,7 +11,8 @@
  *     less the chrome its size hint adds around the text);
  *   - a toolbar that pushes buttons into its ">>" extension menu.
  * In the Mac App Store edition (LANSCAPES_APPSTORE) it also checks the MCP pane,
- * off and on, and the toolbar with its MCP indicator showing.
+ * off and on, and the toolbar's MCP button off, on and capturing in the dark and
+ * light themes (<out>/theme-<style>/).
  * Each widget is saved as <out>/<lang>/<widget>.png; <out>/report.txt lists the
  * problems and <out>/sheets/<widget>.html shows a failing widget across all
  * languages. In the pseudo-language, a visible text without its brackets did
@@ -75,6 +76,7 @@
 #ifdef LANSCAPES_APPSTORE
 #include "DSView/pv/mcp/mcpbridge.h"
 #include "DSView/pv/mcp/mcpcapture.h"
+#include "DSView/pv/config/appconfig.h"
 #endif
 #include "DSView/pv/view/view.h"
 
@@ -436,12 +438,6 @@ int main(int argc, char *argv[])
         if (tb->metaObject()->className() == QString("pv::toolbars::LogoBar"))
             logobar = tb;
 
-#ifdef LANSCAPES_APPSTORE
-    // The toolbar is checked with MCP ● showing, as during an MCP capture.
-    if (pv::mcp::McpBridge *mcp = pv::mcp::McpBridge::instance())
-        emit mcp->capture()->active_changed(true);
-#endif
-
     std::vector<const lang_key_item*> langs;
     for (const lang_key_item &l : lang_id_keys)
         langs.push_back(&l);
@@ -491,16 +487,53 @@ int main(int argc, char *argv[])
         });
 #ifdef LANSCAPES_APPSTORE
         if (pv::mcp::McpBridge *mcp = pv::mcp::McpBridge::instance()){
-            check_modal("dialog_mcp_off", [mcp](){ mcp->show_pane(); });
+            // The pane is a tool window, not modal.
+            QWidget *pane = mcp->show_pane();
+            wait(300);
+            check(pane, "dialog_mcp_off");
+            pane->close();
+            wait(100);   // the pane deletes itself on close
             // On, without an agent: the longest status texts and the error line.
-            check_modal("dialog_mcp_on", [mcp](){
-                mcp->set_enabled(true);
-                mcp->show_pane();
-            });
+            mcp->set_enabled(true);
+            pane = mcp->show_pane();
+            wait(300);
+            check(pane, "dialog_mcp_on");
+            pane->close();
+            wait(100);
             mcp->set_enabled(false);
+            wait(100);
         }
 #endif
     }
+
+#ifdef LANSCAPES_APPSTORE
+    // The MCP button in each state (off, on, capturing), both themes, both sides.
+    if (pv::mcp::McpBridge *mcp = pv::mcp::McpBridge::instance()){
+        g_lang_id = LAN_EN;
+        load_keys(&lang_id_keys[0]);
+        mw->switchLanguage(LAN_EN);
+        for (QString style : {QString(THEME_STYLE_DARK), QString(THEME_STYLE_LIGHT)}){
+            mw->switchTheme(style);
+            g_lang = "theme-" + style;
+            for (int state = 0; state < 3; state++){
+                mcp->set_enabled(state > 0);
+                emit mcp->capture()->active_changed(state == 2);
+                QString s = state == 0 ? "off" : state == 1 ? "on" : "capturing";
+                wait(200);
+                mw->addToolBar(Qt::TopToolBarArea, toolbar);
+                wait(300);
+                check(toolbar, "toolbar_horizontal_mcp_" + s);
+                mw->addToolBar(Qt::LeftToolBarArea, toolbar);
+                wait(300);
+                check(toolbar, "toolbar_vertical_mcp_" + s);
+                mw->addToolBar(Qt::TopToolBarArea, toolbar);
+                wait(200);
+            }
+            emit mcp->capture()->active_changed(false);
+            mcp->set_enabled(false);
+        }
+    }
+#endif
 
     write_sheets(langs);
 

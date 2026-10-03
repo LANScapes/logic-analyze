@@ -23,9 +23,11 @@
 
 #include <QGridLayout>
 #include <QLabel>
+#include <QPainter>
 #include <QPushButton>
 #include <QSettings>
 #include <QSocketNotifier>
+#include <QToolButton>
 #include <QVBoxLayout>
 #include <errno.h>
 #include <glib.h>
@@ -36,6 +38,7 @@
 #include "../dialogs/dsdialog.h"
 #include "../log.h"
 #include "../sigsession.h"
+#include "../toolbars/samplingbar.h"
 #include "../ui/langresource.h"
 
 namespace pv {
@@ -44,6 +47,30 @@ namespace mcp {
 static const int kReconnectMs = 3 * 1000;
 static const qint64 kRestartAgentMs = 30 * 1000;    // start the agent again at most this often
 static const char *kEnabledKey = "MCP/enabled";
+static const QColor kGreen(0x00, 0x99, 0x49);      // the USB 2 and Start icons' green
+static const QColor kOrange(0xff, 0x95, 0x00);     // MCP is using the analyzer
+static const char *kErrorMark = "<span style='color:#e0483e'>●</span> ";
+
+// The MCP button's icon: nothing, a ring (starting) or a dot.
+static QIcon dot_icon(const QColor &color, bool ring)
+{
+    QPixmap pm(64, 64);
+    pm.fill(Qt::transparent);
+    if (color.isValid()) {
+        QPainter p(&pm);
+        p.setRenderHint(QPainter::Antialiasing);
+        if (ring) {
+            p.setPen(QPen(color, 5));
+            p.setBrush(Qt::NoBrush);
+        }
+        else {
+            p.setPen(Qt::NoPen);
+            p.setBrush(color);
+        }
+        p.drawEllipse(QPointF(32, 32), 13, 13);
+    }
+    return QIcon(pm);
+}
 
 McpBridge *McpBridge::_instance = nullptr;
 
@@ -62,6 +89,22 @@ McpBridge::McpBridge(SigSession *session, toolbars::SamplingBar *bar, QWidget *w
     connect(_capture, &McpCapture::failed, this, [this](qint64 id, const QString &code, const QString &message) {
         send(capture_error_message(id, code, message));
     });
+    connect(_capture, &McpCapture::current_done, this, [this](qint64 id, const QString &name, const QJsonObject &meta) {
+        send(current_ok_message(id, name, meta));
+    });
+    connect(_capture, &McpCapture::active_changed, this, [this](bool on) {
+        _busy = on;
+        emit changed();
+    });
+
+    // The MCP button, after Start and Instant; MainWindow lays it out with the others.
+    _button = new QToolButton(bar);
+    _button->setObjectName("mcp_button");
+    _button->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    bar->addWidget(_button);
+    connect(_button, &QToolButton::clicked, this, [this]() { show_pane(); });
+    connect(this, &McpBridge::changed, this, &McpBridge::update_button);
+    retranslate();
 
     _connect_timer.setSingleShot(true);
     connect(&_connect_timer, &QTimer::timeout, this, &McpBridge::try_connect);
@@ -229,6 +272,21 @@ void McpBridge::handle(const AgentMessage &m)
         _capture->cancel(m.id);
         break;
 
+    case AgentMessage::Current: {
+        if (!m.req_error.isEmpty()) {
+            send(capture_error_message(m.id, "unsupported", m.req_error));
+            break;
+        }
+        QString why;
+        QString staging = platform::staging_dir(&why);
+        if (staging.isEmpty()) {
+            send(capture_error_message(m.id, "failed", why));
+            break;
+        }
+        _capture->write_current(m.id, m.name, staging);
+        break;
+    }
+
     case AgentMessage::Invalid:
         drop("unexpected message");
         break;
@@ -267,15 +325,53 @@ void McpBridge::set_enabled(bool on)
     emit changed();
 }
 
-// ---------------------------------------------------------------- pane
+// ---------------------------------------------------------------- button and pane
 
-void McpBridge::show_pane()
+void McpBridge::retranslate()
 {
-    dialogs::DSDialog dlg(_window, true, false);
-    dlg.setTitle(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MCP_TITLE), "MCP"));
-    dlg.setMinimumSize(480, 180);
+    _button->setText(L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_MCP), "MCP"));
+    update_button();
+}
 
-    QWidget *panel = new QWidget(&dlg);
+void McpBridge::update_button()
+{
+    QString tip;
+    if (!_enabled) {
+        _button->setIcon(dot_icon(QColor(), false));
+        tip = L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_MCP_TIP_OFF), "MCP is off");
+    }
+    else if (_busy) {
+        _button->setIcon(dot_icon(kOrange, false));
+        tip = L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_MCP_TIP_BUSY), "MCP on: an AI assistant is capturing");
+    }
+    else {
+        _button->setIcon(dot_icon(kGreen, !connected()));
+        tip = L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_MCP_TIP_ON),
+                  "MCP on: AI assistants can capture while Logic Analyze is open");
+    }
+    tip = tip.toHtmlEscaped();
+    if (!_error.isEmpty())
+        tip += "<br>" + QString(kErrorMark) + _error.toHtmlEscaped();
+    _button->setToolTip(tip);
+}
+
+QWidget *McpBridge::show_pane()
+{
+    if (_pane) {
+        _pane->show();
+        _pane->raise();
+        _pane->activateWindow();
+        return _pane;
+    }
+    // A tool window: never modal, so it neither blocks the app nor quitting.
+    dialogs::DSDialog *dlg = new dialogs::DSDialog(_window, true, false);
+    dlg->setAttribute(Qt::WA_DeleteOnClose);
+    dlg->setModal(false);
+    dlg->setWindowModality(Qt::NonModal);
+    dlg->setTitle(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MCP_TITLE), "MCP"));
+    dlg->setMinimumSize(480, 200);
+
+    QWidget *panel = new QWidget(dlg);
     QVBoxLayout *lay = new QVBoxLayout(panel);
     lay->setContentsMargins(10, 10, 10, 10);
     lay->setSpacing(12);
@@ -292,10 +388,16 @@ void McpBridge::show_pane()
     grid->setVerticalSpacing(8);
     QLabel *agent = new QLabel();
     agent->setWordWrap(true);
+    QLabel *now = new QLabel();
+    now->setWordWrap(true);
     QPushButton *toggle = new QPushButton();
+    QPushButton *stop = new QPushButton(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MCP_STOP), "Stop"));
     grid->addWidget(new QLabel(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MCP_STATUS), "MCP:")), 0, 0, Qt::AlignLeft | Qt::AlignTop);
     grid->addWidget(agent, 0, 1);
     grid->addWidget(toggle, 0, 2);
+    grid->addWidget(new QLabel(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MCP_NOW), "Now:")), 1, 0, Qt::AlignLeft | Qt::AlignTop);
+    grid->addWidget(now, 1, 1);
+    grid->addWidget(stop, 1, 2);
     grid->setColumnStretch(1, 1);
     lay->addLayout(grid);
 
@@ -313,16 +415,26 @@ void McpBridge::show_pane()
             agent->setText(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MCP_AGENT_RUNNING), "On. The agent is running."));
         else
             agent->setText(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MCP_AGENT_STARTING), "On. The agent is not running yet."));
-        err->setText(last_error());
+        QStringList a = _capture->activity();
+        if (a.isEmpty())
+            now->setText(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MCP_IDLE), "Idle"));
+        else
+            now->setText(QString(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MCP_CAPTURING), "Capturing: ch %1, %2, %3 samples"))
+                             .arg(a.value(0), a.value(1), a.value(2)));
+        stop->setEnabled(!a.isEmpty());
+        err->setText(last_error().isEmpty() ? QString() : QString(kErrorMark) + last_error().toHtmlEscaped());
         err->setVisible(!last_error().isEmpty());
     };
     refresh();
 
     connect(this, &McpBridge::changed, panel, refresh);
     connect(toggle, &QPushButton::clicked, panel, [this]() { set_enabled(!enabled()); });
+    connect(stop, &QPushButton::clicked, panel, [this]() { _capture->user_stop(); });
 
-    dlg.layout()->addWidget(panel);
-    dlg.exec();
+    dlg->layout()->addWidget(panel);
+    dlg->show();
+    _pane = dlg;
+    return dlg;
 }
 
 } // namespace mcp

@@ -205,6 +205,12 @@ AgentMessage parse_agent_message(const QJsonObject &m)
         a.type = AgentMessage::Devices;
     else if (type == "capture_cancel")
         a.type = AgentMessage::CaptureCancel;
+    else if (type == "current") {
+        a.type = AgentMessage::Current;
+        a.name = m.value("name").toString();
+        if (!valid_name(a.name))
+            a.req_error = "name must be 1-128 characters of A-Z a-z 0-9 _ -, not starting with -";
+    }
     else if (type == "capture") {
         a.type = AgentMessage::Capture;
         a.name = m.value("name").toString();
@@ -237,6 +243,15 @@ QJsonObject capture_started_message(qint64 id)
 QJsonObject capture_done_message(qint64 id, const QString &name, const QJsonObject &meta)
 {
     QJsonObject m = base("capture_done");
+    m["id"] = id;
+    m["name"] = name;
+    m["meta"] = meta;
+    return m;
+}
+
+QJsonObject current_ok_message(qint64 id, const QString &name, const QJsonObject &meta)
+{
+    QJsonObject m = base("current_ok");
     m["id"] = id;
     m["name"] = name;
     m["meta"] = meta;

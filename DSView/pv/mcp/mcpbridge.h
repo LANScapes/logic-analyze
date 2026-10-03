@@ -18,8 +18,9 @@
  */
 
 // The GUI's connection to the Logic Analyze Agent (doc/mcp-gui-protocol.md):
-// it answers the agent's device listing and runs its captures (McpCapture),
-// and holds the state the MCP pane shows.
+// it answers the agent's device listing, runs its captures (McpCapture) and
+// hands it the capture on screen. It owns the toolbar's MCP button and the
+// MCP pane the button opens. Nothing on the MCP path asks the user anything.
 // MCP is available only while this app runs: when MCP is enabled in the app's
 // settings, the GUI starts the agent at launch, and the agent exits when the
 // GUI disconnects or quits. Mac App Store edition only.
@@ -28,12 +29,14 @@
 
 #include <QElapsedTimer>
 #include <QObject>
+#include <QPointer>
 #include <QString>
 #include <QTimer>
 
 #include "mcpprotocol.h"
 
 class QSocketNotifier;
+class QToolButton;
 class QWidget;
 
 namespace pv {
@@ -58,14 +61,16 @@ public:
 
     static McpBridge *instance() { return _instance; }
 
-    // For the MCP pane.
     bool connected() const { return _fd >= 0 && _ok; }
     bool enabled() const { return _enabled; }
     QString last_error() const { return _error; }
 
     void set_enabled(bool on);   // the app setting; starts or stops the agent
     void start_agent();
-    void show_pane();
+
+    // The MCP pane: a tool window, never modal. Returns it (for the layout check).
+    QWidget *show_pane();
+    void retranslate();          // the button's text and tooltip
 
     McpCapture *capture() { return _capture; }
 
@@ -81,12 +86,15 @@ private:
     bool send(const QJsonObject &msg);
     void handle(const AgentMessage &m);
     void answer_devices(qint64 id);
+    void update_button();
 
     static McpBridge *_instance;
 
     SigSession *_session;
     QWidget *_window;
     McpCapture *_capture;
+    QToolButton *_button;
+    QPointer<QWidget> _pane;
 
     int _fd = -1;
     QSocketNotifier *_notifier = nullptr;
@@ -94,6 +102,7 @@ private:
     bool _ok = false;            // gui_ok received
     QTimer _connect_timer;
     bool _enabled = false;
+    bool _busy = false;          // an MCP capture is running (orange dot)
     QElapsedTimer _agent_started;
 
     QString _error;

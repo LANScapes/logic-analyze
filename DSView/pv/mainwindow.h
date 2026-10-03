@@ -36,7 +36,6 @@
 #include "dstimer.h"
 
 class QAction;
-class QLabel;
 class QMenuBar;
 class QMenu;
 class QVBoxLayout;
@@ -72,6 +71,10 @@ class SearchDock;
 
 namespace view {
 class View;
+}
+
+namespace mcp {
+class McpBridge;
 }
  
 //The mainwindow,referenced by MainFrame
@@ -224,8 +227,7 @@ private:
     QSize                   _bar_icon_size; //the bars' icon size on the top or bottom
 #endif
 #ifdef LANSCAPES_APPSTORE
-    QAction                 *_action_mcp = nullptr; //Options > MCP...
-    QLabel                  *_mcp_indicator = nullptr; //MCP ● in the sampling bar
+    mcp::McpBridge          *_mcp = nullptr; //the agent connection and the MCP button
 #endif
     toolbars::TitleBar      *_title_bar;
 

@@ -444,13 +444,12 @@ int cap_record_begin(const char *out_base)
 }
 
 /* Keep the channel-major file layout, using fixed-size conversion buffers. */
-static int write_output(const char *path, int nch, uint64_t per_ch, uint64_t got)
+int cap_write_bin(const char *path, int nch, uint64_t per_ch, uint64_t got, cap_read_fn read_words, void *ctx)
 {
     uint64_t raw[4096], channel[4096];
     if (nch <= 0 || nch > (int)G_N_ELEMENTS(raw)) return -1;
     /* Every channel's last byte must be addressable as an off_t. */
     if (per_ch > (uint64_t)G_MAXINT64 / 8 / (uint64_t)nch) return -1;
-    if (fflush(g_raw) || fseeko(g_raw, 0, SEEK_SET)) return -1;
     int hooked = g_hooks && g_hooks->active();
     /* Write to a temporary file and publish it only on success. */
     char *tmp = g_strdup_printf("%s.XXXXXX", path);
@@ -469,7 +468,7 @@ static int write_output(const char *path, int nch, uint64_t per_ch, uint64_t got
     int failed = !f;
     for (uint64_t k = 0; k < per_ch && !failed;) {
         size_t count = MIN(per_ch - k, G_N_ELEMENTS(raw) / nch);
-        if (fread(raw, sizeof(uint64_t) * nch, count, g_raw) != count) {
+        if (read_words(ctx, k, count, nch, raw)) {
             failed = 1;
             break;
         }
@@ -507,6 +506,19 @@ static int write_output(const char *path, int nch, uint64_t per_ch, uint64_t got
     return failed ? -1 : 0;
 }
 
+/* The spool, read in order: LA_CROSS_DATA's 64-sample words rotate through channels. */
+static int spool_read(void *ctx, uint64_t k, size_t count, int nch, uint64_t *raw)
+{
+    (void)ctx; (void)k;
+    return fread(raw, sizeof(uint64_t) * nch, count, g_raw) != count ? -1 : 0;
+}
+
+static int write_output(const char *path, int nch, uint64_t per_ch, uint64_t got)
+{
+    if (fflush(g_raw) || fseeko(g_raw, 0, SEEK_SET)) return -1;
+    return cap_write_bin(path, nch, per_ch, got, spool_read, NULL);
+}
+
 /* Why a finished acquisition must not be published, or NULL if it may. */
 static const char *capture_failure(int timed_out, int task_end, int err, int pkt_error,
                                    int overflow, uint64_t got, uint64_t samples)
@@ -522,22 +534,8 @@ static const char *capture_failure(int timed_out, int task_end, int err, int pkt
     return NULL;
 }
 
-struct report {
-    const char *device;
-    uint64_t rate, samples, got, per_ch, limit;
-    const int *channels;
-    int nch;
-    double vth;
-    const char *mode, *trig;
-    int format;
-    long long trig_pos;
-    int timed_out, err, pkt_error, overflow, stopped_by_user;
-    double secs;
-    const char *bin;
-};
-
 /* One JSON object; error, when set, makes it a failure report without a file. */
-static char *format_report(const char *error, const struct report *r)
+char *cap_format_record(const char *error, const struct cap_record *r)
 {
     GString *s = g_string_new("{");
     if (error) {
@@ -590,7 +588,7 @@ int cap_finish(const struct cap_request *req, const struct cap_setup *setup, con
     uint64_t got = per_ch > req->samples / 64 ? req->samples : per_ch * 64;
     per_ch = got / 64 + (got % 64 != 0);
 
-    struct report r = {
+    struct cap_record r = {
         .device = setup->device, .rate = setup->rate, .samples = req->samples, .got = got,
         .per_ch = per_ch, .limit = setup->limit, .channels = setup->enabled, .nch = nch,
         .vth = setup->vth, .mode = req->stream ? "stream" : "buffer",
@@ -614,7 +612,7 @@ int cap_finish(const struct cap_request *req, const struct cap_setup *setup, con
         failure = "cannot write capture data";
         exit_code = 1;
     } else if (failure) {
-        *report = format_report(failure, &r);
+        *report = cap_format_record(failure, &r);
         exit_code = 3;
     } else {
         if (g_hooks && g_hooks->active()) {
@@ -622,7 +620,7 @@ int cap_finish(const struct cap_request *req, const struct cap_setup *setup, con
             g_hooks->unlock();
         }
         r.bin = bin_name;
-        *report = format_report(NULL, &r);
+        *report = cap_format_record(NULL, &r);
     }
     g_free(path);
     if (failure_out) *failure_out = failure;

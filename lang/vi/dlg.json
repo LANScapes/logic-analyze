@@ -822,5 +822,21 @@
     {
         "id": "IDS_DLG_MCP_AGENT_STARTING",
         "text": "Đang bật. Agent chưa chạy."
+    },
+    {
+        "id": "IDS_DLG_MCP_NOW",
+        "text": "Hiện tại:"
+    },
+    {
+        "id": "IDS_DLG_MCP_IDLE",
+        "text": "Rảnh"
+    },
+    {
+        "id": "IDS_DLG_MCP_CAPTURING",
+        "text": "Đang thu thập: kênh %1, %2, %3 mẫu"
+    },
+    {
+        "id": "IDS_DLG_MCP_STOP",
+        "text": "Dừng"
     }
 ]
