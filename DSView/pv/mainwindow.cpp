@@ -32,6 +32,9 @@
 #include <QToolButton>
 #include <QComboBox>
 #endif
+#ifdef LANSCAPES_APPSTORE
+#include "mcp/mcpbridge.h"
+#endif
 #include <QWidget>
 #include <QDesktopServices>
 #include <QKeyEvent>
@@ -220,6 +223,15 @@ namespace pv
         _main_toolbar->layout()->setSpacing(0);
         _sampling_bar->add_options_submenu(_trig_bar->display_menu());
         _logo_bar->add_before_help(_sampling_bar->options_button());
+#ifdef LANSCAPES_APPSTORE
+        // Mac App Store edition: the agent connection and its pane in Options.
+        {
+            pv::mcp::McpBridge *mcp = new pv::mcp::McpBridge(_session, this);
+            QMenu *options = _sampling_bar->options_button()->menu();
+            options->addSeparator();
+            connect(options->addAction("MCP..."), &QAction::triggered, mcp, &pv::mcp::McpBridge::show_pane);
+        }
+#endif
         // File first; Options and Help close the row.
         for (QToolBar *bar : {(QToolBar*)_file_bar, (QToolBar*)_sampling_bar,
                               (QToolBar*)_trig_bar, (QToolBar*)_logo_bar}){
