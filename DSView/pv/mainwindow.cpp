@@ -1583,7 +1583,7 @@ namespace pv
 
     // The manual is manual/<code>/index.html in the data directory. <code> is the
     // folder name of the UI language under lang/, as a language tag: "cn" is
-    // "zh-CN" and "pt_BR" is "pt-BR". English is the fallback, then the PDF guides.
+    // "zh-CN" and "pt_BR" is "pt-BR". English is the fallback.
     static QString manual_path(const QDir &dir, int lan)
     {
         QStringList codes;
@@ -1600,8 +1600,7 @@ namespace pv
             if (QFile::exists(path))
                 return path;
         }
-        QString pdf = dir.absoluteFilePath("ug" + QString::number(lan) + ".pdf");
-        return QFile::exists(pdf) ? pdf : dir.absoluteFilePath("ug31.pdf");
+        return dir.absoluteFilePath("manual/en/index.html");
     }
 
     void MainWindow::openDoc()
