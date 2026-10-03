@@ -37,7 +37,7 @@ set(DS_VERSION_STRING  ${DS_VERSION_MAJOR}.${DS_VERSION_MINOR}.${DS_VERSION_MICR
 
 #= Lanscapes branding ("Logic Analyze"); off builds plain DSView.
 option(LANSCAPES_BRAND "Build as Logic Analyze by Lanscapes" OFF)
-set(BRAND_VERSION "1.0.0" CACHE STRING "Logic Analyze version")
+set(BRAND_VERSION "1.0" CACHE STRING "Logic Analyze version")
 set(BRAND_REPO_URL "https://github.com/LANScapes/logic-analyze" CACHE STRING "Public source repository")
 set(BRAND_SUPPORT_EMAIL "la_support@lanscapes.net" CACHE STRING "Support and source-request address")
 if(LANSCAPES_BRAND)
