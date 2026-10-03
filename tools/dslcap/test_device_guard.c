@@ -89,6 +89,12 @@ static void test_device_guard(void)
     device_guard_result(dir, "cannot combine with --list", 0, "--list", "--device", valid[0], NULL);
     device_guard_result(dir, "unknown argument", 0, "--device", valid[0], "--bogus", NULL);
     device_guard_result(dir, "unknown argument", 0, "--device=usb-1-2:serial", NULL);
+    /* Incomplete earlier flags cannot consume the selector and enable legacy
+     * scans. This also guards unsupported --device=... syntax as a value. */
+    device_guard_result(dir, "missing option value before --device", 0, "--out", "--device", NULL);
+    device_guard_result(dir, "missing option value before --device", 0, "--res", "--device", NULL);
+    device_guard_result(dir, "missing option value before --device", 0,
+                        "--res", "--device=usb-1-2:serial", NULL);
     device_guard_result(dir, "\"value\":\"usb-1-2:serial:with:colons\"", 0,
                         "--device", valid[4], NULL);
     device_guard_result(dir, "\"value\":\"usb-1-2:quote\\\" slash\\\\ newline\\u000a", 0,

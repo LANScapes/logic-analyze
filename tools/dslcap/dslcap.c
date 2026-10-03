@@ -392,6 +392,13 @@ static int parse_args(int argc, char **argv, struct options *o)
             arg_error("missing option value", a, NULL);
             return 2;
         }
+        /* A missing preceding value must not swallow the safety selector
+         * (e.g. --out --device), then fall through to legacy hardware scans.
+         * Use ./--device for a path whose literal name starts this way. */
+        if (!strcmp(argv[i + 1], "--device") || g_str_has_prefix(argv[i + 1], "--device=")) {
+            arg_error("missing option value before --device", a, NULL);
+            return 2;
+        }
         const char *v = argv[++i];
         int bad = 0;
         if (!strcmp(a, "--res")) o->res = v;

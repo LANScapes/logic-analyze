@@ -96,7 +96,12 @@ the existing library would still scan unrelated devices and its loaders would
 open different handles. Releasing a CLI claim so the driver could reopen would
 also lose the ownership guarantee. A runtime-only shortcut would still expose
 other bootloader devices to initialization and hotplug scans. This change stops
-at the rejecting guard; it changes no driver, firmware loader or no-flag behavior.
+at the rejecting guard; it changes no driver or firmware loader. Ordinary
+no-flag capture/list behavior is unchanged. One explicitly scoped parser safety
+change prevents an incomplete earlier option from swallowing the selector as
+its value (for example, `--out --device`): values equal to `--device` or starting
+with `--device=` are rejected before any scan. Use `./--device` for a literal
+relative path with that name.
 In particular, legacy `--list` still invokes scanning and may mutate hardware;
 it must not be used as safe identity discovery.
 
