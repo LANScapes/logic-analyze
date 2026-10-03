@@ -1,12 +1,14 @@
 /*
  * dslcap: headless DSLogic capture on libsigrok4DSL (GPL-3.0, as DSView).
  *
- *   dslcap --list
+ *   dslcap --list [--res DIR] [--parent-fd N] [--res-manifest FD] [--log-level N]
  *   dslcap --channels 0,1 --samplerate 10000000 --samples 1000000
  *          [--vth 1.6] [--mode buffer|stream] [--trigger CH[:R|F|C|1|0]]
  *          [--trigpos PERCENT] [--timeout SEC] [--res DIR]
- *          [--parent-fd N] [--res-manifest FD]
+ *          [--parent-fd N] [--res-manifest FD] [--log-level N]
  *          --out /path/base
+ *
+ * Log level N is a whole decimal 0..5 (default 1); logs go to stderr.
  *
  * Writes <base>.bin: for each enabled channel in ascending order, the
  * channel's samples packed LSB-first, ceil(samples/64)*8 bytes per channel.
@@ -315,7 +317,7 @@ struct options {
     const char *parent_fd_value;
     uint64_t rate, samples;
     double vth, timeout;
-    int trigpos, list_only, stream, vth_given;
+    int trigpos, list_only, stream, vth_given, log_level;
     int res_manifest;
     int enabled[MAX_CHANNELS], nch;
     int trig_ch;
@@ -328,6 +330,7 @@ struct options {
 static int parse_args(int argc, char **argv, struct options *o)
 {
     uint64_t u;
+    int log_level_given = 0;
     memset(o, 0, sizeof *o);
     o->res = getenv("DSLCAP_RES");
     o->chans = "0";
@@ -338,6 +341,7 @@ static int parse_args(int argc, char **argv, struct options *o)
     o->timeout = 30;
     o->trigpos = 10;
     o->trig_ch = -1;
+    o->log_level = 1;
     o->res_manifest = -1;
     o->parent_fd = -1;
 
@@ -349,13 +353,17 @@ static int parse_args(int argc, char **argv, struct options *o)
         }
         static const char *const valued[] = {
             "--res", "--res-manifest", "--out", "--channels", "--samplerate", "--samples", "--vth",
-            "--mode", "--trigger", "--trigpos", "--timeout", "--parent-fd",
+            "--mode", "--trigger", "--trigpos", "--timeout", "--parent-fd", "--log-level",
         };
         int known = 0;
         for (size_t k = 0; k < G_N_ELEMENTS(valued); k++)
             if (!strcmp(a, valued[k])) known = 1;
         if (!known) {
             arg_error("unknown argument", a, NULL);
+            return 2;
+        }
+        if (!strcmp(a, "--log-level") && log_level_given) {
+            arg_error("duplicate option", a, NULL);
             return 2;
         }
         if (i + 1 >= argc) {
@@ -407,6 +415,10 @@ static int parse_args(int argc, char **argv, struct options *o)
         else if (!strcmp(a, "--trigpos")) {
             bad = parse_u64(v, &u) || u > 100;
             if (!bad) o->trigpos = (int)u;
+        } else if (!strcmp(a, "--log-level")) {
+            log_level_given = 1;
+            bad = parse_u64(v, &u) || u > 5;
+            if (!bad) o->log_level = (int)u;
         } else if (!strcmp(a, "--timeout"))
             bad = parse_double(v, &o->timeout) || o->timeout <= 0 || o->timeout > 1e9;
         if (bad) {
@@ -812,7 +824,7 @@ int main(int argc, char **argv)
     }
 
     parent_check();
-    ds_log_level(1);
+    ds_log_level(o.log_level);
     ds_set_firmware_resource_dir(res);
     g_free(res_found);
     if (o.res_manifest >= 0) {

@@ -55,6 +55,20 @@ static void test_arguments(void)
     assert(parse(&o, "--out", "x", "--trigger", "0", NULL) == 0 && o.trig_type == 'R');
     assert(parse(&o, "--list", NULL) == 0 && o.list_only);
     assert(o.parent_fd == -1 && o.res_manifest == -1 && !o.parent_fd_value);
+    assert(o.log_level == 1);
+    assert(parse(&o, "--out", "x", NULL) == 0 && o.log_level == 1);
+    for (int level = 0; level <= 5; level++) {
+        char value[2] = { (char)('0' + level), '\0' };
+        assert(parse(&o, "--out", "x", "--log-level", value, NULL) == 0);
+        assert(o.log_level == level);
+        assert(parse(&o, "--log-level", value, "--list", NULL) == 0);
+        assert(o.log_level == level && o.list_only);
+    }
+    assert(parse(&o, "--out", "x", "--log-level", "05", NULL) == 0 && o.log_level == 5);
+    assert(parse(&o, "--out", "x", "--log-level", "1", "--log-level", "1", NULL) == 2);
+    assert(parse(&o, "--list", "--log-level", "0", "--log-level", "5", NULL) == 2);
+    assert(parse(&o, "--out", "x", "--log-level", "1", "--log-level", NULL) == 2);
+    assert(parse(&o, "--log-level", NULL) == 2);
     int fd = open("/dev/null", O_RDONLY);
     char fd_text[32];
     assert(fd >= 0);
@@ -68,6 +82,15 @@ static void test_arguments(void)
     assert(o.res_manifest == fd && o.parent_fd == parent_pipe[0] && o.parent_fd_value);
     assert(parse(&o, "--list", "--parent-fd", parent_text, "--res-manifest", fd_text, NULL) == 0);
     assert(o.res_manifest == fd && o.parent_fd == parent_pipe[0]);
+    for (int level = 0; level <= 5; level++) {
+        char value[2] = {(char)('0' + level), '\0'};
+        assert(parse(&o, "--out", "x", "--parent-fd", parent_text,
+                     "--log-level", value, "--res-manifest", fd_text, NULL) == 0);
+        assert(o.parent_fd == parent_pipe[0] && o.res_manifest == fd && o.log_level == level);
+        assert(parse(&o, "--list", "--res-manifest", fd_text,
+                     "--log-level", value, "--parent-fd", parent_text, NULL) == 0);
+        assert(o.parent_fd == parent_pipe[0] && o.res_manifest == fd && o.log_level == level);
+    }
     close(parent_pipe[0]); close(parent_pipe[1]);
     close(fd);
     assert(parse(&o, "--list", "--res-manifest", fd_text, NULL) == 2);
@@ -99,6 +122,11 @@ static void test_arguments(void)
         {"--samples", "18446744073709551615"}, {"--samplerate", "0"},
         {"--samplerate", "10M"}, {"--timeout", "0"}, {"--timeout", "nan"},
         {"--timeout", "-1"},
+        {"--log-level", "6"}, {"--log-level", "18446744073709551615"},
+        {"--log-level", "18446744073709551616"}, {"--log-level", "-1"},
+        {"--log-level", "+1"}, {"--log-level", " 1"}, {"--log-level", "1 "},
+        {"--log-level", "1.0"}, {"--log-level", "1e0"}, {"--log-level", "0x1"},
+        {"--log-level", "debug"}, {"--log-level", "1x"}, {"--log-level", ""},
     };
     for (size_t i = 0; i < G_N_ELEMENTS(bad); i++)
         assert(parse(&o, "--out", "x", bad[i][0], bad[i][1], NULL) == 2);
