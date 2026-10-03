@@ -79,6 +79,9 @@
 #include "dock/protocoldock.h"
 
 #include "view/view.h"
+#ifdef LANSCAPES_BRAND
+#include "view/devmode.h"
+#endif
 #include "view/trace.h"
 #include "view/signal.h"
 #include "view/dsosignal.h"
@@ -198,6 +201,10 @@ namespace pv
         // Setup _view widget
         _view = new pv::view::View(_session, _sampling_bar, this);
         _vertical_layout->addWidget(_view);
+#ifdef LANSCAPES_BRAND
+        // The device-mode selector belongs with the device selector in the toolbar.
+        _sampling_bar->insert_device_mode(_view->get_devmode()->mode_selector());
+#endif
 
 
         setIconSize(QSize(40, 40));
@@ -213,13 +220,16 @@ namespace pv
         _main_toolbar->layout()->setSpacing(0);
         _sampling_bar->add_options_submenu(_trig_bar->display_menu());
         _logo_bar->add_before_help(_sampling_bar->options_button());
-        // File first, so Help sits alone at the far end (the logo bar stretches).
+        // File first; Options and Help close the row.
         for (QToolBar *bar : {(QToolBar*)_file_bar, (QToolBar*)_sampling_bar,
                               (QToolBar*)_trig_bar, (QToolBar*)_logo_bar}){
             _main_toolbar->addWidget(bar);
         }
         connect(_main_toolbar, &QToolBar::orientationChanged, this, &MainWindow::on_toolbar_orientation);
         addToolBar(Qt::TopToolBarArea, _main_toolbar);
+        // Keep the icon size the bars start with for when they return to the top or bottom.
+        _bar_icon_size = _sampling_bar->iconSize();
+        on_toolbar_orientation(_main_toolbar->orientation());
 #else
         addToolBar(_sampling_bar);
         addToolBar(_trig_bar);
@@ -1240,8 +1250,11 @@ namespace pv
         for (QToolBar *bar : {(QToolBar*)_sampling_bar, (QToolBar*)_trig_bar,
                               (QToolBar*)_file_bar, (QToolBar*)_logo_bar}){
             bar->setOrientation(o);
-            bar->setIconSize(vertical ? QSize(28, 28) : iconSize());
-            bar->setSizePolicy(vertical ? QSizePolicy::Expanding : QSizePolicy::Preferred,
+            bar->setIconSize(vertical ? QSize(28, 28) : _bar_icon_size);
+            // Across the top or bottom a bar never shrinks below its contents: when the
+            // window is too narrow the whole toolbar overflows into one menu at the end,
+            // rather than each bar cutting itself short with its own.
+            bar->setSizePolicy(vertical ? QSizePolicy::Expanding : QSizePolicy::Minimum,
                                QSizePolicy::Preferred);
             for (QWidget *w : bar->findChildren<QWidget*>(QString(), Qt::FindDirectChildrenOnly)){
                 if (w->objectName() == "qt_toolbar_ext_button" || !w->isWidgetType())
@@ -1249,12 +1262,28 @@ namespace pv
                 if (QToolButton *bt = qobject_cast<QToolButton*>(w)){
                     bt->setToolButtonStyle(vertical ? Qt::ToolButtonTextBesideIcon
                                                     : Qt::ToolButtonTextUnderIcon);
-                    bt->setIconSize(vertical ? QSize(28, 28) : iconSize());
+                    bt->setIconSize(vertical ? QSize(28, 28) : _bar_icon_size);
+                    // The stylesheet places the chevron by button style; apply it again.
+                    bt->style()->unpolish(bt);
+                    bt->style()->polish(bt);
                 }
-                if (qobject_cast<QToolButton*>(w) || qobject_cast<QComboBox*>(w)){
+                if (qobject_cast<QToolButton*>(w) || w->objectName() == "ToolbarStack"){
                     w->setSizePolicy(vertical ? QSizePolicy::Expanding : QSizePolicy::Preferred,
                                      QSizePolicy::Fixed);
                 }
+            }
+            // Dropdowns may sit in a stack (two fields, one over the other), so look deeper.
+            for (QComboBox *cb : bar->findChildren<QComboBox*>()){
+                cb->setSizePolicy(vertical ? QSizePolicy::Expanding : QSizePolicy::Preferred,
+                                  QSizePolicy::Fixed);
+                // On a side, a combo sized to its full text is wider than the column and
+                // spills past the window edge; let it shrink to the column instead.
+                cb->setMinimumContentsLength(8);
+                const QVariant cap = cb->property("horizontalMaxWidth");
+                if (cap.isValid())
+                    cb->setMaximumWidth(vertical ? QWIDGETSIZE_MAX : cap.toInt());
+                cb->setSizeAdjustPolicy(vertical ? QComboBox::AdjustToMinimumContentsLengthWithIcon
+                                                 : QComboBox::AdjustToContents);
             }
             bar->updateGeometry();
         }
@@ -1493,7 +1522,30 @@ namespace pv
         QString qssRes = ":/" + style + ".qss";
         QFile qss(qssRes);
         qss.open(QFile::ReadOnly | QFile::Text);
+#ifdef LANSCAPES_BRAND
+        // The trace view's horizontal scroll bar is the main way to move through a
+        // capture: draw it 3 px thicker than the theme's 12 px. Toolbar fields get
+        // inner padding, and their chevrons sit inset and vertically centred.
+        qApp->setStyleSheet(QString(qss.readAll())
+                            + "\nQScrollBar#TraceHScroll:horizontal { height: 15px; }\n"
+                            + "QToolBar QComboBox { padding-left: 8px; padding-right: 24px; }\n"
+                            + "QToolBar QComboBox::drop-down { subcontrol-origin: padding;"
+                              " subcontrol-position: center right; width: 14px; right: 6px; border: none; }\n"
+                            + "QToolBar QToolButton::menu-indicator { subcontrol-origin: padding;"
+                              " subcontrol-position: center right; top: 0px; right: 6px; }\n"
+                            // Under a label (top or bottom toolbar) the chevron drops below it, centred;
+                            // every button keeps the same room so the labels stay on one line.
+                            + "QToolBar QToolButton[toolButtonStyle=\"3\"] { padding-bottom: 10px; }\n"
+                            + "QToolBar QToolButton[toolButtonStyle=\"3\"]::menu-indicator {"
+                              " subcontrol-position: bottom center; top: 0px; right: 0px; }\n"
+                            // The toolbar's menus (Mode, Options, File, Help) fit their entries closely.
+                            + "QToolBar QMenu::item { padding: 4px 20px 4px 8px; }\n"
+                            + "QToolBar QMenu::icon { padding-left: 6px; }\n"
+                            + "#DeviceOptionsDlg QCheckBox { spacing: 8px; }\n"
+                            + "#DeviceOptionsDlg QAbstractSpinBox { padding-left: 10px; }\n");
+#else
         qApp->setStyleSheet(qss.readAll());
+#endif
         qss.close();
 
         UiManager::Instance()->Update(UI_UPDATE_ACTION_THEME);

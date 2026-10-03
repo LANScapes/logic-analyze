@@ -1,5 +1,5 @@
-/* Standalone regression harness; no analyzer is accessed. Dead-code
- * stripping drops the CLI's main and with it every hardware reference.
+/* Standalone regression harness; no analyzer is accessed. Parent-fd tests
+ * supply library stubs and run the CLI in bounded child processes.
  *
  * macOS:
  *   cc -Ilibsigrok4DSL -Icommon $(pkg-config --cflags glib-2.0) tools/dslcap/test_spool.c \
@@ -11,9 +11,7 @@
  *
  *   ./test_spool /tmp/raw /tmp/output.bin
  */
-#define main dslcap_main
-#include "dslcap.c"
-#undef main
+#include "test_parent_fd.c"
 #undef NDEBUG
 #include <assert.h>
 #include <fcntl.h>
@@ -56,11 +54,21 @@ static void test_arguments(void)
     assert(o.trig_ch == 15 && o.trig_type == 'F' && o.trigpos == 100);
     assert(parse(&o, "--out", "x", "--trigger", "0", NULL) == 0 && o.trig_type == 'R');
     assert(parse(&o, "--list", NULL) == 0 && o.list_only);
+    assert(o.parent_fd == -1 && o.res_manifest == -1 && !o.parent_fd_value);
     int fd = open("/dev/null", O_RDONLY);
     char fd_text[32];
     assert(fd >= 0);
     snprintf(fd_text, sizeof fd_text, "%d", fd);
     assert(parse(&o, "--list", "--res-manifest", fd_text, NULL) == 0 && o.res_manifest == fd);
+    int parent_pipe[2];
+    char parent_text[32];
+    assert(pipe(parent_pipe) == 0);
+    snprintf(parent_text, sizeof parent_text, "%d", parent_pipe[0]);
+    assert(parse(&o, "--list", "--res-manifest", fd_text, "--parent-fd", parent_text, NULL) == 0);
+    assert(o.res_manifest == fd && o.parent_fd == parent_pipe[0] && o.parent_fd_value);
+    assert(parse(&o, "--list", "--parent-fd", parent_text, "--res-manifest", fd_text, NULL) == 0);
+    assert(o.res_manifest == fd && o.parent_fd == parent_pipe[0]);
+    close(parent_pipe[0]); close(parent_pipe[1]);
     close(fd);
     assert(parse(&o, "--list", "--res-manifest", fd_text, NULL) == 2);
     fd = open("/dev/null", O_WRONLY);
@@ -149,6 +157,7 @@ int main(int argc, char **argv)
     assert(argc == 3);
     test_arguments();
     test_status();
+    test_parent_fd();
 
     const int channels[] = {1, 2, 16, 32};
     const uint64_t frames = 5003;

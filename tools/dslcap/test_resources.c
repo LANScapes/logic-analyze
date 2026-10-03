@@ -6,9 +6,10 @@
 #include <assert.h>
 #include <fcntl.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
-static int init_calls;
+static int init_calls, combined_phase = -1, manifest_reported;
 static int test_lib_init(void);
 #include "../../libsigrok4DSL/libsigrok.h"
 #define ds_lib_init test_lib_init
@@ -23,6 +24,12 @@ static int manifest_fd = -1, read_mode, read_calls;
 static ssize_t resource_read(int fd, void *data, size_t size)
 {
     if (fd == manifest_fd) {
+        if (combined_phase >= 0 && !manifest_reported) {
+            /* The real watcher must already exist before the first read. */
+            assert(g_parent_fd >= 0 && (fcntl(g_parent_fd, F_GETFD) & FD_CLOEXEC));
+            assert(write(combined_phase, "M", 1) == 1);
+            manifest_reported = 1;
+        }
         if (read_mode == 6) {
             errno = EIO;
             return -1;
@@ -76,6 +83,8 @@ static gsize firmware_size, fpga_size, uploaded;
 static int test_lib_init(void)
 {
     init_calls++;
+    if (combined_phase >= 0)
+        assert(write(combined_phase, "I", 1) == 1);
     return SR_ERR; /* CLI test must never initialize USB or enumerate devices. */
 }
 
@@ -342,6 +351,74 @@ static int run_cli(const char *manifest)
     return ret;
 }
 
+/* Both flags, with the real watcher and preflight. In the blocked case the
+ * manifest writer stays open: only parent loss can terminate the child. */
+static void test_combined(const char *manifest, int blocked, int parent_dead,
+        int expected_rc, int expected_init)
+{
+    int watch[2], input[2], phase[2], output[2];
+    assert(!pipe(watch) && !pipe(input) && !pipe(phase) && !pipe(output));
+    if (!blocked) {
+        assert(write(input[1], manifest, strlen(manifest)) == (ssize_t)strlen(manifest));
+        close(input[1]); input[1] = -1;
+    }
+    if (parent_dead) { close(watch[1]); watch[1] = -1; }
+    pid_t child = fork();
+    assert(child >= 0);
+    if (!child) {
+        close(phase[0]); close(output[0]);
+        if (watch[1] >= 0) close(watch[1]);
+        if (input[1] >= 0) close(input[1]);
+        assert(dup2(output[1], STDOUT_FILENO) >= 0);
+        close(output[1]);
+        char parent_fd[32], resource_fd[32];
+        snprintf(parent_fd, sizeof parent_fd, "%d", watch[0]);
+        snprintf(resource_fd, sizeof resource_fd, "%d", input[0]);
+        char *args[] = {"dslcap", "--out", "unused", "--res", directory,
+                       "--parent-fd", parent_fd, "--res-manifest", resource_fd};
+        combined_phase = phase[1]; manifest_reported = 0; manifest_fd = input[0];
+        init_calls = 0; read_mode = 0; reset_usb();
+        int rc = dslcap_main(G_N_ELEMENTS(args), args);
+        assert(init_calls == expected_init && !usb_calls && !open_calls);
+        _exit(rc);
+    }
+    close(watch[0]); close(input[0]); close(phase[1]); close(output[1]);
+    if (blocked && !parent_dead) {
+        struct pollfd fd = {.fd = phase[0], .events = POLLIN};
+        char stage;
+        assert(poll(&fd, 1, 2000) == 1 && read(phase[0], &stage, 1) == 1 && stage == 'M');
+        close(watch[1]); watch[1] = -1;
+    }
+    gint64 deadline = g_get_monotonic_time() + 3 * G_TIME_SPAN_SECOND;
+    int status;
+    for (;;) {
+        pid_t result = waitpid(child, &status, WNOHANG);
+        assert(result >= 0);
+        if (result == child) break;
+        if (g_get_monotonic_time() >= deadline) {
+            kill(child, SIGKILL);
+            waitpid(child, &status, 0);
+            assert(!"combined parent/manifest child timed out");
+        }
+        g_usleep(1000);
+    }
+    assert(WIFEXITED(status) && WEXITSTATUS(status) == expected_rc);
+    char stages[16] = {0}, json[1024] = {0};
+    ssize_t phases = read(phase[0], stages, sizeof stages - 1);
+    ssize_t bytes = read(output[0], json, sizeof json - 1);
+    assert(phases >= 0 && bytes >= 0);
+    assert((strchr(stages, 'I') != NULL) == expected_init);
+    if (blocked || parent_dead) {
+        assert(bytes == 0 && !strchr(stages, 'I'));
+        if (parent_dead) assert(phases == 0); /* no preflight before parent check */
+    } else {
+        assert(strstr(json, expected_init ? "lib init failed" : "--res-manifest"));
+    }
+    close(phase[0]); close(output[0]);
+    if (watch[1] >= 0) close(watch[1]);
+    if (input[1] >= 0) close(input[1]);
+}
+
 int main(void)
 {
     directory = g_dir_make_tmp("dslcap-res-test-XXXXXX", NULL);
@@ -366,9 +443,13 @@ int main(void)
     write_bytes(fpga, fpga_bytes, sizeof fpga_bytes);
     assert(run_cli(good_manifest) == 1 && init_calls == 1);
     clear_resource_manifest();
+    test_combined(good_manifest, 0, 0, 1, 1);
+    test_combined(missing, 0, 0, 2, 0);
+    test_combined("", 1, 0, 1, 0);
+    test_combined("", 1, 1, 1, 0);
     unlink(firmware); unlink(fpga); rmdir(nested); rmdir(directory);
     g_free(missing); g_free(good_manifest); g_free(firmware); g_free(fpga);
     g_free(nested); g_free(directory);
-    puts("resource manifest and verified loader tests passed (no hardware accessed)");
+    puts("resource manifest, verified loaders and combined parent/preflight tests passed (no hardware accessed)");
     return 0;
 }

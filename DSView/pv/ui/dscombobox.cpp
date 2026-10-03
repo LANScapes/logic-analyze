@@ -20,6 +20,13 @@
  */
 
 #include "dscombobox.h"
+#include <QToolBar>
+#ifdef LANSCAPES_BRAND
+#include <QAbstractItemView>
+#include <QPainter>
+#include <QStandardItemModel>
+#include <QStyledItemDelegate>
+#endif
 #include <QFontMetrics>
 #include <QString>
 #include <QGuiApplication>
@@ -32,6 +39,103 @@ DsComboBox::DsComboBox(QWidget *parent)
     _bPopup = false;
     QComboBox::setSizeAdjustPolicy(QComboBox::AdjustToContents);   
 }
+
+#ifdef LANSCAPES_BRAND
+namespace
+{
+    // Draws a combo list entry as a right-aligned number then its unit. The list's
+    // own delegate still draws the row (highlight, check mark) from a blank copy
+    // of the entry, so the theme is kept; only the text is placed here.
+    class NumberColumnDelegate : public QStyledItemDelegate
+    {
+    public:
+        NumberColumnDelegate(QComboBox *combo, QAbstractItemDelegate *base)
+            : QStyledItemDelegate(combo), _combo(combo), _base(base), _blank(this) {}
+
+        void paint(QPainter *painter, const QStyleOptionViewItem &option,
+                   const QModelIndex &index) const override
+        {
+            if (_blank.rowCount() != index.model()->rowCount())
+                _blank.setRowCount(index.model()->rowCount());
+            _blank.setColumnCount(1);
+            _base->paint(painter, option, _blank.index(index.row(), 0));
+
+            QString num, unit;
+            split(index.data(Qt::DisplayRole).toString(), num, unit);
+            const QFontMetrics fm(_combo->font());
+            const int col = number_column(fm);
+            // The menu style starts the text after the icon column (decoration + 4).
+            QRect r = option.rect.adjusted(option.decorationSize.width() + 4, 0, 0, 0);
+            const bool selected = option.state & QStyle::State_Selected;
+            painter->save();
+            painter->setFont(_combo->font());
+            painter->setPen(option.palette.color(selected ? QPalette::HighlightedText : QPalette::Text));
+            painter->drawText(QRect(r.left(), r.top(), col, r.height()),
+                              Qt::AlignRight | Qt::AlignVCenter, num);
+            painter->drawText(QRect(r.left() + col, r.top(), r.width() - col, r.height()),
+                              Qt::AlignLeft | Qt::AlignVCenter, unit);
+            painter->restore();
+        }
+
+        QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override
+        {
+            QString num, unit;
+            split(index.data(Qt::DisplayRole).toString(), num, unit);
+            const QFontMetrics fm(_combo->font());
+            QSize s = _base->sizeHint(option, index);
+            s.rwidth() += number_column(fm) - fm.horizontalAdvance(num);
+            return s;
+        }
+
+    private:
+        static void split(const QString &text, QString &num, QString &unit)
+        {
+            const int sp = text.indexOf(' ');
+            num = sp < 0 ? text : text.left(sp);
+            unit = sp < 0 ? QString() : text.mid(sp);
+        }
+
+        int number_column(const QFontMetrics &fm) const
+        {
+            int w = 0;
+            for (int i = 0; i < _combo->count(); i++){
+                QString num, unit;
+                split(_combo->itemText(i), num, unit);
+                w = qMax(w, fm.horizontalAdvance(num));
+            }
+            return w;
+        }
+
+        QComboBox *_combo;
+        QAbstractItemDelegate *_base;
+        mutable QStandardItemModel _blank;
+    };
+}
+
+void DsComboBox::alignNumbersInList()
+{
+    view()->setItemDelegate(new NumberColumnDelegate(this, view()->itemDelegate()));
+}
+
+int DsComboBox::chevron_room() const
+{
+    for (QWidget *w = parentWidget(); w != nullptr; w = w->parentWidget()){
+        if (qobject_cast<QToolBar*>(w))
+            return 16;
+    }
+    return 0;
+}
+
+QSize DsComboBox::sizeHint() const
+{
+    return QComboBox::sizeHint() + QSize(chevron_room(), 0);
+}
+
+QSize DsComboBox::minimumSizeHint() const
+{
+    return QComboBox::minimumSizeHint() + QSize(chevron_room(), 0);
+}
+#endif
 
 DsComboBox::~DsComboBox()
 {
@@ -75,7 +179,17 @@ void DsComboBox::showPopup()
     int x = rc.left() + 6;
     int y = rc.top();
     int w = rc.right() - rc.left();
+#ifdef LANSCAPES_BRAND
+    // Fit the list to its rows: a fixed 20 px more than Qt's height showed as an
+    // empty row under a short list (the device modes).
+    int rows_h = 0;
+    for (int i = 0; i < count(); i++)
+        rows_h += view()->sizeHintForRow(i);
+    int h = qMin(rc.bottom() - rc.top() + 20,
+                 popup->height() - view()->viewport()->height() + rows_h);
+#else
     int h = rc.bottom() - rc.top() + 20;
+#endif
     popup->setGeometry(x, y, w, h);
 
     int sy = QGuiApplication::primaryScreen()->size().height(); 

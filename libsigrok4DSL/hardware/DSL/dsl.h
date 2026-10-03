@@ -505,7 +505,7 @@ static const struct DSL_profile supported_DSLogic[] = {
       SR_MHZ(400)}
     },
 
-    {DS_VENDOR_ID, 0x0020, LIBUSB_SPEED_HIGH, "DreamSourceLab", "DSLogic PLus", NULL,
+    {DS_VENDOR_ID, 0x0020, LIBUSB_SPEED_HIGH, "DreamSourceLab", "DSLogic Plus", NULL,
      "DSLogicPlus.fw",
      "DSLogicPlus.bin",
      "DSLogicPlus.bin",
@@ -721,7 +721,7 @@ static const struct DSL_profile supported_DSLogic[] = {
       SR_GHZ(1)}
     },
 
-    {0x2A0E, 0x0030, LIBUSB_SPEED_HIGH, "DreamSourceLab", "DSLogic PLus", NULL,
+    {0x2A0E, 0x0030, LIBUSB_SPEED_HIGH, "DreamSourceLab", "DSLogic Plus", NULL,
      "DSLogicPlus.fw",
      "DSLogicPlus-pgl12.bin",
      "DSLogicPlus-pgl12.bin",
@@ -775,7 +775,7 @@ static const struct DSL_profile supported_DSLogic[] = {
       SR_MHZ(400)}
     },
 
-    {0x2A0E, 0x0034, LIBUSB_SPEED_HIGH, "DreamSourceLab", "DSLogic PLus", NULL,
+    {0x2A0E, 0x0034, LIBUSB_SPEED_HIGH, "DreamSourceLab", "DSLogic Plus", NULL,
      "DSLogicPlus-pgl12-2.fw",
      "DSLogicPlus-pgl12-2.bin",
      "DSLogicPlus-pgl12-2.bin",

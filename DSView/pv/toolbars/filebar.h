@@ -31,6 +31,7 @@
 #include "../interface/icallbacks.h"
 #include "../ui/xtoolbutton.h"
 #include "../ui/uimanager.h"
+#include "../ui/fn.h"
 
 namespace pv {
 namespace toolbars {
@@ -40,6 +41,11 @@ namespace toolbars {
 class FileBar : public QToolBar, public IUiWindow
 {
     Q_OBJECT
+#ifdef LANSCAPES_BRAND
+public:
+    QSize minimumSizeHint() const override { return ui::toolbar_min_hint(this, QToolBar::minimumSizeHint()); }
+private:
+#endif
 
 public:
     explicit FileBar(SigSession *session, QWidget *parent = 0);

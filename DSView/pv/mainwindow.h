@@ -220,6 +220,7 @@ private:
     toolbars::LogoBar       *_logo_bar; //help button, on top right
 #ifdef LANSCAPES_BRAND
     QToolBar                *_main_toolbar; //holds the four bars; movable to any side
+    QSize                   _bar_icon_size; //the bars' icon size on the top or bottom
 #endif
     toolbars::TitleBar      *_title_bar;
 

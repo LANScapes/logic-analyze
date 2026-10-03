@@ -88,6 +88,9 @@ namespace dialogs {
 DeviceOptions::DeviceOptions(QWidget *parent) :
     DSDialog(parent)
 {
+#ifdef LANSCAPES_BRAND
+    setObjectName("DeviceOptionsDlg"); // brand stylesheet: field insets and checkbox spacing
+#endif
     _scroll_panel = NULL;
     _container_panel = NULL;   
     _scroll = NULL; 
@@ -271,6 +274,11 @@ QLayout * DeviceOptions::get_property_form(QWidget * parent)
         else{
             QWidget *wid = p->get_widget(parent);
             wid->setFont(font);
+#ifdef LANSCAPES_BRAND
+            // Size each list to its longest entry so no choice runs under the chevron.
+            if (QComboBox *cb = qobject_cast<QComboBox*>(wid))
+                cb->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+#endif
             layout->addWidget(wid, i, 1);
         }
         layout->setRowMinimumHeight(i, 22);

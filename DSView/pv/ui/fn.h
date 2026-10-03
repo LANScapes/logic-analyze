@@ -45,6 +45,14 @@ namespace ui
 
     void set_toolbar_font(QToolBar *bar, QFont font);
 
+#ifdef LANSCAPES_BRAND
+    // A bar inside the main toolbar is never shorter than its buttons along the
+    // toolbar. Qt's own minimum is one button plus an overflow button, which left
+    // a gap after a bar showing a single button (Measure, in Data Acquisition), and
+    // let each bar overflow on its own; now the whole toolbar overflows instead.
+    QSize toolbar_min_hint(const QToolBar *bar, QSize min);
+#endif
+
     void set_form_font(QWidget *wid, QFont font);
 
     QSize measure_string(QFont font, QString str);
