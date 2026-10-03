@@ -1,0 +1,14 @@
+{
+  "html_lang": "ja",
+  "name": "日本語",
+  "title": "Logic Analyze ユーザーマニュアル",
+  "subtitle": "DSLogic ロジックアナライザ用。ASD-STE100 簡略技術英語の規則に従って作成し、翻訳しています。",
+  "footer": "Logic Analyze は、GNU 一般公衆利用許諾書バージョン 3 以降に基づくフリーソフトウェアです。このマニュアルは、DreamSourceLab の DSView ユーザーガイドをもとにしています。",
+  "labels": {
+    "contents": "目次",
+    "figure": "図",
+    "warning": "警告",
+    "caution": "注意",
+    "note": "注記"
+  }
+}

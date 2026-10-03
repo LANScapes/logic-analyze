@@ -1,0 +1,14 @@
+{
+  "html_lang": "nl",
+  "name": "Nederlands",
+  "title": "Logic Analyze – Gebruikershandleiding",
+  "subtitle": "Voor logische analysers van het type DSLogic. Vertaald uit de handleiding in ASD-STE100 Simplified Technical English.",
+  "footer": "Logic Analyze is vrije software onder de GNU General Public License, versie 3 of later. Deze handleiding komt van de DSView User Guide van DreamSourceLab.",
+  "labels": {
+    "contents": "Inhoud",
+    "figure": "Afbeelding",
+    "warning": "WAARSCHUWING",
+    "caution": "LET OP",
+    "note": "OPMERKING"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "html_lang": "ru",
+  "name": "Русский",
+  "title": "Руководство пользователя Logic Analyze",
+  "subtitle": "Для логических анализаторов DSLogic. Перевод текста на ASD-STE100 Simplified Technical English.",
+  "footer": "Logic Analyze — свободное программное обеспечение под лицензией GNU General Public License версии 3 или более поздней. Это руководство создано на основе DSView User Guide компании DreamSourceLab.",
+  "labels": {
+    "contents": "Содержание",
+    "figure": "Рисунок",
+    "warning": "ПРЕДУПРЕЖДЕНИЕ",
+    "caution": "ВНИМАНИЕ",
+    "note": "ПРИМЕЧАНИЕ"
+  }
+}

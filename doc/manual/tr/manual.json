@@ -1,0 +1,14 @@
+{
+  "html_lang": "tr",
+  "name": "Türkçe",
+  "title": "Logic Analyze Kullanım Kılavuzu",
+  "subtitle": "DSLogic mantık analizörleri için. ASD-STE100 Simplified Technical English kurallarına göre sade yazılmıştır.",
+  "footer": "Logic Analyze, GNU Genel Kamu Lisansı sürüm 3 veya sonrası kapsamında özgür yazılımdır. Bu kılavuz, DreamSourceLab'ın DSView Kullanıcı Kılavuzu'na dayanır.",
+  "labels": {
+    "contents": "İçindekiler",
+    "figure": "Şekil",
+    "warning": "UYARI",
+    "caution": "DİKKAT",
+    "note": "NOT"
+  }
+}

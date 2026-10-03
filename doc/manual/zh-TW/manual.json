@@ -1,0 +1,14 @@
+{
+  "html_lang": "zh-TW",
+  "name": "繁體中文",
+  "title": "Logic Analyze 使用手冊",
+  "subtitle": "適用於 DSLogic 邏輯分析儀。依照 ASD-STE100 簡化技術英語的規則撰寫和翻譯。",
+  "footer": "Logic Analyze 是自由軟體，採用 GNU 通用公共授權條款第 3 版或更新版本。本手冊來自 DreamSourceLab 的 DSView 使用指南。",
+  "labels": {
+    "contents": "目錄",
+    "figure": "圖",
+    "warning": "警告",
+    "caution": "注意",
+    "note": "說明"
+  }
+}
