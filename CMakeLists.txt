@@ -708,6 +708,11 @@ if(WIN32)
 set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "-mwindows")
 endif()
 
+# Mac App Store edition: the GUI side of the MCP agent channel (doc/mcp-gui-protocol.md).
+if(LANSCAPES_APPSTORE)
+	include(DSView/pv/mcp/mcp.cmake)
+endif()
+
 if(ENABLE_COTIRE)
 	include(cotire)
 	cotire(${PROJECT_NAME})
