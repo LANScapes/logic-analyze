@@ -21,7 +21,11 @@ It accepts only optional `--parent-fd N`; combining it with `--list`, capture or
 resource/log-level options is an argument error (status 2). It branches immediately
 after argument validation and parent-watcher setup, before resource lookup, manifest
 preflight, logging/callback setup, `ds_lib_init()` or any libsigrok driver scan.
-`DSLCAP_RES` does not affect this path.
+`DSLCAP_RES` does not affect this path. The exact token `--list-ids` and any value
+beginning `--list-ids=` are reserved: they cannot be swallowed as another option's
+value and enter the legacy scan. The equals form is unsupported. This narrowly
+restricts bare filename arguments with those spellings; use a path such as
+`./--list-ids=true` or an absolute path for a file with that name.
 
 **Every production backend currently refuses the operation before any libusb
 call**, on macOS, Linux and other platforms. It returns status **1**, prints
@@ -161,7 +165,8 @@ all 22 unique VID/PID/model pairs against all 25 upstream speed profiles,
 unrelated devices, absent serials, permission/detach and descriptor failures,
 Unicode/surrogates/JSON escaping, maximum serial/port paths, no invented location,
 conflicting arguments in both orders and listing-mode tokens swallowed as option
-values, parent loss before/during fake init, stdout failure and context/list/handle cleanup. Run the spool command below from
+values (including unsupported `--list-ids=...` forms), parent loss before/during
+fake init, stdout failure and context/list/handle cleanup. Run the spool command below from
 the repository root. Compile the normal `dslcap` target to check the real USB
 header/link; **do not run it against hardware** to validate this scaffold.
 

@@ -386,8 +386,8 @@ static int parse_args(int argc, char **argv, struct options *o)
         }
         const char *v = argv[++i];
         /* A swallowed listing-mode token must never reach the legacy scan. */
-        if (!strcmp(v, "--list-ids")) {
-            arg_error("missing option value before --list-ids", a, v);
+        if (!strcmp(v, "--list-ids") || g_str_has_prefix(v, "--list-ids=")) {
+            arg_error("listing option token is not an option value", a, v);
             return 2;
         }
         int bad = 0;

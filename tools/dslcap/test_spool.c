@@ -59,8 +59,11 @@ static void test_arguments(void)
     const char *ids_valued[] = {"--res", "--res-manifest", "--out", "--channels",
         "--samplerate", "--samples", "--vth", "--mode", "--trigger", "--trigpos",
         "--timeout", "--parent-fd", "--log-level"};
-    for (size_t i = 0; i < G_N_ELEMENTS(ids_valued); i++)
+    for (size_t i = 0; i < G_N_ELEMENTS(ids_valued); i++) {
         assert(parse(&o, "--out", "x", ids_valued[i], "--list-ids", NULL) == 2);
+        assert(parse(&o, "--out", "x", ids_valued[i], "--list-ids=true", NULL) == 2);
+        assert(parse(&o, "--out", "x", ids_valued[i], "--list-ids=", NULL) == 2);
+    }
     assert(parse(&o, "--list", NULL) == 0 && o.list_only);
     assert(o.parent_fd == -1 && o.res_manifest == -1 && !o.parent_fd_value);
     assert(o.log_level == 1);
