@@ -588,6 +588,7 @@ SR_API const GSList *ds_get_actived_device_mode_list()
 	if (dev == NULL)
 	{
 		sr_err("Have no actived device.");
+		return NULL;
 	}
 	if (dev->driver == NULL || dev->driver->dev_mode_list == NULL)
 	{
