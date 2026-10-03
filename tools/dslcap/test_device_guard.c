@@ -54,30 +54,33 @@ static void test_device_guard(void)
 {
     struct options o;
     const char *valid[] = {
-        "usb-1-2.3:ABC123", "usb-0-1:serial", "usb-255-255:serial",
-        "usb-1-1.2.3.4.5.6.7:serial", "usb-1-2:serial:with:colons",
-        "usb-1-2:\xe5\xba\x8f\xe5\x8f\xb7", "usb-1-2: leading and trailing ",
-        "usb-1-2:quote\" slash\\ newline\n",
-        "loc-20120000:ABC123", "loc-20121500:ABC123", "loc-00000000:serial",
-        "loc-ffffffff:serial", "loc-00000001:serial:with:colons",
-        "loc-abcdef12:\xe5\xba\x8f\xe5\x8f\xb7", "loc-20121500: leading and trailing ",
-        "loc-20121500:quote\" slash\\ newline\n",
+        "loc-20121500:100003421", "loc-00000000:0", "loc-00000001:1",
+        "loc-ffffffff:ffffffffffffffff", "loc-abcdef12:a",
+        "loc-20120000:10", "loc-20121500:8000000000000000",
+        "loc-20121500:ffffffff", "loc-20121500:100000000",
+        "loc-20121500:100003422", "loc-20121501:100003421",
     };
     const char *invalid[] = {
-        "", "usb-1-2", "usb-1-2:", ":serial", "null:serial", "usb-1:serial",
-        "1.2:serial", "DSLogic:serial", "usb-01-2:serial", "usb-1-02:serial",
-        "usb-256-2:serial", "usb-1-256:serial", "usb-1-0:serial",
-        "usb--1-2:serial", "usb-+1-2:serial", "usb-1-2.:serial",
-        "usb-1-2..3:serial", "usb-1-1.2.3.4.5.6.7.8:serial",
-        " usb-1-2:serial", "usb-1-2 :serial", "usb-1-2:\xff",
-        "usb-999999999999999999999999999-2:serial",
-        "usb-", "usb-0", "usb-1-", "usb-1-1.",
-        "loc-", "loc-:serial", "loc-20120000", "loc-20120000:",
-        "loc-2012000:serial", "loc-020120000:serial", "loc-100000000:serial",
-        "loc-ffffffffffffffff:serial", "loc-2012000A:serial", "LOC-20120000:serial",
-        "loc-0x20120000:serial", "loc--2012000:serial", "loc-+2012000:serial",
-        "loc-2012000g:serial", " loc-20120000:serial", "loc-20120000 :serial",
-        "loc-20120000:\xff", "loc-20120000:\xc0\x80", "loc-20120000:\xed\xa0\x80",
+        "", "loc-", "loc-:1", "loc-20121500", "loc-20121500:", ":1",
+        "loc-2012150:1", "loc-020121500:1", "loc-100000000:1",
+        "loc-ffffffffffffffff:1", "loc-2012150A:1", "LOC-20121500:1",
+        "loc-0x20121500:1", "loc--2012150:1", "loc-+2012150:1",
+        "loc-2012150g:1", " loc-20121500:1", "loc-20121500 :1",
+        "loc-20121500:00", "loc-20121500:01", "loc-20121500:0abcdef",
+        "loc-20121500:0fffffffffffffff", "loc-20121500:0000000000000000",
+        "loc-20121500:10000000000000000", "loc-20121500:fffffffffffffffff",
+        "loc-20121500:99999999999999999999999999999999999999999999999",
+        "loc-20121500:A", "loc-20121500:10000342A", "loc-20121500:0x1",
+        "loc-20121500:+1", "loc-20121500:-1", "loc-20121500:1.0",
+        "loc-20121500: 1", "loc-20121500:1 ", "loc-20121500:1\n",
+        "loc-20121500:\t1", "loc-20121500:1:2", "loc-20121500::1",
+        /* Old serial/topology/name/address syntax has no compatibility path. */
+        "usb-1-2.3:ABC123", "usb-1-2:100003421", "usb-0-1:0",
+        "loc-20121500:ABC123", "loc-20121500:serial",
+        "loc-20121500:serial:with:colons", "loc-20121500:\xe5\xba\x8f\xe5\x8f\xb7",
+        "loc-20121500: leading and trailing ", "loc-20121500:quote\" slash\\ newline\n",
+        "1.2:100003421", "DSLogic:100003421", "null:100003421",
+        "loc-20121500:\xff", "loc-20121500:\xc0\x80", "loc-20121500:\xed\xa0\x80",
     };
     char *dir = g_dir_make_tmp("dslcap-device-guard-XXXXXX", NULL);
     assert(dir);
@@ -88,6 +91,16 @@ static void test_device_guard(void)
             device_guard_result(dir, "\"code\":\"device_selection_unavailable\"", watch,
                                 "--device", valid[i], NULL);
     }
+    /* Every canonical generation width fits uint64 without truncation. */
+    for (size_t width = 1; width <= 16; ++width) {
+        char identity[30] = "loc-20121500:";
+        memset(identity + 13, 'f', width);
+        identity[13 + width] = '\0';
+        assert(parse(&o, "--out", "unused", "--device", identity, NULL) == 0);
+        assert(!strcmp(o.device, identity));
+        device_guard_result(dir, "\"code\":\"device_selection_unavailable\"", 0,
+                            "--device", identity, NULL);
+    }
     for (size_t i = 0; i < G_N_ELEMENTS(invalid); ++i) {
         assert(parse(&o, "--out", "unused", "--device", invalid[i], NULL) == 2);
         device_guard_result(dir, "\"option\":\"--device\"", 0, "--device", invalid[i], NULL);
@@ -95,22 +108,22 @@ static void test_device_guard(void)
     device_guard_result(dir, "duplicate option", 0,
                         "--device", valid[0], "--device", valid[1], NULL);
     device_guard_result(dir, "duplicate option", 0,
-                        "--device", "loc-20121500:ABC123", "--device", "loc-20121500:ABC123", NULL);
+                        "--device", valid[0], "--device", valid[0], NULL);
     device_guard_result(dir, "duplicate option", 0,
-                        "--device", "loc-20121500:ABC123", "--device", valid[0], NULL);
+                        "--device", valid[0], "--device", "loc-20121500:100003422", NULL);
     device_guard_result(dir, "duplicate option", 0,
-                        "--device", "loc-20121500:ABC123", "--device", NULL);
+                        "--device", valid[0], "--device", NULL);
     device_guard_result(dir, "missing option value", 0, "--device", NULL);
     device_guard_result(dir, "cannot combine with --list", 0, "--device", valid[0], "--list", NULL);
     device_guard_result(dir, "cannot combine with --list", 0, "--list", "--device", valid[0], NULL);
     device_guard_result(dir, "unknown argument", 0, "--device", valid[0], "--bogus", NULL);
-    device_guard_result(dir, "unknown argument", 0, "--device=usb-1-2:serial", NULL);
+    device_guard_result(dir, "unknown argument", 0, "--device=loc-20121500:100003421", NULL);
     /* Incomplete earlier flags cannot consume the selector and enable legacy
      * scans. This also guards unsupported --device=... syntax as a value. */
     device_guard_result(dir, "missing option value before --device", 0, "--out", "--device", NULL);
     device_guard_result(dir, "missing option value before --device", 0, "--res", "--device", NULL);
     device_guard_result(dir, "missing option value before --device", 0,
-                        "--res", "--device=usb-1-2:serial", NULL);
+                        "--res", "--device=loc-20121500:100003421", NULL);
     /* Logging from current main is still downstream of the capability gate. */
     for (int level = 0; level <= 5; ++level) {
         char number[2] = {(char)('0' + level), '\0'};
@@ -121,23 +134,21 @@ static void test_device_guard(void)
                         "--device", valid[0], "--log-level", "6", NULL);
     device_guard_result(dir, "duplicate option", 0,
                         "--device", valid[0], "--log-level", "1", "--log-level", "2", NULL);
-    device_guard_result(dir, "\"value\":\"usb-1-2:serial:with:colons\"", 0,
-                        "--device", valid[4], NULL);
-    device_guard_result(dir, "\"value\":\"usb-1-2:quote\\\" slash\\\\ newline\\u000a", 0,
-                        "--device", valid[7], NULL);
-    /* Invalid UTF-8 is omitted from JSON, so it remains a valid JSON result. */
-    device_guard_result(dir, "\"option\":\"--device\"}\n", 0, "--device", invalid[20], NULL);
-    device_guard_result(dir, "\"value\":\"loc-20121500:ABC123\"", 0,
-                        "--device", "loc-20121500:ABC123", NULL);
+    device_guard_result(dir, "\"value\":\"loc-20121500:100003421\"", 0,
+                        "--device", valid[0], NULL);
+    device_guard_result(dir, "\"value\":\"loc-00000000:0\"", 0,
+                        "--device", valid[1], NULL);
+    /* JSON echoes malformed UTF-8-valid input safely; it is still rejected. */
     device_guard_result(dir, "\"value\":\"loc-00000001:serial:with:colons\"", 0,
                         "--device", "loc-00000001:serial:with:colons", NULL);
     device_guard_result(dir, "\"value\":\"loc-20121500:quote\\\" slash\\\\ newline\\u000a", 0,
                         "--device", "loc-20121500:quote\" slash\\ newline\n", NULL);
+    /* Invalid UTF-8 is omitted from JSON, so it remains a valid JSON result. */
     device_guard_result(dir, "\"option\":\"--device\"}\n", 0,
                         "--device", "loc-20121500:\xff", NULL);
     assert(!rmdir(dir));
     g_free(dir);
-    puts("device guard tests passed: canonical identity, verbatim UTF-8 serial, "
+    puts("device guard tests passed: canonical location/uint64 generation, rejected old syntax, "
          "JSON exit 2, zero library calls, no files, rejection before manifest read");
     assert(!fflush(stdout)); /* Subsequent harness forks must not inherit this text. */
 }

@@ -6,7 +6,7 @@
  *          [--vth 1.6] [--mode buffer|stream] [--trigger CH[:R|F|C|1|0]]
  *          [--trigpos PERCENT] [--timeout SEC] [--res DIR]
  *          [--parent-fd N] [--res-manifest FD] [--log-level N]
- *          [--device LOCATION:SERIAL]
+ *          [--device LOCATION:GENERATION]
  *          --out /path/base
  *
  * Log level N is a whole decimal 0..5 (default 1); logs go to stderr.
@@ -314,43 +314,27 @@ static int parse_double(const char *s, double *out)
     return 0;
 }
 
-/* macOS cached locationID: loc-<eight lowercase hexadecimal digits>.
- * Also accept the earlier usb-<bus>-<port>[.<port>...] topology syntax.
- * The serial is verbatim UTF-8 after the first colon; later colons belong
- * to the serial. A location alone is never an identity. No IOKit/USB calls. */
+/* macOS registry identity: loc-<eight lowercase locationID hex digits>:
+ * <one to sixteen lowercase uint64 entryID hex digits>. No leading generation
+ * zeros except literal 0 (a successful API result may be zero). Syntax only:
+ * no serial interpretation, normalization, fallback or IOKit/USB calls. */
 static int valid_device_identity(const char *s)
 {
-    if (!g_utf8_validate(s, -1, NULL)) return 0;
-    if (g_str_has_prefix(s, "loc-")) {
-        const char *colon = strchr(s, ':');
-        /* Fixed width rejects overflow rather than truncating or masking a
-         * locationID. No numeric conversion or hardware lookup is needed. */
-        if (!colon || colon - s != 12 || !colon[1]) return 0;
-        for (const char *p = s + 4; p < colon; ++p)
-            if (!(*p >= '0' && *p <= '9') && !(*p >= 'a' && *p <= 'f'))
-                return 0;
-        return 1;
-    }
-    if (!g_str_has_prefix(s, "usb-")) return 0;
-    const char *p = s + 4;
-    for (int component = 0; ; component++) {
-        const char *start = p;
-        unsigned int number = 0;
-        if (!g_ascii_isdigit(*p)) return 0;
-        do {
-            number = number * 10 + (*p++ - '0');
-            if (number > 255) return 0;
-        } while (g_ascii_isdigit(*p));
-        if (p - start > 1 && *start == '0') return 0;
-        if (component == 0) {
-            if (*p++ != '-') return 0;
-        } else {
-            /* libusb port paths contain up to seven nonzero uint8 ports. */
-            if (!number || component > 7) return 0;
-            if (*p == ':') return p[1] != '\0';
-            if (*p++ != '.') return 0;
-        }
-    }
+    if (!g_str_has_prefix(s, "loc-")) return 0;
+    const char *colon = strchr(s, ':');
+    /* Width bounds reject uint32/uint64 overflow without conversion,
+     * truncation or masking; the hex loops also reject extra separators. */
+    if (!colon || colon - s != 12) return 0;
+    size_t generation_len = strlen(colon + 1);
+    if (!generation_len || generation_len > 16 ||
+        (generation_len > 1 && colon[1] == '0')) return 0;
+    for (const char *p = s + 4; p < colon; ++p)
+        if (!(*p >= '0' && *p <= '9') && !(*p >= 'a' && *p <= 'f'))
+            return 0;
+    for (const char *p = colon + 1; *p; ++p)
+        if (!(*p >= '0' && *p <= '9') && !(*p >= 'a' && *p <= 'f'))
+            return 0;
+    return 1;
 }
 
 struct options {
@@ -429,7 +413,7 @@ static int parse_args(int argc, char **argv, struct options *o)
         else if (!strcmp(a, "--device")) {
             if (!valid_device_identity(v)) {
                 /* Invalid UTF-8 must not enter a JSON string verbatim. */
-                arg_error("expected loc-xxxxxxxx (8 lowercase hex digits) or usb-BUS-PORT[.PORT...], then :nonempty UTF-8 serial", a,
+                arg_error("expected loc-xxxxxxxx:generation (8 lowercase location hex digits; 1-16 lowercase entryID hex digits, no leading zeros except 0)", a,
                           g_utf8_validate(v, -1, NULL) ? v : NULL);
                 return 2;
             }
