@@ -2221,7 +2221,7 @@ static void resubmit_transfer(struct libusb_transfer *transfer)
     if ((ret = libusb_submit_transfer(transfer)) == LIBUSB_SUCCESS)
         return;
 
-    free_transfer(transfer, 0);
+    free_transfer(transfer, 1); // it is gone: always drop it from the count
     /* TODO: Stop session? */
 
     sr_err("%s: %s", __func__, libusb_error_name(ret));
