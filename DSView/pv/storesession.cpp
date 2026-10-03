@@ -926,7 +926,16 @@ void StoreSession::export_exec(data::Snapshot *snapshot)
     strcpy(output.time_string, dateTimeString.toStdString().c_str());
     
     QFile file(_file_name);
-    file.open(QIODevice::WriteOnly | QIODevice::Text);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        dsv_err("Failed to open export file: %s", file.errorString().toUtf8().data());
+        _has_error = true;
+        _error = file.errorString();
+        _outModule->cleanup(&output);
+        g_hash_table_destroy(params);
+        g_variant_unref(filenameGVariant);
+        progress_updated();
+        return;
+    }
     QTextStream out(&file); 
     encoding::set_utf8(out);
     //out.setGenerateByteOrderMark(true);  // UTF-8 without BOM

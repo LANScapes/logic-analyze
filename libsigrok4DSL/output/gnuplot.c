@@ -109,6 +109,7 @@ static GString *gen_header(const struct sr_output *o)
 	struct sr_channel *ch;
 	GVariant *gvar;
 	GString *header;
+	GSList *l;
 	time_t t;
 	unsigned int num_channels, i;
 	char *samplerate_s;
@@ -142,10 +143,13 @@ static GString *gen_header(const struct sr_output *o)
 
 	g_string_append_printf(header, "%s", gnuplot_header2);
 
-	/* Columns / channels */
-	for (i = 0; i < ctx->num_enabled_channels; i++) {
-		ch = g_slist_nth_data(o->sdi->channels, ctx->channel_index[i]);
-		g_string_append_printf(header, "# %d\t\t%s\n", i + 1, ch->name);
+	/* Columns / channels, in the order init() mapped them. */
+	i = 0;
+	for (l = o->sdi->channels; l; l = l->next) {
+		ch = l->data;
+		if (ch->type != SR_CHANNEL_LOGIC || !ch->enabled)
+			continue;
+		g_string_append_printf(header, "# %d\t\t%s\n", ++i, ch->name);
 	}
 
 	return header;

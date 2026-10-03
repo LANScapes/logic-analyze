@@ -61,6 +61,7 @@ struct sr_lib_context
 	struct sr_dev_inst *actived_device_instance;
 	GThread *hotplug_thread;
 	GThread *collect_thread;
+	int is_collecting;
 	ds_datafeed_callback_t data_forward_callback;
 	int callback_thread_count;
 	int is_delay_destory_actived_device;
@@ -100,6 +101,7 @@ static struct sr_lib_context lib_ctx = {
 	.actived_device_instance = NULL,
 	.data_forward_callback = NULL,
 	.collect_thread = NULL,
+	.is_collecting = 0,
 	.callback_thread_count = 0,
 	.is_delay_destory_actived_device = 0,
 	.is_stop_by_detached = 0,
@@ -588,6 +590,7 @@ SR_API const GSList *ds_get_actived_device_mode_list()
 	if (dev == NULL)
 	{
 		sr_err("Have no active device.");
+		return NULL;
 	}
 	if (dev->driver == NULL || dev->driver->dev_mode_list == NULL)
 	{
@@ -779,6 +782,14 @@ SR_API int ds_start_collect()
 	}
 
 
+	// Reap the previous collect thread if it ended by itself.
+	if (lib_ctx.collect_thread != NULL)
+	{
+		g_thread_join(lib_ctx.collect_thread);
+		lib_ctx.collect_thread = NULL;
+	}
+
+	lib_ctx.is_collecting = 1;
 	lib_ctx.collect_thread = g_thread_new("collect_proc", collect_run_proc, (gpointer)0);
 
 	return SR_OK;
@@ -831,7 +842,7 @@ static gpointer collect_run_proc(gpointer data)
 
 END:
 	sr_info("Collect thread end.");
-	lib_ctx.collect_thread = NULL;
+	lib_ctx.is_collecting = 0;
 
 	if (bError)
 		send_event(DS_EV_COLLECT_TASK_END_BY_ERROR);
@@ -874,7 +885,7 @@ SR_API int ds_stop_collect()
  */
 SR_API int ds_is_collecting()
 {
-	if (lib_ctx.collect_thread != NULL)
+	if (lib_ctx.is_collecting)
 	{
 		return 1;
 	}
@@ -1621,7 +1632,7 @@ static void post_event_async(int event)
 	lib_ctx.callback_thread_count++;
 	pthread_mutex_unlock(&lib_ctx.mutext);
 
-	g_thread_new("callback_thread", post_event_proc, (gpointer)((unsigned long)event));
+	g_thread_unref(g_thread_new("callback_thread", post_event_proc, (gpointer)((unsigned long)event)));
 }
 
 static void send_event(int event)

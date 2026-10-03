@@ -253,8 +253,8 @@ SR_PRIV int sr_session_stop(void)
 	}
 
     g_mutex_lock(&session->stop_mutex);
-    if (session->running)
-        session->abort_session = TRUE;  
+    // Also before sr_session_run() starts: its loops check this flag.
+    session->abort_session = TRUE;  
     g_mutex_unlock(&session->stop_mutex);
 
 	return SR_OK;

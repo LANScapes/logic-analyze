@@ -103,6 +103,10 @@ static void print_to_file(struct xlog_receiver_info *info, const char *domain, c
     }
 
     fmtl = vsnprintf(buf + wr, LOG_MAX_LENGTH - wr - 1, format, args);
+    if (fmtl < 0)
+        fmtl = 0;
+    else if (fmtl > LOG_MAX_LENGTH - wr - 2)
+        fmtl = LOG_MAX_LENGTH - wr - 2; // vsnprintf returns the untruncated length
     wr += fmtl;
     *(buf + wr) = '\n';
     wr += 1;
@@ -134,6 +138,10 @@ static void print_to_user_callback(struct xlog_receiver_info *info, const char *
     }
 
     fmtl = vsnprintf(buf + wr, LOG_MAX_LENGTH - wr - 1, format, args);
+    if (fmtl < 0)
+        fmtl = 0;
+    else if (fmtl > LOG_MAX_LENGTH - wr - 2)
+        fmtl = LOG_MAX_LENGTH - wr - 2; // vsnprintf returns the untruncated length
     wr += fmtl;
     *(buf + wr) = '\n';
     wr += 1;

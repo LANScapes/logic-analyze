@@ -648,7 +648,7 @@ void DecoderStack::decode_data(const uint64_t decode_start, const uint64_t decod
         }
 
         decoded_sample_count += chunk_end - i; 
-        _progress = (int)(decoded_sample_count * 100 / end_index);
+        _progress = end_index ? (int)(decoded_sample_count * 100 / end_index) : 100;
         i = chunk_end;   
  
         //use mutex
