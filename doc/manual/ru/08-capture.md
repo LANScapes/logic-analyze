@@ -54,8 +54,7 @@
 | **Повторно** | Да | Да |
 | **Цикл** | Нет | Да |
 
-![Меню режима захвата](../figures/capture-mode-menu.png)
-<!-- TODO: new screenshot -->
+![Меню режима захвата](../figures/ru/capture-mode-menu.png)
 
 ### Однократно
 

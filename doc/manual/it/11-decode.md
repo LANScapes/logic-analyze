@@ -7,8 +7,7 @@ Per aprire il pannello dei decodificatori, fare clic su **Decodifica** nella bar
 - L'elenco dei decodificatori, con il campo **Cerca decodificatore...** in alto.
 - L'elenco **Risultati di decodifica**. Questo elenco mostra ogni elemento del decodificatore come una riga di testo.
 
-![Il pannello dei decodificatori](../figures/decoder-dock.png)
-<!-- TODO: new screenshot -->
+![Il pannello dei decodificatori](../figures/it/decoder-dock.png)
 
 ## Aggiungere un decodificatore
 

@@ -78,8 +78,7 @@
 - **計數**：該階完成之前條件必須發生的次數。
 - **連續**：勾選此核取方塊時，條件必須在連續的取樣中發生，不能中斷。
 
-![多階觸發設定](../figures/stage-trigger-panel.png)
-<!-- TODO: new screenshot -->
+![多階觸發設定](../figures/zh-TW/stage-trigger-panel.png)
 
 要設定多階觸發，執行以下步驟：
 
@@ -132,8 +131,7 @@
 
 起始旗標發生後，裝置在每個時脈旗標處讀取資料通道。裝置把這個位元移入移位暫存器。移位暫存器的最後幾個位元等於 **資料值** 時，觸發發生。停止旗標發生時，裝置清除移位暫存器。
 
-![串列觸發設定](../figures/serial-trigger-panel.png)
-<!-- TODO: new screenshot -->
+![串列觸發設定](../figures/zh-TW/serial-trigger-panel.png)
 
 **範例 4。** I2C 匯流排上出現值 `010000100` 時觸發。通道 0 是 SCL，通道 1 是 SDA。
 

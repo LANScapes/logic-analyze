@@ -54,8 +54,7 @@
 | **Повторний** | Так | Так |
 | **Цикл** | Ні | Так |
 
-![Меню режиму захоплення](../figures/capture-mode-menu.png)
-<!-- TODO: new screenshot -->
+![Меню режиму захоплення](../figures/uk/capture-mode-menu.png)
 
 ### Одиночний
 

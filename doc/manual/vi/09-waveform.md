@@ -30,8 +30,7 @@ Tìm kiếm tìm một mẫu hình gồm các mức và sườn trên các kênh
 4. Nhấp **OK**.
 5. Nhấp các nút mũi tên trên thanh tìm kiếm để đến kết quả trước hoặc kết quả sau.
 
-![Cửa sổ Tùy chọn tìm kiếm](../figures/search-options.png)
-<!-- TODO: new screenshot -->
+![Cửa sổ Tùy chọn tìm kiếm](../figures/vi/search-options.png)
 
 Ví dụ, nhập `C` cho kênh 0 và `X` cho tất cả các kênh khác. Khi đó tìm kiếm tìm mỗi sườn trên kênh 0.
 

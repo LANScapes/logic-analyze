@@ -9,8 +9,7 @@ Das Hauptfenster hat diese Teile:
 - **Kanalbeschriftungen.** Eine Beschriftung links von jeder Zeile zeigt die Kanalnummer, den Namen und die Trigger-Schaltflächen.
 - **Docks.** Ein Dock ist ein Bereich an der Seite des Signalbereichs. Die Werkzeuge für den Trigger, die Dekoder, die Messungen und die Suche öffnen sich in Docks.
 
-![Das Hauptfenster im Logikanalysator-Modus](../figures/main-window.png)
-<!-- TODO: new screenshot -->
+![Das Hauptfenster im Logikanalysator-Modus](../figures/de/main-window.png)
 
 ## Die Symbolleiste
 

@@ -71,8 +71,7 @@ In modalità analizzatore logico, sono disponibili questi formati:
 
 In modalità oscilloscopio e in modalità acquisizione dati, è disponibile solo CSV.
 
-![La finestra di esportazione per CSV](../figures/export-csv.png)
-<!-- TODO: new screenshot -->
+![La finestra di esportazione per CSV](../figures/it/export-csv.png)
 
 ## Salvare un'immagine della finestra
 

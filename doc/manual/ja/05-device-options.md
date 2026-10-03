@@ -11,8 +11,7 @@
 > [!NOTE]
 > キャプチャ中はデバイスオプションを変更できません。
 
-![デバイスオプションウィンドウ](../figures/device-options.png)
-<!-- TODO: new screenshot -->
+![デバイスオプションウィンドウ](../figures/ja/device-options.png)
 
 ## 動作モード
 

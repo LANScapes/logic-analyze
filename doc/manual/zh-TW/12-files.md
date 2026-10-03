@@ -71,8 +71,7 @@
 
 在示波器模式和資料擷取模式下，只能使用 CSV。
 
-![CSV 的匯出視窗](../figures/export-csv.png)
-<!-- TODO: new screenshot -->
+![CSV 的匯出視窗](../figures/zh-TW/export-csv.png)
 
 ## 儲存視窗的影像
 

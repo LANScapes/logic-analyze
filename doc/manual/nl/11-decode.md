@@ -7,8 +7,7 @@ Om het decoderdock te openen, klikt u op de werkbalk op **Decoderen** of drukt u
 - De decoderlijst, met bovenaan het veld **Decoder zoeken...**.
 - De lijst **Decoderingsresultaten**. Deze lijst toont elk item van de decoder als een rij tekst.
 
-![Het decoderdock](../figures/decoder-dock.png)
-<!-- TODO: new screenshot -->
+![Het decoderdock](../figures/nl/decoder-dock.png)
 
 ## Een decoder toevoegen
 

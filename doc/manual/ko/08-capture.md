@@ -54,8 +54,7 @@
 | **반복** | 예 | 예 |
 | **루프** | 아니요 | 예 |
 
-![캡처 모드 메뉴](../figures/capture-mode-menu.png)
-<!-- TODO: new screenshot -->
+![캡처 모드 메뉴](../figures/ko/capture-mode-menu.png)
 
 ### 단일
 

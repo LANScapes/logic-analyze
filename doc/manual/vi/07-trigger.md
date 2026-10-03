@@ -78,8 +78,7 @@ Mỗi tầng có các cài đặt sau:
 - **Bộ đếm**: Số lần điều kiện phải xảy ra trước khi tầng hoàn tất.
 - **Liên tiếp**: Khi bạn chọn ô đánh dấu này, điều kiện phải xảy ra ở các mẫu liền nhau, không ngắt quãng.
 
-![Cài đặt kích hoạt nhiều tầng](../figures/stage-trigger-panel.png)
-<!-- TODO: new screenshot -->
+![Cài đặt kích hoạt nhiều tầng](../figures/vi/stage-trigger-panel.png)
 
 Để đặt kích hoạt nhiều tầng, làm các bước sau:
 
@@ -132,8 +131,7 @@ Kích hoạt nối tiếp tìm một giá trị dữ liệu trên bus nối ti�
 
 Sau khi cờ bắt đầu xảy ra, thiết bị đọc kênh dữ liệu tại mỗi cờ xung nhịp. Thiết bị đưa bit này vào thanh ghi dịch. Khi các bit cuối của thanh ghi dịch bằng **Giá trị dữ liệu**, kích hoạt xảy ra. Khi cờ dừng xảy ra, thiết bị xóa thanh ghi dịch.
 
-![Cài đặt kích hoạt nối tiếp](../figures/serial-trigger-panel.png)
-<!-- TODO: new screenshot -->
+![Cài đặt kích hoạt nối tiếp](../figures/vi/serial-trigger-panel.png)
 
 **Ví dụ 4.** Kích hoạt khi giá trị `010000100` xuất hiện trên bus I2C. Kênh 0 là SCL và kênh 1 là SDA.
 

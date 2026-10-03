@@ -78,8 +78,7 @@ Cada etapa tiene estos ajustes:
 - **Contador**: El número de veces que la condición debe ocurrir antes de completar la etapa.
 - **Contiguo**: Cuando marca esta casilla, la condición debe ocurrir en muestras seguidas, sin interrupción.
 
-![Los ajustes del disparo por etapas](../figures/stage-trigger-panel.png)
-<!-- TODO: new screenshot -->
+![Los ajustes del disparo por etapas](../figures/es/stage-trigger-panel.png)
 
 Para ajustar un disparo por etapas, haga estos pasos:
 
@@ -132,8 +131,7 @@ Un disparo serie encuentra un valor de datos en un bus serie. Funciona como un r
 
 Después del indicador de inicio, el dispositivo lee el canal de datos en cada indicador de reloj. El dispositivo pasa este bit al registro de desplazamiento. Cuando los últimos bits del registro de desplazamiento son iguales a **Valor de datos**, ocurre el disparo. Cuando ocurre el indicador de parada, el dispositivo borra el registro de desplazamiento.
 
-![Los ajustes del disparo serie](../figures/serial-trigger-panel.png)
-<!-- TODO: new screenshot -->
+![Los ajustes del disparo serie](../figures/es/serial-trigger-panel.png)
 
 **Ejemplo 4.** Disparar cuando el valor `010000100` aparece en un bus I2C. El canal 0 es SCL y el canal 1 es SDA.
 

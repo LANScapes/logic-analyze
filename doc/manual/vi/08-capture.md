@@ -54,8 +54,7 @@ Nếu không có tín hiệu, lần thu chuẩn chờ tại vị trí kích ho�
 | **Lặp lại** | Có | Có |
 | **Vòng lặp** | Không | Có |
 
-![Menu chế độ thu](../figures/capture-mode-menu.png)
-<!-- TODO: new screenshot -->
+![Menu chế độ thu](../figures/vi/capture-mode-menu.png)
 
 ### Một lần
 

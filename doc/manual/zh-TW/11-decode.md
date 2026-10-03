@@ -7,8 +7,7 @@
 - 解碼器清單，頂部有 **搜尋解碼器...** 欄位。
 - **解碼結果** 清單。此清單把解碼器的每一項顯示為一列文字。
 
-![解碼器停駐面板](../figures/decoder-dock.png)
-<!-- TODO: new screenshot -->
+![解碼器停駐面板](../figures/zh-TW/decoder-dock.png)
 
 ## 新增解碼器
 

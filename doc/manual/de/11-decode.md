@@ -7,8 +7,7 @@ Um das Dekoder-Dock zu öffnen, klicken Sie in der Symbolleiste auf **Dekodieren
 - Die Dekoderliste mit dem Feld **Dekoder suchen...** oben.
 - Die Liste **Dekodierergebnisse**. Diese Liste zeigt jedes Element des Dekoders als Textzeile.
 
-![Das Dekoder-Dock](../figures/decoder-dock.png)
-<!-- TODO: new screenshot -->
+![Das Dekoder-Dock](../figures/de/decoder-dock.png)
 
 ## Einen Dekoder hinzufügen
 

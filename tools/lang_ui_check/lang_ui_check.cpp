@@ -20,13 +20,16 @@
  * Usage: lang_ui_check [out-dir] [--shots dir]
  *   --shots also saves clean pictures for the manual per language, named as
  *   its figures: main-window, device-options, capture-mode-menu, decoder-dock,
- *   stage-trigger-panel and serial-trigger-panel (.png).
+ *   stage-trigger-panel, serial-trigger-panel, search-options and export-csv
+ *   (.png). The Demo Device sends no trigger, so the manual's trigger-position
+ *   figure cannot be made here.
  * QT_QPA_PLATFORM defaults to offscreen.
  */
 
 #include <QApplication>
 #include <QAbstractButton>
 #include <QComboBox>
+#include <QDateTime>
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QDir>
@@ -36,8 +39,10 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QLabel>
+#include <QLineEdit>
 #include <QMenu>
 #include <QTabWidget>
+#include <QTextEdit>
 #include <QMainWindow>
 #include <QRegularExpression>
 #include <QSettings>
@@ -56,11 +61,14 @@
 #include "DSView/pv/config/appconfig.h"
 #include "DSView/pv/dialogs/applicationpardlg.h"
 #include "DSView/pv/dialogs/deviceoptions.h"
+#include "DSView/pv/dialogs/search.h"
+#include "DSView/pv/dialogs/storeprogress.h"
 #include "DSView/pv/log.h"
 #include "DSView/pv/mainframe.h"
 #include "DSView/pv/mainwindow.h"
 #include "DSView/pv/sigsession.h"
 #include "DSView/pv/ui/langresource.h"
+#include "DSView/pv/view/view.h"
 
 namespace {
 
@@ -283,6 +291,36 @@ void save_shots(const QString &dir, QWidget *frame, pv::MainWindow *mw)
             break;
         }
     }
+
+    // Search Options, with channel 0 set to "C" (rising or falling edge).
+    pv::SigSession *session = AppControl::Instance()->GetSession();
+    {
+        pv::dialogs::Search dlg(mw, session, {{0, "C"}});
+        dlg.show();
+        wait(300);
+        for (QLineEdit *e : dlg.findChildren<QLineEdit*>())
+            e->deselect(); // the first field selects its text when it gets the focus
+        dlg.setFocus();
+        dlg.grab().save(out + "search-options.png");
+        dlg.hide();
+    }
+
+    // The export window for CSV.
+    AppConfig &app = AppConfig::Instance();
+    QString old_format = app.userHistory.exportFormat;
+    app.userHistory.exportFormat = ".csv";
+    auto *dlg = new pv::dialogs::StoreProgress(session, mw);
+    dlg->SetView(mw->findChild<pv::view::View*>());
+    dlg->export_run();
+    // A neutral folder, not the home folder; and with no capture the session
+    // time is not set, so show the name that a capture gets.
+    if (auto *path = dlg->findChild<QTextEdit*>("PathLine"))
+        path->setText("~/Documents/" + session->get_device()->name() + "-la-"
+                      + QDateTime::currentDateTime().toString("yyMMdd-HHmmss") + ".csv");
+    wait(300);
+    dlg->grab().save(out + "export-csv.png");
+    dlg->close(); // deletes the dialog
+    app.userHistory.exportFormat = old_format;
 }
 
 void write_sheets(const std::vector<const lang_key_item*> &langs)
@@ -355,6 +393,16 @@ int main(int argc, char *argv[])
     pv::MainFrame frame;
     control->Start();
     frame.resize(1087, 735);
+    // A connected analyzer that is busy or on a slow port makes the app show a
+    // message box at start; close it, or the check waits for it forever.
+    QTimer dismiss;
+    QObject::connect(&dismiss, &QTimer::timeout, [](){
+        if (auto *d = qobject_cast<QDialog*>(QApplication::activeModalWidget())){
+            fprintf(stderr, "lang_ui_check: closed a message box at start\n");
+            d->reject();
+        }
+    });
+    dismiss.start(200);
     frame.show();
     wait(1500);
 
@@ -369,6 +417,7 @@ int main(int argc, char *argv[])
         g_free(list);
     }
     wait(1500);
+    dismiss.stop();
 
     auto *mw = frame.findChild<pv::MainWindow*>();
     auto *toolbar = mw->findChild<QToolBar*>("main_toolbar");

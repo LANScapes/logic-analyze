@@ -30,8 +30,7 @@ The search finds a pattern of levels and edges on the channels.
 4. Click **OK**.
 5. Click the arrow buttons in the search bar to go to the previous result or to the next result.
 
-![The Search Options window](../figures/search-options.png)
-<!-- TODO: new screenshot -->
+![The Search Options window](../figures/en/search-options.png)
 
 For example, type `C` for channel 0 and `X` for all other channels. The search then finds each edge on channel 0.
 

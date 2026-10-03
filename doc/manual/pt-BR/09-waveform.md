@@ -30,8 +30,7 @@ A busca encontra um padrão de níveis e bordas nos canais.
 4. Clique em **OK**.
 5. Clique nos botões de seta na barra de busca para ir para o resultado anterior ou para o resultado seguinte.
 
-![A janela Opções de busca](../figures/search-options.png)
-<!-- TODO: new screenshot -->
+![A janela Opções de busca](../figures/pt-BR/search-options.png)
 
 Por exemplo, digite `C` para o canal 0 e `X` para todos os outros canais. A busca então encontra cada borda no canal 0.
 

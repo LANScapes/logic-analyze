@@ -30,8 +30,7 @@ De zoekfunctie vindt een patroon van niveaus en flanken op de kanalen.
 4. Klik op **OK**.
 5. Klik op de pijlknoppen in de zoekbalk om naar het vorige of het volgende resultaat te gaan.
 
-![Het venster Zoekopties](../figures/search-options.png)
-<!-- TODO: new screenshot -->
+![Het venster Zoekopties](../figures/nl/search-options.png)
 
 Typ bijvoorbeeld `C` voor kanaal 0 en `X` voor alle andere kanalen. De zoekfunctie vindt dan elke flank op kanaal 0.
 

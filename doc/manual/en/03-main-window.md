@@ -9,8 +9,7 @@ The main window has these parts:
 - **Channel labels.** A label on the left of each row shows the channel number, the name and the trigger buttons.
 - **Docks.** A dock is a panel at the side of the waveform area. The tools for the trigger, the decoders, the measurements and the search open in docks.
 
-![The main window in logic analyzer mode](../figures/main-window.png)
-<!-- TODO: new screenshot -->
+![The main window in logic analyzer mode](../figures/en/main-window.png)
 
 ## The toolbar
 

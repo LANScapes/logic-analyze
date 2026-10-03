@@ -11,8 +11,7 @@
 > [!NOTE]
 > 采集期间不能更改设备选项。
 
-![设备选项窗口](../figures/device-options.png)
-<!-- TODO: new screenshot -->
+![设备选项窗口](../figures/zh-CN/device-options.png)
 
 ## 运行模式
 

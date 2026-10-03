@@ -11,8 +11,7 @@
 > [!NOTE]
 > 擷取期間不能變更裝置選項。
 
-![裝置選項視窗](../figures/device-options.png)
-<!-- TODO: new screenshot -->
+![裝置選項視窗](../figures/zh-TW/device-options.png)
 
 ## 操作模式
 

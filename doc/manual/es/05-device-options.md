@@ -11,8 +11,7 @@ Los ajustes de la ventana son diferentes para cada modelo de dispositivo. Este c
 > [!NOTE]
 > No puede cambiar las opciones del dispositivo durante una captura.
 
-![La ventana Opciones del dispositivo](../figures/device-options.png)
-<!-- TODO: new screenshot -->
+![La ventana Opciones del dispositivo](../figures/es/device-options.png)
 
 ## Modo de funcionamiento
 

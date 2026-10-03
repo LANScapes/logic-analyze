@@ -9,8 +9,7 @@ Cửa sổ chính có các phần sau:
 - **Nhãn kênh.** Nhãn bên trái mỗi hàng hiển thị số kênh, tên và các nút kích hoạt.
 - **Khung neo.** Khung neo là bảng ở cạnh vùng dạng sóng. Các công cụ kích hoạt, bộ giải mã, phép đo và tìm kiếm mở trong khung neo.
 
-![Cửa sổ chính ở chế độ máy phân tích logic](../figures/main-window.png)
-<!-- TODO: new screenshot -->
+![Cửa sổ chính ở chế độ máy phân tích logic](../figures/vi/main-window.png)
 
 ## Thanh công cụ
 

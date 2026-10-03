@@ -54,8 +54,7 @@
 | **重复** | 是 | 是 |
 | **滚动** | 否 | 是 |
 
-![采集模式菜单](../figures/capture-mode-menu.png)
-<!-- TODO: new screenshot -->
+![采集模式菜单](../figures/zh-CN/capture-mode-menu.png)
 
 ### 单次
 

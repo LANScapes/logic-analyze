@@ -54,8 +54,7 @@ Yakalama modunu seçmek için araç çubuğunda **Mod** düğmesine tıklayın. 
 | **Yinelemeli** | Evet | Evet |
 | **Döngü** | Hayır | Evet |
 
-![Yakalama modu menüsü](../figures/capture-mode-menu.png)
-<!-- TODO: new screenshot -->
+![Yakalama modu menüsü](../figures/tr/capture-mode-menu.png)
 
 ### Tek
 

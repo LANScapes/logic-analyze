@@ -30,8 +30,7 @@ La ricerca trova un pattern di livelli e fronti sui canali.
 4. Fare clic su **OK**.
 5. Fare clic sui pulsanti freccia della barra di ricerca per andare al risultato precedente o al risultato successivo.
 
-![La finestra Opzioni di ricerca](../figures/search-options.png)
-<!-- TODO: new screenshot -->
+![La finestra Opzioni di ricerca](../figures/it/search-options.png)
 
 Per esempio, digitare `C` per il canale 0 e `X` per tutti gli altri canali. La ricerca trova allora ogni fronte del canale 0.
 

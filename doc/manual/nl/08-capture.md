@@ -54,8 +54,7 @@ Om de opnamemodus te selecteren, klikt u op de werkbalk op **Modus**. Selecteer 
 | **Herhalend** | Ja | Ja |
 | **Lus** | Nee | Ja |
 
-![Het menu van de opnamemodi](../figures/capture-mode-menu.png)
-<!-- TODO: new screenshot -->
+![Het menu van de opnamemodi](../figures/nl/capture-mode-menu.png)
 
 ### Enkel
 

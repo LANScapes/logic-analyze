@@ -78,8 +78,7 @@ Jede Stufe hat diese Einstellungen:
 - **Zähler**: Die Anzahl, wie oft die Bedingung eintreten muss, bevor die Stufe vollständig ist.
 - **Fortlaufend**: Wenn Sie dieses Kontrollkästchen auswählen, muss die Bedingung in Abtastwerten eintreten, die ohne Unterbrechung aufeinander folgen.
 
-![Die Einstellungen des Stufentriggers](../figures/stage-trigger-panel.png)
-<!-- TODO: new screenshot -->
+![Die Einstellungen des Stufentriggers](../figures/de/stage-trigger-panel.png)
 
 Um einen Stufentrigger einzustellen, führen Sie diese Schritte aus:
 
@@ -132,8 +131,7 @@ Ein serieller Trigger findet einen Datenwert auf einem seriellen Bus. Er arbeite
 
 Nach der Startbedingung liest das Gerät den Datenkanal bei jeder Taktbedingung. Das Gerät schiebt dieses Bit in das Schieberegister. Wenn die letzten Bits des Schieberegisters gleich **Datenwert** sind, tritt der Trigger ein. Wenn die Stoppbedingung eintritt, löscht das Gerät das Schieberegister.
 
-![Die Einstellungen des seriellen Triggers](../figures/serial-trigger-panel.png)
-<!-- TODO: new screenshot -->
+![Die Einstellungen des seriellen Triggers](../figures/de/serial-trigger-panel.png)
 
 **Beispiel 4.** Trigger, wenn der Wert `010000100` auf einem I2C-Bus auftritt. Kanal 0 ist SCL und Kanal 1 ist SDA.
 
