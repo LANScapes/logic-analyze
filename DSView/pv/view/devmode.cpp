@@ -37,6 +37,7 @@
 #include "../ui/langresource.h"
 #include "../appcontrol.h"
 #include "../ui/fn.h"
+#include "../ui/dscombobox.h"
 
 
 static const struct dev_mode_name dev_mode_name_list[] =
@@ -92,8 +93,31 @@ DevMode::DevMode(QWidget *parent, SigSession *session) :
 
     connect(_close_button, SIGNAL(clicked()), this, SLOT(on_close()));
 
+#ifdef LANSCAPES_BRAND
+    // The toolbar shows the mode as a dropdown field after the device selector;
+    // this widget keeps only the close button, shown while a capture file is open.
+    _mode_btn->hide();
+    _mode_combo = new DsComboBox();
+    _mode_combo->setObjectName("DeviceModeSelector");
+    _mode_combo->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+    connect(_mode_combo, SIGNAL(activated(int)), this, SLOT(on_mode_selected(int)));
+#endif
+
     ADD_UI(this);
 }
+
+#ifdef LANSCAPES_BRAND
+void DevMode::on_mode_selected(int index)
+{
+    // The field lists the same modes as the menu; run the menu's action.
+    for (auto it = _mode_list.begin(); it != _mode_list.end(); it++){
+        if (it->second->mode == _mode_combo->itemData(index).toInt()){
+            it->first->trigger();
+            return;
+        }
+    }
+}
+#endif
 
 DevMode::~DevMode()
 {
@@ -120,6 +144,11 @@ void DevMode::set_device()
 
     _close_button->setIcon(QIcon());
     _close_button->setDisabled(true); 
+#ifdef LANSCAPES_BRAND
+    _close_button->hide();
+    _mode_combo->blockSignals(true);
+    _mode_combo->clear();
+#endif
 
     QString iconPath = GetIconPath() + "/";
     auto dev_mode_list  = _device_agent->get_device_mode_list();
@@ -160,9 +189,20 @@ void DevMode::set_device()
                 _mode_btn->setText(L_S(STR_PAGE_TOOLBAR, S_ID(IDS_DEVICE_MODE_DSO), "Oscilloscope"));
         }
         _pop_menu->addAction(action);
+#ifdef LANSCAPES_BRAND
+        _mode_combo->addItem(QString(action->text()).remove('&'), md);
+        if (cur_mode == md)
+            _mode_combo->setCurrentIndex(_mode_combo->count() - 1);
+#endif
     }
+#ifdef LANSCAPES_BRAND
+    _mode_combo->blockSignals(false);
+#endif
 
     if (_device_agent->is_file()){
+#ifdef LANSCAPES_BRAND
+        _close_button->show();
+#endif
         _close_button->setDisabled(false);
         _close_button->setIcon(QIcon(iconPath + "/close.svg"));
         _bFile = true;
@@ -227,6 +267,11 @@ void DevMode::on_mode_change()
         }      
     }
 
+#ifdef LANSCAPES_BRAND
+    int at = _mode_combo->findData(_device_agent->get_work_mode());
+    if (at >= 0)
+        _mode_combo->setCurrentIndex(at);
+#endif
     UpdateFont();
 }
 

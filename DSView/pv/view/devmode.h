@@ -31,6 +31,7 @@
 #include <QPushButton>
 #include <QVector> 
 #include <QLabel>
+#include <QComboBox>
 #include <libsigrok.h> 
 
 #include "../interface/icallbacks.h"
@@ -63,6 +64,11 @@ public:
 
     ~DevMode();
 
+#ifdef LANSCAPES_BRAND
+    // The mode selector as a plain dropdown field (no icon) for the toolbar.
+    QComboBox *mode_selector(){ return _mode_combo; }
+#endif
+
 private:
 	void paintEvent(QPaintEvent *event);
 
@@ -84,8 +90,9 @@ public slots:
     void on_close();
 
 private slots:
-
- 
+#ifdef LANSCAPES_BRAND
+    void on_mode_selected(int index);
+#endif
 
 private:
     SigSession *_session;
@@ -95,6 +102,9 @@ private:
     QPoint          _mouse_point;
     XToolButton     *_close_button;
     bool            _bFile;
+#ifdef LANSCAPES_BRAND
+    QComboBox       *_mode_combo;
+#endif
 
     DeviceAgent     *_device_agent;
 };
