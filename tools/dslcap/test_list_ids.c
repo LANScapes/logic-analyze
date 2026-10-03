@@ -1,133 +1,248 @@
-/* Included by test_spool.c. Real CLI/core, fake libusb, bounded child processes.
- * No analyzer or USB backend is touched, including in the guard test. */
+/* Included by test_spool.c. All registry functions are fake. Neither IOKit
+ * nor libusb is linked. test_registry_cf.c also checks actual in-memory CF types. */
 #define DSLCAP_LIST_IDS_TEST
+#include "test_list_ids_registry.h"
+static void ids_source_release(CFTypeRef value);
+static void *ids_try_malloc(gsize size);
+static CFIndex ids_string_bytes(CFStringRef value, CFRange range, CFStringEncoding encoding,
+    UInt8 loss, Boolean external, UInt8 *buffer, CFIndex size, CFIndex *used);
+#define CFRelease ids_source_release
+#define g_try_malloc ids_try_malloc
+#define CFStringGetBytes ids_string_bytes
 #include "list_ids.c"
+#undef CFStringGetBytes
+#undef g_try_malloc
+#undef CFRelease
 #undef DSLCAP_LIST_IDS_TEST
 
-struct libusb_device {
-    struct libusb_device_descriptor desc;
-    int descriptor_error, port_error, open_error, lang_n, serial_n;
-    uint8_t bus, ports[7];
-    int depth, descriptor_calls, bus_calls, port_calls, open_attempts, requests;
-    unsigned char lang[256], serial[256];
-    libusb_device_handle handle;
-};
-static struct libusb_device ids_fake[32];
-static libusb_device *ids_fake_list[33];
-static libusb_context ids_context;
-static int ids_count, ids_init_error, ids_list_error, ids_block_init;
-static int ids_usb_calls, ids_open_calls, ids_close_calls, ids_requests, ids_init_calls;
-static int ids_free_calls, ids_exit_calls;
+enum ids_key { ID_VENDOR, ID_PRODUCT, ID_LOCATION, ID_SERIAL, ID_NAME, ID_BCD, ID_KEYS };
+static const char *ids_keys[] = {"idVendor", "idProduct", "locationID",
+    "USB Serial Number", "USB Product Name", "bcdDevice"};
+struct ids_fixture { CFTypeRef property[ID_KEYS]; unsigned classes; int live, reads[ID_KEYS]; };
+static struct ids_fixture ids_fake[32];
+static int ids_count, ids_registry_calls, ids_property_copies, ids_property_releases;
+static int ids_dictionaries_created, ids_dictionaries_consumed, ids_entry_live, ids_iterator_live;
+static int ids_class_queries[2], ids_position[2], ids_matching_class;
+static int ids_match_error, ids_query_error, ids_query_iterator, ids_null_iterator;
+static int ids_invalid_iterator, ids_release_error, ids_alloc_error, ids_block, ids_string_fault;
 
-static void ids_call(void) { ids_usb_calls++; }
-int libusb_init(libusb_context **ctx)
+#ifndef DSLCAP_TEST_REAL_CF
+enum { IDS_NUMBER = 1, IDS_STRING, IDS_DICTIONARY, IDS_DATA, IDS_BOOLEAN };
+struct ids_cf { int type, refs, floating, number_error; int64_t number; guint16 *units; CFIndex length; };
+static CFTypeRef ids_cf_new(int type)
 {
-    ids_call(); ids_init_calls++;
-    assert(ctx && !*ctx && !ids_context.active);
-    if (ids_block_init) test_gate('U');
-    if (ids_init_error) return -1;
-    ids_context.active = 1;
-    *ctx = &ids_context;
-    return 0;
+    CFTypeRef p = g_new0(struct ids_cf, 1); p->type = type; p->refs = 1; return p;
 }
-void libusb_exit(libusb_context *ctx)
+CFTypeRef CFRetain(CFTypeRef p) { assert(p && p->refs > 0); p->refs++; return p; }
+void CFRelease(CFTypeRef p)
 {
-    ids_call(); ids_exit_calls++;
-    assert(ctx == &ids_context && ctx->active && ids_open_calls == ids_close_calls);
-    ctx->active = 0;
+    assert(p && p->refs > 0);
+    if (!--p->refs) { g_free(p->units); g_free(p); }
 }
-ssize_t libusb_get_device_list(libusb_context *ctx, libusb_device ***list)
+CFTypeID CFGetTypeID(CFTypeRef p) { assert(p && p->refs > 0); return (CFTypeID)p->type; }
+CFTypeID CFNumberGetTypeID(void) { return IDS_NUMBER; }
+CFTypeID CFStringGetTypeID(void) { return IDS_STRING; }
+Boolean CFNumberIsFloatType(CFNumberRef p) { assert(p->type == IDS_NUMBER); return p->floating; }
+Boolean CFNumberGetValue(CFNumberRef p, CFNumberType type, void *out)
 {
-    ids_call(); assert(ctx == &ids_context && ctx->active && !*list);
-    if (ids_list_error) return -1;
-    for (int i = 0; i < ids_count; i++) ids_fake_list[i] = &ids_fake[i];
-    ids_fake_list[ids_count] = NULL;
-    *list = ids_fake_list;
-    return ids_count;
+    assert(p->type == IDS_NUMBER && type == kCFNumberSInt64Type);
+    if (p->number_error) return false;
+    *(int64_t *)out = p->number; return true;
 }
-void libusb_free_device_list(libusb_device **list, int unref)
+CFIndex CFStringGetLength(CFStringRef p) { assert(p->type == IDS_STRING); return p->length; }
+CFIndex CFStringGetBytes(CFStringRef p, CFRange range, CFStringEncoding encoding,
+    UInt8 loss, Boolean external, UInt8 *buffer, CFIndex size, CFIndex *used)
 {
-    ids_call(); ids_free_calls++;
-    assert(list == ids_fake_list && unref == 1 && ids_context.active);
-}
-int libusb_get_device_descriptor(libusb_device *dev, struct libusb_device_descriptor *desc)
-{
-    ids_call(); assert(ids_context.active && ++dev->descriptor_calls == 1);
-    if (dev->descriptor_error) return -1;
-    *desc = dev->desc;
-    return 0;
-}
-uint8_t libusb_get_bus_number(libusb_device *dev)
-{
-    ids_call(); assert(ids_context.active && ids_model(dev->desc.idVendor, dev->desc.idProduct) && ++dev->bus_calls == 1);
-    return dev->bus;
-}
-int libusb_get_port_numbers(libusb_device *dev, uint8_t *ports, int size)
-{
-    ids_call(); assert(ids_context.active && size == 7 && ++dev->port_calls == 1);
-    if (dev->port_error) return -1;
-    memcpy(ports, dev->ports, sizeof dev->ports);
-    return dev->depth;
-}
-int libusb_open(libusb_device *dev, libusb_device_handle **handle)
-{
-    ids_call(); assert(ids_context.active && dev->desc.iSerialNumber && !*handle &&
-        ids_model(dev->desc.idVendor, dev->desc.idProduct) && ++dev->open_attempts == 1);
-    if (dev->open_error) return -1;
-    ids_open_calls++;
-    dev->handle.dev = dev;
-    *handle = &dev->handle;
-    return 0;
-}
-void libusb_close(libusb_device_handle *handle)
-{
-    ids_call(); ids_close_calls++;
-    assert(ids_context.active && handle->dev);
-    handle->dev = NULL;
-}
-int libusb_control_transfer(libusb_device_handle *handle, uint8_t type,
-    uint8_t request, uint16_t value, uint16_t index, unsigned char *data,
-    uint16_t length, unsigned int timeout)
-{
-    ids_call(); ids_requests++;
-    assert(ids_context.active && handle && handle->dev);
-    /* Any reset/config/status/vendor/OUT/claim/firmware request fails here. */
-    assert(type == 0x80 && request == 6 && (value >> 8) == 3);
-    assert(length == 256 && timeout == 1000);
-    libusb_device *dev = handle->dev;
-    int n;
-    const unsigned char *src;
-    if (!(value & 0xff)) {
-        assert(++dev->requests == 1 && index == 0); n = dev->lang_n; src = dev->lang;
-    } else {
-        assert(++dev->requests == 2 && (value & 0xff) == dev->desc.iSerialNumber &&
-               index == (dev->lang[2] | (dev->lang[3] << 8)));
-        n = dev->serial_n; src = dev->serial;
+    assert(p->type == IDS_STRING && range.location == 0 && range.length == p->length);
+    assert(encoding == kCFStringEncodingUTF8 && !loss && !external);
+    GByteArray *bytes = g_byte_array_new();
+    CFIndex i;
+    for (i = 0; i < p->length; i++) {
+        gunichar code = p->units[i];
+        if (code >= 0xd800 && code <= 0xdbff) {
+            if (i + 1 >= p->length || p->units[i+1] < 0xdc00 || p->units[i+1] > 0xdfff) break;
+            code = 0x10000 + ((code - 0xd800) << 10) + p->units[++i] - 0xdc00;
+        } else if (code >= 0xdc00 && code <= 0xdfff) break;
+        char utf8[6]; int n = g_unichar_to_utf8(code, utf8);
+        g_byte_array_append(bytes, (const guint8 *)utf8, (guint)n);
     }
-    if (n > 0 && n <= length) memcpy(data, src, (size_t)n);
+    *used = bytes->len;
+    if (buffer) { assert(size >= (CFIndex)bytes->len); memcpy(buffer, bytes->data, bytes->len); }
+    g_byte_array_unref(bytes); return i;
+}
+#endif
+
+static CFTypeRef ids_new_number(int64_t n)
+{
+#ifdef DSLCAP_TEST_REAL_CF
+    return CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt64Type, &n);
+#else
+    CFTypeRef p = ids_cf_new(IDS_NUMBER); p->number = n; return p;
+#endif
+}
+static CFTypeRef ids_new_float(void)
+{
+#ifdef DSLCAP_TEST_REAL_CF
+    double n = 1.25; return CFNumberCreate(kCFAllocatorDefault, kCFNumberFloat64Type, &n);
+#else
+    CFTypeRef p = ids_new_number(1); p->floating = 1; return p;
+#endif
+}
+static CFTypeRef ids_new_string(const guint16 *units, CFIndex length)
+{
+#ifdef DSLCAP_TEST_REAL_CF
+    return CFStringCreateWithCharacters(kCFAllocatorDefault, units, length);
+#else
+    CFTypeRef p = ids_cf_new(IDS_STRING); p->length = length;
+    p->units = g_new(guint16, (gsize)length); memcpy(p->units, units, (size_t)length * sizeof *units);
+    return p;
+#endif
+}
+static CFTypeRef ids_new_text(const char *text)
+{
+    glong units = 0; gunichar2 *utf16 = g_utf8_to_utf16(text, -1, NULL, &units, NULL);
+    assert(utf16); CFTypeRef p = ids_new_string(utf16, units); g_free(utf16); return p;
+}
+static CFTypeRef ids_new_wrong(int boolean)
+{
+#ifdef DSLCAP_TEST_REAL_CF
+    return boolean ? CFRetain(kCFBooleanTrue) : CFDataCreate(kCFAllocatorDefault, NULL, 0);
+#else
+    return ids_cf_new(boolean ? IDS_BOOLEAN : IDS_DATA);
+#endif
+}
+static void ids_source_release(CFTypeRef value) { ids_property_releases++; CFRelease(value); }
+static void *ids_try_malloc(gsize size) { return ids_alloc_error ? NULL : g_try_malloc(size); }
+static CFIndex ids_string_bytes(CFStringRef value, CFRange range, CFStringEncoding encoding,
+    UInt8 loss, Boolean external, UInt8 *buffer, CFIndex size, CFIndex *used)
+{
+    CFIndex n = CFStringGetBytes(value, range, encoding, loss, external, buffer, size, used);
+    if (ids_string_fault == 1 && !buffer) return n - 1;
+    if (ids_string_fault == 2 && buffer) return n - 1;
+    if (ids_string_fault == 3 && buffer) (*used)--;
+    if (ids_string_fault == 4 && buffer && *used) buffer[0] = 0xff;
     return n;
 }
 
+CFMutableDictionaryRef IOServiceMatching(const char *name)
+{
+    ids_registry_calls++;
+    ids_matching_class = !strcmp(name, "IOUSBHostDevice") ? 0 : 1;
+    assert(!strcmp(name, ids_matching_class ? "IOUSBDevice" : "IOUSBHostDevice"));
+    if (ids_match_error) return NULL;
+    ids_dictionaries_created++;
+#ifdef DSLCAP_TEST_REAL_CF
+    return CFDictionaryCreateMutable(kCFAllocatorDefault, 0, NULL, NULL);
+#else
+    return ids_cf_new(IDS_DICTIONARY);
+#endif
+}
+kern_return_t IOServiceGetMatchingServices(mach_port_t port, CFDictionaryRef matching,
+                                           io_iterator_t *iterator)
+{
+    ids_registry_calls++;
+    assert(port == kIOMainPortDefault && matching && iterator && !*iterator);
+    int cls = ids_matching_class;
+    assert(++ids_class_queries[cls] == 1); /* No retry, broad scan, or duplicate class query. */
+    ids_dictionaries_consumed++; CFRelease(matching);
+    if (ids_block == 1) test_gate('U');
+    if (!ids_query_error || ids_query_iterator) {
+        if (!ids_null_iterator) { *iterator = (io_iterator_t)(128 + cls); ids_iterator_live++; }
+    }
+    return ids_query_error ? -17 : KERN_SUCCESS;
+}
+io_object_t IOIteratorNext(io_iterator_t iterator)
+{
+    ids_registry_calls++;
+    int cls = (int)iterator - 128;
+    assert(cls >= 0 && cls < 2 && ids_iterator_live == 1 && !ids_entry_live);
+    while (ids_position[cls] < ids_count) {
+        int i = ids_position[cls]++;
+        if (ids_fake[i].classes & (1U << cls)) {
+            assert(!ids_fake[i].live); ids_fake[i].live = 1; ids_entry_live++;
+            return (io_object_t)(i + 1);
+        }
+    }
+    return 0;
+}
+boolean_t IOIteratorIsValid(io_iterator_t iterator)
+{
+    ids_registry_calls++; assert(iterator >= 128 && iterator <= 129 && ids_iterator_live == 1);
+    return !ids_invalid_iterator;
+}
+kern_return_t IOObjectRelease(io_object_t object)
+{
+    ids_registry_calls++;
+    if (object >= 128) {
+        assert(object <= 129 && ids_iterator_live == 1 && !ids_entry_live); ids_iterator_live--;
+        if (!ids_query_error && !ids_invalid_iterator) {
+            int cls = (int)object - 128;
+            for (int i = 0; i < ids_count; i++) if (ids_fake[i].classes & (1U << cls)) {
+                struct ids_fixture *f = &ids_fake[i];
+                assert(f->reads[ID_VENDOR] == 1 && f->reads[ID_PRODUCT] == 1);
+                if (f->reads[ID_SERIAL]) for (int k = 0; k < ID_KEYS; k++) assert(f->reads[k] == 1);
+                else for (int k = ID_LOCATION; k < ID_KEYS; k++) assert(!f->reads[k]);
+            }
+            /* A DSL row in the modern class prohibits any legacy query. */
+            if (!cls && ids_position[0]) assert(!ids_class_queries[1]);
+        }
+    } else {
+        assert(object && object <= (unsigned)ids_count);
+        struct ids_fixture *f = &ids_fake[object - 1];
+        assert(f->live && ids_entry_live == 1); f->live = 0; ids_entry_live--;
+    }
+    return ids_release_error ? -18 : KERN_SUCCESS;
+}
+CFTypeRef IORegistryEntryCreateCFProperty(io_registry_entry_t entry, CFStringRef key,
+                                         CFAllocatorRef allocator, IOOptionBits options)
+{
+    ids_registry_calls++;
+    assert(entry && entry <= (unsigned)ids_count && ids_fake[entry - 1].live);
+    assert(allocator == kCFAllocatorDefault && options == 0);
+    if (ids_block == 2) test_gate('P');
+    int k;
+    for (k = 0; k < ID_KEYS; k++) {
+#ifdef DSLCAP_TEST_REAL_CF
+        char name[64]; assert(CFStringGetCString(key, name, sizeof name, kCFStringEncodingUTF8));
+        if (!strcmp(name, ids_keys[k])) break;
+#else
+        if (!strcmp((const char *)key, ids_keys[k])) break;
+#endif
+    }
+    assert(k < ID_KEYS && ++ids_fake[entry - 1].reads[k] == 1);
+    CFTypeRef p = ids_fake[entry - 1].property[k];
+    if (!p) return NULL;
+    ids_property_copies++; return CFRetain(p);
+}
+
+static void ids_set(struct ids_fixture *f, int key, CFTypeRef value)
+{
+    if (f->property[key]) CFRelease(f->property[key]);
+    f->property[key] = value;
+}
 static void ids_reset(void)
 {
+    for (int i = 0; i < ids_count; i++) for (int k = 0; k < ID_KEYS; k++)
+        if (ids_fake[i].property[k]) CFRelease(ids_fake[i].property[k]);
     memset(ids_fake, 0, sizeof ids_fake);
-    ids_context.active = 0;
-    ids_count = ids_init_error = ids_list_error = ids_block_init = 0;
-    ids_usb_calls = ids_open_calls = ids_close_calls = ids_requests = ids_init_calls = 0;
-    ids_free_calls = ids_exit_calls = 0;
-    ids_test_backend_supported = 1;
+    ids_count = ids_registry_calls = ids_property_copies = ids_property_releases = 0;
+    ids_dictionaries_created = ids_dictionaries_consumed = ids_entry_live = ids_iterator_live = 0;
+    memset(ids_class_queries, 0, sizeof ids_class_queries); memset(ids_position, 0, sizeof ids_position);
+    ids_match_error = ids_query_error = ids_query_iterator = ids_null_iterator = 0;
+    ids_invalid_iterator = ids_release_error = ids_alloc_error = ids_block = ids_string_fault = 0;
+    ids_test_use_registry = 1;
 }
-static libusb_device *ids_add(uint16_t vid, uint16_t pid, uint8_t serial_index)
+static struct ids_fixture *ids_add(uint16_t vid, uint16_t pid, unsigned classes)
 {
     assert(ids_count < 32);
-    libusb_device *dev = &ids_fake[ids_count++];
-    dev->desc = (struct libusb_device_descriptor){.idVendor = vid, .idProduct = pid,
-        .iManufacturer = 17, .iProduct = 33, .iSerialNumber = serial_index};
-    dev->bus = 1; dev->depth = 2; dev->ports[0] = 2; dev->ports[1] = 3;
-    dev->lang_n = 4; dev->lang[0] = 4; dev->lang[1] = 3;
-    dev->lang[2] = 9; dev->lang[3] = 4;
-    dev->serial_n = 4; dev->serial[0] = 4; dev->serial[1] = 3; dev->serial[2] = 'X';
-    return dev;
+    struct ids_fixture *f = &ids_fake[ids_count++]; f->classes = classes;
+    f->property[ID_VENDOR] = ids_new_number(vid); f->property[ID_PRODUCT] = ids_new_number(pid);
+    /* Raw locationID, not masked or rounded: 538055936 == 0x20121500. */
+    f->property[ID_LOCATION] = ids_new_number(538055936);
+    f->property[ID_SERIAL] = ids_new_text("X");
+    f->property[ID_NAME] = ids_new_text("DSLogic Plus bootloader runtime");
+    f->property[ID_BCD] = ids_new_number(0x1234);
+    return f;
 }
 static struct parent_child ids_spawn(int watched, int close_parent, int bad_stdout,
                                      int conflict, int core_expected)
@@ -167,11 +282,12 @@ static struct parent_child ids_spawn(int watched, int close_parent, int bad_stdo
         if (conflict == 12) { argv[1] = "--out"; argv[argc++] = "--list-ids="; }
         if (close_parent) { test_gate('B'); }
         int rc = dslcap_main(argc, argv);
-        if (!core_expected) assert(!ids_usb_calls);
+        if (!core_expected) assert(!ids_registry_calls);
         else {
-            assert(ids_init_calls == 1 && ids_open_calls == ids_close_calls && !ids_context.active);
-            assert(ids_free_calls == (!ids_init_error && !ids_list_error));
-            assert(ids_exit_calls == !ids_init_error);
+            assert(ids_registry_calls > 0);
+            assert(ids_property_copies == ids_property_releases);
+            assert(ids_dictionaries_created == ids_dictionaries_consumed);
+            assert(!ids_entry_live && !ids_iterator_live);
         }
         exit(rc);
     }
@@ -194,9 +310,6 @@ static void ids_result(struct parent_child *p, int expected_rc,
     if (p->writer >= 0) close(p->writer);
     close(p->out); close(p->err); close(p->phase); close(p->gate);
 }
-#define IDS_X "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":\"usb-1-2.3\",\"serial\":\"X\",\"state\":\"unknown\"}]}\n"
-#define IDS_NULL "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":\"usb-1-2.3\",\"serial\":null,\"state\":\"unknown\"}]}\n"
-
 static void ids_check_profiles(void)
 {
     gchar *source = NULL;
@@ -224,101 +337,126 @@ static void ids_check_profiles(void)
     g_match_info_free(m); g_regex_unref(r); g_free(source);
 }
 
+
+#define IDS_X "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":\"loc-20121500\",\"serial\":\"X\",\"state\":\"unknown\"}]}\n"
+#define IDS_NULL "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":\"loc-20121500\",\"serial\":null,\"state\":\"unknown\"}]}\n"
+#define IDS_NOLOC "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":null,\"serial\":\"X\",\"state\":\"unknown\"}]}\n"
+static void ids_case(int rc, const char *json, const char *error)
+{
+    struct parent_child p = ids_spawn(0, 0, 0, 0, 1); ids_result(&p, rc, json, error);
+}
 static void test_list_ids(void)
 {
     ids_check_profiles();
     struct parent_child p;
-    ids_reset(); ids_test_backend_supported = ids_production_backend_supported();
-    assert(!ids_test_backend_supported);
-    p = ids_spawn(0, 0, 0, 0, 0);
-    ids_result(&p, 1, "{\"devices\":[]}\n", "unavailable");
-    ids_reset();
-    p = ids_spawn(0, 0, 0, 0, 1); ids_result(&p, 0, "{\"devices\":[]}\n", NULL);
-    for (int fault = 0; fault < 2; fault++) {
-        ids_reset(); ids_init_error = !fault; ids_list_error = fault;
-        p = ids_spawn(0, 0, 0, 0, 1); ids_result(&p, 1, "{\"devices\":[]}\n", fault ? "enumerate" : "initialize");
+    ids_reset(); ids_test_use_registry = 0;
+    p = ids_spawn(0, 0, 0, 0, 0); ids_result(&p, 1, "{\"devices\":[]}\n", "unavailable");
+    ids_reset(); ids_case(0, "{\"devices\":[]}\n", NULL);
+    ids_reset(); ids_null_iterator = 1; ids_case(0, "{\"devices\":[]}\n", NULL);
+    for (int fault = 0; fault < 3; fault++) {
+        ids_reset(); ids_match_error = !fault; ids_query_error = !!fault; ids_query_iterator = fault == 2;
+        ids_case(1, "{\"devices\":[]}\n", fault ? "enumeration failed" : "matching dictionary");
     }
     for (int watched = 0; watched < 2; watched++) {
-        ids_reset(); ids_add(0x2a0e, 1, 7);
-        ids_add(0x2a0e, 0xffff, 7); ids_add(0x1234, 1, 7);
+        ids_reset(); ids_add(0x2a0e, 1, 3); /* Also visible through the legacy class: one row. */
+        ids_add(0x2a0e, 0xffff, 1); ids_add(0x1234, 1, 1);
         p = ids_spawn(watched, 0, 0, 0, 1); ids_result(&p, 0, IDS_X, NULL);
     }
+    ids_reset(); ids_add(0x1234, 1, 1); ids_add(0x2a0e, 1, 2);
+    ids_case(0, IDS_X, NULL); /* Unrelated modern entries do not block legacy fallback. */
+    ids_reset(); ids_add(0x2a0e, 1, 2); ids_case(0, IDS_X, NULL);
     for (size_t i = 0; i < G_N_ELEMENTS(ids_profiles); i++) {
-        ids_reset(); ids_add(ids_profiles[i].vid, ids_profiles[i].pid, 7);
+        ids_reset(); ids_add(ids_profiles[i].vid, ids_profiles[i].pid, 1);
         char *expected = g_strdup_printf("{\"devices\":[{\"vid\":%u,\"pid\":%u,\"model\":\"%s\","
-            "\"location\":\"usb-1-2.3\",\"serial\":\"X\",\"state\":\"unknown\"}]}\n",
+            "\"location\":\"loc-20121500\",\"serial\":\"X\",\"state\":\"unknown\"}]}\n",
             ids_profiles[i].vid, ids_profiles[i].pid, ids_profiles[i].model);
-        p = ids_spawn(0, 0, 0, 0, 1); ids_result(&p, 0, expected, NULL); g_free(expected);
+        ids_case(0, expected, NULL); g_free(expected);
     }
-    ids_reset(); ids_add(0x2a0e, 1, 7); ids_add(0x2a0e, 2, 7);
-    p = ids_spawn(0, 0, 0, 0, 1);
-    ids_result(&p, 0, "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":\"usb-1-2.3\",\"serial\":\"X\",\"state\":\"unknown\"},"
-        "{\"vid\":10766,\"pid\":2,\"model\":\"DSCope\",\"location\":\"usb-1-2.3\",\"serial\":\"X\",\"state\":\"unknown\"}]}\n", NULL);
-    ids_reset(); libusb_device *maximum = ids_add(0x2a0e, 1, 255);
-    maximum->bus = 255; maximum->depth = 7;
-    memset(maximum->ports, 255, sizeof maximum->ports);
-    maximum->serial_n = maximum->serial[0] = 254;
-    for (int i = 0; i < 126; i++) { maximum->serial[2 + i*2] = 'Z'; maximum->serial[3 + i*2] = 0; }
-    char serial[127]; memset(serial, 'Z', 126); serial[126] = 0;
-    char *expected = g_strdup_printf("{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\","
-        "\"location\":\"usb-255-255.255.255.255.255.255.255\",\"serial\":\"%s\",\"state\":\"unknown\"}]}\n", serial);
-    p = ids_spawn(0, 0, 0, 0, 1); ids_result(&p, 0, expected, NULL); g_free(expected);
-    ids_reset(); ids_add(0x2a0e, 1, 0);
-    p = ids_spawn(0, 0, 0, 0, 1); ids_result(&p, 0, IDS_NULL, NULL);
-    for (int fault = 0; fault < 14; fault++) {
-        ids_reset(); libusb_device *dev = ids_add(0x2a0e, 1, 7);
-        switch (fault) {
-        case 0: dev->open_error = 1; break; /* Permissions/busy/detach. */
-        case 1: dev->lang_n = -1; break;
-        case 2: dev->lang_n = 3; break;
-        case 3: dev->lang[1] = 1; break;
-        case 4: dev->lang[2] = dev->lang[3] = 0; break;
-        case 5: dev->serial_n = -1; break;
-        case 6: dev->serial_n = 3; break;
-        case 7: dev->serial[0] = 6; break; /* Truncated/short response. */
-        case 8: dev->serial[1] = 1; break;
-        case 9: dev->serial[2] = 0; break; /* Embedded NUL. */
-        case 10: dev->serial[3] = 0xd8; break; /* Unpaired high surrogate. */
-        case 11: dev->serial[3] = 0xdc; break; /* Unpaired low surrogate. */
-        case 12: dev->serial_n = 2; dev->serial[0] = 2; break; /* Empty. */
-        case 13: dev->serial_n = 256; break; /* Impossible bLength. */
+    ids_reset(); ids_add(0x2a0e, 1, 1);
+    struct ids_fixture *f = ids_add(0x2a0e, 2, 1);
+    ids_set(f, ID_LOCATION, ids_new_number(538050560));
+    ids_case(0, "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":\"loc-20121500\",\"serial\":\"X\",\"state\":\"unknown\"},"
+        "{\"vid\":10766,\"pid\":2,\"model\":\"DSCope\",\"location\":\"loc-20120000\",\"serial\":\"X\",\"state\":\"unknown\"}]}\n", NULL);
+    ids_reset(); f = ids_add(0x2a0e, 1, 1);
+    ids_set(f, ID_LOCATION, ids_new_number(UINT32_MAX));
+    ids_set(f, ID_SERIAL, ids_new_text("\"\\\né:🚀"));
+    ids_case(0, "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":\"loc-ffffffff\",\"serial\":\"\\\"\\\\\\u000aé:🚀\",\"state\":\"unknown\"}]}\n", NULL);
+    for (int fault = 0; fault < 8; fault++) {
+        ids_reset(); f = ids_add(0x2a0e, 1, 1);
+        CFTypeRef value = NULL;
+        const guint16 nul[] = {'A', 0, 'B'}, high[] = {0xd800}, low[] = {0xdc00};
+        if (fault == 1) value = ids_new_wrong(0);
+        if (fault == 2) value = ids_new_text("");
+        if (fault == 3) value = ids_new_string(nul, 3);
+        if (fault == 4) value = ids_new_string(high, 1);
+        if (fault == 5) value = ids_new_string(low, 1);
+        if (fault == 6) {
+            guint16 long_text[4097]; for (size_t i = 0; i < G_N_ELEMENTS(long_text); i++) long_text[i] = 'Z';
+            value = ids_new_string(long_text, G_N_ELEMENTS(long_text));
         }
-        p = ids_spawn(0, 0, 0, 0, 1); ids_result(&p, 1, IDS_NULL, "serial descriptor index 7 unreadable");
+        if (fault == 7) { value = ids_new_text("X"); ids_alloc_error = 1; }
+        ids_set(f, ID_SERIAL, value); ids_case(1, IDS_NULL, "cached serial unavailable or malformed");
     }
-    ids_reset(); libusb_device *dev = ids_add(0x2a0e, 1, 7);
-    const unsigned char unicode[] = {16, 3, '"', 0, '\\', 0, 10, 0, 0xe9, 0, ':', 0, 0x3d, 0xd8, 0x80, 0xde};
-    memcpy(dev->serial, unicode, sizeof unicode); dev->serial_n = sizeof unicode;
-    /* Another language is advertised; only the first is requested. */
-    dev->lang_n = dev->lang[0] = 6; dev->lang[4] = 0x11; dev->lang[5] = 4;
-    p = ids_spawn(0, 0, 0, 0, 1);
-    ids_result(&p, 0, "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":\"usb-1-2.3\",\"serial\":\"\\\"\\\\\\u000aé:🚀\",\"state\":\"unknown\"}]}\n", NULL);
-    for (int fault = 0; fault < 5; fault++) {
-        ids_reset(); dev = ids_add(0x2a0e, 1, 7);
-        if (fault == 0) dev->port_error = 1;
-        if (fault == 1) dev->depth = 0;
-        if (fault == 2) dev->depth = 8;
-        if (fault == 3) dev->bus = 0;
-        if (fault == 4) dev->ports[1] = 0;
-        p = ids_spawn(0, 0, 0, 0, 1);
-        ids_result(&p, 1, "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":null,\"serial\":\"X\",\"state\":\"unknown\"}]}\n", "location unavailable");
+    for (int fault = 1; fault <= 4; fault++) {
+        ids_reset(); ids_add(0x2a0e, 1, 1); ids_string_fault = fault;
+        ids_case(1, IDS_NULL, "cached serial unavailable or malformed");
     }
-    ids_reset(); dev = ids_add(0x2a0e, 1, 7); dev->descriptor_error = 1;
-    p = ids_spawn(0, 0, 0, 0, 1); ids_result(&p, 1, "{\"devices\":[]}\n", "inventory is incomplete");
+    ids_reset(); f = ids_add(0x2a0e, 1, 1);
+    ids_set(f, ID_LOCATION, ids_new_number(1));
+    ids_set(f, ID_SERIAL, ids_new_text("e\u0301:Case:A"));
+    ids_case(0, "{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\",\"location\":\"loc-00000001\",\"serial\":\"e\u0301:Case:A\",\"state\":\"unknown\"}]}\n", NULL);
+    ids_reset(); f = ids_add(0x2a0e, 1, 1);
+    char maximum[4097]; memset(maximum, 'Z', 4096); maximum[4096] = 0;
+    ids_set(f, ID_SERIAL, ids_new_text(maximum));
+    char *long_expected = g_strdup_printf("{\"devices\":[{\"vid\":10766,\"pid\":1,\"model\":\"DSLogic\","
+        "\"location\":\"loc-20121500\",\"serial\":\"%s\",\"state\":\"unknown\"}]}\n", maximum);
+    ids_case(0, long_expected, NULL); g_free(long_expected);
+    for (int fault = 0; fault < 7; fault++) {
+        ids_reset(); f = ids_add(0x2a0e, 1, 1);
+        CFTypeRef value = NULL;
+        if (fault == 1) value = ids_new_wrong(1);
+        if (fault == 2) value = ids_new_wrong(0);
+        if (fault == 3) value = ids_new_number(-1);
+        if (fault == 4) value = ids_new_number(0);
+        if (fault == 5) value = ids_new_number((int64_t)UINT32_MAX + 1);
+        if (fault == 6) value = ids_new_float();
+        ids_set(f, ID_LOCATION, value); ids_case(1, IDS_NOLOC, "cached locationID");
+    }
+    for (int key = ID_VENDOR; key <= ID_PRODUCT; key++) for (int fault = 0; fault < 5; fault++) {
+        ids_reset(); f = ids_add(0x2a0e, 1, 1);
+        CFTypeRef value = fault == 0 ? NULL : fault == 1 ? ids_new_wrong(1) : fault == 2 ?
+            ids_new_float() : ids_new_number(fault == 3 ? -1 : 65536);
+        ids_set(f, key, value); ids_case(1, "{\"devices\":[]}\n", "cached VID/PID");
+    }
+#ifndef DSLCAP_TEST_REAL_CF
+    ids_reset(); f = ids_add(0x2a0e, 1, 1); f->property[ID_LOCATION]->number_error = 1;
+    ids_case(1, IDS_NOLOC, "cached locationID");
+#endif
+    ids_reset(); f = ids_add(0x2a0e, 1, 1);
+    ids_set(f, ID_NAME, NULL); ids_set(f, ID_BCD, NULL); ids_case(0, IDS_X, NULL);
+    ids_reset(); f = ids_add(0x2a0e, 1, 1);
+    ids_set(f, ID_NAME, ids_new_wrong(1)); ids_set(f, ID_BCD, ids_new_float()); ids_case(0, IDS_X, NULL);
+    ids_reset(); ids_add(0x2a0e, 1, 1); ids_invalid_iterator = 1;
+    ids_case(1, IDS_X, "registry changed during enumeration");
+    ids_reset(); ids_add(0x2a0e, 1, 1); ids_release_error = 1;
+    ids_case(1, IDS_X, "cannot release a registry handle");
     for (int conflict = 1; conflict <= 12; conflict++) {
         ids_reset(); p = ids_spawn(0, 0, 0, conflict, 0);
-        assert(parent_wait(&p) == 2); /* No USB/library calls: checked in child. */
+        assert(parent_wait(&p) == 2);
         char out[1024]; ssize_t n = read(p.out, out, sizeof out - 1); assert(n > 0); out[n] = 0;
         assert(strstr(out, "\"error\":") && strchr(out, '\n') == out + strlen(out) - 1);
         close(p.writer); close(p.out); close(p.err); close(p.phase); close(p.gate);
     }
     ids_reset(); p = ids_spawn(1, 1, 0, 0, 0);
-    parent_phase(&p, 'B'); parent_close(&p); parent_resume(&p);
-    ids_result(&p, 1, NULL, NULL); /* Parent gone BEFORE any USB call. */
-    ids_reset(); ids_block_init = 1;
-    p = ids_spawn(1, 0, 0, 0, 1); parent_phase(&p, 'U'); parent_close(&p);
-    ids_result(&p, 1, NULL, NULL); /* Watcher interrupts blocked fake USB init. */
+    parent_phase(&p, 'B'); parent_close(&p); parent_resume(&p); ids_result(&p, 1, NULL, NULL);
+    for (int block = 1; block <= 2; block++) {
+        ids_reset(); ids_add(0x2a0e, 1, 1); ids_block = block;
+        p = ids_spawn(1, 0, 0, 0, 1); parent_phase(&p, block == 1 ? 'U' : 'P'); parent_close(&p);
+        ids_result(&p, 1, NULL, NULL); /* Watcher interrupts fake registry operation. */
+    }
     ids_reset(); p = ids_spawn(1, 0, 1, 0, 1);
     ids_result(&p, 1, NULL, "cannot write the result to stdout");
-    puts("list-ids tests passed: pre-init backend guard, CLI/no-library calls, table coverage, "
-         "GET_DESCRIPTOR allowlist, Unicode/JSON, absent/unreadable identity, cleanup, parent and stdout");
+    ids_reset();
+    puts("list-ids tests passed: registry API/property allowlist, no USB/library calls, table coverage, "
+         "CF types/ownership, raw locationID, Unicode/JSON, fallback, identity errors, parent and stdout");
 }

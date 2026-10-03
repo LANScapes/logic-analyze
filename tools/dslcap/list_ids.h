@@ -1,4 +1,4 @@
-/* Descriptor-only identity listing, GPL-3.0-or-later (as dslcap). */
+/* Read-only cached-registry identity listing, GPL-3.0-or-later (as dslcap). */
 #ifndef DSLCAP_LIST_IDS_H
 #define DSLCAP_LIST_IDS_H
 /* Prints exactly one {"devices":[...]} object; diagnostics use stderr.

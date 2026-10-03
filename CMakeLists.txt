@@ -795,6 +795,14 @@ if(NOT WIN32)
 		${CMAKE_THREAD_LIBS_INIT}
 		${LIBUSB_1_LIBRARIES}
 	)
+	if(APPLE)
+		find_library(DSLCAP_IOKIT_FRAMEWORK IOKit)
+		find_library(DSLCAP_COREFOUNDATION_FRAMEWORK CoreFoundation)
+		if(NOT DSLCAP_IOKIT_FRAMEWORK OR NOT DSLCAP_COREFOUNDATION_FRAMEWORK)
+			message(FATAL_ERROR "dslcap requires macOS IOKit and CoreFoundation")
+		endif()
+		list(APPEND DSLCAP_LINK_LIBS ${DSLCAP_IOKIT_FRAMEWORK} ${DSLCAP_COREFOUNDATION_FRAMEWORK})
+	endif()
 	find_library(DSLCAP_MATH_LIBRARY m)
 	if(DSLCAP_MATH_LIBRARY)
 		list(APPEND DSLCAP_LINK_LIBS ${DSLCAP_MATH_LIBRARY})
@@ -817,4 +825,12 @@ if(NOT WIN32)
 	add_executable(dslcap_test_resources EXCLUDE_FROM_ALL
 		tools/dslcap/test_resources.c tools/dslcap/list_ids.c ${common_SOURCES} ${DSLCAP_RESOURCE_TEST_SOURCES})
 	target_link_libraries(dslcap_test_resources ${DSLCAP_LINK_LIBS})
+	if(APPLE)
+		# Real CoreFoundation memory objects; all registry APIs remain fake and
+		# no IOKit or libusb framework/library is linked into this harness.
+		add_executable(dslcap_test_registry_cf EXCLUDE_FROM_ALL tools/dslcap/test_registry_cf.c)
+		target_link_libraries(dslcap_test_registry_cf -lglib-2.0
+			${DSLCAP_COREFOUNDATION_FRAMEWORK} ${CMAKE_THREAD_LIBS_INIT} ${DSLCAP_MATH_LIBRARY})
+		set_property(TARGET dslcap_test_registry_cf APPEND_STRING PROPERTY LINK_FLAGS " -Wl,-dead_strip")
+	endif()
 endif()

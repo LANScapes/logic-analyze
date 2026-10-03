@@ -1,13 +1,18 @@
-/* Descriptor-only identity listing, GPL-3.0-or-later (as dslcap).
- * Keep this independent of libsigrok: its initialization scans DSL hardware. */
+/* Read-only IORegistry identity listing, GPL-3.0-or-later (as dslcap).
+ * No USB handle, device request, libusb initialization or libsigrok scan. */
 #include <glib.h>
 #include <stdint.h>
+#include <stdbool.h>
+#include <inttypes.h>
 #include <stdio.h>
+#include <string.h>
 #include "list_ids.h"
+#if defined(__APPLE__) || defined(DSLCAP_LIST_IDS_TEST)
 #ifdef DSLCAP_LIST_IDS_TEST
-#include "test_list_ids_usb.h"
+#include "test_list_ids_registry.h"
 #else
-#include <libusb.h>
+#include <CoreFoundation/CoreFoundation.h>
+#include <IOKit/IOKitLib.h>
 #endif
 
 struct ids_profile { uint16_t vid, pid; const char *model; };
@@ -47,7 +52,7 @@ static const char *ids_model(uint16_t vid, uint16_t pid)
     return NULL;
 }
 
-/* UTF-8 comes only from a strict UTF-16LE decode; null is never an identity. */
+/* UTF-8 is decoded without substitution, truncation or normalization. */
 static void ids_json_string(const char *s)
 {
     if (!s) { printf("null"); return; }
@@ -63,140 +68,158 @@ static void ids_json_string(const char *s)
     putchar('"');
 }
 
-static int ids_string_descriptor(libusb_device_handle *handle, uint8_t index,
-                                uint16_t lang, unsigned char data[256])
+/* Accept only losslessly represented nonnegative integer CFNumbers. Boolean,
+ * data, floating-point, signed-negative and out-of-range values are unknown. */
+static int ids_number(io_registry_entry_t entry, CFStringRef key,
+                      uint64_t maximum, uint32_t *value)
 {
-    /* The only control request in this module: device-recipient standard IN
-     * GET_DESCRIPTOR(STRING). No ASCII helper (it substitutes '?' for Unicode). */
-    int n = libusb_control_transfer(handle, LIBUSB_ENDPOINT_IN |
-            LIBUSB_REQUEST_TYPE_STANDARD | LIBUSB_RECIPIENT_DEVICE,
-            LIBUSB_REQUEST_GET_DESCRIPTOR, (LIBUSB_DT_STRING << 8) | index,
-            lang, data, 256, 1000);
-    if (n < 2 || n > 255 || data[0] != n || (n & 1) ||
-            data[1] != LIBUSB_DT_STRING)
-        return -1;
-    return n;
+    CFTypeRef property = IORegistryEntryCreateCFProperty(entry, key, kCFAllocatorDefault, 0);
+    if (!property) return 0;
+    int64_t n = -1;
+    int valid = CFGetTypeID(property) == CFNumberGetTypeID() &&
+        !CFNumberIsFloatType((CFNumberRef)property) &&
+        CFNumberGetValue((CFNumberRef)property, kCFNumberSInt64Type, &n) &&
+        n >= 0 && (uint64_t)n <= maximum;
+    CFRelease(property);
+    if (valid) *value = (uint32_t)n;
+    return valid;
 }
 
-static char *ids_serial(libusb_device *dev, uint8_t index)
+static char *ids_string(io_registry_entry_t entry, CFStringRef key)
 {
-    libusb_device_handle *handle = NULL;
-    unsigned char data[256];
-    char *serial = NULL;
-    if (libusb_open(dev, &handle) != 0) return NULL;
-    int n = ids_string_descriptor(handle, 0, 0, data);
-    /* Select the first advertised language; do not invent an English fallback. */
-    if (n < 4) goto done;
-    uint16_t lang = (uint16_t)(data[2] | (data[3] << 8));
-    if (!lang) goto done;
-    n = ids_string_descriptor(handle, index, lang, data);
-    if (n < 4) goto done;
-    gunichar2 units[126];
-    int count = (n - 2) / 2;
-    for (int i = 0; i < count; i++) {
-        units[i] = (gunichar2)(data[2 + 2*i] | (data[3 + 2*i] << 8));
-        /* Embedded NUL would truncate a selector. Reject it, never substitute. */
-        if (!units[i]) goto done;
+    CFTypeRef property = IORegistryEntryCreateCFProperty(entry, key, kCFAllocatorDefault, 0);
+    char *text = NULL;
+    if (!property) return NULL;
+    if (CFGetTypeID(property) != CFStringGetTypeID()) goto done;
+    CFStringRef string = (CFStringRef)property;
+    CFIndex units = CFStringGetLength(string), bytes = 0, written = 0;
+    /* Bound allocations; reject rather than truncate an oversized identity. */
+    if (units <= 0 || units > 4096) goto done;
+    CFRange range = CFRangeMake(0, units);
+    if (CFStringGetBytes(string, range, kCFStringEncodingUTF8, 0, false,
+                         NULL, 0, &bytes) != units || bytes <= 0 || bytes > 16384)
+        goto done;
+    text = g_try_malloc((gsize)bytes + 1);
+    if (!text) goto done;
+    if (CFStringGetBytes(string, range, kCFStringEncodingUTF8, 0, false,
+                         (UInt8 *)text, bytes, &written) != units || written != bytes ||
+            memchr(text, 0, (size_t)bytes) || !g_utf8_validate(text, bytes, NULL)) {
+        g_free(text); text = NULL;
+        goto done;
     }
-    glong read_units = 0;
-    serial = g_utf16_to_utf8(units, count, &read_units, NULL, NULL);
-    if (read_units != count) { g_free(serial); serial = NULL; }
+    text[bytes] = 0;
 done:
-    libusb_close(handle);
-    return serial;
+    CFRelease(property);
+    return text;
 }
 
-static int ids_production_backend_supported(void)
+static int ids_release(io_object_t object)
 {
-    /* No audited backend currently meets the full no-side-effect contract.
-     * See the pinned Darwin/Linux source audit in README.md. Refuse BEFORE init:
-     * even enumeration can issue requests other than GET_DESCRIPTOR. */
-    return 0;
+    if (IOObjectRelease(object) == KERN_SUCCESS) return 0;
+    fprintf(stderr, "dslcap: --list-ids: cannot release a registry handle; inventory is incomplete\n");
+    return 1;
 }
 
-static int ids_backend_supported(void)
+/* Enumerate one class only. The legacy class is consulted only when the modern
+ * class produced no DSL rows and no errors, preventing cross-class duplicates.
+ * Each property is a separate cached snapshot, not an atomic device identity. */
+static int ids_registry_class(const char *name, int *first, int *matches)
 {
-#ifdef DSLCAP_LIST_IDS_TEST
-    /* Compile-time fake USB harness only; no production setting can bypass it. */
-    return ids_test_backend_supported;
-#else
-    return ids_production_backend_supported();
+    int rc = 0;
+    io_iterator_t iterator = 0;
+    CFMutableDictionaryRef matching = IOServiceMatching(name);
+    if (!matching) {
+        fprintf(stderr, "dslcap: --list-ids: cannot create registry matching dictionary\n");
+        return 1;
+    }
+    /* The function consumes matching on BOTH success and failure. */
+    kern_return_t result = IOServiceGetMatchingServices(kIOMainPortDefault, matching, &iterator);
+    if (result != KERN_SUCCESS) {
+        fprintf(stderr, "dslcap: --list-ids: registry enumeration failed for %s (%d); "
+                "inventory is incomplete\n", name, result);
+        if (iterator) ids_release(iterator);
+        return 1; /* Do not conceal access/security failures with fallback. */
+    }
+    if (!iterator) return 0; /* Documented successful empty result. */
+    io_registry_entry_t entry;
+    while ((entry = IOIteratorNext(iterator))) {
+        uint32_t vid = 0, pid = 0, location_id = 0, bcd_device = 0;
+        int vendor_ok = ids_number(entry, CFSTR("idVendor"), UINT16_MAX, &vid);
+        int product_ok = ids_number(entry, CFSTR("idProduct"), UINT16_MAX, &pid);
+        if (!vendor_ok || !product_ok) {
+            fprintf(stderr, "dslcap: --list-ids: missing or malformed cached VID/PID; "
+                    "inventory is incomplete\n");
+            rc = 1;
+            rc |= ids_release(entry);
+            continue;
+        }
+        const char *model = ids_model((uint16_t)vid, (uint16_t)pid);
+        if (!model) { rc |= ids_release(entry); continue; }
+        (*matches)++;
+        int location_ok = ids_number(entry, CFSTR("locationID"), UINT32_MAX, &location_id) && location_id;
+        char location[13];
+        if (location_ok) snprintf(location, sizeof location, "loc-%08" PRIx32, location_id);
+        else {
+            fprintf(stderr, "dslcap: --list-ids: missing or malformed cached locationID for "
+                    "%04x:%04x; identity is incomplete\n", vid, pid);
+            rc = 1;
+        }
+        char *serial = ids_string(entry, CFSTR("USB Serial Number"));
+        if (!serial) {
+            fprintf(stderr, "dslcap: --list-ids: cached serial unavailable or malformed for "
+                    "%04x:%04x at %s; identity is incomplete\n", vid, pid,
+                    location_ok ? location : "unknown location");
+            rc = 1;
+        }
+        /* Read optional cached descriptors, release their snapshots, and do not
+         * infer firmware/FPGA state from product labels or a revision number. */
+        char *product_name = ids_string(entry, CFSTR("USB Product Name"));
+        int bcd_known = ids_number(entry, CFSTR("bcdDevice"), UINT16_MAX, &bcd_device);
+        (void)bcd_known;
+        g_free(product_name);
+        printf("%s{\"vid\":%u,\"pid\":%u,\"model\":", *first ? "" : ",", vid, pid);
+        *first = 0;
+        ids_json_string(model);
+        printf(",\"location\":"); ids_json_string(location_ok ? location : NULL);
+        printf(",\"serial\":"); ids_json_string(serial);
+        printf(",\"state\":\"unknown\"}");
+        g_free(serial);
+        rc |= ids_release(entry);
+    }
+    if (!IOIteratorIsValid(iterator)) {
+        fprintf(stderr, "dslcap: --list-ids: registry changed during enumeration; "
+                "inventory is incomplete\n");
+        rc = 1;
+    }
+    rc |= ids_release(iterator);
+    return rc;
+}
 #endif
+
+#if !defined(__APPLE__) || defined(DSLCAP_LIST_IDS_TEST)
+static int ids_unavailable(void)
+{
+    fprintf(stderr, "dslcap: --list-ids unavailable: a read-only IORegistry backend "
+            "is supported only on macOS; USB was not initialized\n");
+    printf("{\"devices\":[]}\n");
+    return 1;
 }
+#endif
 
 int dslcap_list_ids(void)
 {
-    if (!ids_backend_supported()) {
-        fprintf(stderr, "dslcap: --list-ids unavailable: libusb backend has no "
-                "audited descriptor-only enumeration path; USB was not initialized\n");
-        printf("{\"devices\":[]}\n");
-        return 1;
-    }
-
-    libusb_context *ctx = NULL;
-    libusb_device **list = NULL;
-    int rc = 0, first = 1;
-    if (libusb_init(&ctx) != 0) {
-        fprintf(stderr, "dslcap: --list-ids: cannot initialize libusb\n");
-        printf("{\"devices\":[]}\n");
-        return 1;
-    }
-    ssize_t count = libusb_get_device_list(ctx, &list);
+#ifdef DSLCAP_LIST_IDS_TEST
+    /* A compile-time fake backend only, never a production override. */
+    if (!ids_test_use_registry) return ids_unavailable();
+#endif
+#if defined(__APPLE__) || defined(DSLCAP_LIST_IDS_TEST)
+    int first = 1, matches = 0;
     printf("{\"devices\":[");
-    if (count < 0) {
-        fprintf(stderr, "dslcap: --list-ids: cannot enumerate USB devices\n");
-        rc = 1;
-        goto done;
-    }
-    for (ssize_t i = 0; i < count; i++) {
-        struct libusb_device_descriptor desc;
-        if (libusb_get_device_descriptor(list[i], &desc) != 0) {
-            fprintf(stderr, "dslcap: --list-ids: unreadable device descriptor at "
-                    "inventory index %zd; inventory is incomplete\n", i);
-            rc = 1;
-            continue;
-        }
-        const char *model = ids_model(desc.idVendor, desc.idProduct);
-        if (!model) continue;
-        uint8_t bus = libusb_get_bus_number(list[i]), ports[7];
-        int depth = libusb_get_port_numbers(list[i], ports, sizeof ports);
-        char path[40], *location = NULL;
-        if (bus && depth > 0 && depth <= (int)sizeof ports) {
-            size_t pos = (size_t)snprintf(path, sizeof path, "usb-%u-", bus);
-            location = path;
-            for (int j = 0; j < depth; j++) {
-                if (!ports[j]) { location = NULL; break; }
-                pos += (size_t)snprintf(path + pos, sizeof path - pos,
-                                       "%s%u", j ? "." : "", ports[j]);
-            }
-        }
-        if (!location) {
-            fprintf(stderr, "dslcap: --list-ids: location unavailable for "
-                    "%04x:%04x; identity is incomplete\n", desc.idVendor, desc.idProduct);
-            rc = 1;
-        }
-        char *serial = desc.iSerialNumber ? ids_serial(list[i], desc.iSerialNumber) : NULL;
-        if (desc.iSerialNumber && !serial) {
-            fprintf(stderr, "dslcap: --list-ids: serial descriptor index %u unreadable "
-                    "for %04x:%04x at %s (access, detach or malformed descriptor); "
-                    "identity is incomplete\n", desc.iSerialNumber, desc.idVendor,
-                    desc.idProduct, location ? location : "unknown location");
-            rc = 1;
-        }
-        printf("%s{\"vid\":%u,\"pid\":%u,\"model\":", first ? "" : ",",
-               desc.idVendor, desc.idProduct);
-        first = 0;
-        ids_json_string(model);
-        printf(",\"location\":"); ids_json_string(location);
-        printf(",\"serial\":"); ids_json_string(serial);
-        /* These VID/PIDs serve both pre-firmware and runtime devices. No
-         * requested descriptor here proves firmware/FPGA/claim readiness. */
-        printf(",\"state\":\"unknown\"}");
-        g_free(serial);
-    }
-done:
+    int rc = ids_registry_class("IOUSBHostDevice", &first, &matches);
+    if (!rc && !matches) rc = ids_registry_class("IOUSBDevice", &first, &matches);
     printf("]}\n");
-    if (list) libusb_free_device_list(list, 1);
-    libusb_exit(ctx);
     return rc;
+#else
+    return ids_unavailable();
+#endif
 }
