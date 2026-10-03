@@ -1,0 +1,334 @@
+[
+    {
+        "id": "dec_flexray_chan_channel",
+        "text": "Kanał magistrali FlexRay"
+    },
+    {
+        "id": "dec_flexray_opt_channel_type",
+        "text": "Typ kanału"
+    },
+    {
+        "id": "dec_flexray_opt_bitrate",
+        "text": "Prędkość transmisji (bit/s)"
+    },
+    {
+        "id": "dec_fsi_chan_data",
+        "text": "Ramka"
+    },
+    {
+        "id": "dec_fsi_chan_clock",
+        "text": "Zegar"
+    },
+    {
+        "id": "dec_gpib_chan_dio1",
+        "text": "Bit 1 wejścia/wyjścia danych"
+    },
+    {
+        "id": "dec_gpib_chan_dio2",
+        "text": "Bit 2 wejścia/wyjścia danych"
+    },
+    {
+        "id": "dec_gpib_chan_dio3",
+        "text": "Bit 3 wejścia/wyjścia danych"
+    },
+    {
+        "id": "dec_gpib_chan_dio4",
+        "text": "Bit 4 wejścia/wyjścia danych"
+    },
+    {
+        "id": "dec_gpib_chan_dio5",
+        "text": "Bit 5 wejścia/wyjścia danych"
+    },
+    {
+        "id": "dec_gpib_chan_dio6",
+        "text": "Bit 6 wejścia/wyjścia danych"
+    },
+    {
+        "id": "dec_gpib_chan_dio7",
+        "text": "Bit 7 wejścia/wyjścia danych"
+    },
+    {
+        "id": "dec_gpib_chan_dio8",
+        "text": "Bit 8 wejścia/wyjścia danych"
+    },
+    {
+        "id": "dec_gpib_chan_eoi",
+        "text": "Koniec lub identyfikacja (EOI)"
+    },
+    {
+        "id": "dec_gpib_chan_dav",
+        "text": "Dane ważne (DAV)"
+    },
+    {
+        "id": "dec_gpib_chan_nrfd",
+        "text": "Niegotowy na dane (NRFD)"
+    },
+    {
+        "id": "dec_gpib_chan_ndac",
+        "text": "Dane nieprzyjęte (NDAC)"
+    },
+    {
+        "id": "dec_gpib_chan_ifc",
+        "text": "Zerowanie interfejsu (IFC)"
+    },
+    {
+        "id": "dec_gpib_chan_srq",
+        "text": "Żądanie obsługi (SRQ)"
+    },
+    {
+        "id": "dec_gpib_chan_atn",
+        "text": "Uwaga (ATN)"
+    },
+    {
+        "id": "dec_gpib_chan_ren",
+        "text": "Zdalne sterowanie (REN)"
+    },
+    {
+        "id": "dec_graycode_opt_edges",
+        "text": "Zbocza na obrót"
+    },
+    {
+        "id": "dec_graycode_opt_avg_period",
+        "text": "Okres uśredniania"
+    },
+    {
+        "id": "dec_guess_bitrate_chan_data",
+        "text": "Linia danych"
+    },
+    {
+        "id": "dec_i2cfilter_opt_address",
+        "text": "Adres do odfiltrowania ze strumienia I²C"
+    },
+    {
+        "id": "dec_i2cfilter_opt_direction",
+        "text": "Kierunek do odfiltrowania"
+    },
+    {
+        "id": "dec_i2s_chan_sck",
+        "text": "Linia zegara bitowego"
+    },
+    {
+        "id": "dec_i2s_chan_ws",
+        "text": "Linia wyboru słowa"
+    },
+    {
+        "id": "dec_i2s_chan_sd",
+        "text": "Linia danych szeregowych"
+    },
+    {
+        "id": "dec_i2s_opt_ws_polarity",
+        "text": "Polaryzacja WS"
+    },
+    {
+        "id": "dec_i2s_opt_clk_edge",
+        "text": "Aktywne zbocze SCK"
+    },
+    {
+        "id": "dec_i2s_opt_bit_shift",
+        "text": "Przesunięcie bitów"
+    },
+    {
+        "id": "dec_i2s_opt_bit_align",
+        "text": "Wyrównanie bitów"
+    },
+    {
+        "id": "dec_i2s_opt_bitorder",
+        "text": "Kolejność bitów"
+    },
+    {
+        "id": "dec_i2s_opt_wordsize",
+        "text": "Rozmiar słowa"
+    },
+    {
+        "id": "dec_iec_chan_data",
+        "text": "Wejście/wyjście danych"
+    },
+    {
+        "id": "dec_iec_chan_clk",
+        "text": "Zegar"
+    },
+    {
+        "id": "dec_iec_chan_atn",
+        "text": "Uwaga (ATN)"
+    },
+    {
+        "id": "dec_iec_opt_chan_srq",
+        "text": "Żądanie obsługi (SRQ)"
+    },
+    {
+        "id": "dec_ieee488_chan_dio1",
+        "text": "Bit 1 wejścia/wyjścia danych lub dane szeregowe"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio2",
+        "text": "Bit 2 wejścia/wyjścia danych"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio3",
+        "text": "Bit 3 wejścia/wyjścia danych"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio4",
+        "text": "Bit 4 wejścia/wyjścia danych"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio5",
+        "text": "Bit 5 wejścia/wyjścia danych"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio6",
+        "text": "Bit 6 wejścia/wyjścia danych"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio7",
+        "text": "Bit 7 wejścia/wyjścia danych"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio8",
+        "text": "Bit 8 wejścia/wyjścia danych"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_eoi",
+        "text": "Koniec lub identyfikacja (EOI)"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dav",
+        "text": "Dane ważne (DAV)"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_nrfd",
+        "text": "Niegotowy na dane (NRFD)"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_ndac",
+        "text": "Dane nieprzyjęte (NDAC)"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_ifc",
+        "text": "Zerowanie interfejsu (IFC)"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_srq",
+        "text": "Żądanie obsługi (SRQ)"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_atn",
+        "text": "Uwaga (ATN)"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_ren",
+        "text": "Zdalne sterowanie (REN)"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_clk",
+        "text": "Zegar szeregowy"
+    },
+    {
+        "id": "dec_ieee488_opt_iec_periph",
+        "text": "Dekoduj szczegóły urządzeń peryferyjnych magistrali Commodore IEC"
+    },
+    {
+        "id": "dec_ieee488_opt_delim",
+        "text": "Separator danych użytkowych"
+    },
+    {
+        "id": "dec_ir_irmp_chan_ir",
+        "text": "Linia danych"
+    },
+    {
+        "id": "dec_ir_irmp_opt_polarity",
+        "text": "Polaryzacja"
+    },
+    {
+        "id": "dec_ir_nec_chan_ir",
+        "text": "Linia danych"
+    },
+    {
+        "id": "dec_ir_nec_opt_polarity",
+        "text": "Polaryzacja"
+    },
+    {
+        "id": "dec_ir_nec_opt_cd_freq",
+        "text": "Częstotliwość nośna"
+    },
+    {
+        "id": "dec_ir_rc5_chan_ir",
+        "text": "Linia danych IR"
+    },
+    {
+        "id": "dec_ir_rc5_opt_polarity",
+        "text": "Polaryzacja"
+    },
+    {
+        "id": "dec_ir_rc5_opt_protocol",
+        "text": "Typ protokołu"
+    },
+    {
+        "id": "dec_ir_rc6_chan_ir",
+        "text": "Linia danych IR"
+    },
+    {
+        "id": "dec_ir_rc6_opt_polarity",
+        "text": "Polaryzacja"
+    },
+    {
+        "id": "dec_ir_sirc_chan_ir",
+        "text": "Linia danych IR"
+    },
+    {
+        "id": "dec_ir_sirc_opt_polarity",
+        "text": "Polaryzacja"
+    },
+    {
+        "id": "dec_jitter_chan_clk",
+        "text": "Kanał zegara odniesienia"
+    },
+    {
+        "id": "dec_jitter_chan_sig",
+        "text": "Sygnał wynikowy sterowany zegarem"
+    },
+    {
+        "id": "dec_jitter_opt_clk_polarity",
+        "text": "Polaryzacja zbocza zegara"
+    },
+    {
+        "id": "dec_jitter_opt_sig_polarity",
+        "text": "Polaryzacja zbocza sygnału wynikowego"
+    },
+    {
+        "id": "dec_jtag_chan_tdi",
+        "text": "Wejście danych testowych"
+    },
+    {
+        "id": "dec_jtag_chan_tdo",
+        "text": "Wyjście danych testowych"
+    },
+    {
+        "id": "dec_jtag_chan_tck",
+        "text": "Zegar testowy"
+    },
+    {
+        "id": "dec_jtag_chan_tms",
+        "text": "Wybór trybu testowego"
+    },
+    {
+        "id": "dec_jtag_opt_chan_trst",
+        "text": "Reset testowy"
+    },
+    {
+        "id": "dec_jtag_opt_chan_srst",
+        "text": "Reset systemu"
+    },
+    {
+        "id": "dec_jtag_opt_chan_rtck",
+        "text": "Zwrotny sygnał zegara"
+    },
+    {
+        "id": "dec_gpib_opt_sample_total",
+        "text": "Całkowita liczba próbek"
+    },
+    {
+        "id": "dec_ir_nec_opt_extended",
+        "text": "Rozszerzony protokół NEC"
+    }
+]

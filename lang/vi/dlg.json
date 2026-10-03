@@ -1,0 +1,794 @@
+[
+    {
+        "id": "IDS_DLG_LOG_OPTIONS",
+        "text": "Tùy chọn nhật ký"
+    },
+    {
+        "id": "IDS_DLG_LOG_LEVEL",
+        "text": "Mức nhật ký"
+    },
+    {
+        "id": "IDS_DLG_SAVE_FILE",
+        "text": "Lưu vào tệp"
+    },
+    {
+        "id": "IDS_DLG_OPEN_FILE",
+        "text": "Mở tệp"
+    },
+    {
+        "id": "IDS_DLG_OPEN_SEESION",
+        "text": "Mở phiên"
+    },
+    {
+        "id": "IDS_DLG_SAVE_SEESION",
+        "text": "Lưu phiên"
+    },
+    {
+        "id": "IDS_DLG_DOCUMENT",
+        "text": "Tài liệu"
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_DOCK_TITLE",
+        "text": "Cài đặt kích hoạt"
+    },
+    {
+        "id": "IDS_DLG_PROTOCOL_DOCK_TITLE",
+        "text": "Bộ giải mã"
+    },
+    {
+        "id": "IDS_DLG_MEASURE_DOCK_TITLE",
+        "text": "Phép đo"
+    },
+    {
+        "id": "IDS_DLG_SEARCH_DOCK_TITLE",
+        "text": "Tìm kiếm"
+    },
+    {
+        "id": "IDS_DLG_SAVE_AS",
+        "text": "Lưu thành"
+    },
+    {
+        "id": "IDS_DLG_CHECK_USB_SPEED_ERROR",
+        "text": "Cắm thiết bị hiện tại vào cổng USB 2.0 sẽ ảnh hưởng đáng kể đến hiệu năng.\nVui lòng cắm lại vào cổng USB 3.0."
+    },
+    {
+        "id": "IDS_DLG_CHECK_SESSION_FILE_VERSION_ERROR",
+        "text": "Tệp này có định dạng cũ.\nViệc tải sẽ chậm.\nBạn có thể lưu lại sau khi tải."
+    },
+    {
+        "id": "IDS_DLG_ABOUT",
+        "text": "Thông tin"
+    },
+    {
+        "id": "IDS_DLG_DISPLAY_OPTIONS",
+        "text": "Tùy chọn hiển thị"
+    },
+    {
+        "id": "IDS_DLG_QUICK_SCROLL",
+        "text": "Cuộn dạng sóng bằng cách kéo chuột"
+    },
+    {
+        "id": "IDS_DLG_SAVE",
+        "text": "Lưu"
+    },
+    {
+        "id": "IDS_DLG_RESET",
+        "text": "Đặt lại"
+    },
+    {
+        "id": "IDS_DLG_EXIT",
+        "text": "Thoát"
+    },
+    {
+        "id": "IDS_DLG_MANUAL_CALIBRATION",
+        "text": "Hiệu chuẩn thủ công"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL",
+        "text": "Kênh"
+    },
+    {
+        "id": "IDS_DLG_SAVE_CALIBRATION_RESULTS",
+        "text": "Đang lưu kết quả hiệu chuẩn... Vui lòng chờ trong giây lát."
+    },
+    {
+        "id": "IDS_DLG_CANCEL",
+        "text": "Hủy"
+    },
+    {
+        "id": "IDS_DLG_RELOAD_CALIBRATION_RESULTS",
+        "text": "Đang tải lại kết quả hiệu chuẩn trước đó... Vui lòng chờ trong giây lát."
+    },
+    {
+        "id": "IDS_DLG_DECODER_OPTIONS",
+        "text": "Tùy chọn bộ giải mã"
+    },
+    {
+        "id": "IDS_DLG_CURSOR",
+        "text": "Con trỏ "
+    },
+    {
+        "id": "IDS_DLG_CURSOR_FOR_DECODE_START",
+        "text": "Vị trí bắt đầu giải mã"
+    },
+    {
+        "id": "IDS_DLG_CURSOR_FOR_DECODE_END",
+        "text": "Vị trí kết thúc giải mã"
+    },
+    {
+        "id": "IDS_DLG_DEVICE_OPTIONS",
+        "text": "Tùy chọn thiết bị"
+    },
+    {
+        "id": "IDS_DLG_MODE",
+        "text": "Tùy chọn"
+    },
+    {
+        "id": "IDS_DLG_ENABLE_ALL",
+        "text": "Bật tất cả"
+    },
+    {
+        "id": "IDS_DLG_DISABLE_ALL",
+        "text": "Tắt tất cả"
+    },
+    {
+        "id": "IDS_DLG_ENABLE",
+        "text": "Bật: "
+    },
+    {
+        "id": "IDS_DLG_AUTO_CALIBRATION",
+        "text": "Tự động hiệu chuẩn"
+    },
+    {
+        "id": "IDS_DLG_CALIBRATION",
+        "text": "Hiệu chuẩn"
+    },
+    {
+        "id": "IDS_DLG_MEASUREMENTS",
+        "text": "Phép đo"
+    },
+    {
+        "id": "IDS_DLG_FFT_ENABLE",
+        "text": "Bật FFT: "
+    },
+    {
+        "id": "IDS_DLG_FFT_LENGTH",
+        "text": "Độ dài FFT: "
+    },
+    {
+        "id": "IDS_DLG_SAMPLE_INTERVAL",
+        "text": "Khoảng lấy mẫu: "
+    },
+    {
+        "id": "IDS_DLG_FFT_SOURCE",
+        "text": "Nguồn FFT: "
+    },
+    {
+        "id": "IDS_DLG_FFT_WINDOW",
+        "text": "Cửa sổ FFT: "
+    },
+    {
+        "id": "IDS_DLG_DC_IGNORED",
+        "text": "Bỏ qua DC: "
+    },
+    {
+        "id": "IDS_DLG_Y-AXIS_MODE",
+        "text": "Chế độ trục Y: "
+    },
+    {
+        "id": "IDS_DLG_DBV_RANGE",
+        "text": "Dải DBV: "
+    },
+    {
+        "id": "IDS_DLG_FFT_OPTIONS",
+        "text": "Tùy chọn FFT"
+    },
+    {
+        "id": "IDS_DLG_INTERVAL_S",
+        "text": "Khoảng cách(s): "
+    },
+    {
+        "id": "IDS_DLG_REPETITIVE_INTERVAL",
+        "text": "Khoảng lặp lại"
+    },
+    {
+        "id": "IDS_DLG_X_AXIS",
+        "text": "Trục X"
+    },
+    {
+        "id": "IDS_DLG_Y_AXIS",
+        "text": "Trục Y"
+    },
+    {
+        "id": "IDS_DLG_LISSAJOUS_OPTIONS",
+        "text": "Tùy chọn Lissajous"
+    },
+    {
+        "id": "IDS_DLG_ADD",
+        "text": "Cộng"
+    },
+    {
+        "id": "IDS_DLG_SUBSTRACT",
+        "text": "Trừ"
+    },
+    {
+        "id": "IDS_DLG_MULTIPLY",
+        "text": "Nhân"
+    },
+    {
+        "id": "IDS_DLG_DIVIDE",
+        "text": "Chia"
+    },
+    {
+        "id": "IDS_DLG_MATH_TYPE",
+        "text": "Loại phép toán"
+    },
+    {
+        "id": "IDS_DLG_1ST_SOURCE",
+        "text": "Nguồn thứ 1"
+    },
+    {
+        "id": "IDS_DLG_2ST_SOURCE",
+        "text": "Nguồn thứ 2"
+    },
+    {
+        "id": "IDS_DLG_MATH_OPTIONS",
+        "text": "Tùy chọn phép toán"
+    },
+    {
+        "id": "IDS_DLG_EXPORT_FORMAT",
+        "text": "Định dạng xuất: "
+    },
+    {
+        "id": "IDS_DLG_PROTOCOL_EXPORT",
+        "text": "Xuất giao thức"
+    },
+    {
+        "id": "IDS_DLG_EXPORT_DATA",
+        "text": "Xuất dữ liệu: "
+    },
+    {
+        "id": "IDS_DLG_EXPORT_PROTOCOL_LIST_RESULT",
+        "text": "Đang xuất kết quả giải mã... Vui lòng chờ trong giây lát."
+    },
+    {
+        "id": "IDS_DLG_FIT_TO_WINDOW",
+        "text": "Vừa kích thước cửa sổ"
+    },
+    {
+        "id": "IDS_DLG_FIXED",
+        "text": "Cố định"
+    },
+    {
+        "id": "IDS_DLG_MAP_ZOOM",
+        "text": "Thu phóng nhảy: "
+    },
+    {
+        "id": "IDS_DLG_DECODED_PROTOCOLS",
+        "text": "Giao thức đã giải mã: "
+    },
+    {
+        "id": "IDS_DLG_PROTOCOL_LIST_VIEWER",
+        "text": "Kết quả giải mã"
+    },
+    {
+        "id": "IDS_DLG_REGION",
+        "text": "Vùng"
+    },
+    {
+        "id": "IDS_DLG_SEARCH_LABEL",
+        "text": "X: Bất kỳ\n0: Mức thấp\n1: Mức cao\nR: Sườn lên\nF: Sườn xuống\nC: Sườn lên/xuống"
+    },
+    {
+        "id": "IDS_DLG_SEARCH_OPTIONS",
+        "text": "Tùy chọn tìm kiếm"
+    },
+    {
+        "id": "IDS_DLG_SAVING",
+        "text": "Đang lưu..."
+    },
+    {
+        "id": "IDS_DLG_ORIGINAL_DATA",
+        "text": "Dữ liệu gốc"
+    },
+    {
+        "id": "IDS_DLG_COMPRESSED_DATA",
+        "text": "Dữ liệu nén"
+    },
+    {
+        "id": "IDS_DLG_EXPORT",
+        "text": "Xuất"
+    },
+    {
+        "id": "IDS_DLG_EXPORTING",
+        "text": "Đang xuất..."
+    },
+    {
+        "id": "IDS_DLG_DONT_CONNECT_PROBES",
+        "text": "Không kết nối bất kỳ đầu đo nào!"
+    },
+    {
+        "id": "IDS_DLG_LOAD_CURRENT_SETTING",
+        "text": "Đang tải cài đặt hiện tại... Vui lòng chờ trong giây lát."
+    },
+    {
+        "id": "IDS_DLG_WAITING",
+        "text": "Đang chờ"
+    },
+    {
+        "id": "IDS_DLG_FINISHED",
+        "text": "Hoàn tất!"
+    },
+    {
+        "id": "IDS_DLG_US",
+        "text": "uS"
+    },
+    {
+        "id": "IDS_DLG_MS",
+        "text": "mS"
+    },
+    {
+        "id": "IDS_DLG_S",
+        "text": "S"
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_POSITION",
+        "text": "Vị trí kích hoạt: "
+    },
+    {
+        "id": "IDS_DLG_HOLD_OFF_TIME",
+        "text": "Thời gian chặn: "
+    },
+    {
+        "id": "IDS_DLG_NOISE_SENSITIVITY",
+        "text": "Độ nhạy kích hoạt: "
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_SOURCES",
+        "text": "Nguồn kích hoạt: "
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_TYPES",
+        "text": "Kiểu kích hoạt: "
+    },
+    {
+        "id": "IDS_DLG_RISING_EDGE",
+        "text": "Sườn lên"
+    },
+    {
+        "id": "IDS_DLG_FALLING_EDGE",
+        "text": "Sườn xuống"
+    },
+    {
+        "id": "IDS_DLG_AUTO",
+        "text": "Tự động"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_0",
+        "text": "Kênh 0"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_1",
+        "text": "Kênh 1"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_0_AND_1",
+        "text": "Kênh 0 && 1"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_0_OR_1",
+        "text": "Kênh 0 | 1"
+    },
+    {
+        "id": "IDS_DLG_KEY_DECODER_SEARCH",
+        "text": "Tìm bộ giải mã..."
+    },
+    {
+        "id": "IDS_DLG_TIME_SAMPLES",
+        "text": "T.gian/Số mẫu"
+    },
+    {
+        "id": "IDS_DLG_MOUSE_MEASUREMENT",
+        "text": "Đo bằng chuột"
+    },
+    {
+        "id": "IDS_DLG_ENABLE_FLOATING_MEASUREMENT",
+        "text": "Bật phép đo nổi"
+    },
+    {
+        "id": "IDS_DLG_CURSOR_DISTANCE",
+        "text": "Khoảng cách con trỏ"
+    },
+    {
+        "id": "IDS_DLG_EDGES",
+        "text": "Sườn"
+    },
+    {
+        "id": "IDS_DLG_CURSORS",
+        "text": "Con trỏ"
+    },
+    {
+        "id": "IDS_DLG_RIS_OR_FAL_EDGE",
+        "text": "Lên/Xuống/Sườn"
+    },
+    {
+        "id": "IDS_DLG_W",
+        "text": "W: "
+    },
+    {
+        "id": "IDS_DLG_P",
+        "text": "T: "
+    },
+    {
+        "id": "IDS_DLG_F",
+        "text": "F: "
+    },
+    {
+        "id": "IDS_DLG_D",
+        "text": "D: "
+    },
+    {
+        "id": "IDS_DLG_SEARCH",
+        "text": "tìm kiếm"
+    },
+    {
+        "id": "IDS_DLG_MATCHING_ITEMS",
+        "text": "Mục khớp:"
+    },
+    {
+        "id": "IDS_DLG_OUT_OF_MEMORY",
+        "text": "Hết bộ nhớ"
+    },
+    {
+        "id": "IDS_DLG_SEARCHING",
+        "text": "Đang tìm kiếm..."
+    },
+    {
+        "id": "IDS_DLG_SEARCH_PREVIOUS",
+        "text": "Tìm trước đó..."
+    },
+    {
+        "id": "IDS_DLG_SEARCH_NEXT",
+        "text": "Tìm tiếp theo..."
+    },
+    {
+        "id": "IDS_DLG_SIMPLE_TRIGGER",
+        "text": "Kích hoạt đơn giản"
+    },
+    {
+        "id": "IDS_DLG_ADVANCED_TRIGGER",
+        "text": "Kích hoạt nâng cao"
+    },
+    {
+        "id": "IDS_DLG_TOTAL_TRIGGER_STAGES",
+        "text": "Tổng số tầng kích hoạt: "
+    },
+    {
+        "id": "IDS_DLG_START_FLAG",
+        "text": "Cờ bắt đầu: "
+    },
+    {
+        "id": "IDS_DLG_STOP_FLAG",
+        "text": "Cờ dừng: "
+    },
+    {
+        "id": "IDS_DLG_CLOCK_FLAG",
+        "text": "Cờ xung nhịp: "
+    },
+    {
+        "id": "IDS_DLG_DATA_CHANNEL",
+        "text": "Kênh dữ liệu: "
+    },
+    {
+        "id": "IDS_DLG_DATA_VALUE",
+        "text": "Giá trị dữ liệu: "
+    },
+    {
+        "id": "IDS_DLG_SERIAL_TRIGGER",
+        "text": "Kích hoạt nối tiếp"
+    },
+    {
+        "id": "IDS_DLG_STAGE_TRIGGER",
+        "text": "Kích hoạt nhiều tầng"
+    },
+    {
+        "id": "IDS_DLG_SERIAL_NOTE_LABEL",
+        "text": "X: Bất kỳ\n0: Mức thấp\n1: Mức cao\nR: Sườn lên\nF: Sườn xuống\nC: Sườn lên/xuống"
+    },
+    {
+        "id": "IDS_DLG_DATA_BITS",
+        "text": "Số bit dữ liệu"
+    },
+    {
+        "id": "IDS_DLG_INV",
+        "text": "Đảo"
+    },
+    {
+        "id": "IDS_DLG_COUNTER",
+        "text": "Bộ đếm"
+    },
+    {
+        "id": "IDS_DLG_CONTIGUOUS",
+        "text": "Liên tiếp"
+    },
+    {
+        "id": "IDS_DLG_STAGE",
+        "text": "Tầng"
+    },
+    {
+        "id": "IDS_DLG_OR",
+        "text": "Hoặc"
+    },
+    {
+        "id": "IDS_DLG_AND",
+        "text": "Và"
+    },
+    {
+        "id": "IDS_DLG_HZ",
+        "text": "Hz"
+    },
+    {
+        "id": "IDS_DLG_UNSHOWN",
+        "text": "Ẩn"
+    },
+    {
+        "id": "ZOOM_IN_FOR_DETAILS",
+        "text": "Phóng to để xem chi tiết"
+    },
+    {
+        "id": "IDS_DLG_DECODETRACE_ERROR1",
+        "text": "Lỗi: "
+    },
+    {
+        "id": "IDS_DLG_DECODETRACE_ERROR2",
+        "text": "Lỗi: ..."
+    },
+    {
+        "id": "IDS_DLG_ADD_GROUP",
+        "text": "Thêm nhóm"
+    },
+    {
+        "id": "IDS_DLG_DEL_GROUP",
+        "text": "Xóa nhóm"
+    },
+    {
+        "id": "IDS_DLG_SET_CHANNEL_COLOUR",
+        "text": "Đặt màu kênh"
+    },
+    {
+        "id": "IDS_DLG_LISSAJOUS_FIGURE",
+        "text": "Hình Lissajous"
+    },
+    {
+        "id": "IDS_DLG_DATA_SOURCE_ERROR",
+        "text": "Lỗi nguồn dữ liệu."
+    },
+    {
+        "id": "IDS_DLG_ADD_X_CURSOR",
+        "text": "Thêm con trỏ X"
+    },
+    {
+        "id": "IDS_DLG_ADD_Y_CURSOR",
+        "text": "Thêm con trỏ Y"
+    },
+    {
+        "id": "IDS_DLG_AUTO_ROLL",
+        "text": "Tự động(Cuộn)"
+    },
+    {
+        "id": "IDS_DLG_WAITING_TRIG",
+        "text": "Chờ kích hoạt"
+    },
+    {
+        "id": "IDS_DLG_TRIG_D",
+        "text": "Đã KH"
+    },
+    {
+        "id": "IDS_DLG_TRIGGERED",
+        "text": "Đã kích hoạt! "
+    },
+    {
+        "id": "IDS_DLG_CAPTURED",
+        "text": "% đã thu"
+    },
+    {
+        "id": "IDS_DLG_WAITING_FOR_TRIGGER",
+        "text": "Đang chờ kích hoạt! "
+    },
+    {
+        "id": "IDS_DLG_RISING",
+        "text": "Sườn lên: "
+    },
+    {
+        "id": "IDS_DLG_FALLING",
+        "text": "Sườn xuống: "
+    },
+    {
+        "id": "IDS_DLG_Edges_1",
+        "text": "Số sườn: "
+    },
+    {
+        "id": "IDS_DLG_WIDTH",
+        "text": "Độ rộng: "
+    },
+    {
+        "id": "IDS_DLG_PERIOD",
+        "text": "Chu kỳ: "
+    },
+    {
+        "id": "IDS_DLG_FREQUENCY",
+        "text": "Tần số: "
+    },
+    {
+        "id": "IDS_DLG_DUTY_CYCLE",
+        "text": "Chu kỳ nhiệm vụ: "
+    },
+    {
+        "id": "IDS_DLG_MEASURE",
+        "text": "Đo"
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_TIME",
+        "text": "Thời điểm kích hoạt: "
+    },
+    {
+        "id": "IDS_DLG_SAMPLES_CAPTURED",
+        "text": "Mẫu đã thu!"
+    },
+    {
+        "id": "IDS_DLG_FILE_THRESHOLD",
+        "text": "Ngưỡng: "
+    },
+    {
+        "id": "IDS_DLG_VIEW_CAPTURE",
+        "text": "Đang thu"
+    },
+    {
+        "id": "IDS_DLG_CHAN_NUM_ERR2",
+        "text": "Cần dữ liệu của hai kênh."
+    },
+    {
+        "id": "IDS_DLG_PATH_NAME",
+        "text": "đường dẫn"
+    },
+    {
+        "id": "IDS_DLG_DECODER_IF_TRANS",
+        "text": "Dịch tên tham số"
+    },
+    {
+        "id": "IDS_DLG_LOG_PATH",
+        "text": "Đường dẫn tệp"
+    },
+    {
+        "id": "IDS_DLG_OPEN",
+        "text": "Mở"
+    },
+    {
+        "id": "IDS_DLG_CLEARE",
+        "text": "Xóa"
+    },
+    {
+        "id": "IDS_DLG_APPEND_MODE",
+        "text": "Chế độ ghi nối"
+    },
+    {
+        "id": "IDS_DLG_TRIG_DISPLAY_MIDDLE",
+        "text": "Hiển thị vị trí kích hoạt ở giữa"
+    },
+    {
+        "id": "IDS_DLG_DISPLAY_PROFILE_IN_BAR",
+        "text": "Hiển thị tên phiên trên thanh tiêu đề"
+    },
+    {
+        "id": "IDS_DLG_SERIAL_HEX",
+        "text": "Hex :"
+    },
+    {
+        "id": "IDS_DLG_SERIAL_INPUT_AS_HEX",
+        "text": "Nhập theo định dạng hex"
+    },
+    {
+        "id": "IDS_DLG_USE_ABORT_DATA_REPEAT",
+        "text": "Cập nhật dữ liệu mới nhất khi dừng ở chế độ lặp lại"
+    },
+    {
+        "id": "IDS_DLG_FONT_SIZE",
+        "text": "Cỡ chữ"
+    },
+    {
+        "id": "IDS_DLG_DEFAULT_FONT",
+        "text": "Mặc định"
+    },
+    {
+        "id": "IDS_DLG_GROUP_LOGIC",
+        "text": "Máy phân tích logic"
+    },
+    {
+        "id": "IDS_DLG_GROUP_DSO",
+        "text": "Máy hiện sóng"
+    },
+    {
+        "id": "IDS_DLG_GROUP_UI",
+        "text": "Giao diện"
+    },
+    {
+        "id": "IDS_DLG_ABORT",
+        "text": "Hủy bỏ"
+    },
+    {
+        "id": "IDS_DLG_AUTO_SCROLL_LATEAST_DATA",
+        "text": "Tự động cuộn đến dữ liệu mới nhất"
+    },
+    {
+        "id": "IDS_DLG_DATA_OUT_OFF_RANGE",
+        "text": "Dữ liệu vượt quá phạm vi"
+    },
+    {
+        "id": "IDS_DLG_START_CURSOR",
+        "text": "Bắt đầu"
+    },
+    {
+        "id": "IDS_DLG_END_CURSOR",
+        "text": "Kết thúc"
+    },
+    {
+        "id": "IDS_DSO_CTR_EN",
+        "text": "Bật"
+    },
+    {
+        "id": "IDS_DSO_CTR_DIS",
+        "text": "Tắt"
+    },
+    {
+        "id": "IDS_DSO_CTR_GND",
+        "text": "GND"
+    },
+    {
+        "id": "IDS_DSO_CTR_DC",
+        "text": "DC"
+    },
+    {
+        "id": "IDS_DSO_CTR_AC",
+        "text": "AC"
+    },
+    {
+        "id": "IDS_DSO_CTR_AUTO",
+        "text": "Tự động"
+    },
+    {
+        "id": "IDS_CALIB_VGAIN",
+        "text": "Độ lợi"
+    },
+    {
+        "id": "IDS_CALIB_VOFF",
+        "text": "Độ lệch"
+    },
+    {
+        "id": "IDS_CALIB_VCOMB",
+        "text": "Xen kẽ"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_RECTANGLE",
+        "text": "Chữ nhật"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_HANN",
+        "text": "Hann"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_HAMMING",
+        "text": "Hamming"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_BLACKMAN",
+        "text": "Blackman"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_FLATTOP",
+        "text": "Đỉnh phẳng"
+    },
+    {
+        "id": "IDS_FFT_MODE_LINEARRSM",
+        "text": "RMS tuyến tính"
+    }
+]

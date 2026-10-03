@@ -1,4 +1,4 @@
-[   
+[
     {
         "id": "dec_parallel_opt_clock_edge",
         "text": "采样时钟边沿"
@@ -450,5 +450,25 @@
     {
         "id": "dec_tlc5620_opt_vref_d",
         "text": "参考电压 DACD(V)"
+    },
+    {
+        "id": "dec_qspi_adress_mode",
+        "text": "地址模式"
+    },
+    {
+        "id": "dec_qspi_opt_frame",
+        "text": "帧解码"
+    },
+    {
+        "id": "dec_qspi_two_lines_mode",
+        "text": "双线模式"
+    },
+    {
+        "id": "dec_qspi_invalidlevel",
+        "text": "无效电平保持高或低"
+    },
+    {
+        "id": "dec_timing_opt_format",
+        "text": "\"time\"注释的格式"
     }
 ]

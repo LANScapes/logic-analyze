@@ -1,0 +1,50 @@
+[
+    {
+        "id": "Buffer Mode",
+        "text": "緩衝模式"
+    },
+    {
+        "id": "Stream Mode",
+        "text": "串流模式"
+    },
+    {
+        "id": "Internal Test",
+        "text": "內部測試"
+    },
+    {
+        "id": "External Test",
+        "text": "外部測試"
+    },
+    {
+        "id": "DRAM Loopback Test",
+        "text": "DRAM 迴路測試"
+    },
+    {
+        "id": "Stop immediately",
+        "text": "立即停止"
+    },
+    {
+        "id": "Upload captured data",
+        "text": "上傳已擷取的資料"
+    },
+    {
+        "id": "None",
+        "text": "無"
+    },
+    {
+        "id": "1 Sample Clock",
+        "text": "1 個取樣時脈"
+    },
+    {
+        "id": "Normal",
+        "text": "一般"
+    },
+    {
+        "id": "Full Bandwidth",
+        "text": "全頻寬"
+    },
+    {
+        "id": "20MHz",
+        "text": "20MHz"
+    }
+]

@@ -1,0 +1,474 @@
+[
+    {
+        "id": "dec_parallel_opt_clock_edge",
+        "text": "Sườn xung nhịp để lấy mẫu"
+    },
+    {
+        "id": "dec_parallel_opt_wordsize",
+        "text": "Kích thước từ dữ liệu (# chu kỳ bus)"
+    },
+    {
+        "id": "dec_parallel_opt_endianness",
+        "text": "Thứ tự byte dữ liệu"
+    },
+    {
+        "id": "dec_pjdl_chan_data",
+        "text": "Dữ liệu một dây"
+    },
+    {
+        "id": "dec_pjdl_opt_mode",
+        "text": "Chế độ truyền thông"
+    },
+    {
+        "id": "dec_pjdl_opt_idle_add_us",
+        "text": "Thời gian nghỉ thêm (us)"
+    },
+    {
+        "id": "dec_ps2_chan_clk",
+        "text": "Đường xung nhịp"
+    },
+    {
+        "id": "dec_ps2_chan_data",
+        "text": "Đường dữ liệu"
+    },
+    {
+        "id": "dec_ps2_opt_HtoD_Clock",
+        "text": "Xung nhịp host đến thiết bị"
+    },
+    {
+        "id": "dec_ps2_opt_DtoH_Clock",
+        "text": "Xung nhịp thiết bị đến host"
+    },
+    {
+        "id": "dec_pwm_chan_data",
+        "text": "Đường dữ liệu"
+    },
+    {
+        "id": "dec_pwm_opt_polarity",
+        "text": "Cực tính"
+    },
+    {
+        "id": "dec_pxx1_chan_data",
+        "text": "Đường dữ liệu"
+    },
+    {
+        "id": "dec_qi_chan_qi",
+        "text": "Đường dữ liệu Qi đã giải điều chế"
+    },
+    {
+        "id": "dec_qspi_chan_clk",
+        "text": "Xung nhịp"
+    },
+    {
+        "id": "dec_qspi_chan_io0",
+        "text": "Dữ liệu vào/ra 0"
+    },
+    {
+        "id": "dec_qspi_opt_chan_io1",
+        "text": "Dữ liệu vào/ra 1"
+    },
+    {
+        "id": "dec_qspi_opt_chan_io2",
+        "text": "Dữ liệu vào/ra 2"
+    },
+    {
+        "id": "dec_qspi_opt_chan_io3",
+        "text": "Dữ liệu vào/ra 3"
+    },
+    {
+        "id": "dec_qspi_opt_chan_cs",
+        "text": "Chọn chip"
+    },
+    {
+        "id": "dec_qspi_opt_cs_polarity",
+        "text": "Cực tính CS#"
+    },
+    {
+        "id": "dec_qspi_opt_cpol",
+        "text": "Cực tính xung nhịp (CPOL)"
+    },
+    {
+        "id": "dec_qspi_opt_cpha",
+        "text": "Pha xung nhịp (CPHA)"
+    },
+    {
+        "id": "dec_qspi_opt_bitorder",
+        "text": "Thứ tự bit"
+    },
+    {
+        "id": "dec_qspi_opt_wordsize",
+        "text": "Kích thước từ"
+    },
+    {
+        "id": "dec_rc_encode_chan_data",
+        "text": "Đường dữ liệu"
+    },
+    {
+        "id": "dec_rc_encode_opt_remote",
+        "text": "Điều khiển từ xa"
+    },
+    {
+        "id": "dec_rgb_led_ws281x_chan_din",
+        "text": "Đường dữ liệu DIN"
+    },
+    {
+        "id": "dec_rgb_led_ws281x_opt_default_color_order",
+        "text": "Thứ tự màu mặc định"
+    },
+    {
+        "id": "dec_rgb_led_ws281x_opt_view_color_order",
+        "text": "Thứ tự màu hiển thị"
+    },
+    {
+        "id": "dec_rgb_led_ws281x_opt_polarity",
+        "text": "Cực tính"
+    },
+    {
+        "id": "dec_sae_j1850_vpw_chan_data",
+        "text": "Đường dữ liệu"
+    },
+    {
+        "id": "dec_sda2506_chan_clk",
+        "text": "Xung nhịp"
+    },
+    {
+        "id": "dec_sda2506_chan_d",
+        "text": "Dữ liệu"
+    },
+    {
+        "id": "dec_sda2506_chan_ce",
+        "text": "Cho phép chip"
+    },
+    {
+        "id": "dec_sdcard_sd_chan_cmd",
+        "text": "Lệnh"
+    },
+    {
+        "id": "dec_sdcard_sd_chan_clk",
+        "text": "Xung nhịp"
+    },
+    {
+        "id": "dec_sdcard_sd_opt_chan_dat0",
+        "text": "Chân dữ liệu 0"
+    },
+    {
+        "id": "dec_sdcard_sd_opt_chan_dat1",
+        "text": "Chân dữ liệu 1"
+    },
+    {
+        "id": "dec_sdcard_sd_opt_chan_dat2",
+        "text": "Chân dữ liệu 2"
+    },
+    {
+        "id": "dec_sdcard_sd_opt_chan_dat3",
+        "text": "Chân dữ liệu 3"
+    },
+    {
+        "id": "dec_sdq_chan_sdq",
+        "text": "Đường dữ liệu SDQ một dây."
+    },
+    {
+        "id": "dec_sdq_opt_bitrate",
+        "text": "Tốc độ bit"
+    },
+    {
+        "id": "dec_seven_segment_chan_A",
+        "text": "Đoạn A"
+    },
+    {
+        "id": "dec_seven_segment_chan_B",
+        "text": "Đoạn B"
+    },
+    {
+        "id": "dec_seven_segment_chan_C",
+        "text": "Đoạn C"
+    },
+    {
+        "id": "dec_seven_segment_chan_D",
+        "text": "Đoạn D"
+    },
+    {
+        "id": "dec_seven_segment_chan_E",
+        "text": "Đoạn E"
+    },
+    {
+        "id": "dec_seven_segment_chan_F",
+        "text": "Đoạn F"
+    },
+    {
+        "id": "dec_seven_segment_chan_G",
+        "text": "Đoạn G"
+    },
+    {
+        "id": "dec_seven_segment_opt_chan_dp",
+        "text": "Dấu thập phân"
+    },
+    {
+        "id": "dec_seven_segment_opt_polarity",
+        "text": "Cực tính mong đợi"
+    },
+    {
+        "id": "dec_signature_chan_start",
+        "text": "Kênh START"
+    },
+    {
+        "id": "dec_signature_chan_stop",
+        "text": "Kênh STOP"
+    },
+    {
+        "id": "dec_signature_chan_clk",
+        "text": "Kênh CLOCK"
+    },
+    {
+        "id": "dec_signature_chan_data",
+        "text": "Kênh DATA"
+    },
+    {
+        "id": "dec_signature_opt_start_edge",
+        "text": "Cực tính sườn START"
+    },
+    {
+        "id": "dec_signature_opt_stop_edge",
+        "text": "Cực tính sườn STOP"
+    },
+    {
+        "id": "dec_signature_opt_clk_edge",
+        "text": "Cực tính sườn CLOCK"
+    },
+    {
+        "id": "dec_signature_opt_annbits",
+        "text": "Bật chú thích mức bit"
+    },
+    {
+        "id": "dec_sle44xx_chan_rst",
+        "text": "Đường reset"
+    },
+    {
+        "id": "dec_sle44xx_chan_clk",
+        "text": "Đường xung nhịp"
+    },
+    {
+        "id": "dec_sle44xx_chan_io",
+        "text": "Đường dữ liệu I/O"
+    },
+    {
+        "id": "dec_spdif_chan_data",
+        "text": "Đường dữ liệu"
+    },
+    {
+        "id": "dec_spi_tpm_opt_tpm_version",
+        "text": "TPM phiên bản 1.2 hoặc 2.0"
+    },
+    {
+        "id": "dec_spiflash_opt_chip",
+        "text": "Chip"
+    },
+    {
+        "id": "dec_spiflash_opt_format",
+        "text": "Định dạng dữ liệu"
+    },
+    {
+        "id": "dec_ssi32_opt_msgsize",
+        "text": "Kích thước thông điệp"
+    },
+    {
+        "id": "dec_st7735_chan_cs",
+        "text": "Chọn chip"
+    },
+    {
+        "id": "dec_st7735_chan_clk",
+        "text": "Xung nhịp"
+    },
+    {
+        "id": "dec_st7735_chan_mosi",
+        "text": "Master ra, slave vào"
+    },
+    {
+        "id": "dec_st7735_chan_dc",
+        "text": "Dữ liệu hoặc lệnh"
+    },
+    {
+        "id": "dec_st7789_chan_csx",
+        "text": "Tín hiệu chọn chip"
+    },
+    {
+        "id": "dec_st7789_chan_dcx",
+        "text": "Tín hiệu xung nhịp"
+    },
+    {
+        "id": "dec_st7789_chan_sdo",
+        "text": "Dữ liệu ra nối tiếp"
+    },
+    {
+        "id": "dec_st7789_chan_wrx",
+        "text": "Lệnh / dữ liệu"
+    },
+    {
+        "id": "dec_stepper_motor_chan_step",
+        "text": "Xung bước"
+    },
+    {
+        "id": "dec_stepper_motor_chan_dir",
+        "text": "Chọn hướng"
+    },
+    {
+        "id": "dec_stepper_motor_opt_unit",
+        "text": "Đơn vị"
+    },
+    {
+        "id": "dec_stepper_motor_opt_steps_per_mm",
+        "text": "Số bước mỗi mm"
+    },
+    {
+        "id": "dec_swd_chan_swclk",
+        "text": "Xung nhịp master"
+    },
+    {
+        "id": "dec_swd_chan_swdio",
+        "text": "Dữ liệu vào/ra"
+    },
+    {
+        "id": "dec_swd_opt_strict_start",
+        "text": "Chờ reset đường truyền trước khi bắt đầu giải mã"
+    },
+    {
+        "id": "dec_swim_opt_debug",
+        "text": "Gỡ lỗi"
+    },
+    {
+        "id": "dec_swim_chan_swim",
+        "text": "Đường dữ liệu SWIM"
+    },
+    {
+        "id": "dec_t55xx_chan_data",
+        "text": "Đường dữ liệu"
+    },
+    {
+        "id": "dec_t55xx_opt_coilfreq",
+        "text": "Tần số cuộn dây"
+    },
+    {
+        "id": "dec_t55xx_opt_start_gap",
+        "text": "Khoảng trống bắt đầu tối thiểu"
+    },
+    {
+        "id": "dec_t55xx_opt_w_gap",
+        "text": "Khoảng trống ghi tối thiểu"
+    },
+    {
+        "id": "dec_t55xx_opt_w_one_min",
+        "text": "Ghi bit một tối thiểu"
+    },
+    {
+        "id": "dec_t55xx_opt_w_one_max",
+        "text": "Ghi bit một tối đa"
+    },
+    {
+        "id": "dec_t55xx_opt_w_zero_min",
+        "text": "Ghi bit không tối thiểu"
+    },
+    {
+        "id": "dec_t55xx_opt_w_zero_max",
+        "text": "Ghi bit không tối đa"
+    },
+    {
+        "id": "dec_t55xx_opt_em4100_decode",
+        "text": "Giải mã EM4100"
+    },
+    {
+        "id": "dec_tdm_audio_chan_clock",
+        "text": "Xung nhịp bit dữ liệu"
+    },
+    {
+        "id": "dec_tdm_audio_chan_frame",
+        "text": "Đồng bộ khung"
+    },
+    {
+        "id": "dec_tdm_audio_chan_data",
+        "text": "Dữ liệu nối tiếp"
+    },
+    {
+        "id": "dec_tdm_audio_opt_bps",
+        "text": "Số bit mỗi mẫu"
+    },
+    {
+        "id": "dec_tdm_audio_opt_channels",
+        "text": "Số kênh mỗi khung"
+    },
+    {
+        "id": "dec_tdm_audio_opt_edge",
+        "text": "Sườn xung nhịp để lấy mẫu"
+    },
+    {
+        "id": "dec_tdm_audio_opt_sampling_edge",
+        "text": "Sườn lấy mẫu"
+    },
+    {
+        "id": "dec_timing_chan_data",
+        "text": "Đường dữ liệu"
+    },
+    {
+        "id": "dec_timing_opt_avg_period",
+        "text": "Chu kỳ lấy trung bình"
+    },
+    {
+        "id": "dec_timing_opt_edge",
+        "text": "Sườn cần kiểm tra"
+    },
+    {
+        "id": "dec_timing_opt_delta",
+        "text": "Hiển thị chênh lệch so với lần trước"
+    },
+    {
+        "id": "dec_tlc5620_chan_clk",
+        "text": "Xung nhịp giao diện nối tiếp"
+    },
+    {
+        "id": "dec_tlc5620_chan_data",
+        "text": "Dữ liệu giao diện nối tiếp"
+    },
+    {
+        "id": "dec_tlc5620_opt_chan_load",
+        "text": "Điều khiển nạp giao diện nối tiếp"
+    },
+    {
+        "id": "dec_tlc5620_opt_chan_ldac",
+        "text": "Nạp DAC"
+    },
+    {
+        "id": "dec_tlc5620_opt_vref_a",
+        "text": "Điện áp tham chiếu DACA (V)"
+    },
+    {
+        "id": "dec_tlc5620_opt_vref_b",
+        "text": "Điện áp tham chiếu DACB (V)"
+    },
+    {
+        "id": "dec_tlc5620_opt_vref_c",
+        "text": "Điện áp tham chiếu DACC (V)"
+    },
+    {
+        "id": "dec_tlc5620_opt_vref_d",
+        "text": "Điện áp tham chiếu DACD (V)"
+    },
+    {
+        "id": "dec_qspi_adress_mode",
+        "text": "Chế độ địa chỉ"
+    },
+    {
+        "id": "dec_qspi_opt_frame",
+        "text": "Bộ giải mã khung"
+    },
+    {
+        "id": "dec_qspi_two_lines_mode",
+        "text": "Chế độ hai đường"
+    },
+    {
+        "id": "dec_qspi_invalidlevel",
+        "text": "Giữ mức cao hoặc thấp là không hợp lệ"
+    },
+    {
+        "id": "dec_timing_opt_format",
+        "text": "Định dạng chú thích 'time'"
+    }
+]

@@ -1,0 +1,278 @@
+[
+    {
+        "id": "dec_lfast_chan_data",
+        "text": "TXP または RXP"
+    },
+    {
+        "id": "dec_lin_opt_version",
+        "text": "プロトコルバージョン"
+    },
+    {
+        "id": "dec_lm75_opt_sensor",
+        "text": "センサーの種類"
+    },
+    {
+        "id": "dec_lm75_opt_resolution",
+        "text": "分解能 (ビット)"
+    },
+    {
+        "id": "dec_lpc_chan_lframe",
+        "text": "フレーム"
+    },
+    {
+        "id": "dec_lpc_chan_lclk",
+        "text": "クロック"
+    },
+    {
+        "id": "dec_lpc_chan_lad0",
+        "text": "アドレス/制御/データ 0"
+    },
+    {
+        "id": "dec_lpc_chan_lad1",
+        "text": "アドレス/制御/データ 1"
+    },
+    {
+        "id": "dec_lpc_chan_lad2",
+        "text": "アドレス/制御/データ 2"
+    },
+    {
+        "id": "dec_lpc_chan_lad3",
+        "text": "アドレス/制御/データ 3"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lreset",
+        "text": "リセット"
+    },
+    {
+        "id": "dec_lpc_opt_chan_ldrq",
+        "text": "エンコード済み DMA/バスマスタ要求"
+    },
+    {
+        "id": "dec_lpc_opt_chan_serirq",
+        "text": "シリアル化 IRQ"
+    },
+    {
+        "id": "dec_lpc_opt_chan_clkrun",
+        "text": "クロックラン"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lpme",
+        "text": "LPC 電源管理イベント"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lpcpd",
+        "text": "パワーダウン"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lsmi",
+        "text": "システム管理割り込み"
+    },
+    {
+        "id": "dec_ltc26x7_opt_chip",
+        "text": "チップ"
+    },
+    {
+        "id": "dec_ltc26x7_opt_vref",
+        "text": "基準電圧 (V)"
+    },
+    {
+        "id": "dec_ltc242x_opt_vref",
+        "text": "基準電圧 (V)"
+    },
+    {
+        "id": "dec_maple_bus_chan_sdcka",
+        "text": "データ/クロックライン A"
+    },
+    {
+        "id": "dec_maple_bus_chan_sdckb",
+        "text": "データ/クロックライン B"
+    },
+    {
+        "id": "dec_mcs48_chan_ale",
+        "text": "アドレスラッチイネーブル"
+    },
+    {
+        "id": "dec_mcs48_chan_psen",
+        "text": "プログラムストアイネーブル"
+    },
+    {
+        "id": "dec_mdio_chan_mdc",
+        "text": "クロック"
+    },
+    {
+        "id": "dec_mdio_chan_mdio",
+        "text": "データ"
+    },
+    {
+        "id": "dec_mdio_opt_show_debug_bits",
+        "text": "デバッグビットを表示"
+    },
+    {
+        "id": "dec_mdio_opt_read_edge",
+        "text": "読み取りエッジ"
+    },
+    {
+        "id": "dec_microwire_chan_cs",
+        "text": "チップセレクト"
+    },
+    {
+        "id": "dec_microwire_chan_sk",
+        "text": "クロック"
+    },
+    {
+        "id": "dec_microwire_chan_si",
+        "text": "スレーブ入力"
+    },
+    {
+        "id": "dec_microwire_chan_so",
+        "text": "スレーブ出力"
+    },
+    {
+        "id": "dec_miller_chan_data",
+        "text": "データ信号"
+    },
+    {
+        "id": "dec_miller_opt_baudrate",
+        "text": "ボーレート"
+    },
+    {
+        "id": "dec_miller_opt_edge",
+        "text": "エッジ"
+    },
+    {
+        "id": "dec_mipi_dsi_chan_D0N",
+        "text": "LP データ 0 負"
+    },
+    {
+        "id": "dec_mipi_dsi_chan_D0P",
+        "text": "LP データ 0 正"
+    },
+    {
+        "id": "dec_mipi_rffe_chan_sclk",
+        "text": "シリアルクロックライン"
+    },
+    {
+        "id": "dec_mipi_rffe_chan_sdata",
+        "text": "シリアルデータライン"
+    },
+    {
+        "id": "dec_mipi_rffe_opt_error_display",
+        "text": "エラー表示オプション"
+    },
+    {
+        "id": "dec_morse_chan_data",
+        "text": "データライン"
+    },
+    {
+        "id": "dec_morse_opt_timeunit",
+        "text": "時間単位 (推定)"
+    },
+    {
+        "id": "dec_nes_gamepad_opt_variant",
+        "text": "ゲームパッドの種類"
+    },
+    {
+        "id": "dec_nrf24l01_opt_chip",
+        "text": "チップの種類"
+    },
+    {
+        "id": "dec_numbers_and_state_chan_clk",
+        "text": "クロック"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_clkedge",
+        "text": "クロックエッジ"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_count",
+        "text": "総ビット数"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_interp",
+        "text": "解釈"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_fracbits",
+        "text": "小数部ビット数"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_mapping",
+        "text": "列挙値-テキスト対応ファイル"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_format",
+        "text": "数値形式"
+    },
+    {
+        "id": "dec_onewire_link_chan_owr",
+        "text": "1-Wire 信号ライン"
+    },
+    {
+        "id": "dec_onewire_link_opt_overdrive",
+        "text": "オーバードライブ速度で開始"
+    },
+    {
+        "id": "dec_ook_chan_data",
+        "text": "データライン"
+    },
+    {
+        "id": "dec_ook_opt_invert",
+        "text": "データを反転"
+    },
+    {
+        "id": "dec_ook_opt_decodeas",
+        "text": "デコードの種類"
+    },
+    {
+        "id": "dec_ook_opt_preamble",
+        "text": "プリアンブル"
+    },
+    {
+        "id": "dec_ook_opt_preamlen",
+        "text": "フィルタ長"
+    },
+    {
+        "id": "dec_ook_opt_diffmanvar",
+        "text": "開始時の遷移"
+    },
+    {
+        "id": "dec_ook_oregon_opt_unknown",
+        "text": "不明な種類の扱い"
+    },
+    {
+        "id": "dec_ook_vis_opt_displayas",
+        "text": "表示形式"
+    },
+    {
+        "id": "dec_ook_vis_opt_synclen",
+        "text": "同期長"
+    },
+    {
+        "id": "dec_ook_vis_opt_syncoffset",
+        "text": "同期オフセット"
+    },
+    {
+        "id": "dec_ook_vis_opt_refsample",
+        "text": "比較"
+    },
+    {
+        "id": "dec_onewire_link_opt_min_height_level_pulse_time",
+        "text": "High レベルパルスの最小時間(us)"
+    },
+    {
+        "id": "dec_onewire_link_opt_min_overdrive_height_level_pulse_time",
+        "text": "オーバードライブ時の High レベルパルス最小時間(us)"
+    },
+    {
+        "id": "dec_modbus_opt_scchannel",
+        "text": "サーバ -> クライアントチャンネル"
+    },
+    {
+        "id": "dec_modbus_opt_cschannel",
+        "text": "クライアント -> サーバチャンネル"
+    },
+    {
+        "id": "dec_modbus_opt_framegap",
+        "text": "フレーム間ビットギャップ"
+    }
+]

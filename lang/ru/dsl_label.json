@@ -1,0 +1,146 @@
+[
+    {
+        "id": "Connection",
+        "text": "Подключение"
+    },
+    {
+        "id": "Serial communication",
+        "text": "Последовательная связь"
+    },
+    {
+        "id": "Sample rate",
+        "text": "Частота дискретизации"
+    },
+    {
+        "id": "Sample depth",
+        "text": "Глубина записи"
+    },
+    {
+        "id": "Sample count",
+        "text": "Число выборок"
+    },
+    {
+        "id": "Using External Clock",
+        "text": "Внешний тактовый сигнал"
+    },
+    {
+        "id": "Using Clock Negedge",
+        "text": "Тактирование по спаду"
+    },
+    {
+        "id": "Pre-trigger capture ratio",
+        "text": "Доля предзапуска"
+    },
+    {
+        "id": "Run Length Encoding",
+        "text": "Кодирование длин серий"
+    },
+    {
+        "id": "Wait Buffer Upload",
+        "text": "Ожидать выгрузку буфера"
+    },
+    {
+        "id": "Trigger slope",
+        "text": "Фронт триггера"
+    },
+    {
+        "id": "Trigger source",
+        "text": "Источник триггера"
+    },
+    {
+        "id": "Trigger channel",
+        "text": "Канал триггера"
+    },
+    {
+        "id": "Horizontal trigger position",
+        "text": "Позиция триггера по горизонтали"
+    },
+    {
+        "id": "Trigger hold off",
+        "text": "Удержание триггера"
+    },
+    {
+        "id": "Trigger margin",
+        "text": "Чувствительность триггера"
+    },
+    {
+        "id": "Buffer size",
+        "text": "Размер буфера"
+    },
+    {
+        "id": "Time base",
+        "text": "Развёртка"
+    },
+    {
+        "id": "Max Height",
+        "text": "Макс. высота"
+    },
+    {
+        "id": "Max Height value",
+        "text": "Значение макс. высоты"
+    },
+    {
+        "id": "Filter Targets",
+        "text": "Фильтрация"
+    },
+    {
+        "id": "Datalog",
+        "text": "Регистрация данных"
+    },
+    {
+        "id": "Operation Mode",
+        "text": "Режим работы"
+    },
+    {
+        "id": "Stop Options",
+        "text": "Параметры остановки"
+    },
+    {
+        "id": "Channel Mode",
+        "text": "Режим каналов"
+    },
+    {
+        "id": "Threshold Levels",
+        "text": "Пороговые уровни"
+    },
+    {
+        "id": "Threshold Level",
+        "text": "Пороговый уровень"
+    },
+    {
+        "id": "Enable RLE Compress",
+        "text": "Сжатие RLE"
+    },
+    {
+        "id": "Bandwidth Limit",
+        "text": "Ограничение полосы"
+    },
+    {
+        "id": "Coupling",
+        "text": "Связь по входу"
+    },
+    {
+        "id": "Volts/div",
+        "text": "В/дел"
+    },
+    {
+        "id": "Probe Factor",
+        "text": "Коэфф. щупа"
+    },
+    {
+        "id": "Map Default",
+        "text": "Масштаб по умолч."
+    },
+    {
+        "id": "Map Unit",
+        "text": "Единица масштаба"
+    },
+    {
+        "id": "Map Min",
+        "text": "Мин. масштаба"
+    },
+    {
+        "id": "Map Max",
+        "text": "Макс. масштаба"
+    }
+]

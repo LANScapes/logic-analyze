@@ -1,0 +1,50 @@
+[
+    {
+        "id": "Buffer Mode",
+        "text": "バッファモード"
+    },
+    {
+        "id": "Stream Mode",
+        "text": "ストリームモード"
+    },
+    {
+        "id": "Internal Test",
+        "text": "内部テスト"
+    },
+    {
+        "id": "External Test",
+        "text": "外部テスト"
+    },
+    {
+        "id": "DRAM Loopback Test",
+        "text": "DRAM ループバックテスト"
+    },
+    {
+        "id": "Stop immediately",
+        "text": "すぐに停止"
+    },
+    {
+        "id": "Upload captured data",
+        "text": "キャプチャ済みデータをアップロード"
+    },
+    {
+        "id": "None",
+        "text": "なし"
+    },
+    {
+        "id": "1 Sample Clock",
+        "text": "1 サンプルクロック"
+    },
+    {
+        "id": "Normal",
+        "text": "通常"
+    },
+    {
+        "id": "Full Bandwidth",
+        "text": "全帯域"
+    },
+    {
+        "id": "20MHz",
+        "text": "20MHz"
+    }
+]

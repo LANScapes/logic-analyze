@@ -1,0 +1,390 @@
+[
+    {
+        "id": "IDS_MSG_OK",
+        "text": "OK"
+    },
+    {
+        "id": "IDS_MSG_SKIP",
+        "text": "Overslaan"
+    },
+    {
+        "id": "IDS_MSG_CANCEL",
+        "text": "Annuleren"
+    },
+    {
+        "id": "IDS_MSG_ATTENTION",
+        "text": "Let op"
+    },
+    {
+        "id": "IDS_MSG_ERROR",
+        "text": "Fout"
+    },
+    {
+        "id": "IDS_MSG_INFORMATION",
+        "text": "Informatie"
+    },
+    {
+        "id": "IDS_MSG_CONTINUE",
+        "text": "Doorgaan"
+    },
+    {
+        "id": "IDS_MSG_AUTO_CALIB_START",
+        "text": "Het automatische kalibratieprogramma wordt gestart. Sluit geen probes aan. \nDit kan even duren!"
+    },
+    {
+        "id": "IDS_MSG_AUTO_CALIB",
+        "text": "Automatische kalibratie"
+    },
+    {
+        "id": "IDS_MSG_ADJUST_SAVE",
+        "text": "Stel de nulpuntsoffset bij en sla het resultaat op"
+    },
+    {
+        "id": "IDS_MSG_SAVE_CAPDATE",
+        "text": "Vastgelegde gegevens opslaan?"
+    },
+    {
+        "id": "IDS_MSG_NOT_FOND_DEFAULT_PROFILE",
+        "text": "Kan geen standaardsessie voor dit apparaat vinden!"
+    },
+    {
+        "id": "IDS_MSG_OPEN_FILE_ERROR",
+        "text": "Fout bij openen van bestand!"
+    },
+    {
+        "id": "IDS_MSG_PROFILE_NOT_COMPATIBLE",
+        "text": "Sessie is niet compatibel met het huidige apparaat of de huidige modus!"
+    },
+    {
+        "id": "IDS_MSG_RESTORE_WINDOW_ERROR",
+        "text": "Fout bij herstellen van vensterstatus!"
+    },
+    {
+        "id": "IDS_MSG_DECODE_INVAILD_CURSOR",
+        "text": "Ongeldige cursorindex voor samplebereik!"
+    },
+    {
+        "id": "IDS_MSG_SEL_FILENAME",
+        "text": "U moet een bestandsnaam kiezen."
+    },
+    {
+        "id": "IDS_MSG_DECODER_REPEAT",
+        "text": "Dubbele ID of naam gevonden in de decoders:"
+    },
+    {
+        "id": "IDS_MSG_DECODER_LIST_EMPTY",
+        "text": "Decoderlijst is leeg!"
+    },
+    {
+        "id": "IDS_MSG_NO_SEL_DECODER",
+        "text": "Selecteer een decoder!"
+    },
+    {
+        "id": "IDS_MSG_FIND_BASE_DECODER_ERROR",
+        "text": "Geen bijbehorende basisdecoder gevonden!"
+    },
+    {
+        "id": "IDS_MSG_NO_DECODER_DEL",
+        "text": "Er is geen decoder om te verwijderen!"
+    },
+    {
+        "id": "IDS_MSG_DECODER_CONFIRM_DEL_ALL",
+        "text": "Weet u zeker dat u alle decoders wilt verwijderen?"
+    },
+    {
+        "id": "IDS_MSG_DECODER_CONFIRM_DEL",
+        "text": "Weet u zeker dat u deze decoder wilt verwijderen?"
+    },
+    {
+        "id": "IDS_MSG_CLOSE_DEVICE",
+        "text": "Weet u zeker dat u dit apparaat wilt verwijderen?"
+    },
+    {
+        "id": "IDS_MSG_SET_DEF_CAL_SETTING",
+        "text": "Alle kalibratie-instellingen worden als standaard opgeslagen!"
+    },
+    {
+        "id": "IDS_MSG_ALL_CHANNEL_DISABLE",
+        "text": "Alle kanalen zijn uitgeschakeld! Schakel ten minste één kanaal in."
+    },
+    {
+        "id": "IDS_MSG_MAX_CHANNEL_COUNT_WARNING",
+        "text": "De huidige modus ondersteunt maximaal {0} kanalen!"
+    },
+    {
+        "id": "IDS_MSG_TRI_SET_ISSUE",
+        "text": "Probleem met triggerinstelling"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_HOR_TRI_POS_FAIL",
+        "text": "Wijzigen van horizontale triggerpositie mislukt!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_TRI_HOLDOFF_TIME_FAIL",
+        "text": "Wijzigen van trigger-holdofftijd mislukt!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_SENSITIVITY_FAIL",
+        "text": "Wijzigen van triggergevoeligheid mislukt!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_SOURCE_FAIL",
+        "text": "Wijzigen van triggerbron mislukt!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_CHANNEL_FAIL",
+        "text": "Wijzigen van triggerkanaal mislukt!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_TYPE_FAIL",
+        "text": "Wijzigen van triggertype mislukt!"
+    },
+    {
+        "id": "IDS_MSG_PLEASE_INSERT_CURSOR",
+        "text": "Plaats eerst een cursor voordat u cursormeting gebruikt."
+    },
+    {
+        "id": "IDS_MSG_SEARCH",
+        "text": "Zoeken"
+    },
+    {
+        "id": "IDS_MSG_NO_SAMPLE_DATA",
+        "text": "Geen samplegegevens!"
+    },
+    {
+        "id": "IDS_MSG_SEARCH_AT_START",
+        "text": "Zoekcursor staat op de beginpositie!"
+    },
+    {
+        "id": "IDS_MSG_PATTERN_NOT_FOUND",
+        "text": "Patroon niet gevonden!"
+    },
+    {
+        "id": "IDS_MSG_SEARCH_AT_END",
+        "text": "Zoekcursor staat op de eindpositie!"
+    },
+    {
+        "id": "IDS_MSG_TRIGGER",
+        "text": "Trigger"
+    },
+    {
+        "id": "IDS_MSG_STREAM_NO_AD_TRIGGER",
+        "text": "Streammodus ondersteunt geen geavanceerde trigger!"
+    },
+    {
+        "id": "IDS_MSG_AD_TRIGGER_NEED_HARDWARE",
+        "text": "Geavanceerde trigger vereist ondersteuning door DSLogic-hardware!"
+    },
+    {
+        "id": "IDS_MSG_SET_TRI_MULTI_CHANNEL",
+        "text": "Trigger ingesteld op meerdere kanalen!\nEr wordt alleen getriggerd wanneer alle ingestelde kanalen in één sample aan de voorwaarde voldoen"
+    },
+    {
+        "id": "IDS_MSG_NOT_SHOW_AGAIN",
+        "text": "Niet meer tonen"
+    },
+    {
+        "id": "IDS_MSG_CLEAR_TRIG",
+        "text": "Trigger wissen"
+    },
+    {
+        "id": "IDS_MSG_IGNORE",
+        "text": "Negeren"
+    },
+    {
+        "id": "IDS_MSG_OPEN",
+        "text": "Openen"
+    },
+    {
+        "id": "IDS_MSG_FAIL_TO_LOAD",
+        "text": "Laden mislukt"
+    },
+    {
+        "id": "IDS_MSG_HARDWARE_ERROR",
+        "text": "Hardwarebewerking mislukt"
+    },
+    {
+        "id": "IDS_MSG_HARDWARE_ERROR_DET",
+        "text": "Sluit het apparaat opnieuw aan om de hardwareconfiguratie te vernieuwen!"
+    },
+    {
+        "id": "IDS_MSG_MALLOC_ERROR",
+        "text": "Geheugentoewijzingsfout"
+    },
+    {
+        "id": "IDS_MSG_MALLOC_ERROR_DET",
+        "text": "Onvoldoende geheugen voor deze meting!\nVerlaag de geheugendiepte!"
+    },
+    {
+        "id": "IDS_MSG_PACKET_ERROR",
+        "text": "Pakketfout"
+    },
+    {
+        "id": "IDS_MSG_PACKET_ERROR_DET",
+        "text": "Het ontvangen pakketformaat is onjuist!"
+    },
+    {
+        "id": "IDS_MSG_DATA_OVERFLOW",
+        "text": "Gegevensoverloop"
+    },
+    {
+        "id": "IDS_MSG_DATA_OVERFLOW_DET",
+        "text": "De USB-bandbreedte is onvoldoende voor de huidige samplefrequentie!\nVerlaag de samplefrequentie!"
+    },
+    {
+        "id": "IDS_MSG_UNDEFINED_ERROR",
+        "text": "Onbekende fout"
+    },
+    {
+        "id": "IDS_MSG_UNDEFINED_ERROR_DET",
+        "text": "Onverwachte fout!"
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR1",
+        "text": "DSView ondersteunt momenteel geen\nopslaan van bestanden met meerdere gegevenstypen."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR2",
+        "text": "Geen gegevens om op te slaan."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR3",
+        "text": "Geen bestandsnaam."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR4",
+        "text": "Genereren van tijdelijke bestandsgegevens mislukt."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR5",
+        "text": "Genereren van decoderbestandsgegevens mislukt."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR6",
+        "text": "Genereren van sessiebestandsgegevens mislukt."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR7",
+        "text": "Genereren van zipbestand mislukt."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVEPROC_ERROR1",
+        "text": "Kan zipbestand niet aanmaken, geheugentoewijzingsfout."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVEPROC_ERROR2",
+        "text": "Kan zipbestand niet aanmaken, controleer de schrijfrechten voor dit pad."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR1",
+        "text": "DSView ondersteunt momenteel geen\nexporteren van bestanden met meerdere gegevenstypen."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR2",
+        "text": "Geen gegevens om op te slaan."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR3",
+        "text": "Geen bestandsnaam ingesteld."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR4",
+        "text": "Ongeldig exportformaat."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTPROC_ERROR1",
+        "text": "gegevenstype wordt niet ondersteund."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTPROC_ERROR2",
+        "text": "buffertoewijzing mislukt."
+    },
+    {
+        "id": "IDS_MSG_SAVE_FILE",
+        "text": "Bestand opslaan"
+    },
+    {
+        "id": "IDS_MSG_EXPORT_DATA",
+        "text": "Gegevens exporteren"
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_WORK_ERROR",
+        "text": "Een of meer vereiste kanalen zijn niet opgegeven!"
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_DATA_ERROR",
+        "text": "Ten minste één van de geselecteerde kanalen is niet ingeschakeld."
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_STACK_ERROR",
+        "text": "Kan decoderinstantie niet aanmaken"
+    },
+    {
+        "id": "IDS_MSG_MESSAGE",
+        "text": "Bericht"
+    },
+    {
+        "id": "IDS_MSG_BOX_CONFIRM",
+        "text": "Bevestigen"
+    },
+    {
+        "id": "IDS_MSG_NO_DATA",
+        "text": "Geen gegevens!"
+    },
+    {
+        "id": "IDS_MSG_TO_SWITCH_DEVICE",
+        "text": "Overschakelen naar het nieuwe apparaat?"
+    },
+    {
+        "id": "IDS_MSG_DISABLED_CHANNEL_TRIG",
+        "text": "Uitgeschakelde kanalen kunnen niet voor de trigger worden gebruikt!"
+    },
+    {
+        "id": "IDS_MSG_TO_RECONNECT_FOR_FIRMWARE",
+        "text": "De firmwareversie is onjuist, sluit het apparaat opnieuw aan!"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_BUSY_SWITCH_FAILED",
+        "text": "Het apparaat is bezet, overschakelen mislukt!"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_NO_DRIVER",
+        "text": "Het apparaatstuurprogramma is mogelijk niet geïnstalleerd!"
+    },
+    {
+        "id": "IDS_MSG_NO_ENABLED_CHANNEL",
+        "text": "Geen kanalen ingeschakeld!"
+    },
+    {
+        "id": "IDS_MSG_FILE_NOT_EXIST",
+        "text": "Bestand bestaat niet!"
+    },
+    {
+        "id": "IDS_MSG_TO_CLEAR_LOG",
+        "text": "Weet u zeker dat u het logbestand wilt wissen?"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_SPEED_TOO_LOW",
+        "text": "Fout: USB-poortsnelheid is te laag (<480Mbps)!"
+    },
+    {
+        "id": "IDS_MSG_FIRMWARE_NOT_EXIST",
+        "text": "Fout: firmwarebestand bestaat niet!"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_USB_IO_ERROR",
+        "text": "Fout: USB-I/O-fout!"
+    },
+    {
+        "id": "IDS_MSG_DATA_RANGE_ERROR",
+        "text": "Gegevensbereik is ongeldig!"
+    },
+    {
+        "id": "IDS_MSG_DATA_RANGE_HAVE_NO_DATA",
+        "text": "Geen gegevens in het gegevensbereik!"
+    },
+    {
+        "id": "IDS_MSG_NO_DECODED_RESULT",
+        "text": "Geen gegevens om te exporteren!"
+    }
+]

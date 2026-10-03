@@ -1,0 +1,146 @@
+[
+    {
+        "id": "Connection",
+        "text": "Verbinding"
+    },
+    {
+        "id": "Serial communication",
+        "text": "Seriële communicatie"
+    },
+    {
+        "id": "Sample rate",
+        "text": "Samplefrequentie"
+    },
+    {
+        "id": "Sample depth",
+        "text": "Geheugendiepte"
+    },
+    {
+        "id": "Sample count",
+        "text": "Aantal samples"
+    },
+    {
+        "id": "Using External Clock",
+        "text": "Externe klok gebruiken"
+    },
+    {
+        "id": "Using Clock Negedge",
+        "text": "Dalende klokflank gebruiken"
+    },
+    {
+        "id": "Pre-trigger capture ratio",
+        "text": "Pre-triggerverhouding"
+    },
+    {
+        "id": "Run Length Encoding",
+        "text": "Run-length-codering"
+    },
+    {
+        "id": "Wait Buffer Upload",
+        "text": "Wachten op bufferupload"
+    },
+    {
+        "id": "Trigger slope",
+        "text": "Triggerflank"
+    },
+    {
+        "id": "Trigger source",
+        "text": "Triggerbron"
+    },
+    {
+        "id": "Trigger channel",
+        "text": "Triggerkanaal"
+    },
+    {
+        "id": "Horizontal trigger position",
+        "text": "Horizontale triggerpositie"
+    },
+    {
+        "id": "Trigger hold off",
+        "text": "Trigger-holdoff"
+    },
+    {
+        "id": "Trigger margin",
+        "text": "Triggermarge"
+    },
+    {
+        "id": "Buffer size",
+        "text": "Buffergrootte"
+    },
+    {
+        "id": "Time base",
+        "text": "Tijdbasis"
+    },
+    {
+        "id": "Max Height",
+        "text": "Max. hoogte"
+    },
+    {
+        "id": "Max Height value",
+        "text": "Max. hoogtewaarde"
+    },
+    {
+        "id": "Filter Targets",
+        "text": "Filterdoelen"
+    },
+    {
+        "id": "Datalog",
+        "text": "Datalog"
+    },
+    {
+        "id": "Operation Mode",
+        "text": "Bedrijfsmodus"
+    },
+    {
+        "id": "Stop Options",
+        "text": "Stopopties"
+    },
+    {
+        "id": "Channel Mode",
+        "text": "Kanaalmodus"
+    },
+    {
+        "id": "Threshold Levels",
+        "text": "Drempelniveaus"
+    },
+    {
+        "id": "Threshold Level",
+        "text": "Drempelniveau"
+    },
+    {
+        "id": "Enable RLE Compress",
+        "text": "RLE-compressie inschakelen"
+    },
+    {
+        "id": "Bandwidth Limit",
+        "text": "Bandbreedtelimiet"
+    },
+    {
+        "id": "Coupling",
+        "text": "Koppeling"
+    },
+    {
+        "id": "Volts/div",
+        "text": "Volt/div"
+    },
+    {
+        "id": "Probe Factor",
+        "text": "Probefactor"
+    },
+    {
+        "id": "Map Default",
+        "text": "Standaardtoewijzing"
+    },
+    {
+        "id": "Map Unit",
+        "text": "Toewijzingseenheid"
+    },
+    {
+        "id": "Map Min",
+        "text": "Toewijzing min."
+    },
+    {
+        "id": "Map Max",
+        "text": "Toewijzing max."
+    }
+]

@@ -1,0 +1,182 @@
+[
+    {
+        "id": "IDS_DEVICE_MODE_LOGIC",
+        "text": "로직 분석기(&L)"
+    },
+    {
+        "id": "IDS_DEVICE_MODE_ANALOG",
+        "text": "데이터 수집(&A)"
+    },
+    {
+        "id": "IDS_DEVICE_MODE_DSO",
+        "text": "오실로스코프(&C)"
+    },
+    {
+        "id": "IDS_TOOLBAR_DEVICE_TYPE_DEMO",
+        "text": "데모"
+    },
+    {
+        "id": "IDS_TOOLBAR_DEVICE_TYPE_FILE",
+        "text": "파일"
+    },
+    {
+        "id": "IDS_TOOLBAR_DEVICE_OPTION",
+        "text": "옵션(&O)"
+    },
+    {
+        "id": "IDS_TOOLBAR_DEVICE_OPTION_ITEM",
+        "text": "장치 옵션..."
+    },
+    {
+        "id": "IDS_TOOLBAR_CAPTURE_MODE",
+        "text": "모드(&E)"
+    },
+    {
+        "id": "IDS_TOOLBAR_CAPTURE_MODE_SINGLE",
+        "text": "단일(&S)"
+    },
+    {
+        "id": "IDS_TOOLBAR_CAPTURE_MODE_REPEAT",
+        "text": "반복(&R)"
+    },
+    {
+        "id": "IDS_TOOLBAR_CAPTURE_MODE_LOOP",
+        "text": "루프(&L)"
+    },
+    {
+        "id": "IDS_TOOLBAR_RUN_START",
+        "text": "시작(&S)"
+    },
+    {
+        "id": "IDS_TOOLBAR_RUN_STOP",
+        "text": "정지(&S)"
+    },
+    {
+        "id": "IDS_TOOLBAR_ONE_SINGLE",
+        "text": "단일(&I)"
+    },
+    {
+        "id": "IDS_TOOLBAR_ONE_INSTANT",
+        "text": "즉시(&I)"
+    },
+    {
+        "id": "IDS_TOOLBAR_ONE_STOP",
+        "text": "정지(&S)"
+    },
+    {
+        "id": "IDS_TOOLBAR_TRIGGER",
+        "text": "트리거(&T)"
+    },
+    {
+        "id": "IDS_TOOLBAR_DECODE",
+        "text": "디코드(&D)"
+    },
+    {
+        "id": "IDS_TOOLBAR_MEASURE",
+        "text": "측정(&M)"
+    },
+    {
+        "id": "IDS_TOOLBAR_SEARCH",
+        "text": "검색(&R)"
+    },
+    {
+        "id": "IDS_TOOLBAR_FUNCTION",
+        "text": "함수(&N)"
+    },
+    {
+        "id": "IDS_TOOLBAR_FUNCTION_FFT",
+        "text": "&FFT"
+    },
+    {
+        "id": "IDS_TOOLBAR_FUNCTION_MATH",
+        "text": "연산(&M)"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY",
+        "text": "표시(&P)"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_THEMES",
+        "text": "테마(&T)"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_LISSAJOUS",
+        "text": "리사주(&A)"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_THEMES_DARK",
+        "text": "다크(&D)"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_THEMES_LIGHT",
+        "text": "라이트(&L)"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_OPTIONS",
+        "text": "옵션(&O)"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE",
+        "text": "파일(&F)"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CONFIG",
+        "text": "세션(&G)"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CONFIG_LOAD",
+        "text": "세션 불러오기(&L)"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CONFIG_STORE",
+        "text": "세션 저장(&S)"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CONFIG_DEFAULT",
+        "text": "기본 세션 불러오기(&D)"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_OPEN",
+        "text": "열기(&O)..."
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_SAVE",
+        "text": "저장(&S)..."
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_EXPORT",
+        "text": "내보내기(&E)..."
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CAPTURE",
+        "text": "스크린샷(&C)..."
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP",
+        "text": "도움말(&H)"
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_LANG",
+        "text": "언어(&L)"
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_ABOUT",
+        "text": "정보(&A)..."
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_MANUAL",
+        "text": "설명서(&M)..."
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_BUG",
+        "text": "버그 보고(&B)"
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_UPDATE",
+        "text": "업데이트(&U)"
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_LOG",
+        "text": "로그 옵션(&O)"
+    }
+]

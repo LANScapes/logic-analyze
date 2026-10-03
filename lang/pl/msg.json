@@ -1,0 +1,390 @@
+[
+    {
+        "id": "IDS_MSG_OK",
+        "text": "OK"
+    },
+    {
+        "id": "IDS_MSG_SKIP",
+        "text": "Pomiń"
+    },
+    {
+        "id": "IDS_MSG_CANCEL",
+        "text": "Anuluj"
+    },
+    {
+        "id": "IDS_MSG_ATTENTION",
+        "text": "Uwaga"
+    },
+    {
+        "id": "IDS_MSG_ERROR",
+        "text": "Błąd"
+    },
+    {
+        "id": "IDS_MSG_INFORMATION",
+        "text": "Informacja"
+    },
+    {
+        "id": "IDS_MSG_CONTINUE",
+        "text": "Kontynuuj"
+    },
+    {
+        "id": "IDS_MSG_AUTO_CALIB_START",
+        "text": "Zostanie uruchomiona automatyczna kalibracja. Nie podłączaj żadnych sond. \nTo może chwilę potrwać!"
+    },
+    {
+        "id": "IDS_MSG_AUTO_CALIB",
+        "text": "Automatyczna kalibracja"
+    },
+    {
+        "id": "IDS_MSG_ADJUST_SAVE",
+        "text": "Wyreguluj przesunięcie zera i zapisz wynik"
+    },
+    {
+        "id": "IDS_MSG_SAVE_CAPDATE",
+        "text": "Zapisać zebrane dane?"
+    },
+    {
+        "id": "IDS_MSG_NOT_FOND_DEFAULT_PROFILE",
+        "text": "Nie znaleziono domyślnej sesji dla tego urządzenia!"
+    },
+    {
+        "id": "IDS_MSG_OPEN_FILE_ERROR",
+        "text": "Błąd otwierania pliku!"
+    },
+    {
+        "id": "IDS_MSG_PROFILE_NOT_COMPATIBLE",
+        "text": "Sesja nie jest zgodna z bieżącym urządzeniem lub trybem!"
+    },
+    {
+        "id": "IDS_MSG_RESTORE_WINDOW_ERROR",
+        "text": "Błąd przywracania stanu okna!"
+    },
+    {
+        "id": "IDS_MSG_DECODE_INVAILD_CURSOR",
+        "text": "Nieprawidłowy indeks kursora dla zakresu próbek!"
+    },
+    {
+        "id": "IDS_MSG_SEL_FILENAME",
+        "text": "Musisz wybrać nazwę pliku."
+    },
+    {
+        "id": "IDS_MSG_DECODER_REPEAT",
+        "text": "W dekoderach znaleziono powtarzający się identyfikator lub nazwę:"
+    },
+    {
+        "id": "IDS_MSG_DECODER_LIST_EMPTY",
+        "text": "Lista dekoderów jest pusta!"
+    },
+    {
+        "id": "IDS_MSG_NO_SEL_DECODER",
+        "text": "Wybierz dekoder!"
+    },
+    {
+        "id": "IDS_MSG_FIND_BASE_DECODER_ERROR",
+        "text": "Nie znaleziono odpowiedniego dekodera bazowego!"
+    },
+    {
+        "id": "IDS_MSG_NO_DECODER_DEL",
+        "text": "Brak dekoderów do usunięcia!"
+    },
+    {
+        "id": "IDS_MSG_DECODER_CONFIRM_DEL_ALL",
+        "text": "Czy na pewno usunąć wszystkie dekodery?"
+    },
+    {
+        "id": "IDS_MSG_DECODER_CONFIRM_DEL",
+        "text": "Czy na pewno usunąć ten dekoder?"
+    },
+    {
+        "id": "IDS_MSG_CLOSE_DEVICE",
+        "text": "Czy na pewno usunąć to urządzenie?"
+    },
+    {
+        "id": "IDS_MSG_SET_DEF_CAL_SETTING",
+        "text": "Wszystkie ustawienia kalibracji zostaną zapisane jako domyślne!"
+    },
+    {
+        "id": "IDS_MSG_ALL_CHANNEL_DISABLE",
+        "text": "Wszystkie kanały są wyłączone! Włącz co najmniej jeden kanał."
+    },
+    {
+        "id": "IDS_MSG_MAX_CHANNEL_COUNT_WARNING",
+        "text": "Bieżący tryb obsługuje maksymalnie {0} kanałów!"
+    },
+    {
+        "id": "IDS_MSG_TRI_SET_ISSUE",
+        "text": "Problem z ustawieniem wyzwalania"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_HOR_TRI_POS_FAIL",
+        "text": "Nie udało się zmienić poziomej pozycji wyzwalania!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_TRI_HOLDOFF_TIME_FAIL",
+        "text": "Nie udało się zmienić czasu blokady wyzwalania!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_SENSITIVITY_FAIL",
+        "text": "Nie udało się zmienić czułości wyzwalania!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_SOURCE_FAIL",
+        "text": "Nie udało się zmienić źródła wyzwalania!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_CHANNEL_FAIL",
+        "text": "Nie udało się zmienić kanału wyzwalania!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_TYPE_FAIL",
+        "text": "Nie udało się zmienić typu wyzwalania!"
+    },
+    {
+        "id": "IDS_MSG_PLEASE_INSERT_CURSOR",
+        "text": "Wstaw kursor przed użyciem pomiaru kursorami."
+    },
+    {
+        "id": "IDS_MSG_SEARCH",
+        "text": "Szukaj"
+    },
+    {
+        "id": "IDS_MSG_NO_SAMPLE_DATA",
+        "text": "Brak danych próbek!"
+    },
+    {
+        "id": "IDS_MSG_SEARCH_AT_START",
+        "text": "Kursor wyszukiwania jest na pozycji początkowej!"
+    },
+    {
+        "id": "IDS_MSG_PATTERN_NOT_FOUND",
+        "text": "Nie znaleziono wzorca!"
+    },
+    {
+        "id": "IDS_MSG_SEARCH_AT_END",
+        "text": "Kursor wyszukiwania jest na pozycji końcowej!"
+    },
+    {
+        "id": "IDS_MSG_TRIGGER",
+        "text": "Wyzwalanie"
+    },
+    {
+        "id": "IDS_MSG_STREAM_NO_AD_TRIGGER",
+        "text": "Tryb strumieniowy nie obsługuje wyzwalania zaawansowanego!"
+    },
+    {
+        "id": "IDS_MSG_AD_TRIGGER_NEED_HARDWARE",
+        "text": "Wyzwalanie zaawansowane wymaga obsługi sprzętowej DSLogic!"
+    },
+    {
+        "id": "IDS_MSG_SET_TRI_MULTI_CHANNEL",
+        "text": "Wyzwalanie ustawiono na wielu kanałach!\nAkwizycja zostanie wyzwolona tylko wtedy, gdy wszystkie ustawione kanały spełnią warunek w tej samej próbce"
+    },
+    {
+        "id": "IDS_MSG_NOT_SHOW_AGAIN",
+        "text": "Nie pokazuj ponownie"
+    },
+    {
+        "id": "IDS_MSG_CLEAR_TRIG",
+        "text": "Wyczyść wyzwalanie"
+    },
+    {
+        "id": "IDS_MSG_IGNORE",
+        "text": "Ignoruj"
+    },
+    {
+        "id": "IDS_MSG_OPEN",
+        "text": "Otwórz"
+    },
+    {
+        "id": "IDS_MSG_FAIL_TO_LOAD",
+        "text": "Nie udało się wczytać"
+    },
+    {
+        "id": "IDS_MSG_HARDWARE_ERROR",
+        "text": "Operacja sprzętowa nie powiodła się"
+    },
+    {
+        "id": "IDS_MSG_HARDWARE_ERROR_DET",
+        "text": "Podłącz urządzenie ponownie, aby odświeżyć konfigurację sprzętu!"
+    },
+    {
+        "id": "IDS_MSG_MALLOC_ERROR",
+        "text": "Błąd przydziału pamięci"
+    },
+    {
+        "id": "IDS_MSG_MALLOC_ERROR_DET",
+        "text": "Za mało pamięci dla tej akwizycji!\nZmniejsz głębokość pamięci!"
+    },
+    {
+        "id": "IDS_MSG_PACKET_ERROR",
+        "text": "Błąd pakietu"
+    },
+    {
+        "id": "IDS_MSG_PACKET_ERROR_DET",
+        "text": "Format odebranego pakietu jest nieprawidłowy!"
+    },
+    {
+        "id": "IDS_MSG_DATA_OVERFLOW",
+        "text": "Przepełnienie danych"
+    },
+    {
+        "id": "IDS_MSG_DATA_OVERFLOW_DET",
+        "text": "Przepustowość USB nie wystarcza dla bieżącej częstotliwości próbkowania!\nZmniejsz częstotliwość próbkowania!"
+    },
+    {
+        "id": "IDS_MSG_UNDEFINED_ERROR",
+        "text": "Niezdefiniowany błąd"
+    },
+    {
+        "id": "IDS_MSG_UNDEFINED_ERROR_DET",
+        "text": "Nieoczekiwany błąd!"
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR1",
+        "text": "DSView nie obsługuje obecnie\nzapisu plików z wieloma typami danych."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR2",
+        "text": "Brak danych do zapisania."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR3",
+        "text": "Brak nazwy pliku."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR4",
+        "text": "Nie udało się wygenerować danych pliku tymczasowego."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR5",
+        "text": "Nie udało się wygenerować danych pliku dekodera."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR6",
+        "text": "Nie udało się wygenerować danych pliku sesji."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR7",
+        "text": "Nie udało się wygenerować pliku zip."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVEPROC_ERROR1",
+        "text": "Nie udało się utworzyć pliku zip, błąd przydziału pamięci."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVEPROC_ERROR2",
+        "text": "Nie udało się utworzyć pliku zip, sprawdź uprawnienia zapisu w tej ścieżce."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR1",
+        "text": "DSView nie obsługuje obecnie\neksportu plików z wieloma typami danych."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR2",
+        "text": "Brak danych do zapisania."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR3",
+        "text": "Nie ustawiono nazwy pliku."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR4",
+        "text": "Nieprawidłowy format eksportu."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTPROC_ERROR1",
+        "text": "nieobsługiwany typ danych."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTPROC_ERROR2",
+        "text": "nie udało się przydzielić bufora."
+    },
+    {
+        "id": "IDS_MSG_SAVE_FILE",
+        "text": "Zapisz plik"
+    },
+    {
+        "id": "IDS_MSG_EXPORT_DATA",
+        "text": "Eksportuj dane"
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_WORK_ERROR",
+        "text": "Nie przypisano co najmniej jednego wymaganego kanału!"
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_DATA_ERROR",
+        "text": "Co najmniej jeden z wybranych kanałów nie jest włączony."
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_STACK_ERROR",
+        "text": "Nie udało się utworzyć instancji dekodera"
+    },
+    {
+        "id": "IDS_MSG_MESSAGE",
+        "text": "Komunikat"
+    },
+    {
+        "id": "IDS_MSG_BOX_CONFIRM",
+        "text": "Potwierdź"
+    },
+    {
+        "id": "IDS_MSG_NO_DATA",
+        "text": "Brak danych!"
+    },
+    {
+        "id": "IDS_MSG_TO_SWITCH_DEVICE",
+        "text": "Przełączyć na nowe urządzenie?"
+    },
+    {
+        "id": "IDS_MSG_DISABLED_CHANNEL_TRIG",
+        "text": "Wyłączonych kanałów nie można użyć do wyzwalania!"
+    },
+    {
+        "id": "IDS_MSG_TO_RECONNECT_FOR_FIRMWARE",
+        "text": "Nieprawidłowa wersja firmware, podłącz urządzenie ponownie!"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_BUSY_SWITCH_FAILED",
+        "text": "Urządzenie jest zajęte, przełączenie nie powiodło się!"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_NO_DRIVER",
+        "text": "Sterownik urządzenia może nie być zainstalowany!"
+    },
+    {
+        "id": "IDS_MSG_NO_ENABLED_CHANNEL",
+        "text": "Brak włączonych kanałów!"
+    },
+    {
+        "id": "IDS_MSG_FILE_NOT_EXIST",
+        "text": "Plik nie istnieje!"
+    },
+    {
+        "id": "IDS_MSG_TO_CLEAR_LOG",
+        "text": "Czy na pewno wyczyścić plik logu?"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_SPEED_TOO_LOW",
+        "text": "Błąd: prędkość portu USB jest zbyt niska (<480Mbps)!"
+    },
+    {
+        "id": "IDS_MSG_FIRMWARE_NOT_EXIST",
+        "text": "Błąd: plik firmware nie istnieje!"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_USB_IO_ERROR",
+        "text": "Błąd: błąd wejścia/wyjścia USB!"
+    },
+    {
+        "id": "IDS_MSG_DATA_RANGE_ERROR",
+        "text": "Nieprawidłowy zakres danych!"
+    },
+    {
+        "id": "IDS_MSG_DATA_RANGE_HAVE_NO_DATA",
+        "text": "Brak danych w zakresie!"
+    },
+    {
+        "id": "IDS_MSG_NO_DECODED_RESULT",
+        "text": "Brak danych do eksportu!"
+    }
+]

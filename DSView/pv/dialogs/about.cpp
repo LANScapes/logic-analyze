@@ -166,6 +166,8 @@ About::About(QWidget *parent) :
     QDir dir(GetAppDataDir());
     AppConfig &app = AppConfig::Instance(); 
     int lan = app.frameOptions.language;
+    if (lan != LAN_CN)
+        lan = LAN_EN; // the change log exists in Chinese and English only
 
     QString filename = dir.absolutePath() + "/NEWS" + QString::number(lan);
     QFile news(filename);

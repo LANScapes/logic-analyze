@@ -1,0 +1,182 @@
+[
+    {
+        "id": "dec_0i2c_chan_scl",
+        "text": "Seriële kloklijn"
+    },
+    {
+        "id": "dec_0i2c_chan_sda",
+        "text": "Seriële datalijn"
+    },
+    {
+        "id": "dec_0i2c_opt_addr",
+        "text": "Weergaveformaat slave-adres"
+    },
+    {
+        "id": "dec_0spi_chan_clk",
+        "text": "Klok"
+    },
+    {
+        "id": "dec_0spi_opt_chan_miso",
+        "text": "Master in, slave out"
+    },
+    {
+        "id": "dec_0spi_opt_chan_mosi",
+        "text": "Master out, slave in"
+    },
+    {
+        "id": "dec_0spi_opt_chan_cs",
+        "text": "Chip-select"
+    },
+    {
+        "id": "dec_0spi_opt_cs_pol",
+        "text": "CS#-polariteit"
+    },
+    {
+        "id": "dec_0spi_opt_cpol",
+        "text": "Klokpolariteit (CPOL)"
+    },
+    {
+        "id": "dec_0spi_opt_cpha",
+        "text": "Klokfase (CPHA)"
+    },
+    {
+        "id": "dec_0spi_opt_bitorder",
+        "text": "Bitvolgorde"
+    },
+    {
+        "id": "dec_0spi_opt_wordsize",
+        "text": "Woordgrootte"
+    },
+    {
+        "id": "dec_0uart_chan_rxtx",
+        "text": "UART-zend-/ontvangstlijn"
+    },
+    {
+        "id": "dec_0uart_opt_baudrate",
+        "text": "Baudrate"
+    },
+    {
+        "id": "dec_0uart_opt_num_data_bits",
+        "text": "Databits"
+    },
+    {
+        "id": "dec_0uart_opt_parity_type",
+        "text": "Pariteitstype"
+    },
+    {
+        "id": "dec_0uart_opt_parity_check",
+        "text": "Pariteit controleren?"
+    },
+    {
+        "id": "dec_0uart_opt_num_stop_bits",
+        "text": "Stopbits"
+    },
+    {
+        "id": "dec_0uart_opt_bit_order",
+        "text": "Bitvolgorde"
+    },
+    {
+        "id": "dec_0uart_opt_format",
+        "text": "Dataformaat"
+    },
+    {
+        "id": "dec_0uart_opt_invert",
+        "text": "Signaal inverteren?"
+    },
+    {
+        "id": "dec_0uart_anno_startstop",
+        "text": "Start/stop tonen?"
+    },
+    {
+        "id": "dec_1i2c_chan_scl",
+        "text": "Seriële kloklijn"
+    },
+    {
+        "id": "dec_1i2c_chan_sda",
+        "text": "Seriële datalijn"
+    },
+    {
+        "id": "dec_1i2c_opt_addr",
+        "text": "Weergaveformaat slave-adres"
+    },
+    {
+        "id": "dec_1spi_chan_clk",
+        "text": "Klok"
+    },
+    {
+        "id": "dec_1spi_opt_chan_miso",
+        "text": "Master in, slave out"
+    },
+    {
+        "id": "dec_1spi_opt_chan_mosi",
+        "text": "Master out, slave in"
+    },
+    {
+        "id": "dec_1spi_opt_chan_cs",
+        "text": "Chip-select"
+    },
+    {
+        "id": "dec_1spi_opt_cs_pol",
+        "text": "CS#-polariteit"
+    },
+    {
+        "id": "dec_1spi_opt_cpol",
+        "text": "Klokpolariteit (CPOL)"
+    },
+    {
+        "id": "dec_1spi_opt_cpha",
+        "text": "Klokfase (CPHA)"
+    },
+    {
+        "id": "dec_1spi_opt_bitorder",
+        "text": "Bitvolgorde"
+    },
+    {
+        "id": "dec_1spi_opt_wordsize",
+        "text": "Woordgrootte"
+    },
+    {
+        "id": "dec_1spi_opt_frame",
+        "text": "Framedecoder"
+    },
+    {
+        "id": "dec_1uart_chan_rxtx",
+        "text": "UART-zend-/ontvangstlijn"
+    },
+    {
+        "id": "dec_1uart_opt_baudrate",
+        "text": "Baudrate"
+    },
+    {
+        "id": "dec_1uart_opt_num_data_bits",
+        "text": "Databits"
+    },
+    {
+        "id": "dec_1uart_opt_parity_type",
+        "text": "Pariteitstype"
+    },
+    {
+        "id": "dec_1uart_opt_parity_check",
+        "text": "Pariteit controleren?"
+    },
+    {
+        "id": "dec_1uart_opt_num_stop_bits",
+        "text": "Stopbits"
+    },
+    {
+        "id": "dec_1uart_opt_bit_order",
+        "text": "Bitvolgorde"
+    },
+    {
+        "id": "dec_1uart_opt_format",
+        "text": "Dataformaat"
+    },
+    {
+        "id": "dec_1uart_opt_invert",
+        "text": "Signaal inverteren?"
+    },
+    {
+        "id": "dec_1uart_anno_startstop",
+        "text": "Start/stop tonen?"
+    }
+]

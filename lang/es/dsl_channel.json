@@ -1,0 +1,82 @@
+[
+    {
+        "id": "Use 16 Channels (Max 20MHz)",
+        "text": "Usar 16 canales (máx. 20MHz)"
+    },
+    {
+        "id": "Use 12 Channels (Max 25MHz)",
+        "text": "Usar 12 canales (máx. 25MHz)"
+    },
+    {
+        "id": "Use 6 Channels (Max 50MHz)",
+        "text": "Usar 6 canales (máx. 50MHz)"
+    },
+    {
+        "id": "Use 3 Channels (Max 100MHz)",
+        "text": "Usar 3 canales (máx. 100MHz)"
+    },
+    {
+        "id": "Use 32 Channels (Max 10MHz)",
+        "text": "Usar 32 canales (máx. 10MHz)"
+    },
+    {
+        "id": "Use 32 Channels (Max 50MHz)",
+        "text": "Usar 32 canales (máx. 50MHz)"
+    },
+    {
+        "id": "Use 30 Channels (Max 100MHz)",
+        "text": "Usar 30 canales (máx. 100MHz)"
+    },
+    {
+        "id": "Use 12 Channels (Max 250MHz)",
+        "text": "Usar 12 canales (máx. 250MHz)"
+    },
+    {
+        "id": "Use 16 Channels (Max 125MHz)",
+        "text": "Usar 16 canales (máx. 125MHz)"
+    },
+    {
+        "id": "Use 6 Channels (Max 500MHz)",
+        "text": "Usar 6 canales (máx. 500MHz)"
+    },
+    {
+        "id": "Use 3 Channels (Max 1GHz)",
+        "text": "Usar 3 canales (máx. 1GHz)"
+    },
+    {
+        "id": "Use Channels 0~15 (Max 100MHz)",
+        "text": "Usar canales 0~15 (máx. 100MHz)"
+    },
+    {
+        "id": "Use Channels 0~7 (Max 200MHz)",
+        "text": "Usar canales 0~7 (máx. 200MHz)"
+    },
+    {
+        "id": "Use Channels 0~3 (Max 400MHz)",
+        "text": "Usar canales 0~3 (máx. 400MHz)"
+    },
+    {
+        "id": "Use Channels 0~31 (Max 250MHz)",
+        "text": "Usar canales 0~31 (máx. 250MHz)"
+    },
+    {
+        "id": "Use Channels 0~15 (Max 500MHz)",
+        "text": "Usar canales 0~15 (máx. 500MHz)"
+    },
+    {
+        "id": "Use Channels 0~7 (Max 1GHz)",
+        "text": "Usar canales 0~7 (máx. 1GHz)"
+    },
+    {
+        "id": "Use Channels 0~1 (Max 10MHz)",
+        "text": "Usar canales 0~1 (máx. 10MHz)"
+    },
+    {
+        "id": "Use Channels 0~1 (Max 200MHz)",
+        "text": "Usar canales 0~1 (máx. 200MHz)"
+    },
+    {
+        "id": "Use Channels 0~1 (Max 1GHz)",
+        "text": "Usar canales 0~1 (máx. 1GHz)"
+    }
+]

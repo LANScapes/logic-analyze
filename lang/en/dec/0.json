@@ -1,0 +1,182 @@
+[
+    {
+        "id": "dec_0i2c_chan_scl",
+        "text": "Serial clock line"
+    },
+    {
+        "id": "dec_0i2c_chan_sda",
+        "text": "Serial data line"
+    },
+    {
+        "id": "dec_0i2c_opt_addr",
+        "text": "Displayed slave address format"
+    },
+    {
+        "id": "dec_0spi_chan_clk",
+        "text": "Clock"
+    },
+    {
+        "id": "dec_0spi_opt_chan_miso",
+        "text": "Master in, slave out"
+    },
+    {
+        "id": "dec_0spi_opt_chan_mosi",
+        "text": "Master out, slave in"
+    },
+    {
+        "id": "dec_0spi_opt_chan_cs",
+        "text": "Chip-select"
+    },
+    {
+        "id": "dec_0spi_opt_cs_pol",
+        "text": "CS# polarity"
+    },
+    {
+        "id": "dec_0spi_opt_cpol",
+        "text": "Clock polarity (CPOL)"
+    },
+    {
+        "id": "dec_0spi_opt_cpha",
+        "text": "Clock phase (CPHA)"
+    },
+    {
+        "id": "dec_0spi_opt_bitorder",
+        "text": "Bit order"
+    },
+    {
+        "id": "dec_0spi_opt_wordsize",
+        "text": "Word size"
+    },
+    {
+        "id": "dec_0uart_chan_rxtx",
+        "text": "UART transceive line"
+    },
+    {
+        "id": "dec_0uart_opt_baudrate",
+        "text": "Baud rate"
+    },
+    {
+        "id": "dec_0uart_opt_num_data_bits",
+        "text": "Data bits"
+    },
+    {
+        "id": "dec_0uart_opt_parity_type",
+        "text": "Parity type"
+    },
+    {
+        "id": "dec_0uart_opt_parity_check",
+        "text": "Check parity?"
+    },
+    {
+        "id": "dec_0uart_opt_num_stop_bits",
+        "text": "Stop bits"
+    },
+    {
+        "id": "dec_0uart_opt_bit_order",
+        "text": "Bit order"
+    },
+    {
+        "id": "dec_0uart_opt_format",
+        "text": "Data format"
+    },
+    {
+        "id": "dec_0uart_opt_invert",
+        "text": "Invert Signal?"
+    },
+    {
+        "id": "dec_0uart_anno_startstop",
+        "text": "Display Start/Stop?"
+    },
+    {
+        "id": "dec_1i2c_chan_scl",
+        "text": "Serial clock line"
+    },
+    {
+        "id": "dec_1i2c_chan_sda",
+        "text": "Serial data line"
+    },
+    {
+        "id": "dec_1i2c_opt_addr",
+        "text": "Displayed slave address format"
+    },
+    {
+        "id": "dec_1spi_chan_clk",
+        "text": "Clock"
+    },
+    {
+        "id": "dec_1spi_opt_chan_miso",
+        "text": "Master in, slave out"
+    },
+    {
+        "id": "dec_1spi_opt_chan_mosi",
+        "text": "Master out, slave in"
+    },
+    {
+        "id": "dec_1spi_opt_chan_cs",
+        "text": "Chip-select"
+    },
+    {
+        "id": "dec_1spi_opt_cs_pol",
+        "text": "CS# polarity"
+    },
+    {
+        "id": "dec_1spi_opt_cpol",
+        "text": "Clock polarity (CPOL)"
+    },
+    {
+        "id": "dec_1spi_opt_cpha",
+        "text": "Clock phase (CPHA)"
+    },
+    {
+        "id": "dec_1spi_opt_bitorder",
+        "text": "Bit order"
+    },
+    {
+        "id": "dec_1spi_opt_wordsize",
+        "text": "Word size"
+    },
+    {
+        "id": "dec_1spi_opt_frame",
+        "text": "Frame Decoder"
+    },
+    {
+        "id": "dec_1uart_chan_rxtx",
+        "text": "UART transceive line"
+    },
+    {
+        "id": "dec_1uart_opt_baudrate",
+        "text": "Baud rate"
+    },
+    {
+        "id": "dec_1uart_opt_num_data_bits",
+        "text": "Data bits"
+    },
+    {
+        "id": "dec_1uart_opt_parity_type",
+        "text": "Parity type"
+    },
+    {
+        "id": "dec_1uart_opt_parity_check",
+        "text": "Check parity?"
+    },
+    {
+        "id": "dec_1uart_opt_num_stop_bits",
+        "text": "Stop bits"
+    },
+    {
+        "id": "dec_1uart_opt_bit_order",
+        "text": "Bit order"
+    },
+    {
+        "id": "dec_1uart_opt_format",
+        "text": "Data format"
+    },
+    {
+        "id": "dec_1uart_opt_invert",
+        "text": "Invert Signal?"
+    },
+    {
+        "id": "dec_1uart_anno_startstop",
+        "text": "Display Start/Stop?"
+    }
+]
