@@ -1,0 +1,14 @@
+{
+  "html_lang": "zh-CN",
+  "name": "简体中文",
+  "title": "Logic Analyze 用户手册",
+  "subtitle": "适用于 DSLogic 逻辑分析仪。按照 ASD-STE100 简化技术英语的规则编写和翻译。",
+  "footer": "Logic Analyze 是自由软件，使用 GNU 通用公共许可证第 3 版或更高版本。本手册来自 DreamSourceLab 的 DSView 用户指南。",
+  "labels": {
+    "contents": "目录",
+    "figure": "图",
+    "warning": "警告",
+    "caution": "注意",
+    "note": "说明"
+  }
+}

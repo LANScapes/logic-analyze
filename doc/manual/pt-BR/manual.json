@@ -1,0 +1,14 @@
+{
+  "html_lang": "pt-BR",
+  "name": "Português (Brasil)",
+  "title": "Manual do usuário do Logic Analyze",
+  "subtitle": "Para os analisadores lógicos DSLogic. Traduzido do texto em ASD-STE100 Simplified Technical English.",
+  "footer": "O Logic Analyze é software livre sob a GNU General Public License, versão 3 ou posterior. Este manual vem do DSView User Guide da DreamSourceLab.",
+  "labels": {
+    "contents": "Sumário",
+    "figure": "Figura",
+    "warning": "ADVERTÊNCIA",
+    "caution": "CUIDADO",
+    "note": "NOTA"
+  }
+}

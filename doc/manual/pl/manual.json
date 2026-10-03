@@ -1,0 +1,14 @@
+{
+  "html_lang": "pl",
+  "name": "Polski",
+  "title": "Logic Analyze – Podręcznik użytkownika",
+  "subtitle": "Dla analizatorów logicznych DSLogic. Przetłumaczono z podręcznika w ASD-STE100 Simplified Technical English.",
+  "footer": "Logic Analyze to wolne oprogramowanie na licencji GNU General Public License w wersji 3 lub późniejszej. Ten podręcznik pochodzi z DSView User Guide firmy DreamSourceLab.",
+  "labels": {
+    "contents": "Spis treści",
+    "figure": "Rysunek",
+    "warning": "OSTRZEŻENIE",
+    "caution": "UWAGA",
+    "note": "INFORMACJA"
+  }
+}
