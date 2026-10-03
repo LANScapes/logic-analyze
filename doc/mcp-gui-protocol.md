@@ -64,7 +64,7 @@ Each frame is a big-endian `u32` length N (1 ≤ N ≤ 32764), then N bytes of o
 | `samplerate_hz` | integer > 0, one of the device's rates | required | `--samplerate` |
 | `samples` | integer ≥ 1, samples per channel | 1000000 | `--samples` |
 | `duration_s` | number > 0; used only when `samples` is absent: samples = max(1, floor(duration_s × samplerate_hz)) | | |
-| `threshold_v` | number 0–5 | 1.6 | `--vth` |
+| `threshold_v` | number 0–5; ignored on a device without a threshold setting | 1.6 | `--vth` |
 | `mode` | `"buffer"` or `"stream"` | `"buffer"` | `--mode` |
 | `trigger_channel` | integer, one of `channels`, or null | null (no trigger) | `--trigger CH` |
 | `trigger_edge` | `"R"` rising, `"F"` falling, `"C"` either edge, `"1"` high, `"0"` low | `"R"` | `--trigger CH:E` |
@@ -73,7 +73,7 @@ Each frame is a big-endian `u32` length N (1 ≤ N ≤ 32764), then N bytes of o
 
 Other keys (such as `label`) are ignored. A field of the wrong type or out of range is `unsupported`.
 
-The GUI and `dslcap` turn the request into device settings with the same code (`tools/dslcap/capcore.c`, `cap_apply()`): operation mode first, then the channel mode with the most channels that offers the rate, only the requested channels enabled, the threshold (devices without one: an explicit `threshold_v` is `unsupported`), the rate, the depth (`samples` rounded up to the driver's 1024-sample alignment in buffer mode), and a simple trigger on one channel at `trigger_position_percent`.
+The GUI and `dslcap` turn the request into device settings with the same code (`tools/dslcap/capcore.c`, `cap_apply()`): operation mode first, then the channel mode with the most channels that offers the rate, only the requested channels enabled, the internal clock without run-length compression or input filter, the threshold (ignored on devices without one, which keep their 3.3 V / 5 V setting; `vth` is then null in the record), the rate, the depth (`samples` rounded up to the driver's 1024-sample alignment in buffer mode), and a simple trigger on one channel at `trigger_position_percent`.
 
 The GUI, on `capture`:
 
@@ -99,7 +99,7 @@ Only one MCP capture runs at a time. After `capture_done` or `capture_error` the
 |---|---|
 | `busy` | The user's capture, another MCP capture or a save is running. Try again later. |
 | `no_device` | No analyzer in the device list. |
-| `unsupported` | A malformed request, or a setting the device does not offer (rate, channel/rate combination, threshold, trigger channel). `message` is `dslcap`'s message for it where there is one. |
+| `unsupported` | A malformed request, or a setting the device does not offer (rate, channel/rate combination, trigger channel). `message` is `dslcap`'s message for it where there is one. |
 | `stopped` | Cancelled by the agent, or stopped by the user before any sample arrived. |
 | `failed` | Anything else: timeout, device error, the staging directory is missing, a write failed. |
 
@@ -132,4 +132,4 @@ The GUI closes the connection on a malformed or oversize frame, an unknown messa
 
 ## Parity with dslcap
 
-`dslcap` stays as a developer tool only because it gives the same result as an in-app MCP capture. `tests/capture_parity` (ctest `capture_parity`) runs one request through `dslcap --device demo` and through the GUI's capture path (offscreen) on the demo device's deterministic pattern, and compares `<name>.json` (except `elapsed_s` and `bin`) and `<name>.bin` byte for byte.
+`dslcap` stays as a developer tool only because it gives the same result as an in-app MCP capture. `tools/capture_parity` (ctest `capture_parity`, in a `-DLANSCAPES_APPSTORE=ON -DLANG_UI_CHECK=ON` build) runs one request through `dslcap --device Demo` and through the GUI's capture path (`McpCapture`, offscreen) on the demo device's `protocol` pattern, a fixed recording, and compares the JSON records (all fields except `elapsed_s` and `bin`) and the `.bin` files byte for byte. `dslcap --device NAME` picks the first device whose name contains NAME (default `DSLogic`).
