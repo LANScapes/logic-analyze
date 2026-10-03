@@ -229,7 +229,8 @@ namespace pv
             pv::mcp::McpBridge *mcp = new pv::mcp::McpBridge(_session, this);
             QMenu *options = _sampling_bar->options_button()->menu();
             options->addSeparator();
-            connect(options->addAction("MCP..."), &QAction::triggered, mcp, &pv::mcp::McpBridge::show_pane);
+            _action_mcp = options->addAction(L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_MCP_ITEM), "MCP..."));
+            connect(_action_mcp, &QAction::triggered, mcp, &pv::mcp::McpBridge::show_pane);
         }
 #endif
         // File first; Options and Help close the row.
@@ -394,6 +395,10 @@ namespace pv
         _protocol_dock->setWindowTitle(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_PROTOCOL_DOCK_TITLE), "Decode Protocol"));
         _measure_dock->setWindowTitle(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MEASURE_DOCK_TITLE), "Measurement"));
         _search_dock->setWindowTitle(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_SEARCH_DOCK_TITLE), "Search..."));
+#ifdef LANSCAPES_APPSTORE
+        if (_action_mcp)
+            _action_mcp->setText(L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_MCP_ITEM), "MCP..."));
+#endif
     }
 
     void MainWindow::on_load_file(QString file_name)

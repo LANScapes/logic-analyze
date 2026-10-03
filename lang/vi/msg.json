@@ -386,5 +386,37 @@
     {
         "id": "IDS_MSG_NO_DECODED_RESULT",
         "text": "Không có dữ liệu để xuất!"
+    },
+    {
+        "id": "IDS_MSG_MCP_AGENT_VERSION",
+        "text": "Logic Analyze Agent có phiên bản khác. Hãy cập nhật Logic Analyze."
+    },
+    {
+        "id": "IDS_MSG_MCP_AGENT_MISSING",
+        "text": "Bản sao ứng dụng này thiếu Logic Analyze Agent."
+    },
+    {
+        "id": "IDS_MSG_MCP_CLIENT_USING",
+        "text": "Một ứng dụng khách MCP đang dùng máy phân tích."
+    },
+    {
+        "id": "IDS_MSG_MCP_CLIENT_USING_TAKE_BACK",
+        "text": "Một ứng dụng khách MCP đang dùng máy phân tích. Chọn máy trong danh sách thiết bị để lấy lại."
+    },
+    {
+        "id": "IDS_MSG_MCP_CLIENT_USING_SWITCH",
+        "text": "Một ứng dụng khách MCP đang dùng máy phân tích. Logic Analyze sẽ chuyển sang máy khi ứng dụng khách dùng xong."
+    },
+    {
+        "id": "IDS_MSG_MCP_HAND_OVER",
+        "text": "Một ứng dụng khách MCP muốn dùng máy phân tích. Chuyển giao?"
+    },
+    {
+        "id": "IDS_MSG_MCP_CAPTURE_STOPS",
+        "text": "Phiên thu đang chạy sẽ dừng."
+    },
+    {
+        "id": "IDS_MSG_MCP_DATA_CLEARED",
+        "text": "Dữ liệu đã thu trên màn hình sẽ bị xóa; hãy lưu trước nếu bạn cần."
     }
 ]

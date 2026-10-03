@@ -90,7 +90,7 @@ PAGES = {'STR_PAGE_TOOLBAR': 'toolbar.json', 'STR_PAGE_MSG': 'msg.json', 'STR_PA
 lookup = re.compile(r'L_S\(\s*(STR_PAGE_\w+)\s*,\s*S_ID\(\s*(\w+)\s*\)')
 for base, _, files in os.walk(os.path.join(ROOT, 'DSView')):
     for f in files:
-        if f.endswith(('.cpp', '.h')):
+        if f.endswith(('.cpp', '.h', '.mm')):
             src = open(os.path.join(base, f), encoding='utf-8', errors='replace').read()
             for page, sid in lookup.findall(src):
                 if page in PAGES and sid not in en.get(PAGES[page], {}):

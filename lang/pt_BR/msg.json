@@ -386,5 +386,37 @@
     {
         "id": "IDS_MSG_NO_DECODED_RESULT",
         "text": "Não há dados para exportar!"
+    },
+    {
+        "id": "IDS_MSG_MCP_AGENT_VERSION",
+        "text": "O Logic Analyze Agent está em outra versão. Atualize o Logic Analyze."
+    },
+    {
+        "id": "IDS_MSG_MCP_AGENT_MISSING",
+        "text": "O Logic Analyze Agent não está nesta cópia do app."
+    },
+    {
+        "id": "IDS_MSG_MCP_CLIENT_USING",
+        "text": "Um cliente MCP está usando o analisador."
+    },
+    {
+        "id": "IDS_MSG_MCP_CLIENT_USING_TAKE_BACK",
+        "text": "Um cliente MCP está usando o analisador. Selecione-o na lista de dispositivos para recuperá-lo."
+    },
+    {
+        "id": "IDS_MSG_MCP_CLIENT_USING_SWITCH",
+        "text": "Um cliente MCP está usando o analisador. O Logic Analyze mudará para ele quando o cliente terminar."
+    },
+    {
+        "id": "IDS_MSG_MCP_HAND_OVER",
+        "text": "Um cliente MCP quer usar o analisador. Cedê-lo?"
+    },
+    {
+        "id": "IDS_MSG_MCP_CAPTURE_STOPS",
+        "text": "A captura em andamento será interrompida."
+    },
+    {
+        "id": "IDS_MSG_MCP_DATA_CLEARED",
+        "text": "Os dados capturados na tela serão apagados; salve-os antes, se precisar deles."
     }
 ]

@@ -790,5 +790,57 @@
     {
         "id": "IDS_FFT_MODE_LINEARRSM",
         "text": "RMS linéaire"
+    },
+    {
+        "id": "IDS_DLG_MCP_TITLE",
+        "text": "MCP"
+    },
+    {
+        "id": "IDS_DLG_MCP_INTRO",
+        "text": "MCP permet aux assistants IA de ce Mac (Claude Desktop, Claude Code, Cursor) d'acquérir, de mesurer et de décoder des signaux avec l'analyseur, via le Logic Analyze Agent. Il n'est disponible que lorsque Logic Analyze est ouvert."
+    },
+    {
+        "id": "IDS_DLG_MCP_STATUS",
+        "text": "MCP :"
+    },
+    {
+        "id": "IDS_DLG_MCP_ANALYZER",
+        "text": "Analyseur :"
+    },
+    {
+        "id": "IDS_DLG_MCP_TURN_ON",
+        "text": "Activer"
+    },
+    {
+        "id": "IDS_DLG_MCP_TURN_OFF",
+        "text": "Désactiver"
+    },
+    {
+        "id": "IDS_DLG_MCP_OFF",
+        "text": "Désactivé"
+    },
+    {
+        "id": "IDS_DLG_MCP_AGENT_RUNNING",
+        "text": "Activé. L'agent est en cours d'exécution."
+    },
+    {
+        "id": "IDS_DLG_MCP_AGENT_STARTING",
+        "text": "Activé. L'agent n'est pas encore lancé."
+    },
+    {
+        "id": "IDS_DLG_MCP_TAKE_BACK",
+        "text": "Récupérer"
+    },
+    {
+        "id": "IDS_DLG_MCP_LENT",
+        "text": "Prêté à un client MCP."
+    },
+    {
+        "id": "IDS_DLG_MCP_LENT_WAITING",
+        "text": "Prêté à un client MCP. En attente de la fin de son utilisation."
+    },
+    {
+        "id": "IDS_DLG_MCP_HELD",
+        "text": "Détenu par Logic Analyze. Les clients MCP le demandent quand ils en ont besoin."
     }
 ]

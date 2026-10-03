@@ -386,5 +386,37 @@
     {
         "id": "IDS_MSG_NO_DECODED_RESULT",
         "text": "沒有可匯出的資料！"
+    },
+    {
+        "id": "IDS_MSG_MCP_AGENT_VERSION",
+        "text": "Logic Analyze Agent 的版本不同。請更新 Logic Analyze。"
+    },
+    {
+        "id": "IDS_MSG_MCP_AGENT_MISSING",
+        "text": "此 App 副本缺少 Logic Analyze Agent。"
+    },
+    {
+        "id": "IDS_MSG_MCP_CLIENT_USING",
+        "text": "MCP 用戶端正在使用分析儀。"
+    },
+    {
+        "id": "IDS_MSG_MCP_CLIENT_USING_TAKE_BACK",
+        "text": "MCP 用戶端正在使用分析儀。在裝置清單中選取它即可收回。"
+    },
+    {
+        "id": "IDS_MSG_MCP_CLIENT_USING_SWITCH",
+        "text": "MCP 用戶端正在使用分析儀。用戶端用完後，Logic Analyze 會切換到它。"
+    },
+    {
+        "id": "IDS_MSG_MCP_HAND_OVER",
+        "text": "MCP 用戶端要使用分析儀。要交出嗎？"
+    },
+    {
+        "id": "IDS_MSG_MCP_CAPTURE_STOPS",
+        "text": "進行中的擷取將停止。"
+    },
+    {
+        "id": "IDS_MSG_MCP_DATA_CLEARED",
+        "text": "畫面上擷取的資料將被清除；如有需要，請先儲存。"
     }
 ]

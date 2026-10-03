@@ -790,5 +790,57 @@
     {
         "id": "IDS_FFT_MODE_LINEARRSM",
         "text": "RMS tuyến tính"
+    },
+    {
+        "id": "IDS_DLG_MCP_TITLE",
+        "text": "MCP"
+    },
+    {
+        "id": "IDS_DLG_MCP_INTRO",
+        "text": "MCP cho phép trợ lý AI trên máy Mac này (Claude Desktop, Claude Code, Cursor) thu, đo và giải mã tín hiệu bằng máy phân tích, thông qua Logic Analyze Agent. Tính năng chỉ khả dụng khi Logic Analyze đang mở."
+    },
+    {
+        "id": "IDS_DLG_MCP_STATUS",
+        "text": "MCP:"
+    },
+    {
+        "id": "IDS_DLG_MCP_ANALYZER",
+        "text": "Máy phân tích:"
+    },
+    {
+        "id": "IDS_DLG_MCP_TURN_ON",
+        "text": "Bật"
+    },
+    {
+        "id": "IDS_DLG_MCP_TURN_OFF",
+        "text": "Tắt"
+    },
+    {
+        "id": "IDS_DLG_MCP_OFF",
+        "text": "Đang tắt"
+    },
+    {
+        "id": "IDS_DLG_MCP_AGENT_RUNNING",
+        "text": "Đang bật. Agent đang chạy."
+    },
+    {
+        "id": "IDS_DLG_MCP_AGENT_STARTING",
+        "text": "Đang bật. Agent chưa chạy."
+    },
+    {
+        "id": "IDS_DLG_MCP_TAKE_BACK",
+        "text": "Lấy lại"
+    },
+    {
+        "id": "IDS_DLG_MCP_LENT",
+        "text": "Đang cho ứng dụng khách MCP mượn."
+    },
+    {
+        "id": "IDS_DLG_MCP_LENT_WAITING",
+        "text": "Đang cho ứng dụng khách MCP mượn. Đang chờ dùng xong."
+    },
+    {
+        "id": "IDS_DLG_MCP_HELD",
+        "text": "Logic Analyze đang giữ. Ứng dụng khách MCP sẽ yêu cầu khi cần."
     }
 ]

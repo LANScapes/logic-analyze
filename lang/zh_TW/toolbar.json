@@ -178,5 +178,9 @@
     {
         "id": "IDS_TOOLBAR_HELP_LOG",
         "text": "記錄選項(&O)"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_ITEM",
+        "text": "MCP..."
     }
 ]

@@ -794,5 +794,57 @@
     {
         "id": "IDS_FFT_MODE_LINEARRSM",
         "text": "线性 RMS"
+    },
+    {
+        "id": "IDS_DLG_MCP_TITLE",
+        "text": "MCP"
+    },
+    {
+        "id": "IDS_DLG_MCP_INTRO",
+        "text": "MCP 让此 Mac 上的 AI 助手（Claude Desktop、Claude Code、Cursor）通过 Logic Analyze Agent 使用分析仪采集、测量和解码信号。仅在 Logic Analyze 打开时可用。"
+    },
+    {
+        "id": "IDS_DLG_MCP_STATUS",
+        "text": "MCP:"
+    },
+    {
+        "id": "IDS_DLG_MCP_ANALYZER",
+        "text": "分析仪:"
+    },
+    {
+        "id": "IDS_DLG_MCP_TURN_ON",
+        "text": "开启"
+    },
+    {
+        "id": "IDS_DLG_MCP_TURN_OFF",
+        "text": "关闭"
+    },
+    {
+        "id": "IDS_DLG_MCP_OFF",
+        "text": "已关闭"
+    },
+    {
+        "id": "IDS_DLG_MCP_AGENT_RUNNING",
+        "text": "已开启。代理正在运行。"
+    },
+    {
+        "id": "IDS_DLG_MCP_AGENT_STARTING",
+        "text": "已开启。代理尚未运行。"
+    },
+    {
+        "id": "IDS_DLG_MCP_TAKE_BACK",
+        "text": "收回"
+    },
+    {
+        "id": "IDS_DLG_MCP_LENT",
+        "text": "已借给 MCP 客户端。"
+    },
+    {
+        "id": "IDS_DLG_MCP_LENT_WAITING",
+        "text": "已借给 MCP 客户端。正在等待其完成。"
+    },
+    {
+        "id": "IDS_DLG_MCP_HELD",
+        "text": "由 Logic Analyze 占用。MCP 客户端需要时会请求使用。"
     }
 ]

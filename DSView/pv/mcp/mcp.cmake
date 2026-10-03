@@ -31,13 +31,17 @@ endif()
 
 set_source_files_properties(${MCP_DIR}/mcpplatform.mm PROPERTIES COMPILE_FLAGS "-fobjc-arc")
 
-target_sources(${PROJECT_NAME} PRIVATE
-	${MCP_DIR}/mcpprotocol.cpp
-	${MCP_DIR}/mcpbridge.cpp
-	${MCP_DIR}/mcpplatform.mm
-	${MCP_MOC})
-target_compile_definitions(${PROJECT_NAME} PRIVATE LANSCAPES_MCP_SUFFIX="${MCP_SUFFIX}")
-target_link_libraries(${PROJECT_NAME} "-framework AppKit" "-framework Security")
+# Also added to lang_ui_check (CMakeLists.txt), which checks the MCP pane.
+function(add_mcp_sources target)
+	target_sources(${target} PRIVATE
+		${MCP_DIR}/mcpprotocol.cpp
+		${MCP_DIR}/mcpbridge.cpp
+		${MCP_DIR}/mcpplatform.mm
+		${MCP_MOC})
+	target_compile_definitions(${target} PRIVATE LANSCAPES_MCP_SUFFIX="${MCP_SUFFIX}")
+	target_link_libraries(${target} "-framework AppKit" "-framework Security")
+endfunction()
+add_mcp_sources(${PROJECT_NAME})
 
 # Hardware-free test of the framing, messages and lease state machine:
 #   cmake --build build --target mcp_protocol_test && build/mcp_protocol_test

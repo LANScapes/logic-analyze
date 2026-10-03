@@ -386,5 +386,37 @@
     {
         "id": "IDS_MSG_NO_DECODED_RESULT",
         "text": "내보낼 데이터가 없습니다!"
+    },
+    {
+        "id": "IDS_MSG_MCP_AGENT_VERSION",
+        "text": "Logic Analyze Agent의 버전이 다릅니다. Logic Analyze를 업데이트하십시오."
+    },
+    {
+        "id": "IDS_MSG_MCP_AGENT_MISSING",
+        "text": "이 앱 사본에 Logic Analyze Agent가 없습니다."
+    },
+    {
+        "id": "IDS_MSG_MCP_CLIENT_USING",
+        "text": "MCP 클라이언트가 분석기를 사용 중입니다."
+    },
+    {
+        "id": "IDS_MSG_MCP_CLIENT_USING_TAKE_BACK",
+        "text": "MCP 클라이언트가 분석기를 사용 중입니다. 되찾으려면 장치 목록에서 분석기를 선택하십시오."
+    },
+    {
+        "id": "IDS_MSG_MCP_CLIENT_USING_SWITCH",
+        "text": "MCP 클라이언트가 분석기를 사용 중입니다. 클라이언트가 끝나면 Logic Analyze가 분석기로 전환합니다."
+    },
+    {
+        "id": "IDS_MSG_MCP_HAND_OVER",
+        "text": "MCP 클라이언트가 분석기를 사용하려고 합니다. 넘겨주시겠습니까?"
+    },
+    {
+        "id": "IDS_MSG_MCP_CAPTURE_STOPS",
+        "text": "실행 중인 캡처가 중지됩니다."
+    },
+    {
+        "id": "IDS_MSG_MCP_DATA_CLEARED",
+        "text": "화면의 캡처한 데이터가 지워집니다. 필요하면 먼저 저장하십시오."
     }
 ]

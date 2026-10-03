@@ -743,6 +743,9 @@ if(LANG_UI_CHECK)
 	)
 	target_compile_definitions(lang_ui_check PRIVATE LANG_PSEUDO)
 	target_link_libraries(lang_ui_check ${DSVIEW_LINK_LIBS})
+	if(LANSCAPES_APPSTORE)
+		add_mcp_sources(lang_ui_check)   # and check the MCP pane
+	endif()
 	# It finds its data as the app bundle does, in ../Resources.
 	set(LANG_UI_CHECK_DIR "${CMAKE_CURRENT_BINARY_DIR}/lang_ui_check")
 	set_target_properties(lang_ui_check PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${LANG_UI_CHECK_DIR}/MacOS")
