@@ -53,11 +53,16 @@ bool XToolButton::label_beside() const
         && !icon().isNull() && !text().isEmpty();
 }
 
+int XToolButton::arrow_room() const
+{
+    return menu() != nullptr ? MenuArrowRoom : 0;
+}
+
 QSize XToolButton::sizeHint() const
 {
     QSize s = QToolButton::sizeHint();
     if (label_beside())
-        s.rwidth() += LabelPad + LabelGap - 4;
+        s.rwidth() += LabelPad + LabelGap - 4 + arrow_room();
     return s;
 }
 
@@ -83,7 +88,9 @@ void XToolButton::paintEvent(QPaintEvent *event)
     QRect ir(LabelPad, (height() - is.height()) / 2, is.width(), is.height());
     ic.paint(&p, ir, Qt::AlignCenter, isEnabled() ? QIcon::Normal : QIcon::Disabled,
              isChecked() ? QIcon::On : QIcon::Off);
-    QRect tr(ir.right() + 1 + LabelGap, 0, width() - ir.right() - 1 - LabelGap, height());
+    // The label stops before the dropdown chevron, which the style draws on the right.
+    QRect tr(ir.right() + 1 + LabelGap, 0,
+             width() - ir.right() - 1 - LabelGap - arrow_room(), height());
     style()->drawItemText(&p, tr, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextShowMnemonic,
                           opt.palette, isEnabled(), label, QPalette::ButtonText);
 }

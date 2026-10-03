@@ -33,6 +33,7 @@
 #include "../interface/icallbacks.h"
 #include "../ui/xtoolbutton.h"
 #include "../ui/uimanager.h"
+#include "../ui/fn.h"
 
 namespace pv {
 namespace toolbars {
@@ -42,6 +43,11 @@ namespace toolbars {
 class LogoBar : public QToolBar, public IUiWindow
 {
     Q_OBJECT
+#ifdef LANSCAPES_BRAND
+public:
+    QSize minimumSizeHint() const override { return ui::toolbar_min_hint(this, QToolBar::minimumSizeHint()); }
+private:
+#endif
 
 public:
     explicit LogoBar(SigSession *session, QWidget *parent = 0);
@@ -49,9 +55,9 @@ public:
 
     void enable_toggle(bool enable);
 #ifdef LANSCAPES_BRAND
-    // Places a button ahead of Help, after everything else (Options, from the
-    // sampling bar). On top, Help stays alone at the far end.
-    void add_before_help(QWidget *w){ insertWidget(_spacer_action, w); }
+    // Places a button just ahead of Help (Options, from the sampling bar); the two
+    // follow the mode's last button.
+    void add_before_help(QWidget *w){ insertWidget(_help_action, w); }
 #endif
 
    //show the hardware device conneted status with logo picture
@@ -93,7 +99,7 @@ private:
     XToolButton _logo_button;
 
 #ifdef LANSCAPES_BRAND
-    QAction *_spacer_action;
+    QAction *_help_action;
 #endif
 
     QMenu *_menu;

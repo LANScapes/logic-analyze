@@ -35,6 +35,7 @@
 #include "../interface/icallbacks.h"
 #include "../ui/xtoolbutton.h"
 #include "../ui/uimanager.h"
+#include "../ui/fn.h"
 
 struct st_dev_inst;
 class QAction;
@@ -62,6 +63,11 @@ namespace pv
         class SamplingBar : public QToolBar, public IUiWindow
         {
             Q_OBJECT
+#ifdef LANSCAPES_BRAND
+        public:
+            QSize minimumSizeHint() const override { return ui::toolbar_min_hint(this, QToolBar::minimumSizeHint()); }
+        private:
+#endif
 
         private:
             static const int ComboBoxMaxWidth = 200;
@@ -89,6 +95,8 @@ namespace pv
             // Adds a submenu (Display, from the trigger bar) to the Options menu.
             void add_options_submenu(QMenu *menu);
             QToolButton* options_button(){ return &_configure_button; }
+            // Places the device-mode selector right after the device selector.
+            void insert_device_mode(QComboBox *selector);
 #endif
             ds_device_handle get_next_device_handle();
 
@@ -169,6 +177,8 @@ namespace pv
 #ifdef LANSCAPES_BRAND
             QMenu               *_options_menu;
             QAction             *_action_device_options;
+            QWidget             *_device_stack;
+            QWidget *make_stack();
 #endif
             QAction             *_action_repeat;
             QAction             *_action_single;

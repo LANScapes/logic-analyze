@@ -42,12 +42,15 @@ public:
     // leaves only 4 px before the label; these give every button the same edge.
     static const int LabelPad = 8;
     static const int LabelGap = 12;
+    // Room kept free on the right for the dropdown chevron of a menu button.
+    static const int MenuArrowRoom = 22;
 
 protected:
     void paintEvent(QPaintEvent *event) override;
 
 private:
     bool label_beside() const;
+    int arrow_room() const;
 #endif
     
 private:

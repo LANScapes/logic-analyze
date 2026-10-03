@@ -24,6 +24,7 @@
 #include <QAction>
 #include <QLabel>
 #include <QAbstractItemView>
+#include <QVBoxLayout>
 #include <math.h>
 #include <libusb-1.0/libusb.h>
 #include "../dialogs/deviceoptions.h"
@@ -90,6 +91,10 @@ namespace pv
             _sample_rate.setSizeAdjustPolicy(DsComboBox::AdjustToContents);
             _sample_count.setSizeAdjustPolicy(DsComboBox::AdjustToContents);
             _device_selector.setMaximumWidth(ComboBoxMaxWidth);
+#ifdef LANSCAPES_BRAND
+            _device_selector.setProperty("horizontalMaxWidth", ComboBoxMaxWidth); // lifted on a side bar
+            _sample_rate.alignNumbersInList();
+#endif
 
             //tr
             _run_stop_button.setObjectName("run_stop_button");
@@ -107,7 +112,15 @@ namespace pv
 
             _device_type.setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
             addWidget(&_device_type);
+#ifdef LANSCAPES_BRAND
+            // The dropdowns sit in pairs, one over the other: the device over its
+            // mode (added by insert_device_mode), and the duration over the rate.
+            _device_stack = make_stack();
+            _device_stack->layout()->addWidget(&_device_selector);
+            addWidget(_device_stack);
+#else
             addWidget(&_device_selector);
+#endif
             _configure_button.setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
 #ifdef LANSCAPES_BRAND
             // Options is a menu: the device options, then Display (see add_options_submenu).
@@ -120,18 +133,17 @@ namespace pv
             addWidget(&_configure_button);
 #endif
 
+#ifdef LANSCAPES_BRAND
+            QWidget *time_stack = make_stack();
+            time_stack->layout()->addWidget(&_sample_count);
+            time_stack->layout()->addWidget(&_sample_rate);
+            addWidget(time_stack);
+#else
             addWidget(&_sample_count);
             //tr
-#ifdef LANSCAPES_BRAND
-            QAction *at_label = addWidget(new QLabel(" @ "));
-            // "count @ rate" reads across, not down: drop the @ when the bar is vertical.
-            connect(this, &QToolBar::orientationChanged, this, [at_label](Qt::Orientation o) {
-                at_label->setVisible(o == Qt::Horizontal);
-            });
-#else
             addWidget(new QLabel(" @ "));
-#endif
             addWidget(&_sample_rate);
+#endif
 
             _action_single = new QAction(this);
             _action_repeat = new QAction(this);
@@ -1193,9 +1205,24 @@ namespace pv
         }
 
 #ifdef LANSCAPES_BRAND
+        QWidget *SamplingBar::make_stack()
+        {
+            QWidget *stack = new QWidget(this);
+            stack->setObjectName("ToolbarStack");
+            QVBoxLayout *lay = new QVBoxLayout(stack);
+            lay->setContentsMargins(2, 0, 2, 0);
+            lay->setSpacing(4);
+            return stack;
+        }
+
+        void SamplingBar::insert_device_mode(QComboBox *selector)
+        {
+            // The mode sits under the device it belongs to.
+            _device_stack->layout()->addWidget(selector);
+        }
+
         void SamplingBar::add_options_submenu(QMenu *menu)
         {
-            _options_menu->addSeparator();
             _options_menu->addMenu(menu);
         }
 #endif
@@ -1225,6 +1252,11 @@ namespace pv
             _configure_button.setEnabled(bEnable);
 #endif
             _device_selector.setEnabled(bEnable);
+#ifdef LANSCAPES_BRAND
+            // The mode, under the device, is fixed while a capture runs like the device.
+            if (QComboBox *mode_selector = _device_stack->findChild<QComboBox*>("DeviceModeSelector"))
+                mode_selector->setEnabled(bEnable);
+#endif
             _action_loop->setVisible(false);
 
             if (_session->get_device()->is_file()){

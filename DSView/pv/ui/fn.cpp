@@ -86,6 +86,18 @@ namespace ui
         }
     }
     
+#ifdef LANSCAPES_BRAND
+    QSize toolbar_min_hint(const QToolBar *bar, QSize min)
+    {
+        const QSize hint = bar->sizeHint();
+        if (bar->orientation() == Qt::Vertical)
+            min.setHeight(hint.height());
+        else
+            min.setWidth(hint.width());
+        return min;
+    }
+#endif
+
     void set_form_font(QWidget *wid, QFont font)
     {
         assert(wid);

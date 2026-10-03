@@ -81,8 +81,14 @@ void ViewStatus::paintEvent(QPaintEvent *)
     if (mode == LOGIC) {
         fore.setAlpha(View::ForeAlpha);
         p.setPen(fore);
-        p.drawText(this->rect(), Qt::AlignLeft | Qt::AlignVCenter, _rle_depth);
-        p.drawText(this->rect(), Qt::AlignRight | Qt::AlignVCenter, _trig_time);
+#ifdef LANSCAPES_BRAND
+        // Keep the corner readouts off the window edge.
+        const QRect text_rect = this->rect().adjusted(10, 0, -10, 0);
+#else
+        const QRect text_rect = this->rect();
+#endif
+        p.drawText(text_rect, Qt::AlignLeft | Qt::AlignVCenter, _rle_depth);
+        p.drawText(text_rect, Qt::AlignRight | Qt::AlignVCenter, _trig_time);
 
         p.setPen(Qt::NoPen);
         p.setBrush(View::Blue);
