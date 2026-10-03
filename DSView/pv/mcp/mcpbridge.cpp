@@ -40,6 +40,7 @@
 #include "../dialogs/dsmessagebox.h"
 #include "../log.h"
 #include "../sigsession.h"
+#include "../ui/langresource.h"
 #include "../ui/msgbox.h"
 
 namespace pv {
@@ -180,7 +181,8 @@ void McpBridge::handle(const AgentMessage &m)
     switch (m.type) {
     case AgentMessage::Ok:
         if (_ok || m.build < kGuiMinAgentBuild || m.min_build > kGuiBuild) {
-            _error = "The Logic Analyze Agent is a different version. Update Logic Analyze.";
+            _error = L_S(STR_PAGE_MSG, S_ID(IDS_MSG_MCP_AGENT_VERSION),
+                      "The Logic Analyze Agent is a different version. Update Logic Analyze.");
             drop("version");
             return;
         }
@@ -191,7 +193,8 @@ void McpBridge::handle(const AgentMessage &m)
         break;
 
     case AgentMessage::Error:
-        _error = "The Logic Analyze Agent is a different version. Update Logic Analyze.";
+        _error = L_S(STR_PAGE_MSG, S_ID(IDS_MSG_MCP_AGENT_VERSION),
+                  "The Logic Analyze Agent is a different version. Update Logic Analyze.");
         drop("version");
         break;
 
@@ -254,7 +257,7 @@ void McpBridge::decide_release()
     if (!dev->is_hardware()) {
         _released = NULL_HANDLE;
         send_lease(_lease.decide(true));
-        notice("An MCP client is using the analyzer.");
+        notice(L_S(STR_PAGE_MSG, S_ID(IDS_MSG_MCP_CLIENT_USING), "An MCP client is using the analyzer."));
         return;
     }
     // A save cannot be interrupted: the client gets "busy" and may try again.
@@ -264,15 +267,18 @@ void McpBridge::decide_release()
     }
     if (_session->is_working() || _session->have_hardware_data()) {
         QString info = _session->is_working()
-            ? QString("The running capture stops.")
-            : QString("The captured data on screen is cleared; save it first if you need it.");
+            ? QString(L_S(STR_PAGE_MSG, S_ID(IDS_MSG_MCP_CAPTURE_STOPS), "The running capture stops."))
+            : QString(L_S(STR_PAGE_MSG, S_ID(IDS_MSG_MCP_DATA_CLEARED),
+                          "The captured data on screen is cleared; save it first if you need it."));
         QPointer<McpBridge> self(this);
         int seq = ++_prompt_seq;
         QTimer::singleShot(kReleasePromptMs, this, [this, seq]() {
             if (_prompt && seq == _prompt_seq)
                 _prompt->close();     // no answer in time: keep the analyzer
         });
-        bool yes = MsgBox::Confirm("An MCP client wants to use the analyzer. Hand it over?", info, &_prompt, _window);
+        bool yes = MsgBox::Confirm(L_S(STR_PAGE_MSG, S_ID(IDS_MSG_MCP_HAND_OVER),
+                                       "An MCP client wants to use the analyzer. Hand it over?"),
+                                   info, &_prompt, _window);
         if (!self)
             return;
         _prompt = nullptr;
@@ -287,7 +293,8 @@ void McpBridge::decide_release()
     }
     release_device();
     send_lease(_lease.decide(true));
-    notice("An MCP client is using the analyzer. Select it in the device list to take it back.");
+    notice(L_S(STR_PAGE_MSG, S_ID(IDS_MSG_MCP_CLIENT_USING_TAKE_BACK),
+               "An MCP client is using the analyzer. Select it in the device list to take it back."));
     emit changed();
 }
 
@@ -361,7 +368,8 @@ bool McpBridge::may_activate(ds_device_handle h)
     _wanted = h;
     if (_lease.state() == GuiLease::McpOwned)
         take_back();
-    notice("An MCP client is using the analyzer. Logic Analyze switches to it when the client is done.");
+    notice(L_S(STR_PAGE_MSG, S_ID(IDS_MSG_MCP_CLIENT_USING_SWITCH),
+               "An MCP client is using the analyzer. Logic Analyze switches to it when the client is done."));
     return false;
 }
 
@@ -379,7 +387,7 @@ void McpBridge::notice(const QString &text)
 void McpBridge::show_pane()
 {
     dialogs::DSDialog dlg(_window, true, false);
-    dlg.setTitle("MCP");
+    dlg.setTitle(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MCP_TITLE), "MCP"));
     dlg.setMinimumSize(480, 220);
 
     QWidget *panel = new QWidget(&dlg);
@@ -387,10 +395,10 @@ void McpBridge::show_pane()
     lay->setContentsMargins(10, 10, 10, 10);
     lay->setSpacing(12);
 
-    QLabel *intro = new QLabel(
+    QLabel *intro = new QLabel(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MCP_INTRO),
         "MCP lets AI assistants on this Mac (Claude Desktop, Claude Code, Cursor) capture, "
         "measure and decode signals with the analyzer, through the Logic Analyze Agent. "
-        "It is available only while Logic Analyze is open.");
+        "It is available only while Logic Analyze is open."));
     intro->setWordWrap(true);
     lay->addWidget(intro);
 
@@ -398,14 +406,15 @@ void McpBridge::show_pane()
     grid->setHorizontalSpacing(12);
     grid->setVerticalSpacing(8);
     QLabel *agent = new QLabel();
+    agent->setWordWrap(true);
     QLabel *analyzer = new QLabel();
     analyzer->setWordWrap(true);
     QPushButton *toggle = new QPushButton();
-    QPushButton *back = new QPushButton("Take Back");
-    grid->addWidget(new QLabel("MCP:"), 0, 0, Qt::AlignLeft | Qt::AlignTop);
+    QPushButton *back = new QPushButton(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MCP_TAKE_BACK), "Take Back"));
+    grid->addWidget(new QLabel(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MCP_STATUS), "MCP:")), 0, 0, Qt::AlignLeft | Qt::AlignTop);
     grid->addWidget(agent, 0, 1);
     grid->addWidget(toggle, 0, 2);
-    grid->addWidget(new QLabel("Analyzer:"), 1, 0, Qt::AlignLeft | Qt::AlignTop);
+    grid->addWidget(new QLabel(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MCP_ANALYZER), "Analyzer:")), 1, 0, Qt::AlignLeft | Qt::AlignTop);
     grid->addWidget(analyzer, 1, 1);
     grid->addWidget(back, 1, 2);
     grid->setColumnStretch(1, 1);
@@ -417,17 +426,22 @@ void McpBridge::show_pane()
     lay->addStretch(1);
 
     auto refresh = [=]() {
-        toggle->setText(enabled() ? "Turn Off" : "Turn On");
+        toggle->setText(enabled() ? L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MCP_TURN_OFF), "Turn Off")
+                                  : L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MCP_TURN_ON), "Turn On"));
         if (!enabled())
-            agent->setText("Off");
+            agent->setText(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MCP_OFF), "Off"));
+        else if (connected())
+            agent->setText(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MCP_AGENT_RUNNING), "On. The agent is running."));
         else
-            agent->setText(connected() ? "On. The agent is running." : "On. The agent is not running yet.");
+            agent->setText(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MCP_AGENT_STARTING), "On. The agent is not running yet."));
         if (reclaim_pending())
-            analyzer->setText("Lent to an MCP client. Waiting for it to finish.");
+            analyzer->setText(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MCP_LENT_WAITING),
+                                  "Lent to an MCP client. Waiting for it to finish."));
         else if (analyzer_lent())
-            analyzer->setText("Lent to an MCP client.");
+            analyzer->setText(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MCP_LENT), "Lent to an MCP client."));
         else
-            analyzer->setText("Held by Logic Analyze. MCP clients ask for it when they need it.");
+            analyzer->setText(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MCP_HELD),
+                                  "Held by Logic Analyze. MCP clients ask for it when they need it."));
         back->setVisible(analyzer_lent());
         back->setEnabled(!reclaim_pending());
         err->setText(last_error());

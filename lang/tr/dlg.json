@@ -790,5 +790,57 @@
     {
         "id": "IDS_FFT_MODE_LINEARRSM",
         "text": "Doğrusal RMS"
+    },
+    {
+        "id": "IDS_DLG_MCP_TITLE",
+        "text": "MCP"
+    },
+    {
+        "id": "IDS_DLG_MCP_INTRO",
+        "text": "MCP, bu Mac'teki yapay zekâ asistanlarının (Claude Desktop, Claude Code, Cursor) Logic Analyze Agent aracılığıyla analizörle sinyal yakalamasını, ölçmesini ve çözmesini sağlar. Yalnızca Logic Analyze açıkken kullanılabilir."
+    },
+    {
+        "id": "IDS_DLG_MCP_STATUS",
+        "text": "MCP:"
+    },
+    {
+        "id": "IDS_DLG_MCP_ANALYZER",
+        "text": "Analizör:"
+    },
+    {
+        "id": "IDS_DLG_MCP_TURN_ON",
+        "text": "Aç"
+    },
+    {
+        "id": "IDS_DLG_MCP_TURN_OFF",
+        "text": "Kapat"
+    },
+    {
+        "id": "IDS_DLG_MCP_OFF",
+        "text": "Kapalı"
+    },
+    {
+        "id": "IDS_DLG_MCP_AGENT_RUNNING",
+        "text": "Açık. Ajan çalışıyor."
+    },
+    {
+        "id": "IDS_DLG_MCP_AGENT_STARTING",
+        "text": "Açık. Ajan henüz çalışmıyor."
+    },
+    {
+        "id": "IDS_DLG_MCP_TAKE_BACK",
+        "text": "Geri Al"
+    },
+    {
+        "id": "IDS_DLG_MCP_LENT",
+        "text": "Bir MCP istemcisine ödünç verildi."
+    },
+    {
+        "id": "IDS_DLG_MCP_LENT_WAITING",
+        "text": "Bir MCP istemcisine ödünç verildi. İşini bitirmesi bekleniyor."
+    },
+    {
+        "id": "IDS_DLG_MCP_HELD",
+        "text": "Logic Analyze'da. MCP istemcileri gerektiğinde ister."
     }
 ]

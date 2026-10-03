@@ -790,5 +790,57 @@
     {
         "id": "IDS_FFT_MODE_LINEARRSM",
         "text": "リニア RMS"
+    },
+    {
+        "id": "IDS_DLG_MCP_TITLE",
+        "text": "MCP"
+    },
+    {
+        "id": "IDS_DLG_MCP_INTRO",
+        "text": "MCP を使うと、この Mac 上の AI アシスタント (Claude Desktop、Claude Code、Cursor) が Logic Analyze Agent を通じてアナライザで信号をキャプチャ、測定、デコードできます。Logic Analyze が開いている間のみ利用できます。"
+    },
+    {
+        "id": "IDS_DLG_MCP_STATUS",
+        "text": "MCP:"
+    },
+    {
+        "id": "IDS_DLG_MCP_ANALYZER",
+        "text": "アナライザ:"
+    },
+    {
+        "id": "IDS_DLG_MCP_TURN_ON",
+        "text": "オンにする"
+    },
+    {
+        "id": "IDS_DLG_MCP_TURN_OFF",
+        "text": "オフにする"
+    },
+    {
+        "id": "IDS_DLG_MCP_OFF",
+        "text": "オフ"
+    },
+    {
+        "id": "IDS_DLG_MCP_AGENT_RUNNING",
+        "text": "オン。エージェントは実行中です。"
+    },
+    {
+        "id": "IDS_DLG_MCP_AGENT_STARTING",
+        "text": "オン。エージェントはまだ実行されていません。"
+    },
+    {
+        "id": "IDS_DLG_MCP_TAKE_BACK",
+        "text": "取り戻す"
+    },
+    {
+        "id": "IDS_DLG_MCP_LENT",
+        "text": "MCP クライアントに貸し出し中。"
+    },
+    {
+        "id": "IDS_DLG_MCP_LENT_WAITING",
+        "text": "MCP クライアントに貸し出し中。終了を待っています。"
+    },
+    {
+        "id": "IDS_DLG_MCP_HELD",
+        "text": "Logic Analyze が保持しています。MCP クライアントは必要なときに要求します。"
     }
 ]

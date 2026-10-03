@@ -386,5 +386,37 @@
     {
         "id": "IDS_MSG_NO_DECODED_RESULT",
         "text": "エクスポートするデータがありません。"
+    },
+    {
+        "id": "IDS_MSG_MCP_AGENT_VERSION",
+        "text": "Logic Analyze Agent のバージョンが異なります。Logic Analyze をアップデートしてください。"
+    },
+    {
+        "id": "IDS_MSG_MCP_AGENT_MISSING",
+        "text": "このアプリのコピーには Logic Analyze Agent が含まれていません。"
+    },
+    {
+        "id": "IDS_MSG_MCP_CLIENT_USING",
+        "text": "MCP クライアントがアナライザを使用しています。"
+    },
+    {
+        "id": "IDS_MSG_MCP_CLIENT_USING_TAKE_BACK",
+        "text": "MCP クライアントがアナライザを使用しています。取り戻すには、デバイスリストでアナライザを選択してください。"
+    },
+    {
+        "id": "IDS_MSG_MCP_CLIENT_USING_SWITCH",
+        "text": "MCP クライアントがアナライザを使用しています。クライアントの使用が終わると、Logic Analyze はアナライザに切り替えます。"
+    },
+    {
+        "id": "IDS_MSG_MCP_HAND_OVER",
+        "text": "MCP クライアントがアナライザの使用を求めています。引き渡しますか?"
+    },
+    {
+        "id": "IDS_MSG_MCP_CAPTURE_STOPS",
+        "text": "実行中のキャプチャは停止します。"
+    },
+    {
+        "id": "IDS_MSG_MCP_DATA_CLEARED",
+        "text": "画面上のキャプチャデータは消去されます。必要な場合は先に保存してください。"
     }
 ]

@@ -19,6 +19,7 @@
 
 #include "mcpplatform.h"
 #include "mcpprotocol.h"
+#include "../ui/langresource.h"
 
 #import <AppKit/AppKit.h>
 #import <Foundation/Foundation.h>
@@ -152,7 +153,8 @@ bool open_agent(QString *error)
         NSURL *agent = [[[NSBundle mainBundle] bundleURL]
             URLByAppendingPathComponent:@"Contents/Library/LoginItems/" MCP_AGENT_APP];
         if (![[NSFileManager defaultManager] fileExistsAtPath:agent.path]) {
-            *error = "The Logic Analyze Agent is missing from this copy of the app.";
+            *error = L_S(STR_PAGE_MSG, S_ID(IDS_MSG_MCP_AGENT_MISSING),
+                         "The Logic Analyze Agent is missing from this copy of the app.");
             return false;
         }
         NSWorkspaceOpenConfiguration *cfg = [NSWorkspaceOpenConfiguration configuration];

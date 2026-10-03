@@ -790,5 +790,57 @@
     {
         "id": "IDS_FFT_MODE_LINEARRSM",
         "text": "Линейный RMS"
+    },
+    {
+        "id": "IDS_DLG_MCP_TITLE",
+        "text": "MCP"
+    },
+    {
+        "id": "IDS_DLG_MCP_INTRO",
+        "text": "MCP позволяет ИИ-ассистентам на этом Mac (Claude Desktop, Claude Code, Cursor) захватывать, измерять и декодировать сигналы анализатором через Logic Analyze Agent. Работает, только пока открыт Logic Analyze."
+    },
+    {
+        "id": "IDS_DLG_MCP_STATUS",
+        "text": "MCP:"
+    },
+    {
+        "id": "IDS_DLG_MCP_ANALYZER",
+        "text": "Анализатор:"
+    },
+    {
+        "id": "IDS_DLG_MCP_TURN_ON",
+        "text": "Включить"
+    },
+    {
+        "id": "IDS_DLG_MCP_TURN_OFF",
+        "text": "Выключить"
+    },
+    {
+        "id": "IDS_DLG_MCP_OFF",
+        "text": "Выключено"
+    },
+    {
+        "id": "IDS_DLG_MCP_AGENT_RUNNING",
+        "text": "Включено. Агент запущен."
+    },
+    {
+        "id": "IDS_DLG_MCP_AGENT_STARTING",
+        "text": "Включено. Агент ещё не запущен."
+    },
+    {
+        "id": "IDS_DLG_MCP_TAKE_BACK",
+        "text": "Вернуть"
+    },
+    {
+        "id": "IDS_DLG_MCP_LENT",
+        "text": "Передан MCP-клиенту."
+    },
+    {
+        "id": "IDS_DLG_MCP_LENT_WAITING",
+        "text": "Передан MCP-клиенту. Ожидание завершения."
+    },
+    {
+        "id": "IDS_DLG_MCP_HELD",
+        "text": "У Logic Analyze. MCP-клиенты запрашивают его при необходимости."
     }
 ]
