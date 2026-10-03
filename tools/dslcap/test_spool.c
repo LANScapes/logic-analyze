@@ -12,6 +12,7 @@
  *   ./test_spool /tmp/raw /tmp/output.bin
  */
 #include "test_parent_fd.c"
+#include "test_list_ids.c"
 #undef NDEBUG
 #include <assert.h>
 #include <fcntl.h>
@@ -53,6 +54,16 @@ static void test_arguments(void)
     assert(o.rate == 100000000 && o.samples == 64 && o.vth == 2.5 && o.timeout == 0.5);
     assert(o.trig_ch == 15 && o.trig_type == 'F' && o.trigpos == 100);
     assert(parse(&o, "--out", "x", "--trigger", "0", NULL) == 0 && o.trig_type == 'R');
+    assert(parse(&o, "--list", NULL) == 0 && o.list_only);
+    /* Listing mode cannot be swallowed as ANY valued option's argument. */
+    const char *ids_valued[] = {"--res", "--res-manifest", "--out", "--channels",
+        "--samplerate", "--samples", "--vth", "--mode", "--trigger", "--trigpos",
+        "--timeout", "--parent-fd", "--log-level"};
+    for (size_t i = 0; i < G_N_ELEMENTS(ids_valued); i++) {
+        assert(parse(&o, "--out", "x", ids_valued[i], "--list-ids", NULL) == 2);
+        assert(parse(&o, "--out", "x", ids_valued[i], "--list-ids=true", NULL) == 2);
+        assert(parse(&o, "--out", "x", ids_valued[i], "--list-ids=", NULL) == 2);
+    }
     assert(parse(&o, "--list", NULL) == 0 && o.list_only);
     assert(o.parent_fd == -1 && o.res_manifest == -1 && !o.parent_fd_value);
     assert(o.log_level == 1);
@@ -186,6 +197,7 @@ int main(int argc, char **argv)
     test_arguments();
     test_status();
     test_parent_fd();
+    test_list_ids();
 
     const int channels[] = {1, 2, 16, 32};
     const uint64_t frames = 5003;
