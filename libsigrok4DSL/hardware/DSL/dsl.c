@@ -1299,9 +1299,9 @@ SR_PRIV int dsl_fpga_arm(const struct sr_dev_inst *sdi)
 
 SR_PRIV int dsl_fpga_config(struct libusb_device_handle *hdl, const char *filename)
 {
-    FILE *fw;
+    FILE *fw = NULL;
     int chunksize, ret;
-    unsigned char *buf;
+    unsigned char *buf, *owned_buf = NULL;
     int transferred;
     uint64_t filesize;
     struct ctl_wr_cmd wr_cmd;
@@ -1310,24 +1310,35 @@ SR_PRIV int dsl_fpga_config(struct libusb_device_handle *hdl, const char *filena
 	struct stat f_stat;
 
     sr_info("Configure FPGA using \"%s\"", filename);
-    if ((fw = fopen(filename, "rb")) == NULL) {
-        sr_err("Unable to open FPGA bit file %s for reading: %s",
-               filename, strerror(errno));
-        ds_set_last_error(SR_ERR_FIRMWARE_NOT_EXIST);
-        return SR_ERR;
-    }
-	
-    if (stat(filename, &f_stat) == -1){
-        fclose(fw);
-        return SR_ERR;
-    }
+    if (ds_resource_manifest_enabled()) {
+        const unsigned char *verified;
+        gsize size;
+        /* Preflight finished before ds_lib_init; no FPGA command precedes
+         * this lookup, and the bulk transfer uses that exact cached buffer. */
+        if (ds_resource_buffer(filename, 0xffffff, &verified, &size) != SR_OK)
+            return SR_ERR;
+        buf = (unsigned char *)verified;
+        filesize = size;
+    } else {
+        if ((fw = fopen(filename, "rb")) == NULL) {
+            sr_err("Unable to open FPGA bit file %s for reading: %s",
+                   filename, strerror(errno));
+            ds_set_last_error(SR_ERR_FIRMWARE_NOT_EXIST);
+            return SR_ERR;
+        }
 
-    filesize = (uint64_t)f_stat.st_size;
+        if (stat(filename, &f_stat) == -1){
+            if (fw) fclose(fw);
+            return SR_ERR;
+        }
 
-    if ((buf = g_try_malloc0(filesize)) == NULL) {
-        sr_err("FPGA configure buf malloc failed.");
-        fclose(fw);
-        return SR_ERR;
+        filesize = (uint64_t)f_stat.st_size;
+
+        if ((buf = owned_buf = g_try_malloc0(filesize)) == NULL) {
+            sr_err("FPGA configure buf malloc failed.");
+            if (fw) fclose(fw);
+            return SR_ERR;
+        }
     }
 
 	// step0: assert PROG_B low
@@ -1336,8 +1347,8 @@ SR_PRIV int dsl_fpga_config(struct libusb_device_handle *hdl, const char *filena
     wr_cmd.data[0] = ~bmWR_PROG_B;
 
     if ((ret = command_ctl_wr(hdl, wr_cmd)) != SR_OK){
-        fclose(fw);
-        g_free(buf);
+        if (fw) fclose(fw);
+        g_free(owned_buf);
 		return SR_ERR;
     }
 
@@ -1347,8 +1358,8 @@ SR_PRIV int dsl_fpga_config(struct libusb_device_handle *hdl, const char *filena
     wr_cmd.data[0] = ~bmLED_GREEN & ~bmLED_RED;
 
     if ((ret = command_ctl_wr(hdl, wr_cmd)) != SR_OK){
-        fclose(fw);
-        g_free(buf);
+        if (fw) fclose(fw);
+        g_free(owned_buf);
 		return SR_ERR;
     }
 
@@ -1358,8 +1369,8 @@ SR_PRIV int dsl_fpga_config(struct libusb_device_handle *hdl, const char *filena
     wr_cmd.data[0] = bmWR_PROG_B;
 
     if ((ret = command_ctl_wr(hdl, wr_cmd)) != SR_OK){
-        fclose(fw);
-        g_free(buf);
+        if (fw) fclose(fw);
+        g_free(owned_buf);
 		return SR_ERR;
     }
 
@@ -1371,8 +1382,8 @@ SR_PRIV int dsl_fpga_config(struct libusb_device_handle *hdl, const char *filena
 
     while(1) {
         if ((ret = command_ctl_rd(hdl, rd_cmd)) != SR_OK){
-            fclose(fw);
-            g_free(buf);
+            if (fw) fclose(fw);
+            g_free(owned_buf);
 			return SR_ERR;
         }
         if (rd_cmd_data & bmFPGA_INIT_B)
@@ -1385,8 +1396,8 @@ SR_PRIV int dsl_fpga_config(struct libusb_device_handle *hdl, const char *filena
     wr_cmd.data[0] = (uint8_t)~bmWR_INTRDY;
 
     if ((ret = command_ctl_wr(hdl, wr_cmd)) != SR_OK){
-        fclose(fw);
-        g_free(buf);
+        if (fw) fclose(fw);
+        g_free(owned_buf);
         return SR_ERR;
     }
 
@@ -1398,32 +1409,32 @@ SR_PRIV int dsl_fpga_config(struct libusb_device_handle *hdl, const char *filena
 
     if ((ret = command_ctl_wr(hdl, wr_cmd)) != SR_OK) {
         sr_err("Configure FPGA error: send command fpga_config failed.");
-        fclose(fw);
-        g_free(buf);
+        if (fw) fclose(fw);
+        g_free(owned_buf);
 		return SR_ERR;
     }
 
 	// step5: send config data
-    chunksize = fread(buf, 1, filesize, fw);
+    chunksize = fw ? fread(buf, 1, filesize, fw) : (int)filesize;
 
     if (chunksize == EOF){
         sr_err("dsl_fpga_config(), f-read returns EOF.");
-        fclose(fw);
-        g_free(buf);
+        if (fw) fclose(fw);
+        g_free(owned_buf);
 		return SR_ERR;	
     }
 
     if (chunksize == 0){
-        fclose(fw);
-        g_free(buf);
+        if (fw) fclose(fw);
+        g_free(owned_buf);
 		return SR_ERR;
     }
 
     ret = libusb_bulk_transfer(hdl, 2 | LIBUSB_ENDPOINT_OUT,
                                buf, chunksize,
                                &transferred, 1000);
-    fclose(fw);
-    g_free(buf);
+    if (fw) fclose(fw);
+    g_free(owned_buf);
     fw = NULL;
     buf = NULL;
 

@@ -25,6 +25,7 @@ enum parent_fault {
 };
 enum parent_mode { PM_GOOD, PM_INIT, PM_CAPTURE, PM_EXIT, PM_INIT_ERROR, PM_LIST_ERROR };
 static int test_fault, test_mode, test_phase_fd, test_gate_fd;
+static int test_combined_flags, test_selected_level;
 static int test_fcntl(int fd, int cmd, ...);
 static int test_pthread_create(pthread_t *t, const pthread_attr_t *a,
                               void *(*fn)(void *), void *arg);
@@ -163,8 +164,25 @@ static int test_sigaction(int sig, const struct sigaction *act, struct sigaction
 static struct sr_channel test_channel = { .index = 0, .enabled = TRUE };
 static GSList test_channels = { .data = &test_channel };
 static uint64_t test_rate, test_limit;
-void ds_log_level(int level) { (void)level; test_phase('d'); }
+void ds_log_level(int level)
+{
+    assert(level == (test_combined_flags ? 4 : 1));
+    test_selected_level = level;
+    test_phase('d');
+}
 void ds_set_firmware_resource_dir(const char *dir) { (void)dir; test_phase('d'); }
+/* Manifest setup is stubbed here for publication/lifecycle tests with all
+ * three flags. Actual combined preflight/routing is in test_resources.c. */
+int ds_set_firmware_resource_manifest(int fd, GError **error)
+{
+    (void)error;
+    if (fd >= 0) {
+        assert(test_combined_flags && g_parent_fd >= 0 && test_selected_level == 4);
+        assert(fcntl(fd, F_GETFL) >= 0);
+        test_phase('m');
+    } else assert(fd == -1);
+    return SR_OK;
+}
 void ds_set_event_callback(dslib_event_callback_t cb) { (void)cb; test_phase('d'); }
 void ds_set_datafeed_callback(ds_datafeed_callback_t cb) { (void)cb; test_phase('d'); }
 int ds_lib_init(void)
@@ -323,6 +341,16 @@ static struct parent_child parent_spawn(const char *base, const char *value,
             argv[argc - 1] = number;
             argv[argc++] = "--parent-fd";
             argv[argc++] = number;
+        }
+        char manifest_text[32];
+        if (test_combined_flags) {
+            int manifest = open("/dev/null", O_RDONLY);
+            assert(manifest >= 0);
+            snprintf(manifest_text, sizeof manifest_text, "%d", manifest);
+            argv[argc++] = "--res-manifest";
+            argv[argc++] = manifest_text;
+            argv[argc++] = "--log-level";
+            argv[argc++] = "4";
         }
         test_fault = fault; test_mode = mode; test_phase_fd = phase[1]; test_gate_fd = gate[0];
         assert(signal(SIGPIPE, SIG_DFL) != SIG_ERR);
@@ -531,8 +559,25 @@ static void test_parent_fd(void)
     parent_resume(&p);
     parent_result(&p, 0, "\"bin\":", 0);
     assert(!unlink(bin));
+    /* All three flags retain normal publication and parent-loss cleanup.
+     * The manifest API is a stub; actual preflight is tested separately. */
+    test_combined_flags = 1;
+    p = parent_spawn(base, NULL, 0, PM_GOOD, 0);
+    parent_result(&p, 0, "\"bin\":", 0);
+    assert(g_file_test(bin, G_FILE_TEST_IS_REGULAR) && !unlink(bin));
+    const int combined_faults[] = {PF_PUBLISH, PF_STDOUT};
+    const char combined_phases[] = {'L', 'F'};
+    for (size_t i = 0; i < G_N_ELEMENTS(combined_faults); i++) {
+        p = parent_spawn(base, NULL, combined_faults[i], PM_GOOD, 0);
+        parent_phase(&p, combined_phases[i]);
+        parent_close(&p);
+        if (combined_faults[i] == PF_PUBLISH) parent_resume(&p);
+        parent_result(&p, 1, NULL, 1);
+        parent_no_files(dir);
+    }
+    test_combined_flags = 0;
     assert(!rmdir(dir));
     g_free(dir); g_free(base); g_free(bin);
     puts("parent-fd tests passed: validation, pre-init setup faults, EOF/read error, "
-         "blocked lifecycle, publication races, protocol, existing files, normal completion");
+         "blocked lifecycle, publication races, protocol, existing files, normal completion, all three flags");
 }

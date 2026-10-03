@@ -54,6 +54,7 @@ static void test_arguments(void)
     assert(o.trig_ch == 15 && o.trig_type == 'F' && o.trigpos == 100);
     assert(parse(&o, "--out", "x", "--trigger", "0", NULL) == 0 && o.trig_type == 'R');
     assert(parse(&o, "--list", NULL) == 0 && o.list_only);
+    assert(o.parent_fd == -1 && o.res_manifest == -1 && !o.parent_fd_value);
     assert(o.log_level == 1);
     assert(parse(&o, "--out", "x", NULL) == 0 && o.log_level == 1);
     for (int level = 0; level <= 5; level++) {
@@ -68,6 +69,40 @@ static void test_arguments(void)
     assert(parse(&o, "--list", "--log-level", "0", "--log-level", "5", NULL) == 2);
     assert(parse(&o, "--out", "x", "--log-level", "1", "--log-level", NULL) == 2);
     assert(parse(&o, "--log-level", NULL) == 2);
+    int fd = open("/dev/null", O_RDONLY);
+    char fd_text[32];
+    assert(fd >= 0);
+    snprintf(fd_text, sizeof fd_text, "%d", fd);
+    assert(parse(&o, "--list", "--res-manifest", fd_text, NULL) == 0 && o.res_manifest == fd);
+    int parent_pipe[2];
+    char parent_text[32];
+    assert(pipe(parent_pipe) == 0);
+    snprintf(parent_text, sizeof parent_text, "%d", parent_pipe[0]);
+    assert(parse(&o, "--list", "--res-manifest", fd_text, "--parent-fd", parent_text, NULL) == 0);
+    assert(o.res_manifest == fd && o.parent_fd == parent_pipe[0] && o.parent_fd_value);
+    assert(parse(&o, "--list", "--parent-fd", parent_text, "--res-manifest", fd_text, NULL) == 0);
+    assert(o.res_manifest == fd && o.parent_fd == parent_pipe[0]);
+    for (int level = 0; level <= 5; level++) {
+        char value[2] = {(char)('0' + level), '\0'};
+        assert(parse(&o, "--out", "x", "--parent-fd", parent_text,
+                     "--log-level", value, "--res-manifest", fd_text, NULL) == 0);
+        assert(o.parent_fd == parent_pipe[0] && o.res_manifest == fd && o.log_level == level);
+        assert(parse(&o, "--list", "--res-manifest", fd_text,
+                     "--log-level", value, "--parent-fd", parent_text, NULL) == 0);
+        assert(o.parent_fd == parent_pipe[0] && o.res_manifest == fd && o.log_level == level);
+    }
+    close(parent_pipe[0]); close(parent_pipe[1]);
+    close(fd);
+    assert(parse(&o, "--list", "--res-manifest", fd_text, NULL) == 2);
+    fd = open("/dev/null", O_WRONLY);
+    assert(fd >= 0);
+    snprintf(fd_text, sizeof fd_text, "%d", fd);
+    assert(parse(&o, "--list", "--res-manifest", fd_text, NULL) == 2);
+    close(fd);
+    const char *bad_fd[] = {"-1", "+3", " 3", "3x", "", "2147483648", "18446744073709551616"};
+    for (size_t i = 0; i < G_N_ELEMENTS(bad_fd); i++)
+        assert(parse(&o, "--list", "--res-manifest", bad_fd[i], NULL) == 2);
+    assert(parse(&o, "--list", "--res-manifest", NULL) == 2);
     /* trigpos% of the aligned sample limit must fit the driver's 32-bit position. */
     assert(parse(&o, "--out", "x", "--samples", "8589934592", "--trigpos", "100", NULL) == 2);
     assert(parse(&o, "--out", "x", "--samples", "4294000000", "--trigpos", "100", NULL) == 0);
