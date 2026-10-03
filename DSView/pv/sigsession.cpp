@@ -802,6 +802,9 @@ namespace pv
         }
         else
         {
+            // The capture ends once the device has uploaded its buffer; this is still
+            // an explicit Stop (an MCP capture keeps the data up to it).
+            _callback->trigger_message(DSV_MSG_END_COLLECT_WORK_PREV);
             dsv_info("Data is uploading from device data buffer, waiting for stop.");
         }
         return false;
