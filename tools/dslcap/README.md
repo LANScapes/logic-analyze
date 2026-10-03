@@ -82,7 +82,12 @@ not output or used to infer state; their absence does not invalidate identity.
 Enumeration, iterator invalidation and handle-release failures also return 1.
 A successful empty result is status 0. Require status 0 and complete JSON before
 using the result. Parent loss exits immediately with status 1 and may leave no
-result; stdout failure is status 1.
+result. Stdout I/O errors detected by stdio return status 1. Without `--parent-fd`,
+existing signal behavior is preserved: with default SIGPIPE handling, writing to
+a closed pipe terminates by **SIGPIPE**, rather than returning status 1 or a
+complete result. With `--parent-fd`, existing watcher setup ignores SIGPIPE, so
+an actual broken-pipe write reports the I/O error and status 1 while the parent
+is still alive. No result is guaranteed after signal termination or I/O failure.
 
 ### Exact registry / CoreFoundation API inventory
 
@@ -129,7 +134,8 @@ and multiple inventories, legacy fallback and duplicate class views, unchanged
 32-bit location values, Unicode and JSON escaping, wrong/missing CF types,
 negative/floating/out-of-range numbers, strict serial failures, allocation failure,
 registry/query/release/iterator faults, option conflicts/reserved tokens, parent
-loss before/during fake registry calls, stdout failure, and capture/spool/parent
+loss before/during fake registry calls, stdout errors and actual closed-pipe
+SIGPIPE/EPIPE behavior, and capture/spool/parent
 regressions. Run the spool command below from the repository root.
 
 On macOS, the additional `dslcap_test_registry_cf` target uses actual

@@ -259,6 +259,7 @@ static struct parent_child ids_spawn(int watched, int close_parent, int bad_stdo
         if (bad_stdout) close(STDOUT_FILENO);
         test_fault = 0; test_phase_fd = phase[1]; test_gate_fd = gate[0];
         test_ids_forbid_library = 1;
+        assert(signal(SIGPIPE, SIG_DFL) != SIG_ERR);
         char fd[32]; snprintf(fd, sizeof fd, "%d", watch[0]);
         char *argv[12] = {"dslcap", "--list-ids", NULL}; int argc = 2;
         if (watched) { argv[argc++] = "--parent-fd"; argv[argc++] = fd; }
@@ -299,7 +300,7 @@ static void ids_result(struct parent_child *p, int expected_rc,
 {
     assert(parent_wait(p) == expected_rc);
     char out[8192], err[8192], phase[256];
-    ssize_t n = read(p->out, out, sizeof out - 1); assert(n >= 0); out[n] = 0;
+    ssize_t n = p->out < 0 ? 0 : read(p->out, out, sizeof out - 1); assert(n >= 0); out[n] = 0;
     n = read(p->err, err, sizeof err - 1); assert(n >= 0); err[n] = 0;
     n = read(p->phase, phase, sizeof phase - 1); assert(n >= 0); phase[n] = 0;
     /* Every library stub forbids initialization/scan/config/callback/teardown. */
@@ -308,7 +309,8 @@ static void ids_result(struct parent_child *p, int expected_rc,
     else assert(!out[0]);
     if (error) assert(strstr(err, error)); else assert(!err[0]);
     if (p->writer >= 0) close(p->writer);
-    close(p->out); close(p->err); close(p->phase); close(p->gate);
+    if (p->out >= 0) close(p->out);
+    close(p->err); close(p->phase); close(p->gate);
 }
 static void ids_check_profiles(void)
 {
@@ -456,7 +458,30 @@ static void test_list_ids(void)
     }
     ids_reset(); p = ids_spawn(1, 0, 1, 0, 1);
     ids_result(&p, 1, NULL, "cannot write the result to stdout");
+    /* Close the real stdout pipe before main, holding the parent-watch writer
+     * open. This distinguishes SIGPIPE from EBADF and watcher-driven exit. */
+    for (int watched = 0; watched < 2; watched++) {
+        ids_reset(); p = ids_spawn(watched, 1, 0, 0, 1); parent_phase(&p, 'B');
+        close(p.out); p.out = -1; parent_resume(&p);
+        if (watched) ids_result(&p, 1, NULL, "cannot write the result to stdout");
+        else {
+            gint64 deadline = g_get_monotonic_time() + 2 * G_TIME_SPAN_SECOND;
+            int status;
+            for (;;) {
+                pid_t got = waitpid(p.pid, &status, WNOHANG); assert(got >= 0);
+                if (got) break;
+                if (g_get_monotonic_time() >= deadline) {
+                    kill(p.pid, SIGKILL); waitpid(p.pid, &status, 0);
+                    assert(!"broken-pipe child did not exit promptly");
+                }
+                g_usleep(1000);
+            }
+            assert(WIFSIGNALED(status) && WTERMSIG(status) == SIGPIPE);
+            char byte; assert(read(p.err, &byte, 1) == 0);
+            close(p.writer); close(p.err); close(p.phase); close(p.gate);
+        }
+    }
     ids_reset();
     puts("list-ids tests passed: registry API/property allowlist, no USB/library calls, table coverage, "
-         "CF types/ownership, raw locationID, Unicode/JSON, fallback, identity errors, parent and stdout");
+         "CF types/ownership, raw locationID, Unicode/JSON, fallback, identity errors, parent, stdout and SIGPIPE/EPIPE");
 }
