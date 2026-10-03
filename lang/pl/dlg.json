@@ -804,10 +804,6 @@
         "text": "MCP:"
     },
     {
-        "id": "IDS_DLG_MCP_ANALYZER",
-        "text": "Analizator:"
-    },
-    {
         "id": "IDS_DLG_MCP_TURN_ON",
         "text": "Włącz"
     },
@@ -826,21 +822,5 @@
     {
         "id": "IDS_DLG_MCP_AGENT_STARTING",
         "text": "Włączone. Agent jeszcze nie działa."
-    },
-    {
-        "id": "IDS_DLG_MCP_TAKE_BACK",
-        "text": "Odzyskaj"
-    },
-    {
-        "id": "IDS_DLG_MCP_LENT",
-        "text": "Wypożyczony klientowi MCP."
-    },
-    {
-        "id": "IDS_DLG_MCP_LENT_WAITING",
-        "text": "Wypożyczony klientowi MCP. Oczekiwanie na zakończenie."
-    },
-    {
-        "id": "IDS_DLG_MCP_HELD",
-        "text": "Używany przez Logic Analyze. Klienci MCP proszą o niego, gdy go potrzebują."
     }
 ]

@@ -804,10 +804,6 @@
         "text": "MCP:"
     },
     {
-        "id": "IDS_DLG_MCP_ANALYZER",
-        "text": "Máy phân tích:"
-    },
-    {
         "id": "IDS_DLG_MCP_TURN_ON",
         "text": "Bật"
     },
@@ -826,21 +822,5 @@
     {
         "id": "IDS_DLG_MCP_AGENT_STARTING",
         "text": "Đang bật. Agent chưa chạy."
-    },
-    {
-        "id": "IDS_DLG_MCP_TAKE_BACK",
-        "text": "Lấy lại"
-    },
-    {
-        "id": "IDS_DLG_MCP_LENT",
-        "text": "Đang cho ứng dụng khách MCP mượn."
-    },
-    {
-        "id": "IDS_DLG_MCP_LENT_WAITING",
-        "text": "Đang cho ứng dụng khách MCP mượn. Đang chờ dùng xong."
-    },
-    {
-        "id": "IDS_DLG_MCP_HELD",
-        "text": "Logic Analyze đang giữ. Ứng dụng khách MCP sẽ yêu cầu khi cần."
     }
 ]

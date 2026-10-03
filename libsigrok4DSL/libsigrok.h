@@ -1409,6 +1409,11 @@ SR_API void ds_set_firmware_resource_dir(const char *dir);
 SR_API int ds_set_firmware_resource_manifest(int fd, GError **error);
 
 /**
+ * Leave USB devices alone (test tools); call before ds_lib_init().
+ */
+SR_API void ds_set_no_hardware(int on);
+
+/**
  * Set user data directory.
 */
 SR_API void ds_set_user_data_dir(const char *dir);

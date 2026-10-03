@@ -36,6 +36,7 @@
 #include "dstimer.h"
 
 class QAction;
+class QLabel;
 class QMenuBar;
 class QMenu;
 class QVBoxLayout;
@@ -224,6 +225,7 @@ private:
 #endif
 #ifdef LANSCAPES_APPSTORE
     QAction                 *_action_mcp = nullptr; //Options > MCP...
+    QLabel                  *_mcp_indicator = nullptr; //MCP ● in the sampling bar
 #endif
     toolbars::TitleBar      *_title_bar;
 

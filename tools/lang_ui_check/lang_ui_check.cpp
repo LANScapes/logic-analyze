@@ -1,7 +1,8 @@
 /*
  * Language layout check for the main window (test builds only).
  *
- * Builds the main window offscreen with the Demo Device, then for each
+ * Builds the main window offscreen with the Demo Device (USB devices are not
+ * scanned, so a connected analyzer is left alone), then for each
  * language (and the test pseudo-language) switches the language at run time,
  * the way the Help > Language menu does, and checks the toolbar in both
  * orientations, the docks and the main dialogs:
@@ -10,7 +11,7 @@
  *     less the chrome its size hint adds around the text);
  *   - a toolbar that pushes buttons into its ">>" extension menu.
  * In the Mac App Store edition (LANSCAPES_APPSTORE) it also checks the MCP pane,
- * off and on, and the prompt that hands the analyzer to an MCP client.
+ * off and on, and the toolbar with its MCP indicator showing.
  * Each widget is saved as <out>/<lang>/<widget>.png; <out>/report.txt lists the
  * problems and <out>/sheets/<widget>.html shows a failing widget across all
  * languages. In the pseudo-language, a visible text without its brackets did
@@ -73,6 +74,7 @@
 #include "DSView/pv/ui/msgbox.h"
 #ifdef LANSCAPES_APPSTORE
 #include "DSView/pv/mcp/mcpbridge.h"
+#include "DSView/pv/mcp/mcpcapture.h"
 #endif
 #include "DSView/pv/view/view.h"
 
@@ -392,6 +394,8 @@ int main(int argc, char *argv[])
     LangResource::Instance()->Load(LAN_EN);
 
     AppControl *control = AppControl::Instance();
+    // The Demo Device only: a connected analyzer is never scanned or opened.
+    ds_set_no_hardware(1);
     if (!control->Init()){
         fprintf(stderr, "init failed\n");
         return 2;
@@ -431,6 +435,12 @@ int main(int argc, char *argv[])
     for (QToolBar *tb : mw->findChildren<QToolBar*>())
         if (tb->metaObject()->className() == QString("pv::toolbars::LogoBar"))
             logobar = tb;
+
+#ifdef LANSCAPES_APPSTORE
+    // The toolbar is checked with MCP ● showing, as during an MCP capture.
+    if (pv::mcp::McpBridge *mcp = pv::mcp::McpBridge::instance())
+        emit mcp->capture()->active_changed(true);
+#endif
 
     std::vector<const lang_key_item*> langs;
     for (const lang_key_item &l : lang_id_keys)
@@ -488,13 +498,6 @@ int main(int argc, char *argv[])
                 mcp->show_pane();
             });
             mcp->set_enabled(false);
-            check_modal("dialog_mcp_hand_over", [mw](){
-                MsgBox::Confirm(L_S(STR_PAGE_MSG, S_ID(IDS_MSG_MCP_HAND_OVER),
-                                    "An MCP client wants to use the analyzer. Hand it over?"),
-                                L_S(STR_PAGE_MSG, S_ID(IDS_MSG_MCP_DATA_CLEARED),
-                                    "The captured data on screen is cleared; save it first if you need it."),
-                                nullptr, mw);
-            });
         }
 #endif
     }

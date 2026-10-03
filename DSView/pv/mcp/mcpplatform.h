@@ -33,6 +33,10 @@ namespace platform {
 // identifier and this team). Returns the connected descriptor, or -1 and a reason.
 int connect_agent(QString *error);
 
+// The agent's staging directory, <group B>/captures/staging, where an MCP
+// capture's files go; empty with a reason if it is not there.
+QString staging_dir(QString *error);
+
 // Starts the nested agent app (or brings up its menu-bar item if it is running).
 // The agent serves only while this GUI is connected and exits when it disconnects.
 bool open_agent(QString *error);

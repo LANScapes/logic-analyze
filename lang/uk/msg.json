@@ -394,29 +394,5 @@
     {
         "id": "IDS_MSG_MCP_AGENT_MISSING",
         "text": "У цій копії застосунку немає Logic Analyze Agent."
-    },
-    {
-        "id": "IDS_MSG_MCP_CLIENT_USING",
-        "text": "Аналізатор використовує MCP-клієнт."
-    },
-    {
-        "id": "IDS_MSG_MCP_CLIENT_USING_TAKE_BACK",
-        "text": "Аналізатор використовує MCP-клієнт. Щоб повернути його, виберіть його в списку пристроїв."
-    },
-    {
-        "id": "IDS_MSG_MCP_CLIENT_USING_SWITCH",
-        "text": "Аналізатор використовує MCP-клієнт. Logic Analyze перемкнеться на нього, коли клієнт завершить роботу."
-    },
-    {
-        "id": "IDS_MSG_MCP_HAND_OVER",
-        "text": "MCP-клієнт хоче використати аналізатор. Передати його?"
-    },
-    {
-        "id": "IDS_MSG_MCP_CAPTURE_STOPS",
-        "text": "Поточне захоплення буде зупинено."
-    },
-    {
-        "id": "IDS_MSG_MCP_DATA_CLEARED",
-        "text": "Захоплені дані на екрані буде видалено; за потреби спершу збережіть їх."
     }
 ]

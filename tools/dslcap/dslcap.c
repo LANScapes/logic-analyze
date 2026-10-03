@@ -5,9 +5,13 @@
  *   dslcap --list-ids [--parent-fd N]
  *   dslcap --channels 0,1 --samplerate 10000000 --samples 1000000
  *          [--vth 1.6] [--mode buffer|stream] [--trigger CH[:R|F|C|1|0]]
- *          [--trigpos PERCENT] [--timeout SEC] [--res DIR]
+ *          [--trigpos PERCENT] [--timeout SEC] [--res DIR] [--device NAME]
  *          [--parent-fd N] [--res-manifest FD] [--log-level N]
  *          --out /path/base
+ *
+ * The device is the first whose name contains NAME (default "DSLogic"). The
+ * settings, recording, file layout and record are capcore.c's, shared with the
+ * App Store GUI's MCP captures.
  *
  * Log level N is a whole decimal 0..5 (default 1); logs go to stderr.
  *
@@ -44,32 +48,9 @@
 #endif
 #include "libsigrok.h"
 #include "list_ids.h"
+#include "capcore.h"
 
-/* The spool and the output may exceed 2 GiB. */
-G_STATIC_ASSERT(sizeof(off_t) >= 8);
-
-#define MAX_CHANNELS 64
 #define STOP_GRACE_US (5 * G_TIME_SPAN_SECOND)
-#define POLL_US 2000
-
-/*
- * Capture state. The library delivers data and events on its own threads,
- * so the capture fields below are guarded by g_lock (a pthread mutex, as the library
- * itself uses).
- */
-static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
-static int g_done = 0;                   /* main thread should stop waiting */
-static int g_task_end = 0;               /* terminal collect-task event seen */
-static int g_err = 0;                    /* DS_EV_COLLECT_TASK_END_BY_ERROR/_DETACHED */
-static int g_data_end = 0;               /* SR_DF_END seen */
-static int g_pkt_error = 0;              /* packet status or logic data error */
-static int g_overflow = 0;               /* SR_DF_OVERFLOW seen */
-static FILE *g_raw = NULL;               /* disk spool of logic payload */
-static uint64_t g_raw_bytes = 0;
-static int g_io_error = 0;
-static int g_format = -1;
-static long long g_trig_pos = -1;
-static int g_split_seen = 0;
 
 /* Independent of g_lock and all stdio/library locks: parent loss must also
  * interrupt blocked initialization, callbacks, stdout and library teardown.
@@ -123,76 +104,19 @@ static void *watch_parent(void *unused)
     return NULL;
 }
 
-static void on_event(int ev)
-{
-    pthread_mutex_lock(&g_lock);
-    /* SR_DF_END and DS_EV_DEVICE_STOPPED come before the final status;
-     * only the collect-task end events say how the capture finished. */
-    if (ev == DS_EV_COLLECT_TASK_END ||
-            ev == DS_EV_COLLECT_TASK_END_BY_ERROR ||
-            ev == DS_EV_COLLECT_TASK_END_BY_DETACHED) {
-        if (ev != DS_EV_COLLECT_TASK_END)
-            g_err = ev;
-        g_task_end = 1;
-        g_done = 1;
-    }
-    pthread_mutex_unlock(&g_lock);
-}
 
-static void on_data(const struct sr_dev_inst *sdi, const struct sr_datafeed_packet *p)
-{
-    (void)sdi;
-    pthread_mutex_lock(&g_lock);
-    if (p->status != SR_PKT_OK) {
-        g_pkt_error = 1;
-        g_done = 1;
-        if (p->type == SR_DF_END)
-            g_data_end = 1;
-    } else if (p->type == SR_DF_LOGIC) {
-        const struct sr_datafeed_logic *l = p->payload;
-        if (l->data_error) {
-            g_pkt_error = 1;
-            g_done = 1;
-        } else {
-            g_format = l->format;
-            if (l->format == LA_SPLIT_DATA)
-                g_split_seen = 1;
-            if (g_raw && !g_io_error) {
-                if (fwrite(l->data, 1, l->length, g_raw) != l->length) {
-                    g_io_error = 1;
-                    g_done = 1;
-                } else {
-                    g_raw_bytes += l->length;
-                }
-            }
-        }
-    } else if (p->type == SR_DF_TRIGGER && p->payload) {
-        const struct ds_trigger_pos *t = p->payload;
-        g_trig_pos = t->real_pos;
-    } else if (p->type == SR_DF_OVERFLOW) {
-        g_overflow = 1;
-        g_done = 1;
-    } else if (p->type == SR_DF_END) {
-        g_data_end = 1;
-    }
-    pthread_mutex_unlock(&g_lock);
-}
+/* Publication through capcore keeps the parent watch: a half-published file
+ * is removed when the parent dies (see parent_lost). */
+static int hooks_active(void) { return g_parent_fd >= 0; }
+static void hooks_lock_checked(void) { pthread_mutex_lock(&g_parent_lock); parent_check_locked(); }
+static void hooks_unlock(void) { pthread_mutex_unlock(&g_parent_lock); }
+static const struct cap_publish_hooks parent_hooks = {
+    hooks_active, hooks_lock_checked, parent_check_locked, hooks_unlock, &g_parent_tmp, &g_parent_bin,
+};
+#define CAP_PUBLISH_HOOKS parent_hooks
+#include "capcore.c"
 
-/* Wait until a callback sets *flag or the monotonic deadline passes. */
-static int wait_flag(const int *flag, gint64 deadline)
-{
-    for (;;) {
-        pthread_mutex_lock(&g_lock);
-        int set = *flag;
-        pthread_mutex_unlock(&g_lock);
-        gint64 now = g_get_monotonic_time();
-        if (set || now >= deadline)
-            return set;
-        g_usleep(MIN(POLL_US, deadline - now));
-    }
-}
-
-static void json_str(const char *s)
+static void print_json_str(const char *s)
 {
     putchar('"');
     for (; *s; s++) {
@@ -232,14 +156,14 @@ static int finish_stdout(int rc)
 static void arg_error(const char *what, const char *option, const char *value)
 {
     printf("{\"error\":");
-    json_str(what);
+    print_json_str(what);
     if (option) {
         printf(",\"option\":");
-        json_str(option);
+        print_json_str(option);
     }
     if (value) {
         printf(",\"value\":");
-        json_str(value);
+        print_json_str(value);
     }
     printf("}\n");
 }
@@ -315,13 +239,13 @@ static int parse_double(const char *s, double *out)
 }
 
 struct options {
-    const char *res, *out, *chans, *mode, *trig;
+    const char *res, *out, *chans, *mode, *trig, *device;
     const char *parent_fd_value;
     uint64_t rate, samples;
     double vth, timeout;
-    int trigpos, list_only, list_ids, stream, vth_given, log_level;
+    int trigpos, list_only, list_ids, stream, log_level;
     int res_manifest;
-    int enabled[MAX_CHANNELS], nch;
+    int enabled[CAP_MAX_CHANNELS], nch;
     int trig_ch;
     char trig_type;
     int parent_fd;
@@ -336,6 +260,7 @@ static int parse_args(int argc, char **argv, struct options *o)
     memset(o, 0, sizeof *o);
     o->res = getenv("DSLCAP_RES");
     o->chans = "0";
+    o->device = "DSLogic";
     o->mode = "buffer";
     o->rate = 10000000;
     o->samples = 1000000;
@@ -363,7 +288,7 @@ static int parse_args(int argc, char **argv, struct options *o)
         }
         static const char *const valued[] = {
             "--res", "--res-manifest", "--out", "--channels", "--samplerate", "--samples", "--vth",
-            "--mode", "--trigger", "--trigpos", "--timeout", "--parent-fd", "--log-level",
+            "--mode", "--trigger", "--trigpos", "--timeout", "--parent-fd", "--log-level", "--device",
         };
         int known = 0;
         for (size_t k = 0; k < G_N_ELEMENTS(valued); k++)
@@ -404,6 +329,7 @@ static int parse_args(int argc, char **argv, struct options *o)
         else if (!strcmp(a, "--channels")) o->chans = v;
         else if (!strcmp(a, "--mode")) o->mode = v;
         else if (!strcmp(a, "--trigger")) o->trig = v;
+        else if (!strcmp(a, "--device")) bad = !*(o->device = v);
         else if (!strcmp(a, "--parent-fd")) {
             if (o->parent_fd_value) {
                 arg_error("duplicate option", a, v);
@@ -429,7 +355,6 @@ static int parse_args(int argc, char **argv, struct options *o)
         else if (!strcmp(a, "--vth")) {
             /* The range DSView offers for the threshold voltage. */
             bad = parse_double(v, &o->vth) || o->vth < 0.0 || o->vth > 5.0;
-            o->vth_given = 1;
         }
         else if (!strcmp(a, "--trigpos")) {
             bad = parse_u64(v, &u) || u > 100;
@@ -464,11 +389,11 @@ static int parse_args(int argc, char **argv, struct options *o)
         return 0;
     /* The driver converts trigpos% of the (aligned) sample limit to a 32-bit
      * trigger position before applying its depth limit, so keep it in range. */
-    if (o->trigpos > 0 &&
-        o->samples + SAMPLES_ALIGN > (uint64_t)UINT32_MAX * 100 / (uint64_t)o->trigpos) {
-        printf("{\"error\":\"--trigpos too large for --samples\",\"samples\":%llu,\"trigpos\":%d}\n",
-               (unsigned long long)o->samples, o->trigpos);
-        return 2;
+    struct cap_request check = { .samples = o->samples, .trigpos = o->trigpos };
+    struct cap_error e;
+    if (cap_check(&check, &e)) {
+        printf("%s\n", e.json);
+        return e.rc;
     }
     if (!o->out) {
         arg_error("--out is required", NULL, NULL);
@@ -485,7 +410,7 @@ static int parse_args(int argc, char **argv, struct options *o)
         if (!bad) {
             memcpy(token, s, len);
             token[len] = '\0';
-            bad = parse_u64(token, &u) || u >= MAX_CHANNELS;
+            bad = parse_u64(token, &u) || u >= CAP_MAX_CHANNELS;
         }
         if (bad) {
             arg_error("invalid option value", "--channels", o->chans);
@@ -497,7 +422,7 @@ static int parse_args(int argc, char **argv, struct options *o)
                 return 2;
             }
         }
-        if (o->nch == MAX_CHANNELS) {
+        if (o->nch == CAP_MAX_CHANNELS) {
             printf("{\"error\":\"too many channels\"}\n");
             return 2;
         }
@@ -531,7 +456,7 @@ static int parse_args(int argc, char **argv, struct options *o)
     return 0;
 }
 
-static int pick_device(int list_only)
+static int pick_device(int list_only, const char *want)
 {
     struct ds_device_base_info *list = NULL;
     int count = 0, pick = -1;
@@ -543,9 +468,9 @@ static int pick_device(int list_only)
     for (int i = 0; i < count; i++) {
         if (list_only) {
             printf("%s", i ? "," : "");
-            json_str(list[i].name);
+            print_json_str(list[i].name);
         }
-        if (pick < 0 && strstr(list[i].name, "DSLogic"))
+        if (pick < 0 && strstr(list[i].name, want))
             pick = i;
     }
     if (list_only) printf("]}\n");
@@ -557,190 +482,6 @@ static int pick_device(int list_only)
     return pick;
 }
 
-static int set_u64(int key, uint64_t v) { return ds_set_actived_device_config(NULL, NULL, key, g_variant_new_uint64(v)); }
-
-/* Read back a configuration value of the expected type. */
-static GVariant *get_config(int key, const GVariantType *type)
-{
-    GVariant *gv = NULL;
-    if (ds_get_actived_device_config(NULL, NULL, key, &gv) != SR_OK || !gv)
-        return NULL;
-    if (!g_variant_is_of_type(gv, type)) {
-        g_variant_unref(gv);
-        return NULL;
-    }
-    return gv;
-}
-
-/* Whether the active device lists key among its SR_CONF_DEVICE_OPTIONS. */
-static int device_has_option(int key)
-{
-    GVariant *gv = NULL;
-    int found = 0;
-    if (ds_get_actived_device_config_list(NULL, SR_CONF_DEVICE_OPTIONS, &gv) != SR_OK || !gv)
-        return 0;
-    if (g_variant_is_of_type(gv, G_VARIANT_TYPE("ai"))) {
-        gsize n = 0;
-        const gint32 *keys = g_variant_get_fixed_array(gv, &n, sizeof(gint32));
-        for (gsize i = 0; i < n; i++)
-            if (keys[i] == key) found = 1;
-    }
-    g_variant_unref(gv);
-    return found;
-}
-
-static void config_error(const char *setting, int code)
-{
-    printf("{\"error\":\"device configuration failed\",\"setting\":\"%s\",\"code\":%d}\n",
-           setting, code);
-}
-
-/* Keep the channel-major file layout, using fixed-size conversion buffers. */
-static int write_output(const char *path, int nch, uint64_t per_ch, uint64_t got)
-{
-    uint64_t raw[4096], channel[4096];
-    if (nch <= 0 || nch > (int)G_N_ELEMENTS(raw)) return -1;
-    /* Every channel's last byte must be addressable as an off_t. */
-    if (per_ch > (uint64_t)G_MAXINT64 / 8 / (uint64_t)nch) return -1;
-    if (fflush(g_raw) || fseeko(g_raw, 0, SEEK_SET)) return -1;
-    /* Write to a temporary file and publish it only on success. */
-    char *tmp = g_strdup_printf("%s.XXXXXX", path);
-    if (g_parent_fd >= 0) {
-        pthread_mutex_lock(&g_parent_lock);
-        parent_check_locked();
-        g_parent_tmp = tmp;
-    }
-    int fd = g_mkstemp(tmp);
-    if (g_parent_fd >= 0) {
-        if (fd < 0) g_parent_tmp = NULL;
-        pthread_mutex_unlock(&g_parent_lock);
-    }
-    if (fd < 0) { g_free(tmp); return -1; }
-    FILE *f = fdopen(fd, "wb");
-    if (!f) close(fd);
-    int failed = !f;
-    for (uint64_t k = 0; k < per_ch && !failed;) {
-        size_t count = MIN(per_ch - k, G_N_ELEMENTS(raw) / nch);
-        if (fread(raw, sizeof(uint64_t) * nch, count, g_raw) != count) {
-            failed = 1;
-            break;
-        }
-        for (int c = 0; c < nch; c++) {
-            for (size_t i = 0; i < count; i++) channel[i] = raw[i * nch + c];
-            /* Clear samples past the requested count in the last word. */
-            if (k + count == per_ch && got % 64)
-                channel[count - 1] &= (1ULL << (got % 64)) - 1;
-            off_t offset = (off_t)(((uint64_t)c * per_ch + k) * 8);
-            if (fseeko(f, offset, SEEK_SET) || fwrite(channel, 8, count, f) != count) {
-                failed = 1;
-                break;
-            }
-        }
-        k += count;
-    }
-    if (f && fclose(f)) failed = 1;
-    char *published = g_parent_fd >= 0 ? g_strdup(path) : NULL;
-    if (g_parent_fd >= 0) {
-        pthread_mutex_lock(&g_parent_lock);
-        parent_check_locked();
-    }
-    /* link() publishes atomically and, unlike rename(), refuses to replace an existing capture. */
-    if (!failed && link(tmp, path)) failed = 1;
-    if (!failed && g_parent_fd >= 0) {
-        g_parent_bin = published;
-        published = NULL;
-    }
-    if (g_parent_fd >= 0) parent_check_locked();
-    unlink(tmp);  /* after link() the published name keeps the data; drop the temporary one either way */
-    if (g_parent_fd >= 0) {
-        g_parent_tmp = NULL;
-        pthread_mutex_unlock(&g_parent_lock);
-    }
-    g_free(published);
-    g_free(tmp);
-    return failed ? -1 : 0;
-}
-
-/* Why a finished acquisition must not be published, or NULL if it may. */
-static const char *capture_failure(int timed_out, int task_end, int err, int pkt_error,
-                                   int overflow, uint64_t got, uint64_t samples)
-{
-    if (timed_out) return "capture timed out";
-    if (!task_end) return "capture did not finish";
-    if (err == DS_EV_COLLECT_TASK_END_BY_DETACHED) return "device detached during capture";
-    if (err) return "capture ended with a device error";
-    if (pkt_error) return "device reported a data error";
-    if (overflow) return "device buffer overflow";
-    if (got == 0) return "no samples captured";
-    if (got < samples) return "capture ended before the requested sample count";
-    return NULL;
-}
-
-static int set_samplerate(uint64_t rate)
-{
-    GVariant *dict = NULL;
-    if (ds_get_actived_device_config_list(NULL, SR_CONF_SAMPLERATE, &dict) != SR_OK || !dict)
-        return SR_ERR;
-    GVariant *rates = g_variant_lookup_value(dict, "samplerates", G_VARIANT_TYPE("at"));
-    g_variant_unref(dict);
-    if (!rates)
-        return SR_ERR;
-
-    gsize count;
-    const uint64_t *values = g_variant_get_fixed_array(rates, &count, sizeof(uint64_t));
-    int supported = 0;
-    for (gsize i = 0; i < count; i++)
-        if (values[i] == rate) { supported = 1; break; }
-    g_variant_unref(rates);
-
-    /* The driver stores arbitrary rates but rounds the hardware divider. */
-    return supported ? set_u64(SR_CONF_SAMPLERATE, rate) : SR_ERR_ARG;
-}
-
-static int select_channel_mode(uint64_t rate)
-{
-    GVariant *gv = NULL;
-    if (ds_get_actived_device_config_list(NULL, SR_CONF_CHANNEL_MODE, &gv) != SR_OK || !gv)
-        return SR_ERR;
-    const struct sr_list_item *modes = (const struct sr_list_item *)g_variant_get_uint64(gv);
-    g_variant_unref(gv);
-
-    /* The driver lists modes from most channels to fewest. */
-    for (; modes && modes->id >= 0; modes++) {
-        if (ds_set_actived_device_config(NULL, NULL, SR_CONF_CHANNEL_MODE,
-                g_variant_new_int16(modes->id)) != SR_OK)
-            return SR_ERR;
-        gv = NULL;
-        if (ds_get_actived_device_config_list(NULL, SR_CONF_SAMPLERATE, &gv) != SR_OK || !gv)
-            return SR_ERR;
-        GVariant *rates = g_variant_lookup_value(gv, "samplerates", G_VARIANT_TYPE("at"));
-        g_variant_unref(gv);
-        if (!rates) return SR_ERR;
-        gsize count = 0;
-        const uint64_t *values = g_variant_get_fixed_array(rates, &count, sizeof(uint64_t));
-        int found = 0;
-        for (gsize i = 0; i < count; i++)
-            if (values[i] == rate) found = 1;
-        g_variant_unref(rates);
-        if (found) return SR_OK;
-    }
-    return SR_ERR;
-}
-
-static int configure_trigger(const struct options *o)
-{
-    int rc;
-    if ((rc = ds_trigger_reset()) != SR_OK) { config_error("trigger", rc); return rc; }
-    if ((rc = ds_trigger_set_mode(SIMPLE_TRIGGER)) != SR_OK) { config_error("trigger_mode", rc); return rc; }
-    if ((rc = ds_trigger_set_pos((uint16_t)o->trigpos)) != SR_OK) { config_error("trigpos", rc); return rc; }
-    if (o->trig && (rc = ds_trigger_probe_set((uint16_t)o->trig_ch,
-            (unsigned char)o->trig_type, 'X')) != SR_OK) {
-        config_error("trigger", rc);
-        return rc;
-    }
-    if ((rc = ds_trigger_set_en(o->trig ? TRUE : FALSE)) != SR_OK) { config_error("trigger_enable", rc); return rc; }
-    return SR_OK;
-}
 
 /* Firmware directory: next to this executable (app bundle Contents/Resources/res,
  * build tree DSView/res, installed ../share/DSView/res), then the configured
@@ -776,52 +517,25 @@ static char *default_res_dir(void)
     return found;
 }
 
-struct report {
-    const char *device;
-    uint64_t rate, samples, got, per_ch, limit;
-    const int *channels;
-    int nch;
-    double vth;
-    const char *mode, *trig;
-    int format;
-    long long trig_pos;
-    int timed_out, err, pkt_error, overflow;
-    double secs;
-    const char *bin;
-};
-
-/* One JSON object; error, when set, makes it a failure report without a file. */
-static void print_report(const char *error, const struct report *r)
-{
-    printf("{");
-    if (error) {
-        printf("\"error\":");
-        json_str(error);
-        printf(",");
-    }
-    printf("\"device\":");
-    json_str(r->device);
-    printf(",\"samplerate\":%llu,\"samples_requested\":%llu,\"samples\":%llu,\"words_per_channel\":%llu,"
-           "\"channels\":[", (unsigned long long)r->rate, (unsigned long long)r->samples,
-           (unsigned long long)r->got, (unsigned long long)r->per_ch);
-    for (int i = 0; i < r->nch; i++) printf("%s%d", i ? "," : "", r->channels[i]);
-    /* vth is null on devices without a threshold voltage. */
-    if (isfinite(r->vth)) printf("],\"vth\":%.3f,\"mode\":", r->vth);
-    else printf("],\"vth\":null,\"mode\":");
-    json_str(r->mode);
-    printf(",\"format\":\"%s\",\"trigger\":", r->format == LA_SPLIT_DATA ? "split" : "cross");
-    if (r->trig) json_str(r->trig); else printf("null");
-    printf(",\"trigger_pos\":%lld,\"timed_out\":%s,\"lib_error_event\":%d,\"elapsed_s\":%.3f,\"bin\":",
-           r->trig_pos, r->timed_out ? "true" : "false", r->err, r->secs);
-    if (r->bin) json_str(r->bin); else printf("null");
-    printf(",\"limit_samples\":%llu,\"packet_error\":%s,\"overflow\":%s}\n",
-           (unsigned long long)r->limit, r->pkt_error ? "true" : "false",
-           r->overflow ? "true" : "false");
-}
 
 static void clear_resource_manifest(void)
 {
     ds_set_firmware_resource_manifest(-1, NULL);
+}
+
+/* The request capcore applies, from the parsed options. */
+static void to_request(const struct options *o, struct cap_request *r)
+{
+    memset(r, 0, sizeof *r);
+    memcpy(r->channels, o->enabled, sizeof r->channels);
+    r->nch = o->nch;
+    r->rate = o->rate;
+    r->samples = o->samples;
+    r->vth = o->vth;
+    r->stream = o->stream;
+    r->trig_ch = o->trig ? o->trig_ch : -1;
+    r->trig_type = o->trig_type;
+    r->trigpos = o->trigpos;
 }
 
 int main(int argc, char **argv)
@@ -850,15 +564,13 @@ int main(int argc, char **argv)
         return finish_stdout(2);
     }
 
-    uint64_t hw_samples = o.samples;
-    if (!o.stream) {
-        /* Buffer delivery is aligned to 1024 samples in the driver. */
-        hw_samples = (o.samples + SAMPLES_ALIGN) & ~SAMPLES_ALIGN;
-    }
-
     parent_check();
     ds_log_level(o.log_level);
     ds_set_firmware_resource_dir(res);
+    /* The demo device's patterns are in demo/ next to res/. */
+    char *usr = g_path_get_dirname(res);
+    ds_set_user_data_dir(usr);
+    g_free(usr);
     g_free(res_found);
     if (o.res_manifest >= 0) {
         GError *error = NULL;
@@ -874,11 +586,14 @@ int main(int argc, char **argv)
             return finish_stdout(2);
         }
     }
+    /* The demo device needs no USB scan; a connected analyzer is left alone. */
+    if (!strcmp(o.device, "Demo"))
+        ds_set_no_hardware(1);
     ds_set_event_callback(on_event);
     ds_set_datafeed_callback(on_data);
     if (ds_lib_init() != SR_OK) { printf("{\"error\":\"lib init failed\"}\n"); return finish_stdout(1); }
 
-    int dev = pick_device(o.list_only);
+    int dev = pick_device(o.list_only, o.device);
     if (dev == -3) {
         printf("{\"error\":\"cannot list devices\"}\n");
         ds_lib_exit();
@@ -891,133 +606,22 @@ int main(int argc, char **argv)
         return finish_stdout(1);
     }
 
-    struct ds_device_full_info info;
-    memset(&info, 0, sizeof info);
-    ds_get_actived_device_info(&info);
-    info.name[sizeof info.name - 1] = '\0';
-
-    /* Mode first: it changes the channel mode and the allowed rates. */
-    if (ds_set_actived_device_config(NULL, NULL, SR_CONF_OPERATION_MODE,
-            g_variant_new_int16(o.stream ? LO_OP_STREAM : LO_OP_BUFFER)) != SR_OK ||
-            select_channel_mode(o.rate) != SR_OK) {
-        printf("{\"error\":\"samplerate unavailable in operation mode\",\"samplerate\":%llu}\n",
-               (unsigned long long)o.rate);
+    /* The same settings the GUI applies for an MCP capture (capcore.c). */
+    struct cap_request req;
+    struct cap_setup setup;
+    struct cap_error err;
+    to_request(&o, &req);
+    if ((rc = cap_apply(&req, &setup, &err)) != 0) {
+        printf("%s\n", err.json);
         ds_lib_exit();
-        return finish_stdout(2);
+        return finish_stdout(rc);
     }
-    GVariant *gv = get_config(SR_CONF_VLD_CH_NUM, G_VARIANT_TYPE_INT16);
-    if (!gv) {
-        printf("{\"error\":\"cannot read channel limit\"}\n");
+
+    if (cap_record_begin(o.out)) {
+        printf("{\"error\":\"cannot create capture spool\"}\n");
         ds_lib_exit();
         return finish_stdout(1);
     }
-    int max_channels = g_variant_get_int16(gv);
-    g_variant_unref(gv);
-
-    for (GSList *l = ds_get_actived_device_channels(); l; l = l->next)
-        ds_enable_device_channel(l->data, FALSE);
-    for (int i = 0; i < o.nch; i++) {
-        /* The selected channel mode limits which channels exist at this rate. */
-        if (i >= max_channels || ds_enable_device_channel_index(o.enabled[i], TRUE) != SR_OK) {
-            printf("{\"error\":\"channel/rate combination unavailable\",\"channel\":%d,\"samplerate\":%llu,\"max_channels\":%d}\n",
-                   o.enabled[i], (unsigned long long)o.rate, max_channels);
-            ds_lib_exit();
-            return finish_stdout(2);
-        }
-    }
-
-    /* Devices with a threshold voltage list SR_CONF_VTH; older ones only have a
-     * 3.3 V / 5 V threshold setting, which is left as it is. */
-    int has_vth = device_has_option(SR_CONF_VTH);
-    if (!has_vth && o.vth_given) {
-        printf("{\"error\":\"this device has no threshold voltage setting\",\"device\":");
-        json_str(info.name);
-        printf("}\n");
-        ds_lib_exit();
-        return finish_stdout(2);
-    }
-    if (has_vth && (rc = ds_set_actived_device_config(NULL, NULL, SR_CONF_VTH, g_variant_new_double(o.vth))) != SR_OK) {
-        config_error("vth", rc);
-        ds_lib_exit();
-        return finish_stdout(1);
-    }
-    int rate_rc = set_samplerate(o.rate);
-    if (rate_rc != SR_OK) {
-        printf("{\"error\":\"%s\",\"samplerate\":%llu}\n",
-            rate_rc == SR_ERR_ARG ? "unsupported samplerate" : "samplerate configuration failed",
-            (unsigned long long)o.rate);
-        ds_lib_exit();
-        return finish_stdout(rate_rc == SR_ERR_ARG ? 2 : 1);
-    }
-    if ((rc = set_u64(SR_CONF_LIMIT_SAMPLES, hw_samples)) != SR_OK) {
-        config_error("samples", rc);
-        ds_lib_exit();
-        return finish_stdout(1);
-    }
-
-    int enabled[MAX_CHANNELS], nch = 0;
-    for (GSList *l = ds_get_actived_device_channels(); l; l = l->next) {
-        const struct sr_channel *ch = l->data;
-        if (!ch->enabled) continue;
-        if (nch == MAX_CHANNELS) {
-            printf("{\"error\":\"too many enabled channels\"}\n");
-            ds_lib_exit();
-            return finish_stdout(1);
-        }
-        enabled[nch++] = ch->index;
-    }
-    /* ascending order, as the device sends them */
-    for (int i = 0; i < nch; i++) for (int j = i + 1; j < nch; j++)
-        if (enabled[j] < enabled[i]) { int t = enabled[i]; enabled[i] = enabled[j]; enabled[j] = t; }
-
-    if (o.trig) {
-        int trigger_enabled = 0;
-        for (int i = 0; i < nch; i++)
-            if (enabled[i] == o.trig_ch) trigger_enabled = 1;
-        if (!trigger_enabled) {
-            printf("{\"error\":\"trigger channel must be an enabled device channel\"}\n");
-            ds_lib_exit();
-            return finish_stdout(2);
-        }
-    }
-    if (configure_trigger(&o) != SR_OK) {
-        ds_lib_exit();
-        return finish_stdout(1);
-    }
-
-    /* Report what the device holds, not what was requested. */
-    GVariant *rate_gv = get_config(SR_CONF_SAMPLERATE, G_VARIANT_TYPE_UINT64);
-    GVariant *limit_gv = get_config(SR_CONF_LIMIT_SAMPLES, G_VARIANT_TYPE_UINT64);
-    GVariant *vth_gv = has_vth ? get_config(SR_CONF_VTH, G_VARIANT_TYPE_DOUBLE) : NULL;
-    uint64_t act_rate = rate_gv ? g_variant_get_uint64(rate_gv) : 0;
-    uint64_t act_limit = limit_gv ? g_variant_get_uint64(limit_gv) : 0;
-    double act_vth = vth_gv ? g_variant_get_double(vth_gv) : NAN;
-    const char *unread = !rate_gv ? "samplerate" : !limit_gv ? "samples" : has_vth && !vth_gv ? "vth" : NULL;
-    if (rate_gv) g_variant_unref(rate_gv);
-    if (limit_gv) g_variant_unref(limit_gv);
-    if (vth_gv) g_variant_unref(vth_gv);
-    if (unread || act_limit != hw_samples || (has_vth && !isfinite(act_vth))) {
-        printf("{\"error\":\"cannot verify device configuration\",\"setting\":\"%s\"}\n",
-               unread ? unread : act_limit != hw_samples ? "samples" : "vth");
-        ds_lib_exit();
-        return finish_stdout(1);
-    }
-
-    char *spool = g_strdup_printf("%s.raw-XXXXXX", o.out);
-    if (g_parent_fd >= 0) {
-        pthread_mutex_lock(&g_parent_lock);
-        parent_check_locked();
-    }
-    int fd = g_mkstemp(spool);
-    /* Anonymous before fdopen or collection, including the failure path. */
-    if (fd >= 0) unlink(spool);
-    if (g_parent_fd >= 0) pthread_mutex_unlock(&g_parent_lock);
-    if (fd >= 0) {
-        g_raw = fdopen(fd, "w+b");
-        if (!g_raw) close(fd);
-    }
-    g_free(spool);
-    if (!g_raw) { printf("{\"error\":\"cannot create capture spool\"}\n"); ds_lib_exit(); return finish_stdout(1); }
 
     /* One monotonic clock for both the deadline and the reported time. */
     gint64 t0 = g_get_monotonic_time();
@@ -1025,62 +629,26 @@ int main(int argc, char **argv)
     rc = ds_start_collect();
     if (rc != SR_OK) {
         printf("{\"error\":\"start failed\",\"code\":%d}\n", rc);
-        fclose(g_raw);
+        cap_record_end();
         ds_lib_exit();
         return finish_stdout(1);
     }
-    int timed_out = !wait_flag(&g_done, deadline);
+    int timed_out = !cap_wait_done(deadline);
 
     /* Stop early on timeout or a reported error; either way wait for the
      * collect task's own end event before trusting the data and status. */
     if (ds_is_collecting()) ds_stop_collect();
-    gint64 stop_deadline = g_get_monotonic_time() + STOP_GRACE_US;
-    wait_flag(&g_task_end, stop_deadline);
-    pthread_mutex_lock(&g_lock);
-    int task_end = g_task_end, err = g_err, pkt_error = g_pkt_error, overflow = g_overflow;
-    int io_error = g_io_error, format = g_split_seen ? LA_SPLIT_DATA : g_format;
-    uint64_t raw_bytes = g_raw_bytes;
-    long long trig_pos = g_trig_pos;
-    pthread_mutex_unlock(&g_lock);
+    cap_wait_task_end(g_get_monotonic_time() + STOP_GRACE_US);
     gint64 t1 = g_get_monotonic_time();
 
-    /* De-interleave LA_CROSS_DATA: 64-sample words rotate through channels. */
-    uint64_t words = raw_bytes / 8;
-    uint64_t per_ch = nch ? words / nch : 0;
-    uint64_t got = per_ch > o.samples / 64 ? o.samples : per_ch * 64;
-    per_ch = got / 64 + (got % 64 != 0);
+    struct cap_end end = { .timed_out = timed_out, .secs = (t1 - t0) / (double)G_TIME_SPAN_SECOND };
+    char *report = NULL;
+    char *bin = g_strdup_printf("%s.bin", o.out);
+    int exit_code = cap_finish(&req, &setup, o.out, bin, &end, &report, NULL);
+    fputs(report, stdout);
+    g_free(report);
+    g_free(bin);
 
-    struct report r = {
-        .device = info.name, .rate = act_rate, .samples = o.samples, .got = got,
-        .per_ch = per_ch, .limit = act_limit, .channels = enabled, .nch = nch,
-        .vth = act_vth, .mode = o.mode, .trig = o.trig, .format = format,
-        .trig_pos = trig_pos, .timed_out = timed_out, .err = err,
-        .pkt_error = pkt_error, .overflow = overflow,
-        .secs = (t1 - t0) / (double)G_TIME_SPAN_SECOND, .bin = NULL,
-    };
-    const char *failure = io_error ? NULL : capture_failure(timed_out, task_end, err,
-            pkt_error, overflow, got, o.samples);
-    char *path = g_strdup_printf("%s.bin", o.out);
-    int exit_code = 0;
-    if (io_error || (!failure && write_output(path, nch, per_ch, got))) {
-        printf("{\"error\":\"cannot write capture data\"}\n");
-        exit_code = 1;
-    } else if (failure) {
-        print_report(failure, &r);
-        exit_code = 3;
-    } else {
-        parent_check();
-        r.bin = path;
-        print_report(NULL, &r);
-    }
-    g_free(path);
-
-    /* Late callbacks, if the task never reported its end, must not see a closed spool. */
-    pthread_mutex_lock(&g_lock);
-    FILE *raw = g_raw;
-    g_raw = NULL;
-    pthread_mutex_unlock(&g_lock);
-    fclose(raw);
     ds_release_actived_device();
     ds_lib_exit();
     return finish_stdout(exit_code);

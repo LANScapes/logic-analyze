@@ -9,10 +9,21 @@ dslcap --list [--res DIR] [--parent-fd N] [--res-manifest FD] [--log-level N]
 dslcap --list-ids [--parent-fd N]
 dslcap --channels 0,1 --samplerate 10000000 --samples 1000000
        [--vth 1.6] [--mode buffer|stream] [--trigger CH[:R|F|C|1|0]]
-       [--trigpos PERCENT] [--timeout SEC] [--res DIR]
+       [--trigpos PERCENT] [--timeout SEC] [--res DIR] [--device NAME]
        [--parent-fd N] [--res-manifest FD] [--log-level N]
        --out /path/base
 ```
+
+`--device NAME` captures from the first device whose name contains NAME
+(default `DSLogic`); `--device Demo` uses the demo device, whose patterns are
+read from `demo/` next to the firmware directory, and does not scan USB at all. `--vth` is ignored on a
+device without a threshold voltage setting (the record's `vth` is then null).
+
+The settings, the recording of the data feed, the `.bin` layout and the JSON
+record come from `capcore.c`, which the App Store GUI also uses for MCP
+captures (doc/mcp-gui-protocol.md); `dslcap.c` includes it so the tests below
+can inject faults into it. `tools/capture_parity` checks that both give the
+same files.
 
 ## Read-only macOS identity listing
 

@@ -18,7 +18,8 @@
  */
 
 // The GUI's connection to the Logic Analyze Agent (doc/mcp-gui-protocol.md):
-// the device lease, plus the state the MCP pane shows.
+// it answers the agent's device listing and runs its captures (McpCapture),
+// and holds the state the MCP pane shows.
 // MCP is available only while this app runs: when MCP is enabled in the app's
 // settings, the GUI starts the agent at launch, and the agent exits when the
 // GUI disconnects or quits. Mac App Store edition only.
@@ -27,10 +28,8 @@
 
 #include <QElapsedTimer>
 #include <QObject>
-#include <QSet>
 #include <QString>
 #include <QTimer>
-#include <libsigrok.h>
 
 #include "mcpprotocol.h"
 
@@ -41,18 +40,20 @@ namespace pv {
 
 class SigSession;
 
-namespace dialogs {
-class DSMessageBox;
+namespace toolbars {
+class SamplingBar;
 }
 
 namespace mcp {
+
+class McpCapture;
 
 class McpBridge : public QObject
 {
     Q_OBJECT
 
 public:
-    McpBridge(SigSession *session, QWidget *window);
+    McpBridge(SigSession *session, toolbars::SamplingBar *bar, QWidget *window);
     ~McpBridge();
 
     static McpBridge *instance() { return _instance; }
@@ -60,19 +61,13 @@ public:
     // For the MCP pane.
     bool connected() const { return _fd >= 0 && _ok; }
     bool enabled() const { return _enabled; }
-    bool analyzer_lent() const { return _lease.lent(); }
-    bool reclaim_pending() const { return _lease.state() == GuiLease::ReclaimPending; }
     QString last_error() const { return _error; }
 
     void set_enabled(bool on);   // the app setting; starts or stops the agent
-    void take_back();            // reclaim the analyzer from the MCP client
     void start_agent();
     void show_pane();
 
-    // Hooks for SigSession (see sigsession.cpp).
-    bool is_virtual_device(ds_device_handle h);
-    bool may_activate(ds_device_handle h);
-    void note_file_device(ds_device_handle h) { _file_devices.insert(h); }
+    McpCapture *capture() { return _capture; }
 
 signals:
     void changed();
@@ -84,35 +79,22 @@ private slots:
 private:
     void drop(const QString &why);
     bool send(const QJsonObject &msg);
-    void send_lease(const QString &op);
-    void apply(const GuiLease::Step &s);
     void handle(const AgentMessage &m);
-    void decide_release();
-    void release_device();
-    void unpark();
-    ds_device_handle demo_handle();
-    bool in_device_list(ds_device_handle h);
-    void notice(const QString &text);
+    void answer_devices(qint64 id);
 
     static McpBridge *_instance;
 
     SigSession *_session;
     QWidget *_window;
+    McpCapture *_capture;
 
     int _fd = -1;
     QSocketNotifier *_notifier = nullptr;
     QByteArray _inbuf;
     bool _ok = false;            // gui_ok received
-    GuiLease _lease;
     QTimer _connect_timer;
     bool _enabled = false;
     QElapsedTimer _agent_started;
-
-    ds_device_handle _released = NULL_HANDLE;  // the hardware the GUI gave to MCP
-    ds_device_handle _wanted = NULL_HANDLE;    // the device the user asked for meanwhile
-    QSet<ds_device_handle> _file_devices;
-    dialogs::DSMessageBox *_prompt = nullptr;
-    int _prompt_seq = 0;
 
     QString _error;
 };

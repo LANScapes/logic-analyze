@@ -722,7 +722,7 @@ message(STATUS "Output dir: ${CMAKE_CURRENT_SOURCE_DIR}/build.dir")
 set(EXECUTABLE_OUTPUT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/build.dir")
 
 #===============================================================================
-#= Language checks (test builds only): cmake -DLANG_UI_CHECK=ON, then ctest -R lang
+#= Language and capture checks (test builds only): cmake -DLANG_UI_CHECK=ON, then ctest
 #-------------------------------------------------------------------------------
 # lang_ui_check builds the main window offscreen and checks every language for
 # text that does not fit (see tools/lang_ui_check). It is the app compiled
@@ -760,6 +760,27 @@ if(LANG_UI_CHECK)
 	enable_testing()
 	add_test(NAME lang_tables COMMAND python3 "${CMAKE_CURRENT_SOURCE_DIR}/tools/check_lang.py")
 	add_test(NAME lang_ui_check COMMAND lang_ui_check "${LANG_UI_CHECK_DIR}/out")
+
+	# capture_parity runs one request through dslcap and through the GUI's MCP
+	# capture path on the Demo Device and compares the files (tools/capture_parity).
+	if(LANSCAPES_APPSTORE)
+		add_executable(capture_parity
+			tools/capture_parity/capture_parity.cpp
+			${common_SOURCES}
+			${LANG_UI_CHECK_SOURCES}
+			${DSView_HEADERS_MOC}
+			${DSView_FORMS_HEADERS}
+			${DSView_RESOURCES_RCC}
+			${libsigrok4DSL_SOURCES}
+			${libsigrokdecode4DSL_SOURCES}
+		)
+		target_link_libraries(capture_parity ${DSVIEW_LINK_LIBS})
+		add_mcp_sources(capture_parity)
+		add_dependencies(capture_parity dslcap)
+		set_target_properties(capture_parity PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${LANG_UI_CHECK_DIR}/MacOS")
+		add_test(NAME capture_parity COMMAND capture_parity $<TARGET_FILE:dslcap>
+			"${CMAKE_CURRENT_SOURCE_DIR}/DSView/res" "${LANG_UI_CHECK_DIR}/parity")
+	endif()
 endif()
 
 #===============================================================================

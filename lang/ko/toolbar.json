@@ -182,5 +182,13 @@
     {
         "id": "IDS_TOOLBAR_MCP_ITEM",
         "text": "MCP..."
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_ACTIVE",
+        "text": "MCP ●"
+    },
+    {
+        "id": "IDS_TOOLBAR_MCP_ACTIVE_TIP",
+        "text": "AI 어시스턴트가 MCP를 통해 캡처하고 있습니다"
     }
 ]

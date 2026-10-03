@@ -804,10 +804,6 @@
         "text": "MCP:"
     },
     {
-        "id": "IDS_DLG_MCP_ANALYZER",
-        "text": "분석기:"
-    },
-    {
         "id": "IDS_DLG_MCP_TURN_ON",
         "text": "켜기"
     },
@@ -826,21 +822,5 @@
     {
         "id": "IDS_DLG_MCP_AGENT_STARTING",
         "text": "켜짐. 에이전트가 아직 실행되지 않았습니다."
-    },
-    {
-        "id": "IDS_DLG_MCP_TAKE_BACK",
-        "text": "되찾기"
-    },
-    {
-        "id": "IDS_DLG_MCP_LENT",
-        "text": "MCP 클라이언트에 대여 중입니다."
-    },
-    {
-        "id": "IDS_DLG_MCP_LENT_WAITING",
-        "text": "MCP 클라이언트에 대여 중입니다. 끝나기를 기다리는 중입니다."
-    },
-    {
-        "id": "IDS_DLG_MCP_HELD",
-        "text": "Logic Analyze가 보유 중입니다. MCP 클라이언트는 필요할 때 요청합니다."
     }
 ]

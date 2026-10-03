@@ -10,10 +10,11 @@
     {
         "id": "IDS_MSG_CANCEL",
         "text": "取消"
-    },{
+    },
+    {
         "id": "IDS_MSG_ATTENTION",
         "text": "注意"
-    },   
+    },
     {
         "id": "IDS_MSG_ERROR",
         "text": "错误"
@@ -21,11 +22,11 @@
     {
         "id": "IDS_MSG_INFORMATION",
         "text": "消息"
-    }, 
+    },
     {
         "id": "IDS_MSG_CONTINUE",
         "text": "继续"
-    }, 
+    },
     {
         "id": "IDS_MSG_AUTO_CALIB_START",
         "text": "自动校准程序将启动。不要连接任何探头。\n这可能需要一段时间!"
@@ -93,7 +94,7 @@
     {
         "id": "IDS_MSG_DECODER_CONFIRM_DEL",
         "text": "是否确定要移除这个解码器?"
-    },   
+    },
     {
         "id": "IDS_MSG_CLOSE_DEVICE",
         "text": "是否确定要移除这个设备?"
@@ -401,29 +402,5 @@
     {
         "id": "IDS_MSG_MCP_AGENT_MISSING",
         "text": "此应用副本中缺少 Logic Analyze Agent。"
-    },
-    {
-        "id": "IDS_MSG_MCP_CLIENT_USING",
-        "text": "MCP 客户端正在使用分析仪。"
-    },
-    {
-        "id": "IDS_MSG_MCP_CLIENT_USING_TAKE_BACK",
-        "text": "MCP 客户端正在使用分析仪。在设备列表中选择它即可收回。"
-    },
-    {
-        "id": "IDS_MSG_MCP_CLIENT_USING_SWITCH",
-        "text": "MCP 客户端正在使用分析仪。客户端用完后，Logic Analyze 将切换到它。"
-    },
-    {
-        "id": "IDS_MSG_MCP_HAND_OVER",
-        "text": "MCP 客户端想要使用分析仪。是否交出？"
-    },
-    {
-        "id": "IDS_MSG_MCP_CAPTURE_STOPS",
-        "text": "正在进行的采集将停止。"
-    },
-    {
-        "id": "IDS_MSG_MCP_DATA_CLEARED",
-        "text": "屏幕上采集到的数据将被清除；如有需要，请先保存。"
     }
 ]
