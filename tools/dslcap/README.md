@@ -1,16 +1,16 @@
 # dslcap
 
-`dslcap` captures DSLogic samples without the graphical interface. It prints one
+`dslcap` captures DSLogic samples without the graphical interface using libsigrok4DSL. It prints one
 JSON result on stdout. Library diagnostics use stderr. A successful capture
 creates `<base>.bin`; an existing file at that path is never replaced.
 
 ```text
-dslcap --list [--res DIR] [--parent-fd N] [--res-manifest FD]
+dslcap --list [--res DIR] [--parent-fd N] [--res-manifest FD] [--log-level N]
 dslcap --list-ids [--parent-fd N]
 dslcap --channels 0,1 --samplerate 10000000 --samples 1000000
        [--vth 1.6] [--mode buffer|stream] [--trigger CH[:R|F|C|1|0]]
        [--trigpos PERCENT] [--timeout SEC] [--res DIR]
-       [--parent-fd N] [--res-manifest FD]
+       [--parent-fd N] [--res-manifest FD] [--log-level N]
        --out /path/base
 ```
 
@@ -18,8 +18,8 @@ dslcap --channels 0,1 --samplerate 10000000 --samples 1000000
 
 `--list-ids` is a **fail-closed scaffold**, not a usable hardware inventory yet.
 It accepts only optional `--parent-fd N`; combining it with `--list`, capture or
-resource options is an argument error (status 2). It branches immediately after
-argument validation and parent-watcher setup, before resource lookup, manifest
+resource/log-level options is an argument error (status 2). It branches immediately
+after argument validation and parent-watcher setup, before resource lookup, manifest
 preflight, logging/callback setup, `ds_lib_init()` or any libsigrok driver scan.
 `DSLCAP_RES` does not affect this path.
 
@@ -160,10 +160,38 @@ It checks the pre-init production guard, zero-device and multi-device output,
 all 22 unique VID/PID/model pairs against all 25 upstream speed profiles,
 unrelated devices, absent serials, permission/detach and descriptor failures,
 Unicode/surrogates/JSON escaping, maximum serial/port paths, no invented location,
-conflicting arguments in both orders, parent loss before/during fake init,
-stdout failure and context/list/handle cleanup. Run the spool command below from
+conflicting arguments in both orders and listing-mode tokens swallowed as option
+values, parent loss before/during fake init, stdout failure and context/list/handle cleanup. Run the spool command below from
 the repository root. Compile the normal `dslcap` target to check the real USB
 header/link; **do not run it against hardware** to validate this scaffold.
+
+## Log level
+
+Both capture and `--list` accept `--log-level N`. The default is `1`.
+
+| N | Messages |
+| --- | --- |
+| 0 | None |
+| 1 | Errors |
+| 2 | Errors and warnings |
+| 3 | Errors, warnings, and information |
+| 4 | All of the above and debug messages |
+| 5 | All of the above and detailed messages |
+
+`N` must be a whole decimal number from `0` to `5`. Leading zeros are
+accepted. Signs, whitespace, fractions, nonnumeric text, and values outside
+the range are rejected. The option can appear only once.
+
+An invalid, missing, or duplicate value returns exit status `2` and one JSON
+error on stdout before any libsigrok4DSL call. For example, `--log-level 6`
+returns:
+
+```json
+{"error":"invalid option value","option":"--log-level","value":"6"}
+```
+
+There is no environment variable for the log level. Without the option,
+the tool keeps its existing error-only logging behavior.
 
 ## Parent lifetime
 
@@ -268,6 +296,55 @@ The built executable can list Demo Device with `dslcap --list`. Capture still
 selects DSLogic as before; these tests do not change selection to enable Demo
 Device capture.
 
+## Hardware-free logging tests
+
+Run these commands from the repository root. They compile and run test
+harnesses only. They do not initialize the device library, scan for devices,
+or capture samples.
+
+The spool harness includes parsing tests for the default, levels `0..5`,
+out-of-range and nonnumeric values, and duplicate options. It also checks
+the existing capture-data and output-file behavior. The startup harness
+intercepts the CLI at its first libsigrok4DSL call, before initialization.
+It checks the selected level, JSON argument errors before that call, and
+the real logger's stderr routing. Combined cases use a held parent pipe to
+verify watcher startup before the first library call, the default and all log
+levels, and invalid/duplicate log arguments before watcher startup. No device drivers are linked into either
+harness. Valid startup is intercepted before the CLI can produce its capture
+result; these tests do not verify a hardware capture.
+
+macOS:
+
+```sh
+mkdir -p build-log-level-tests
+cc -Ilibsigrok4DSL -Icommon $(pkg-config --cflags glib-2.0) \
+  tools/dslcap/test_spool.c $(pkg-config --libs glib-2.0) \
+  -Wl,-dead_strip -o build-log-level-tests/test_spool
+cc -Ilibsigrok4DSL -Icommon $(pkg-config --cflags glib-2.0) \
+  tools/dslcap/test_log_level.c libsigrok4DSL/log.c common/log/xlog.c \
+  $(pkg-config --libs glib-2.0) -Wl,-dead_strip \
+  -o build-log-level-tests/test_log_level
+build-log-level-tests/test_spool build-log-level-tests/raw build-log-level-tests/output.bin
+build-log-level-tests/test_log_level
+```
+
+Linux:
+
+```sh
+mkdir -p build-log-level-tests
+cc -D_DEFAULT_SOURCE -ffunction-sections -fdata-sections \
+  -Ilibsigrok4DSL -Icommon $(pkg-config --cflags glib-2.0) \
+  tools/dslcap/test_spool.c $(pkg-config --libs glib-2.0) \
+  -lm -pthread -Wl,--gc-sections -o build-log-level-tests/test_spool
+cc -D_DEFAULT_SOURCE -ffunction-sections -fdata-sections \
+  -Ilibsigrok4DSL -Icommon $(pkg-config --cflags glib-2.0) \
+  tools/dslcap/test_log_level.c libsigrok4DSL/log.c common/log/xlog.c \
+  $(pkg-config --libs glib-2.0) -lm -pthread -Wl,--gc-sections \
+  -o build-log-level-tests/test_log_level
+build-log-level-tests/test_spool build-log-level-tests/raw build-log-level-tests/output.bin
+build-log-level-tests/test_log_level
+```
+
 ## Resource verification
 
 `dslcap` captures without the GUI. Its resource directory is selected by `--res
@@ -277,7 +354,7 @@ DIR`, `DSLCAP_RES`, or the existing executable/install resource lookup.
 dslcap --channels 0,1 --samplerate 10000000 --samples 1000000
        [--vth 1.6] [--mode buffer|stream] [--trigger CH[:R|F|C|1|0]]
        [--trigpos PERCENT] [--timeout SEC] [--res DIR]
-       [--parent-fd N] [--res-manifest FD]
+       [--parent-fd N] [--res-manifest FD] [--log-level N]
        --out /path/base
 ```
 
@@ -382,11 +459,11 @@ the unchanged CI workflow. The resource regression target is explicitly requeste
 and run locally; the existing workflow does not run it. Hardware firmware
 re-enumeration, FPGA programming and captures still require bench validation.
 
-## Combined parent and manifest checks
+## Combined parent, manifest and logging checks
 
 When both flags are supplied, the parent watcher starts immediately after
 argument validation, before resource discovery or manifest preflight. The
-synchronous `parent_check()` immediately before `ds_log_level(1)` is retained.
+synchronous `parent_check()` immediately before `ds_log_level(o.log_level)` is retained.
 Parent loss interrupts a blocked manifest reader without library initialization
 or resource upload. The two inherited descriptors remain caller-owned; the
 watcher owns its close-on-exec duplicate, and manifest input is read directly.
@@ -396,3 +473,15 @@ invalid manifest, already-lost parent, and parent loss while manifest input is
 blocked. These bounded child processes use the actual watcher/preflight and
 stubbed library initialization/USB calls. No real-device list, scan, capture or
 upload is run by these checks.
+
+With all three flags, the resource harness checks the default and log levels
+`0..5`, exact startup order (watcher, logging, manifest reads, initialization),
+one JSON result on stdout, and severity filtering on stderr. Invalid or duplicate
+log arguments fail before watcher startup or any library call. Invalid manifests,
+an already-lost parent, and parent loss during a blocked manifest read are also
+checked with explicit logging enabled. Initialization and USB side effects remain
+stubbed.
+
+The spool/parent harness additionally checks normal publication and cleanup on
+parent loss during publication or stdout delivery with all three flags. Its
+manifest API is stubbed; the resource harness tests the actual preflight.

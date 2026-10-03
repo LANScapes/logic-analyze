@@ -152,6 +152,13 @@ static struct parent_child ids_spawn(int watched, int close_parent, int bad_stdo
         if (conflict == 3) { argv[argc++] = "--res-manifest"; argv[argc++] = fd; }
         if (conflict == 4) argv[argc++] = "--list-ids";
         if (conflict == 5) { argv[1] = "--list"; argv[argc++] = "--list-ids"; }
+        if (conflict == 6) { argv[argc++] = "--log-level"; argv[argc++] = "1"; }
+        if (conflict == 7) { argv[1] = "--out"; argv[argc++] = "--list-ids"; }
+        if (conflict == 8) { argv[1] = "--res"; argv[argc++] = "--list-ids"; }
+        if (conflict == 9) {
+            argv[1] = "--out"; argv[argc++] = "x";
+            argv[argc++] = "--res"; argv[argc++] = "--list-ids";
+        }
         if (close_parent) { test_gate('B'); }
         int rc = dslcap_main(argc, argv);
         if (!core_expected) assert(!ids_usb_calls);
@@ -291,7 +298,7 @@ static void test_list_ids(void)
     }
     ids_reset(); dev = ids_add(0x2a0e, 1, 7); dev->descriptor_error = 1;
     p = ids_spawn(0, 0, 0, 0, 1); ids_result(&p, 1, "{\"devices\":[]}\n", "inventory is incomplete");
-    for (int conflict = 1; conflict <= 5; conflict++) {
+    for (int conflict = 1; conflict <= 9; conflict++) {
         ids_reset(); p = ids_spawn(0, 0, 0, conflict, 0);
         assert(parent_wait(&p) == 2); /* No USB/library calls: checked in child. */
         char out[1024]; ssize_t n = read(p.out, out, sizeof out - 1); assert(n > 0); out[n] = 0;
