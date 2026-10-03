@@ -95,6 +95,16 @@ static void test_device_guard(void)
     device_guard_result(dir, "missing option value before --device", 0, "--res", "--device", NULL);
     device_guard_result(dir, "missing option value before --device", 0,
                         "--res", "--device=usb-1-2:serial", NULL);
+    /* Logging from current main is still downstream of the capability gate. */
+    for (int level = 0; level <= 5; ++level) {
+        char number[2] = {(char)('0' + level), '\0'};
+        device_guard_result(dir, "\"code\":\"device_selection_unavailable\"", 1,
+                            "--device", valid[0], "--log-level", number, NULL);
+    }
+    device_guard_result(dir, "\"option\":\"--log-level\"", 0,
+                        "--device", valid[0], "--log-level", "6", NULL);
+    device_guard_result(dir, "duplicate option", 0,
+                        "--device", valid[0], "--log-level", "1", "--log-level", "2", NULL);
     device_guard_result(dir, "\"value\":\"usb-1-2:serial:with:colons\"", 0,
                         "--device", valid[4], NULL);
     device_guard_result(dir, "\"value\":\"usb-1-2:quote\\\" slash\\\\ newline\\u000a", 0,
