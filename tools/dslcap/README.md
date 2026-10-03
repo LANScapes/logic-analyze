@@ -21,13 +21,23 @@ dslcap --channels 0,1 --samplerate 10000000 --samples 1000000
 returns exit status **2** and one JSON object:
 
 ```json
-{"error":"exact-device capture is unavailable: driver scans can upload firmware before an exclusive claim","code":"device_selection_unavailable","option":"--device","value":"usb-1-2.3:ABC123"}
+{"error":"exact-device capture is unavailable: driver scans can upload firmware before an exclusive claim","code":"device_selection_unavailable","option":"--device","value":"loc-20121500:ABC123"}
 ```
 
-The location format agreed with the separate descriptor-only `--list-ids` work
-is `usb-<decimal bus>-<dot-separated decimal port path>`, for example
-`usb-1-2.3`. Bus is 0..255; the path contains one to seven ports, each 1..255.
-Numbers have no leading zeros. The first colon separates location from the
+The canonical macOS location format agreed with the separate registry-only
+`--list-ids` work is `loc-<8 lowercase hexadecimal locationID digits>`, for
+example `loc-20120000`. All eight digits are required, including leading zeros;
+uppercase, signs, `0x`, whitespace and over-width/overflow values are rejected.
+The format represents a raw unsigned 32-bit cached IORegistry `locationID`,
+without rounding or masking. Decimal `538055936` is `0x20121500`, hence
+`loc-20121500`; `loc-20120000` represents decimal `538050560`. This conversion
+is arithmetic only, not an observation of a connected device. An unavailable
+cached location or serial is unselectable, not a substitute zero/empty identity.
+
+The earlier `usb-<decimal bus>-<dot-separated decimal port path>` syntax remains
+accepted for compatibility, for example `usb-1-2.3`. Bus is 0..255; the path
+contains one to seven ports, each 1..255, with no leading zeros. Neither syntax
+enables capture in this build. The first colon separates location from the
 nonempty UTF-8 serial. Subsequent colons, spaces, Unicode and case are preserved
 verbatim; there is no trimming or normalization. A null or unavailable location
 or serial in identity-list JSON supplies no selectable identity. Syntax
@@ -114,6 +124,50 @@ force takeover, and disabling reconnect/attach scanning for the guarded session.
 Missing or ambiguous matches, changed serial, claim failure, detach and any new
 device object after re-enumeration must terminate it with JSON exit 2 or 3.
 Successful exact-device capture and those runtime checks remain unimplemented.
+
+### Proposed macOS lifecycle changes (design only)
+
+Source review identifies the following minimum work for a future selected
+session. **None of these driver changes is implemented by this PR.** The input
+must be one retained IOKit-selected device entry, its entry identity/generation,
+raw `locationID` and nonempty verbatim serial. Cached listing properties cannot
+prove exclusive ownership or that the object survived selection/open/claim.
+The adapter must bind that exact entry to one live transport object, revalidate
+identity before mutation, and reject missing/ambiguous/changed entries; no
+bus/address, name, first-device or same-location replacement fallback.
+
+| Source / exact functions | Required selected-session change |
+| --- | --- |
+| `backend.c`: `sr_init`, `sr_exit`; `lib_main.c`: `ds_lib_init`, `ds_lib_exit`, `ds_reload_device_list`, `ds_active_device`, `open_device_instance` | Factor an explicit scan-free initialization/adoption path from the supplied selected object; do not call driver scans, reload, demo selection or the legacy `pick_device`. Current `sr_init` unconditionally calls `libusb_init`; proving exact Darwin handle adoption or introducing a selected IOKit transport adapter is the first feasibility gate. This checkout provides neither adapter nor a public IOKit-to-libusb binding; do not assume a wrapping API works on macOS. Preserve legacy initialization separately. |
+| `hardware/DSL/dslogic.c`, `dscope.c`: `scan`, `DSLogic_dev_new`, `DSCope_dev_new`; `dsl.c`: `dsl_check_conf_profile`, `hw_dev_open`, `dsl_dev_open` | Extract profile/instance construction from scanning. Open only the retained selected object and claim interface 0 once, with no detach, auto-detach, force takeover or retry on another object. Move the claim before the firmware-version `command_ctl_rd` (which sends vendor OUT preparation), FPGA load and configuration; adopt the existing handle rather than reopen it. |
+| `libsigrok-internal.h`: `sr_usb_dev_inst`; `dsdevice.c`: `sr_usb_dev_inst_new`, `sr_usb_dev_inst_free`; `dsl.c`: `dsl_dev_close`, `dsl_destroy_device` | Store original object identity, one retained handle, claim ownership and a synchronized terminal-detach latch. Release/close exactly once after outstanding callbacks drain; never overwrite `usb_dev`/`devhdl` or send cleanup commands after detach. |
+| `hardware/common/ezusb.c`: `ezusb_upload_firmware`, `ezusb_upload_verified`, `ezusb_reset`, `ezusb_install_firmware`, `ezusb_install_buffer` | Both verified and legacy upload paths borrow the same owned, claimed session handle. Remove selected-path fresh open/close/detach; check ownership before configuration, every CPU-reset request and every firmware chunk. If a bootloader cannot be claimed without first changing configuration, reject it. Any reset/upload that causes re-enumeration ends this session; never finish capture by following the replacement. |
+| `hardware/DSL/command.c`: `command_ctl_wr`, `command_ctl_rd`; `dsl.c`: `dsl_fpga_config`, `dsl_fpga_arm`, `dsl_config_set`, `dsl_start_transfers`, `free_transfer`, `dsl_dev_acquisition_stop`; both driver files: `config_set`, `dev_open`, `dev_acquisition_start` | Pass the owned session through all transfer paths and check its claimed/live state. Every firmware/FPGA/config/register/threshold/start/stop transfer uses that one handle, including direct bulk writes and asynchronous submission/resubmission; a check only in `dev_open` is insufficient. Serialize termination against transfer submission. |
+| `lib_main.c`: `process_attach_event`, `hotplug_event_listen_callback`, `update_device_handle`, `usb_hotplug_process_proc` | Disable attach/reload/reopen transactions for selected sessions. Selected-device removal or transfer `NO_DEVICE` must latch terminal failure and produce JSON exit 2/3. A removal-only IOKit notification may terminate the original session; no attach handler may follow a new entry, even if location and serial are identical. |
+
+**Estimate and gates:** for one experienced C/macOS USB engineer, allow roughly
+**10–15 engineer-days (2–3 work weeks)** for a first supported DSLogic runtime
+profile: 2–3 days for the adapter/ownership feasibility spike, 3–5 for library
+and transfer refactoring, and the remainder for mocks, review and controlled
+hardware verification. This assumes a supported way to retain/claim the exact
+IOKit-selected transport, available hardware with known serials, and no new
+firmware protocol. Broader DSLogic/DSCope modes and bootloader coverage are
+roughly **4–6 engineer-weeks total**, conditional on those gates. If Darwin
+adoption/exclusivity cannot be proved or startup requires re-enumeration, stop
+and revise scope; this estimate does not cover replacing the whole USB backend
+or enabling reconnect.
+
+Before lifting the CLI rejection gate, require (1) source/backend proof of the
+exact-object binding and non-seizing claim semantics, (2) mocked call logs that
+prove claim precedes **every** mutation on the same handle and zero mutations
+for missing/ambiguous/changed identity, busy/failed claim, detach and new-object
+re-enumeration, including asynchronous races and loader variants, and (3)
+separately authorized macOS hardware tests of second-process contention,
+disconnect/replug and supported bootloader/runtime profiles, plus no-flag
+regressions. Listing cached registry properties alone satisfies none of the
+ownership/transfer gates. This task performs source review and mocked parser
+tests only; no local registry, production CLI, scan or capture test is used.
+
 ## Log level
 
 Both capture and `--list` accept `--log-level N`. The default is `1`.
@@ -230,7 +284,8 @@ The same harness is run by the existing CI; no workflow change is needed.
 
 It also includes `test_device_guard.c`. All mocked libsigrok entry points count
 calls and abort if reached by a guarded invocation; this executable does not
-link libusb. The tests use the real parser/main, check strict location syntax,
+link libusb or IOKit. The tests use the real parser/main, check strict macOS
+`loc-xxxxxxxx` width/case/hex/overflow boundaries and legacy USB location syntax,
 missing/empty/non-UTF-8 serials, verbatim serials (including colons, Unicode,
 spaces and JSON escapes), duplicate/conflicting flags, JSON exit 2 and no files.
 A readable empty manifest pipe proves rejection precedes even a potentially

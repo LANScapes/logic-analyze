@@ -314,13 +314,24 @@ static int parse_double(const char *s, double *out)
     return 0;
 }
 
-/* Canonical libusb location: usb-<bus>-<port>[.<port>...]. The serial is
- * verbatim UTF-8 after the first colon; later colons belong to the serial.
- * A location alone is never an identity. No USB access occurs here. */
+/* macOS cached locationID: loc-<eight lowercase hexadecimal digits>.
+ * Also accept the earlier usb-<bus>-<port>[.<port>...] topology syntax.
+ * The serial is verbatim UTF-8 after the first colon; later colons belong
+ * to the serial. A location alone is never an identity. No IOKit/USB calls. */
 static int valid_device_identity(const char *s)
 {
-    if (!g_utf8_validate(s, -1, NULL) || !g_str_has_prefix(s, "usb-"))
-        return 0;
+    if (!g_utf8_validate(s, -1, NULL)) return 0;
+    if (g_str_has_prefix(s, "loc-")) {
+        const char *colon = strchr(s, ':');
+        /* Fixed width rejects overflow rather than truncating or masking a
+         * locationID. No numeric conversion or hardware lookup is needed. */
+        if (!colon || colon - s != 12 || !colon[1]) return 0;
+        for (const char *p = s + 4; p < colon; ++p)
+            if (!(*p >= '0' && *p <= '9') && !(*p >= 'a' && *p <= 'f'))
+                return 0;
+        return 1;
+    }
+    if (!g_str_has_prefix(s, "usb-")) return 0;
     const char *p = s + 4;
     for (int component = 0; ; component++) {
         const char *start = p;
@@ -397,6 +408,10 @@ static int parse_args(int argc, char **argv, struct options *o)
             arg_error("duplicate option", a, NULL);
             return 2;
         }
+        if (!strcmp(a, "--device") && o->device) {
+            arg_error("duplicate option", a, NULL);
+            return 2;
+        }
         if (i + 1 >= argc) {
             arg_error("missing option value", a, NULL);
             return 2;
@@ -412,13 +427,9 @@ static int parse_args(int argc, char **argv, struct options *o)
         int bad = 0;
         if (!strcmp(a, "--res")) o->res = v;
         else if (!strcmp(a, "--device")) {
-            if (o->device) {
-                arg_error("duplicate option", a, NULL);
-                return 2;
-            }
             if (!valid_device_identity(v)) {
                 /* Invalid UTF-8 must not enter a JSON string verbatim. */
-                arg_error("expected usb-BUS-PORT[.PORT...]:nonempty UTF-8 serial", a,
+                arg_error("expected loc-xxxxxxxx (8 lowercase hex digits) or usb-BUS-PORT[.PORT...], then :nonempty UTF-8 serial", a,
                           g_utf8_validate(v, -1, NULL) ? v : NULL);
                 return 2;
             }
