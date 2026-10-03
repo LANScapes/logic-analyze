@@ -21,6 +21,7 @@ enum parent_fault {
     PF_SPOOL = 32, PF_TEMP = 64, PF_CONVERT = 128, PF_PUBLISH = 256, PF_STDOUT = 512,
     PF_PREMAIN = 1024,
     PF_FDOPEN = 2048, PF_OUTPUT_CREATE = 4096, PF_STDOUT_ERROR = 8192,
+    PF_SIGACTION = 16384,
 };
 enum parent_mode { PM_GOOD, PM_INIT, PM_CAPTURE, PM_EXIT, PM_INIT_ERROR, PM_LIST_ERROR };
 static int test_fault, test_mode, test_phase_fd, test_gate_fd;
@@ -34,6 +35,7 @@ static size_t test_fread(void *p, size_t size, size_t n, FILE *f);
 static int test_link(const char *old, const char *new);
 static int test_fflush(FILE *f);
 static FILE *test_fdopen(int fd, const char *mode);
+static int test_sigaction(int sig, const struct sigaction *act, struct sigaction *old);
 #define fcntl test_fcntl
 #define pthread_create test_pthread_create
 #define poll test_poll
@@ -43,6 +45,7 @@ static FILE *test_fdopen(int fd, const char *mode);
 #define link test_link
 #define fflush test_fflush
 #define fdopen test_fdopen
+#define sigaction(sig, act, old) test_sigaction(sig, act, old)
 #define main dslcap_main
 #include "dslcap.c"
 #undef main
@@ -55,6 +58,7 @@ static FILE *test_fdopen(int fd, const char *mode);
 #undef link
 #undef fflush
 #undef fdopen
+#undef sigaction
 
 static void test_phase(char c)
 {
@@ -148,6 +152,11 @@ static FILE *test_fdopen(int fd, const char *mode)
     if ((test_fault & PF_FDOPEN) && g_parent_tmp) { errno = ENOMEM; return NULL; }
     return fdopen(fd, mode);
 }
+static int test_sigaction(int sig, const struct sigaction *act, struct sigaction *old)
+{
+    if (test_fault & PF_SIGACTION) { errno = EINVAL; return -1; }
+    return sigaction(sig, act, old);
+}
 
 /* Small synchronous DSLogic substitute for full CLI lifecycle tests. The real
  * pick_device() is used unchanged; list-only tests also expose Demo Device. */
@@ -160,6 +169,9 @@ void ds_set_event_callback(dslib_event_callback_t cb) { (void)cb; test_phase('d'
 void ds_set_datafeed_callback(ds_datafeed_callback_t cb) { (void)cb; test_phase('d'); }
 int ds_lib_init(void)
 {
+    struct sigaction sa;
+    assert(!sigaction(SIGPIPE, NULL, &sa));
+    assert(sa.sa_handler == (g_parent_fd >= 0 ? SIG_IGN : SIG_DFL));
     test_phase('I');
     if (test_mode == PM_INIT) test_gate('i');
     return test_mode == PM_INIT_ERROR ? SR_ERR : SR_OK;
@@ -313,6 +325,7 @@ static struct parent_child parent_spawn(const char *base, const char *value,
             argv[argc++] = number;
         }
         test_fault = fault; test_mode = mode; test_phase_fd = phase[1]; test_gate_fd = gate[0];
+        assert(signal(SIGPIPE, SIG_DFL) != SIG_ERR);
         assert(!atexit(test_at_exit));
         if (test_fault & PF_PREMAIN) test_gate('B');
         exit(dslcap_main(argc, argv));
@@ -347,6 +360,7 @@ static int parent_wait(struct parent_child *p)
         }
         g_usleep(1000);
     }
+    if (WIFSIGNALED(status)) fprintf(stderr, "parent-fd test: child died from signal %d\n", WTERMSIG(status));
     assert(WIFEXITED(status));
     return WEXITSTATUS(status);
 }
@@ -354,11 +368,13 @@ static void parent_result(struct parent_child *p, int rc, const char *json, int 
 {
     assert(parent_wait(p) == rc);
     char output[4096], errors[4096], phases[128];
-    ssize_t n = read(p->out, output, sizeof output - 1);
+    ssize_t n = p->out < 0 ? 0 : read(p->out, output, sizeof output - 1);
     assert(n >= 0); output[n] = '\0';
     ssize_t err_n = read(p->err, errors, sizeof errors - 1);
     assert(err_n >= 0); errors[err_n] = '\0';
-    if (p->fault & PF_STDOUT_ERROR) assert(strstr(errors, "cannot write the result to stdout"));
+    if ((p->fault & PF_STDOUT_ERROR) || (p->out < 0 && p->writer >= 0))
+        assert(strstr(errors, "cannot write the result to stdout"));
+    else if (p->out < 0) assert(!err_n || strstr(errors, "cannot write the result to stdout"));
     else assert(!err_n);
     n = read(p->phase, phases, sizeof phases - 1);
     assert(n >= 0); phases[n] = '\0';
@@ -394,7 +410,7 @@ static void test_parent_fd(void)
     }
     p = parent_spawn(base, "0", 0, PM_GOOD, 1);
     parent_result(&p, 2, "\"option\":\"--parent-fd\"", 0);
-    const int setup[] = {PF_DUP, PF_THREAD, PF_POLL};
+    const int setup[] = {PF_DUP, PF_THREAD, PF_POLL, PF_SIGACTION};
     for (size_t i = 0; i < G_N_ELEMENTS(setup); i++) {
         p = parent_spawn(base, NULL, setup[i], PM_GOOD, 0);
         parent_result(&p, 2, "\"option\":\"--parent-fd\"", 0);
@@ -456,6 +472,23 @@ static void test_parent_fd(void)
         parent_result(&p, 1, io_faults[i] == PF_STDOUT_ERROR ? NULL : "cannot write capture data", 0);
         parent_no_files(dir);
     }
+    /* A real broken pipe sends SIGPIPE by default. Keep the parent writer open
+     * first to make stdout failure win deterministically over the EOF watcher. */
+    p = parent_spawn(base, NULL, PF_STDOUT, PM_GOOD, 0);
+    parent_phase(&p, 'F');
+    close(p.out); p.out = -1;
+    parent_resume(&p);
+    parent_result(&p, 1, NULL, 0);
+    parent_no_files(dir);
+    /* The supervising parent can close both endpoints while reporting resumes.
+     * Either EPIPE or EOF may win, but both must exit normally and clean up. */
+    p = parent_spawn(base, NULL, PF_STDOUT, PM_GOOD, 0);
+    parent_phase(&p, 'F');
+    close(p.out); p.out = -1;
+    parent_resume(&p);
+    parent_close(&p);
+    parent_result(&p, 1, NULL, 0);
+    parent_no_files(dir);
     /* Normal capture and list behavior with and without the optional watch. */
     const char *flags[] = {NULL, "omit"};
     for (size_t i = 0; i < G_N_ELEMENTS(flags); i++) {

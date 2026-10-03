@@ -73,6 +73,12 @@ buffered stdout. Bytes already delivered cannot be recalled; do not accept a
 partial JSON result. A complete result delivered before parent loss can retain
 its complete `.bin` file. Without `--parent-fd`, behavior is unchanged.
 
+With this flag, `SIGPIPE` is ignored before watcher startup. If the parent also
+closes its stdout or stderr reader, writes report an I/O error instead of killing
+the child ahead of cleanup. A failed stdout result removes an unreported capture
+file and exits with status 1. Invocations without the flag keep their original
+signal behavior. Failure to configure `SIGPIPE` is a watcher setup error.
+
 Invalid descriptors or watch setup failures exit with status 2 and one JSON
 argument error on stdout, including `"option":"--parent-fd"` and the supplied
 `"value"` (when present). No libsigrok call occurs on these failure paths. Other
@@ -87,7 +93,8 @@ covers invalid descriptors, setup failures before all library calls, pre-init
 EOF, buffered pipe data, read errors and interruption, blocked initialization,
 a held callback mutex, blocked stdout, teardown, temporary-file and publication
 races, existing files, normal results and the invocation without the flag.
-Output creation, `fdopen` and stdout failures are also checked.
+Output creation, `fdopen`, signal setup, stdout failures, and actual broken-pipe
+reader closure (alone and racing with parent-pipe closure) are also checked.
 Every parent-loss test checks prompt exit, stdout/stderr and file cleanup.
 The same harness is run by the existing CI; no workflow change is needed.
 

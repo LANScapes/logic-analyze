@@ -28,6 +28,7 @@
 #include <math.h>
 #include <poll.h>
 #include <pthread.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -243,6 +244,16 @@ static void arg_error(const char *what, const char *option, const char *value)
 static int start_parent_watch(int fd, const char *value)
 {
     if (fd < 0) return 0;
+    /* A supervising parent normally closes both pipes. Default SIGPIPE could
+     * kill main while writing stdout/stderr before the EOF watcher can remove
+     * our output. With this flag, let stdio report EPIPE and preserve cleanup. */
+    struct sigaction sa;
+    memset(&sa, 0, sizeof sa);
+    sa.sa_handler = SIG_IGN;
+    if (sigemptyset(&sa.sa_mask) || sigaction(SIGPIPE, &sa, NULL)) {
+        arg_error("cannot configure parent watcher signals", "--parent-fd", value);
+        return 2;
+    }
     int owned = fcntl(fd, F_DUPFD_CLOEXEC, 3);
     if (owned < 0) {
         arg_error("cannot duplicate parent pipe", "--parent-fd", value);
