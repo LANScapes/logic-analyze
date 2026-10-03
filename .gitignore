@@ -61,3 +61,4 @@ qrc_*
 install_manifest.txt
 dist/
 .secrets/
+!tools/manual/build_manual.py
