@@ -1,0 +1,50 @@
+[
+    {
+        "id": "Buffer Mode",
+        "text": "Tampon Modu"
+    },
+    {
+        "id": "Stream Mode",
+        "text": "Akış Modu"
+    },
+    {
+        "id": "Internal Test",
+        "text": "Dahili Test"
+    },
+    {
+        "id": "External Test",
+        "text": "Harici Test"
+    },
+    {
+        "id": "DRAM Loopback Test",
+        "text": "DRAM Geri Döngü Testi"
+    },
+    {
+        "id": "Stop immediately",
+        "text": "Hemen durdur"
+    },
+    {
+        "id": "Upload captured data",
+        "text": "Yakalanan veriyi yükle"
+    },
+    {
+        "id": "None",
+        "text": "Yok"
+    },
+    {
+        "id": "1 Sample Clock",
+        "text": "1 Örnekleme Periyodu"
+    },
+    {
+        "id": "Normal",
+        "text": "Normal"
+    },
+    {
+        "id": "Full Bandwidth",
+        "text": "Tam Bant Genişliği"
+    },
+    {
+        "id": "20MHz",
+        "text": "20MHz"
+    }
+]

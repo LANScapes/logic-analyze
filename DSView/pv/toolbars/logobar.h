@@ -26,6 +26,7 @@
 #include <QToolBar> 
 #include <QAction>
 #include <QMenu>
+#include <QActionGroup>
 #include <libsigrok.h> 
 #include <QPushButton>
 
@@ -81,8 +82,7 @@ signals:
     void sig_open_doc(); 
 
 private slots:
-    void on_actionEn_triggered();
-    void on_actionCn_triggered();
+    void on_language_triggered(QAction *action);
     void on_actionAbout_triggered();
     void on_actionManual_triggered();
     void on_actionIssue_triggered();
@@ -105,8 +105,7 @@ private:
     QMenu *_menu;
 
     QMenu *_language;
-    QAction *_action_en;
-    QAction *_action_cn;
+    QActionGroup *_language_group; // one checkable action per language
 
     QAction *_about;
     QAction *_manual;

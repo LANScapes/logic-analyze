@@ -1,0 +1,474 @@
+[
+    {
+        "id": "dec_parallel_opt_clock_edge",
+        "text": "Перепад такту для вибірки"
+    },
+    {
+        "id": "dec_parallel_opt_wordsize",
+        "text": "Розмір слова даних (кількість циклів шини)"
+    },
+    {
+        "id": "dec_parallel_opt_endianness",
+        "text": "Порядок байтів даних"
+    },
+    {
+        "id": "dec_pjdl_chan_data",
+        "text": "Однопровідні дані"
+    },
+    {
+        "id": "dec_pjdl_opt_mode",
+        "text": "Режим зв'язку"
+    },
+    {
+        "id": "dec_pjdl_opt_idle_add_us",
+        "text": "Додатковий час простою (us)"
+    },
+    {
+        "id": "dec_ps2_chan_clk",
+        "text": "Лінія тактування"
+    },
+    {
+        "id": "dec_ps2_chan_data",
+        "text": "Лінія даних"
+    },
+    {
+        "id": "dec_ps2_opt_HtoD_Clock",
+        "text": "Такт хост -> пристрій"
+    },
+    {
+        "id": "dec_ps2_opt_DtoH_Clock",
+        "text": "Такт пристрій -> хост"
+    },
+    {
+        "id": "dec_pwm_chan_data",
+        "text": "Лінія даних"
+    },
+    {
+        "id": "dec_pwm_opt_polarity",
+        "text": "Полярність"
+    },
+    {
+        "id": "dec_pxx1_chan_data",
+        "text": "Лінія даних"
+    },
+    {
+        "id": "dec_qi_chan_qi",
+        "text": "Лінія демодульованих даних Qi"
+    },
+    {
+        "id": "dec_qspi_chan_clk",
+        "text": "Тактовий сигнал"
+    },
+    {
+        "id": "dec_qspi_chan_io0",
+        "text": "Ввід-вивід даних 0"
+    },
+    {
+        "id": "dec_qspi_opt_chan_io1",
+        "text": "Ввід-вивід даних 1"
+    },
+    {
+        "id": "dec_qspi_opt_chan_io2",
+        "text": "Ввід-вивід даних 2"
+    },
+    {
+        "id": "dec_qspi_opt_chan_io3",
+        "text": "Ввід-вивід даних 3"
+    },
+    {
+        "id": "dec_qspi_opt_chan_cs",
+        "text": "Вибір кристала"
+    },
+    {
+        "id": "dec_qspi_opt_cs_polarity",
+        "text": "Полярність CS#"
+    },
+    {
+        "id": "dec_qspi_opt_cpol",
+        "text": "Полярність такту (CPOL)"
+    },
+    {
+        "id": "dec_qspi_opt_cpha",
+        "text": "Фаза такту (CPHA)"
+    },
+    {
+        "id": "dec_qspi_opt_bitorder",
+        "text": "Порядок бітів"
+    },
+    {
+        "id": "dec_qspi_opt_wordsize",
+        "text": "Розмір слова"
+    },
+    {
+        "id": "dec_rc_encode_chan_data",
+        "text": "Лінія даних"
+    },
+    {
+        "id": "dec_rc_encode_opt_remote",
+        "text": "Пульт ДК"
+    },
+    {
+        "id": "dec_rgb_led_ws281x_chan_din",
+        "text": "Лінія даних DIN"
+    },
+    {
+        "id": "dec_rgb_led_ws281x_opt_default_color_order",
+        "text": "Типовий порядок кольорів"
+    },
+    {
+        "id": "dec_rgb_led_ws281x_opt_view_color_order",
+        "text": "Порядок кольорів для відображення"
+    },
+    {
+        "id": "dec_rgb_led_ws281x_opt_polarity",
+        "text": "Полярність"
+    },
+    {
+        "id": "dec_sae_j1850_vpw_chan_data",
+        "text": "Лінія даних"
+    },
+    {
+        "id": "dec_sda2506_chan_clk",
+        "text": "Тактовий сигнал"
+    },
+    {
+        "id": "dec_sda2506_chan_d",
+        "text": "Дані"
+    },
+    {
+        "id": "dec_sda2506_chan_ce",
+        "text": "Дозвіл кристала"
+    },
+    {
+        "id": "dec_sdcard_sd_chan_cmd",
+        "text": "Команда"
+    },
+    {
+        "id": "dec_sdcard_sd_chan_clk",
+        "text": "Тактовий сигнал"
+    },
+    {
+        "id": "dec_sdcard_sd_opt_chan_dat0",
+        "text": "Вивід даних 0"
+    },
+    {
+        "id": "dec_sdcard_sd_opt_chan_dat1",
+        "text": "Вивід даних 1"
+    },
+    {
+        "id": "dec_sdcard_sd_opt_chan_dat2",
+        "text": "Вивід даних 2"
+    },
+    {
+        "id": "dec_sdcard_sd_opt_chan_dat3",
+        "text": "Вивід даних 3"
+    },
+    {
+        "id": "dec_sdq_chan_sdq",
+        "text": "Однопровідна лінія даних SDQ."
+    },
+    {
+        "id": "dec_sdq_opt_bitrate",
+        "text": "Бітова швидкість"
+    },
+    {
+        "id": "dec_seven_segment_chan_A",
+        "text": "Сегмент A"
+    },
+    {
+        "id": "dec_seven_segment_chan_B",
+        "text": "Сегмент B"
+    },
+    {
+        "id": "dec_seven_segment_chan_C",
+        "text": "Сегмент C"
+    },
+    {
+        "id": "dec_seven_segment_chan_D",
+        "text": "Сегмент D"
+    },
+    {
+        "id": "dec_seven_segment_chan_E",
+        "text": "Сегмент E"
+    },
+    {
+        "id": "dec_seven_segment_chan_F",
+        "text": "Сегмент F"
+    },
+    {
+        "id": "dec_seven_segment_chan_G",
+        "text": "Сегмент G"
+    },
+    {
+        "id": "dec_seven_segment_opt_chan_dp",
+        "text": "Десяткова крапка"
+    },
+    {
+        "id": "dec_seven_segment_opt_polarity",
+        "text": "Очікувана полярність"
+    },
+    {
+        "id": "dec_signature_chan_start",
+        "text": "Канал START"
+    },
+    {
+        "id": "dec_signature_chan_stop",
+        "text": "Канал STOP"
+    },
+    {
+        "id": "dec_signature_chan_clk",
+        "text": "Канал CLOCK"
+    },
+    {
+        "id": "dec_signature_chan_data",
+        "text": "Канал DATA"
+    },
+    {
+        "id": "dec_signature_opt_start_edge",
+        "text": "Полярність перепаду START"
+    },
+    {
+        "id": "dec_signature_opt_stop_edge",
+        "text": "Полярність перепаду STOP"
+    },
+    {
+        "id": "dec_signature_opt_clk_edge",
+        "text": "Полярність перепаду CLOCK"
+    },
+    {
+        "id": "dec_signature_opt_annbits",
+        "text": "Увімкнути анотації на рівні бітів"
+    },
+    {
+        "id": "dec_sle44xx_chan_rst",
+        "text": "Лінія скидання"
+    },
+    {
+        "id": "dec_sle44xx_chan_clk",
+        "text": "Лінія тактування"
+    },
+    {
+        "id": "dec_sle44xx_chan_io",
+        "text": "Лінія вводу-виводу даних"
+    },
+    {
+        "id": "dec_spdif_chan_data",
+        "text": "Лінія даних"
+    },
+    {
+        "id": "dec_spi_tpm_opt_tpm_version",
+        "text": "Версія TPM 1.2 або 2.0"
+    },
+    {
+        "id": "dec_spiflash_opt_chip",
+        "text": "Мікросхема"
+    },
+    {
+        "id": "dec_spiflash_opt_format",
+        "text": "Формат даних"
+    },
+    {
+        "id": "dec_ssi32_opt_msgsize",
+        "text": "Розмір повідомлення"
+    },
+    {
+        "id": "dec_st7735_chan_cs",
+        "text": "Вибір кристала"
+    },
+    {
+        "id": "dec_st7735_chan_clk",
+        "text": "Тактовий сигнал"
+    },
+    {
+        "id": "dec_st7735_chan_mosi",
+        "text": "Вихід ведучого, вхід веденого"
+    },
+    {
+        "id": "dec_st7735_chan_dc",
+        "text": "Дані або команда"
+    },
+    {
+        "id": "dec_st7789_chan_csx",
+        "text": "Сигнал вибору кристала"
+    },
+    {
+        "id": "dec_st7789_chan_dcx",
+        "text": "Тактовий сигнал"
+    },
+    {
+        "id": "dec_st7789_chan_sdo",
+        "text": "Вихідні послідовні дані"
+    },
+    {
+        "id": "dec_st7789_chan_wrx",
+        "text": "Команда / дані"
+    },
+    {
+        "id": "dec_stepper_motor_chan_step",
+        "text": "Імпульс кроку"
+    },
+    {
+        "id": "dec_stepper_motor_chan_dir",
+        "text": "Вибір напрямку"
+    },
+    {
+        "id": "dec_stepper_motor_opt_unit",
+        "text": "Одиниця"
+    },
+    {
+        "id": "dec_stepper_motor_opt_steps_per_mm",
+        "text": "Кроків на мм"
+    },
+    {
+        "id": "dec_swd_chan_swclk",
+        "text": "Тактовий сигнал ведучого"
+    },
+    {
+        "id": "dec_swd_chan_swdio",
+        "text": "Ввід/вивід даних"
+    },
+    {
+        "id": "dec_swd_opt_strict_start",
+        "text": "Чекати скидання лінії перед початком декодування"
+    },
+    {
+        "id": "dec_swim_opt_debug",
+        "text": "Налагодження"
+    },
+    {
+        "id": "dec_swim_chan_swim",
+        "text": "Лінія даних SWIM"
+    },
+    {
+        "id": "dec_t55xx_chan_data",
+        "text": "Лінія даних"
+    },
+    {
+        "id": "dec_t55xx_opt_coilfreq",
+        "text": "Частота котушки"
+    },
+    {
+        "id": "dec_t55xx_opt_start_gap",
+        "text": "Мін. стартовий проміжок"
+    },
+    {
+        "id": "dec_t55xx_opt_w_gap",
+        "text": "Мін. проміжок запису"
+    },
+    {
+        "id": "dec_t55xx_opt_w_one_min",
+        "text": "Мін. запису одиниці"
+    },
+    {
+        "id": "dec_t55xx_opt_w_one_max",
+        "text": "Макс. запису одиниці"
+    },
+    {
+        "id": "dec_t55xx_opt_w_zero_min",
+        "text": "Мін. запису нуля"
+    },
+    {
+        "id": "dec_t55xx_opt_w_zero_max",
+        "text": "Макс. запису нуля"
+    },
+    {
+        "id": "dec_t55xx_opt_em4100_decode",
+        "text": "Декодування EM4100"
+    },
+    {
+        "id": "dec_tdm_audio_chan_clock",
+        "text": "Тактування бітів даних"
+    },
+    {
+        "id": "dec_tdm_audio_chan_frame",
+        "text": "Синхронізація кадрів"
+    },
+    {
+        "id": "dec_tdm_audio_chan_data",
+        "text": "Послідовні дані"
+    },
+    {
+        "id": "dec_tdm_audio_opt_bps",
+        "text": "Бітів на відлік"
+    },
+    {
+        "id": "dec_tdm_audio_opt_channels",
+        "text": "Каналів на кадр"
+    },
+    {
+        "id": "dec_tdm_audio_opt_edge",
+        "text": "Перепад такту для вибірки"
+    },
+    {
+        "id": "dec_tdm_audio_opt_sampling_edge",
+        "text": "Перепад вибірки"
+    },
+    {
+        "id": "dec_timing_chan_data",
+        "text": "Лінія даних"
+    },
+    {
+        "id": "dec_timing_opt_avg_period",
+        "text": "Період усереднення"
+    },
+    {
+        "id": "dec_timing_opt_edge",
+        "text": "Перепади для перевірки"
+    },
+    {
+        "id": "dec_timing_opt_delta",
+        "text": "Показувати різницю з попереднім"
+    },
+    {
+        "id": "dec_tlc5620_chan_clk",
+        "text": "Тактовий сигнал послідовного інтерфейсу"
+    },
+    {
+        "id": "dec_tlc5620_chan_data",
+        "text": "Дані послідовного інтерфейсу"
+    },
+    {
+        "id": "dec_tlc5620_opt_chan_load",
+        "text": "Керування завантаженням послідовного інтерфейсу"
+    },
+    {
+        "id": "dec_tlc5620_opt_chan_ldac",
+        "text": "Завантаження DAC"
+    },
+    {
+        "id": "dec_tlc5620_opt_vref_a",
+        "text": "Опорна напруга DACA (V)"
+    },
+    {
+        "id": "dec_tlc5620_opt_vref_b",
+        "text": "Опорна напруга DACB (V)"
+    },
+    {
+        "id": "dec_tlc5620_opt_vref_c",
+        "text": "Опорна напруга DACC (V)"
+    },
+    {
+        "id": "dec_tlc5620_opt_vref_d",
+        "text": "Опорна напруга DACD (V)"
+    },
+    {
+        "id": "dec_qspi_adress_mode",
+        "text": "Режим адресації"
+    },
+    {
+        "id": "dec_qspi_opt_frame",
+        "text": "Декодер кадрів"
+    },
+    {
+        "id": "dec_qspi_two_lines_mode",
+        "text": "Дволінійний режим"
+    },
+    {
+        "id": "dec_qspi_invalidlevel",
+        "text": "Високий чи низький рівень вважати недійсним"
+    },
+    {
+        "id": "dec_timing_opt_format",
+        "text": "Формат анотації 'time'"
+    }
+]

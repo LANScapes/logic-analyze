@@ -405,7 +405,9 @@ void DeviceOptions::logic_probes(QVBoxLayout &layout)
     enable_all_probes->setFont(font);
     disable_all_probes->setFont(font);
 
-    int bt_width = enable_all_probes->fontMetrics().horizontalAdvance(enable_all_probes->text()) + 20;
+    // Both buttons take the width of the longer label.
+    int bt_width = std::max(enable_all_probes->fontMetrics().horizontalAdvance(enable_all_probes->text()),
+                            disable_all_probes->fontMetrics().horizontalAdvance(disable_all_probes->text())) + 20;
     enable_all_probes->setMaximumWidth(bt_width);
     disable_all_probes->setMaximumWidth(bt_width);
 

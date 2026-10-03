@@ -1,0 +1,182 @@
+[
+    {
+        "id": "dec_0i2c_chan_scl",
+        "text": "Линия тактового сигнала"
+    },
+    {
+        "id": "dec_0i2c_chan_sda",
+        "text": "Линия данных"
+    },
+    {
+        "id": "dec_0i2c_opt_addr",
+        "text": "Формат отображения адреса ведомого"
+    },
+    {
+        "id": "dec_0spi_chan_clk",
+        "text": "Тактовый сигнал"
+    },
+    {
+        "id": "dec_0spi_opt_chan_miso",
+        "text": "Вход ведущего, выход ведомого"
+    },
+    {
+        "id": "dec_0spi_opt_chan_mosi",
+        "text": "Выход ведущего, вход ведомого"
+    },
+    {
+        "id": "dec_0spi_opt_chan_cs",
+        "text": "Выбор кристалла"
+    },
+    {
+        "id": "dec_0spi_opt_cs_pol",
+        "text": "Полярность CS#"
+    },
+    {
+        "id": "dec_0spi_opt_cpol",
+        "text": "Полярность такта (CPOL)"
+    },
+    {
+        "id": "dec_0spi_opt_cpha",
+        "text": "Фаза такта (CPHA)"
+    },
+    {
+        "id": "dec_0spi_opt_bitorder",
+        "text": "Порядок битов"
+    },
+    {
+        "id": "dec_0spi_opt_wordsize",
+        "text": "Размер слова"
+    },
+    {
+        "id": "dec_0uart_chan_rxtx",
+        "text": "Линия приёма/передачи UART"
+    },
+    {
+        "id": "dec_0uart_opt_baudrate",
+        "text": "Скорость (бод)"
+    },
+    {
+        "id": "dec_0uart_opt_num_data_bits",
+        "text": "Биты данных"
+    },
+    {
+        "id": "dec_0uart_opt_parity_type",
+        "text": "Тип чётности"
+    },
+    {
+        "id": "dec_0uart_opt_parity_check",
+        "text": "Проверять чётность?"
+    },
+    {
+        "id": "dec_0uart_opt_num_stop_bits",
+        "text": "Стоповые биты"
+    },
+    {
+        "id": "dec_0uart_opt_bit_order",
+        "text": "Порядок битов"
+    },
+    {
+        "id": "dec_0uart_opt_format",
+        "text": "Формат данных"
+    },
+    {
+        "id": "dec_0uart_opt_invert",
+        "text": "Инвертировать сигнал?"
+    },
+    {
+        "id": "dec_0uart_anno_startstop",
+        "text": "Показывать старт/стоп?"
+    },
+    {
+        "id": "dec_1i2c_chan_scl",
+        "text": "Линия тактового сигнала"
+    },
+    {
+        "id": "dec_1i2c_chan_sda",
+        "text": "Линия данных"
+    },
+    {
+        "id": "dec_1i2c_opt_addr",
+        "text": "Формат отображения адреса ведомого"
+    },
+    {
+        "id": "dec_1spi_chan_clk",
+        "text": "Тактовый сигнал"
+    },
+    {
+        "id": "dec_1spi_opt_chan_miso",
+        "text": "Вход ведущего, выход ведомого"
+    },
+    {
+        "id": "dec_1spi_opt_chan_mosi",
+        "text": "Выход ведущего, вход ведомого"
+    },
+    {
+        "id": "dec_1spi_opt_chan_cs",
+        "text": "Выбор кристалла"
+    },
+    {
+        "id": "dec_1spi_opt_cs_pol",
+        "text": "Полярность CS#"
+    },
+    {
+        "id": "dec_1spi_opt_cpol",
+        "text": "Полярность такта (CPOL)"
+    },
+    {
+        "id": "dec_1spi_opt_cpha",
+        "text": "Фаза такта (CPHA)"
+    },
+    {
+        "id": "dec_1spi_opt_bitorder",
+        "text": "Порядок битов"
+    },
+    {
+        "id": "dec_1spi_opt_wordsize",
+        "text": "Размер слова"
+    },
+    {
+        "id": "dec_1spi_opt_frame",
+        "text": "Декодер кадров"
+    },
+    {
+        "id": "dec_1uart_chan_rxtx",
+        "text": "Линия приёма/передачи UART"
+    },
+    {
+        "id": "dec_1uart_opt_baudrate",
+        "text": "Скорость (бод)"
+    },
+    {
+        "id": "dec_1uart_opt_num_data_bits",
+        "text": "Биты данных"
+    },
+    {
+        "id": "dec_1uart_opt_parity_type",
+        "text": "Тип чётности"
+    },
+    {
+        "id": "dec_1uart_opt_parity_check",
+        "text": "Проверять чётность?"
+    },
+    {
+        "id": "dec_1uart_opt_num_stop_bits",
+        "text": "Стоповые биты"
+    },
+    {
+        "id": "dec_1uart_opt_bit_order",
+        "text": "Порядок битов"
+    },
+    {
+        "id": "dec_1uart_opt_format",
+        "text": "Формат данных"
+    },
+    {
+        "id": "dec_1uart_opt_invert",
+        "text": "Инвертировать сигнал?"
+    },
+    {
+        "id": "dec_1uart_anno_startstop",
+        "text": "Показывать старт/стоп?"
+    }
+]

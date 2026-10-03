@@ -1490,17 +1490,17 @@ namespace pv
             LangResource::Instance()->Load(language);     
         }        
 
-        if (language == LAN_CN)
+        // Qt's own texts (qt_*) and the app's tr() texts (my_*); English has none.
+        qApp->removeTranslator(&_qtTrans);
+        qApp->removeTranslator(&_myTrans);
+        const lang_key_item *lang = LangResource::find_lang(language);
+
+        if (lang != NULL && language != LAN_EN)
         {
-            _qtTrans.load(":/qt_" + QString::number(language));
-            qApp->installTranslator(&_qtTrans);
-            _myTrans.load(":/my_" + QString::number(language));
-            qApp->installTranslator(&_myTrans);
-        }
-        else if (language == LAN_EN)
-        {
-            qApp->removeTranslator(&_qtTrans);
-            qApp->removeTranslator(&_myTrans);
+            if (_qtTrans.load(QString(":/qt_") + lang->name))
+                qApp->installTranslator(&_qtTrans);
+            if (_myTrans.load(QString(":/my_") + lang->name))
+                qApp->installTranslator(&_myTrans);
         }
 
         retranslateUi();
@@ -1575,6 +1575,8 @@ namespace pv
         QDir dir(GetAppDataDir());
         AppConfig &app = AppConfig::Instance();
         int lan = app.frameOptions.language;
+        if (!QFile::exists(dir.absolutePath() + "/ug" + QString::number(lan) + ".pdf"))
+            lan = LAN_EN; // no manual in this language
         QDesktopServices::openUrl(
             QUrl("file:///" + dir.absolutePath() + "/ug" + QString::number(lan) + ".pdf"));
     }

@@ -92,6 +92,13 @@ cat > "$C/Info.plist" <<PLIST
 <key>CFBundleName</key><string>$NAME</string>
 <key>CFBundleDisplayName</key><string>$NAME</string>
 <key>CFBundlePackageType</key><string>APPL</string>
+<key>CFBundleDevelopmentRegion</key><string>en</string>
+<key>CFBundleLocalizations</key><array>
+<string>en</string><string>de</string><string>es</string><string>fr</string><string>it</string>
+<string>nl</string><string>pl</string><string>pt-BR</string><string>vi</string><string>tr</string>
+<string>ru</string><string>uk</string><string>ja</string><string>ko</string>
+<string>zh-Hans</string><string>zh-Hant</string>
+</array>
 <key>CFBundleShortVersionString</key><string>$VERSION</string>
 <key>CFBundleVersion</key><string>$BUILD</string>
 <key>LSMinimumSystemVersion</key><string>$MIN_MACOS</string>

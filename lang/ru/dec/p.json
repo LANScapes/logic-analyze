@@ -1,0 +1,474 @@
+[
+    {
+        "id": "dec_parallel_opt_clock_edge",
+        "text": "Перепад такта для выборки"
+    },
+    {
+        "id": "dec_parallel_opt_wordsize",
+        "text": "Размер слова данных (число циклов шины)"
+    },
+    {
+        "id": "dec_parallel_opt_endianness",
+        "text": "Порядок байтов данных"
+    },
+    {
+        "id": "dec_pjdl_chan_data",
+        "text": "Однопроводные данные"
+    },
+    {
+        "id": "dec_pjdl_opt_mode",
+        "text": "Режим связи"
+    },
+    {
+        "id": "dec_pjdl_opt_idle_add_us",
+        "text": "Добавочное время простоя (us)"
+    },
+    {
+        "id": "dec_ps2_chan_clk",
+        "text": "Линия тактового сигнала"
+    },
+    {
+        "id": "dec_ps2_chan_data",
+        "text": "Линия данных"
+    },
+    {
+        "id": "dec_ps2_opt_HtoD_Clock",
+        "text": "Такт хост → устройство"
+    },
+    {
+        "id": "dec_ps2_opt_DtoH_Clock",
+        "text": "Такт устройство → хост"
+    },
+    {
+        "id": "dec_pwm_chan_data",
+        "text": "Линия данных"
+    },
+    {
+        "id": "dec_pwm_opt_polarity",
+        "text": "Полярность"
+    },
+    {
+        "id": "dec_pxx1_chan_data",
+        "text": "Линия данных"
+    },
+    {
+        "id": "dec_qi_chan_qi",
+        "text": "Линия демодулированных данных Qi"
+    },
+    {
+        "id": "dec_qspi_chan_clk",
+        "text": "Тактовый сигнал"
+    },
+    {
+        "id": "dec_qspi_chan_io0",
+        "text": "Ввод-вывод данных 0"
+    },
+    {
+        "id": "dec_qspi_opt_chan_io1",
+        "text": "Ввод-вывод данных 1"
+    },
+    {
+        "id": "dec_qspi_opt_chan_io2",
+        "text": "Ввод-вывод данных 2"
+    },
+    {
+        "id": "dec_qspi_opt_chan_io3",
+        "text": "Ввод-вывод данных 3"
+    },
+    {
+        "id": "dec_qspi_opt_chan_cs",
+        "text": "Выбор кристалла"
+    },
+    {
+        "id": "dec_qspi_opt_cs_polarity",
+        "text": "Полярность CS#"
+    },
+    {
+        "id": "dec_qspi_opt_cpol",
+        "text": "Полярность такта (CPOL)"
+    },
+    {
+        "id": "dec_qspi_opt_cpha",
+        "text": "Фаза такта (CPHA)"
+    },
+    {
+        "id": "dec_qspi_opt_bitorder",
+        "text": "Порядок битов"
+    },
+    {
+        "id": "dec_qspi_opt_wordsize",
+        "text": "Размер слова"
+    },
+    {
+        "id": "dec_rc_encode_chan_data",
+        "text": "Линия данных"
+    },
+    {
+        "id": "dec_rc_encode_opt_remote",
+        "text": "Пульт ДУ"
+    },
+    {
+        "id": "dec_rgb_led_ws281x_chan_din",
+        "text": "Линия данных DIN"
+    },
+    {
+        "id": "dec_rgb_led_ws281x_opt_default_color_order",
+        "text": "Порядок цветов по умолчанию"
+    },
+    {
+        "id": "dec_rgb_led_ws281x_opt_view_color_order",
+        "text": "Порядок цветов при отображении"
+    },
+    {
+        "id": "dec_rgb_led_ws281x_opt_polarity",
+        "text": "Полярность"
+    },
+    {
+        "id": "dec_sae_j1850_vpw_chan_data",
+        "text": "Линия данных"
+    },
+    {
+        "id": "dec_sda2506_chan_clk",
+        "text": "Тактовый сигнал"
+    },
+    {
+        "id": "dec_sda2506_chan_d",
+        "text": "Данные"
+    },
+    {
+        "id": "dec_sda2506_chan_ce",
+        "text": "Разрешение кристалла"
+    },
+    {
+        "id": "dec_sdcard_sd_chan_cmd",
+        "text": "Команда"
+    },
+    {
+        "id": "dec_sdcard_sd_chan_clk",
+        "text": "Тактовый сигнал"
+    },
+    {
+        "id": "dec_sdcard_sd_opt_chan_dat0",
+        "text": "Вывод данных 0"
+    },
+    {
+        "id": "dec_sdcard_sd_opt_chan_dat1",
+        "text": "Вывод данных 1"
+    },
+    {
+        "id": "dec_sdcard_sd_opt_chan_dat2",
+        "text": "Вывод данных 2"
+    },
+    {
+        "id": "dec_sdcard_sd_opt_chan_dat3",
+        "text": "Вывод данных 3"
+    },
+    {
+        "id": "dec_sdq_chan_sdq",
+        "text": "Однопроводная линия данных SDQ."
+    },
+    {
+        "id": "dec_sdq_opt_bitrate",
+        "text": "Битовая скорость"
+    },
+    {
+        "id": "dec_seven_segment_chan_A",
+        "text": "Сегмент A"
+    },
+    {
+        "id": "dec_seven_segment_chan_B",
+        "text": "Сегмент B"
+    },
+    {
+        "id": "dec_seven_segment_chan_C",
+        "text": "Сегмент C"
+    },
+    {
+        "id": "dec_seven_segment_chan_D",
+        "text": "Сегмент D"
+    },
+    {
+        "id": "dec_seven_segment_chan_E",
+        "text": "Сегмент E"
+    },
+    {
+        "id": "dec_seven_segment_chan_F",
+        "text": "Сегмент F"
+    },
+    {
+        "id": "dec_seven_segment_chan_G",
+        "text": "Сегмент G"
+    },
+    {
+        "id": "dec_seven_segment_opt_chan_dp",
+        "text": "Десятичная точка"
+    },
+    {
+        "id": "dec_seven_segment_opt_polarity",
+        "text": "Ожидаемая полярность"
+    },
+    {
+        "id": "dec_signature_chan_start",
+        "text": "Канал START"
+    },
+    {
+        "id": "dec_signature_chan_stop",
+        "text": "Канал STOP"
+    },
+    {
+        "id": "dec_signature_chan_clk",
+        "text": "Канал CLOCK"
+    },
+    {
+        "id": "dec_signature_chan_data",
+        "text": "Канал DATA"
+    },
+    {
+        "id": "dec_signature_opt_start_edge",
+        "text": "Полярность перепада START"
+    },
+    {
+        "id": "dec_signature_opt_stop_edge",
+        "text": "Полярность перепада STOP"
+    },
+    {
+        "id": "dec_signature_opt_clk_edge",
+        "text": "Полярность перепада CLOCK"
+    },
+    {
+        "id": "dec_signature_opt_annbits",
+        "text": "Включить аннотации на уровне битов"
+    },
+    {
+        "id": "dec_sle44xx_chan_rst",
+        "text": "Линия сброса"
+    },
+    {
+        "id": "dec_sle44xx_chan_clk",
+        "text": "Линия тактового сигнала"
+    },
+    {
+        "id": "dec_sle44xx_chan_io",
+        "text": "Линия ввода-вывода данных"
+    },
+    {
+        "id": "dec_spdif_chan_data",
+        "text": "Линия данных"
+    },
+    {
+        "id": "dec_spi_tpm_opt_tpm_version",
+        "text": "Версия TPM: 1.2 или 2.0"
+    },
+    {
+        "id": "dec_spiflash_opt_chip",
+        "text": "Микросхема"
+    },
+    {
+        "id": "dec_spiflash_opt_format",
+        "text": "Формат данных"
+    },
+    {
+        "id": "dec_ssi32_opt_msgsize",
+        "text": "Размер сообщения"
+    },
+    {
+        "id": "dec_st7735_chan_cs",
+        "text": "Выбор кристалла"
+    },
+    {
+        "id": "dec_st7735_chan_clk",
+        "text": "Тактовый сигнал"
+    },
+    {
+        "id": "dec_st7735_chan_mosi",
+        "text": "Выход ведущего, вход ведомого"
+    },
+    {
+        "id": "dec_st7735_chan_dc",
+        "text": "Данные или команда"
+    },
+    {
+        "id": "dec_st7789_chan_csx",
+        "text": "Сигнал выбора кристалла"
+    },
+    {
+        "id": "dec_st7789_chan_dcx",
+        "text": "Тактовый сигнал"
+    },
+    {
+        "id": "dec_st7789_chan_sdo",
+        "text": "Последовательные выходные данные"
+    },
+    {
+        "id": "dec_st7789_chan_wrx",
+        "text": "Команда / данные"
+    },
+    {
+        "id": "dec_stepper_motor_chan_step",
+        "text": "Импульс шага"
+    },
+    {
+        "id": "dec_stepper_motor_chan_dir",
+        "text": "Выбор направления"
+    },
+    {
+        "id": "dec_stepper_motor_opt_unit",
+        "text": "Единица"
+    },
+    {
+        "id": "dec_stepper_motor_opt_steps_per_mm",
+        "text": "Шагов на мм"
+    },
+    {
+        "id": "dec_swd_chan_swclk",
+        "text": "Тактовый сигнал ведущего"
+    },
+    {
+        "id": "dec_swd_chan_swdio",
+        "text": "Ввод-вывод данных"
+    },
+    {
+        "id": "dec_swd_opt_strict_start",
+        "text": "Ожидать сброса линии перед началом декодирования"
+    },
+    {
+        "id": "dec_swim_opt_debug",
+        "text": "Отладка"
+    },
+    {
+        "id": "dec_swim_chan_swim",
+        "text": "Линия данных SWIM"
+    },
+    {
+        "id": "dec_t55xx_chan_data",
+        "text": "Линия данных"
+    },
+    {
+        "id": "dec_t55xx_opt_coilfreq",
+        "text": "Частота катушки"
+    },
+    {
+        "id": "dec_t55xx_opt_start_gap",
+        "text": "Мин. начальный промежуток"
+    },
+    {
+        "id": "dec_t55xx_opt_w_gap",
+        "text": "Мин. промежуток записи"
+    },
+    {
+        "id": "dec_t55xx_opt_w_one_min",
+        "text": "Мин. запись единицы"
+    },
+    {
+        "id": "dec_t55xx_opt_w_one_max",
+        "text": "Макс. запись единицы"
+    },
+    {
+        "id": "dec_t55xx_opt_w_zero_min",
+        "text": "Мин. запись нуля"
+    },
+    {
+        "id": "dec_t55xx_opt_w_zero_max",
+        "text": "Макс. запись нуля"
+    },
+    {
+        "id": "dec_t55xx_opt_em4100_decode",
+        "text": "Декодирование EM4100"
+    },
+    {
+        "id": "dec_tdm_audio_chan_clock",
+        "text": "Тактовый сигнал битов данных"
+    },
+    {
+        "id": "dec_tdm_audio_chan_frame",
+        "text": "Синхронизация кадров"
+    },
+    {
+        "id": "dec_tdm_audio_chan_data",
+        "text": "Последовательные данные"
+    },
+    {
+        "id": "dec_tdm_audio_opt_bps",
+        "text": "Битов на отсчёт"
+    },
+    {
+        "id": "dec_tdm_audio_opt_channels",
+        "text": "Каналов на кадр"
+    },
+    {
+        "id": "dec_tdm_audio_opt_edge",
+        "text": "Перепад такта для выборки"
+    },
+    {
+        "id": "dec_tdm_audio_opt_sampling_edge",
+        "text": "Перепад выборки"
+    },
+    {
+        "id": "dec_timing_chan_data",
+        "text": "Линия данных"
+    },
+    {
+        "id": "dec_timing_opt_avg_period",
+        "text": "Период усреднения"
+    },
+    {
+        "id": "dec_timing_opt_edge",
+        "text": "Проверяемые перепады"
+    },
+    {
+        "id": "dec_timing_opt_delta",
+        "text": "Показывать разницу с предыдущим"
+    },
+    {
+        "id": "dec_tlc5620_chan_clk",
+        "text": "Тактовый сигнал последовательного интерфейса"
+    },
+    {
+        "id": "dec_tlc5620_chan_data",
+        "text": "Данные последовательного интерфейса"
+    },
+    {
+        "id": "dec_tlc5620_opt_chan_load",
+        "text": "Управление загрузкой последовательного интерфейса"
+    },
+    {
+        "id": "dec_tlc5620_opt_chan_ldac",
+        "text": "Загрузка ЦАП"
+    },
+    {
+        "id": "dec_tlc5620_opt_vref_a",
+        "text": "Опорное напряжение DACA (V)"
+    },
+    {
+        "id": "dec_tlc5620_opt_vref_b",
+        "text": "Опорное напряжение DACB (V)"
+    },
+    {
+        "id": "dec_tlc5620_opt_vref_c",
+        "text": "Опорное напряжение DACC (V)"
+    },
+    {
+        "id": "dec_tlc5620_opt_vref_d",
+        "text": "Опорное напряжение DACD (V)"
+    },
+    {
+        "id": "dec_qspi_adress_mode",
+        "text": "Режим адресации"
+    },
+    {
+        "id": "dec_qspi_opt_frame",
+        "text": "Декодер кадров"
+    },
+    {
+        "id": "dec_qspi_two_lines_mode",
+        "text": "Двухлинейный режим"
+    },
+    {
+        "id": "dec_qspi_invalidlevel",
+        "text": "Неактивный уровень: высокий или низкий"
+    },
+    {
+        "id": "dec_timing_opt_format",
+        "text": "Формат аннотации «time»"
+    }
+]

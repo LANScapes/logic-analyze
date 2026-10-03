@@ -1,0 +1,182 @@
+[
+    {
+        "id": "dec_0i2c_chan_scl",
+        "text": "Ligne d'horloge série"
+    },
+    {
+        "id": "dec_0i2c_chan_sda",
+        "text": "Ligne de données série"
+    },
+    {
+        "id": "dec_0i2c_opt_addr",
+        "text": "Format d'affichage de l'adresse esclave"
+    },
+    {
+        "id": "dec_0spi_chan_clk",
+        "text": "Horloge"
+    },
+    {
+        "id": "dec_0spi_opt_chan_miso",
+        "text": "Entrée maître, sortie esclave"
+    },
+    {
+        "id": "dec_0spi_opt_chan_mosi",
+        "text": "Sortie maître, entrée esclave"
+    },
+    {
+        "id": "dec_0spi_opt_chan_cs",
+        "text": "Sélection de puce"
+    },
+    {
+        "id": "dec_0spi_opt_cs_pol",
+        "text": "Polarité CS#"
+    },
+    {
+        "id": "dec_0spi_opt_cpol",
+        "text": "Polarité d'horloge (CPOL)"
+    },
+    {
+        "id": "dec_0spi_opt_cpha",
+        "text": "Phase d'horloge (CPHA)"
+    },
+    {
+        "id": "dec_0spi_opt_bitorder",
+        "text": "Ordre des bits"
+    },
+    {
+        "id": "dec_0spi_opt_wordsize",
+        "text": "Taille de mot"
+    },
+    {
+        "id": "dec_0uart_chan_rxtx",
+        "text": "Ligne d'émission/réception UART"
+    },
+    {
+        "id": "dec_0uart_opt_baudrate",
+        "text": "Débit en bauds"
+    },
+    {
+        "id": "dec_0uart_opt_num_data_bits",
+        "text": "Bits de données"
+    },
+    {
+        "id": "dec_0uart_opt_parity_type",
+        "text": "Type de parité"
+    },
+    {
+        "id": "dec_0uart_opt_parity_check",
+        "text": "Vérifier la parité ?"
+    },
+    {
+        "id": "dec_0uart_opt_num_stop_bits",
+        "text": "Bits d'arrêt"
+    },
+    {
+        "id": "dec_0uart_opt_bit_order",
+        "text": "Ordre des bits"
+    },
+    {
+        "id": "dec_0uart_opt_format",
+        "text": "Format des données"
+    },
+    {
+        "id": "dec_0uart_opt_invert",
+        "text": "Inverser le signal ?"
+    },
+    {
+        "id": "dec_0uart_anno_startstop",
+        "text": "Afficher Start/Stop ?"
+    },
+    {
+        "id": "dec_1i2c_chan_scl",
+        "text": "Ligne d'horloge série"
+    },
+    {
+        "id": "dec_1i2c_chan_sda",
+        "text": "Ligne de données série"
+    },
+    {
+        "id": "dec_1i2c_opt_addr",
+        "text": "Format d'affichage de l'adresse esclave"
+    },
+    {
+        "id": "dec_1spi_chan_clk",
+        "text": "Horloge"
+    },
+    {
+        "id": "dec_1spi_opt_chan_miso",
+        "text": "Entrée maître, sortie esclave"
+    },
+    {
+        "id": "dec_1spi_opt_chan_mosi",
+        "text": "Sortie maître, entrée esclave"
+    },
+    {
+        "id": "dec_1spi_opt_chan_cs",
+        "text": "Sélection de puce"
+    },
+    {
+        "id": "dec_1spi_opt_cs_pol",
+        "text": "Polarité CS#"
+    },
+    {
+        "id": "dec_1spi_opt_cpol",
+        "text": "Polarité d'horloge (CPOL)"
+    },
+    {
+        "id": "dec_1spi_opt_cpha",
+        "text": "Phase d'horloge (CPHA)"
+    },
+    {
+        "id": "dec_1spi_opt_bitorder",
+        "text": "Ordre des bits"
+    },
+    {
+        "id": "dec_1spi_opt_wordsize",
+        "text": "Taille de mot"
+    },
+    {
+        "id": "dec_1spi_opt_frame",
+        "text": "Décodeur de trames"
+    },
+    {
+        "id": "dec_1uart_chan_rxtx",
+        "text": "Ligne d'émission/réception UART"
+    },
+    {
+        "id": "dec_1uart_opt_baudrate",
+        "text": "Débit en bauds"
+    },
+    {
+        "id": "dec_1uart_opt_num_data_bits",
+        "text": "Bits de données"
+    },
+    {
+        "id": "dec_1uart_opt_parity_type",
+        "text": "Type de parité"
+    },
+    {
+        "id": "dec_1uart_opt_parity_check",
+        "text": "Vérifier la parité ?"
+    },
+    {
+        "id": "dec_1uart_opt_num_stop_bits",
+        "text": "Bits d'arrêt"
+    },
+    {
+        "id": "dec_1uart_opt_bit_order",
+        "text": "Ordre des bits"
+    },
+    {
+        "id": "dec_1uart_opt_format",
+        "text": "Format des données"
+    },
+    {
+        "id": "dec_1uart_opt_invert",
+        "text": "Inverser le signal ?"
+    },
+    {
+        "id": "dec_1uart_anno_startstop",
+        "text": "Afficher Start/Stop ?"
+    }
+]

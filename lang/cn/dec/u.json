@@ -58,7 +58,7 @@
     {
         "id": "dec_xy2-100_opt_chan_status",
         "text": "X、Y或Z轴状态"
-    },    
+    },
     {
         "id": "dec_z80_chan_m1",
         "text": "机器周期 1"
@@ -78,5 +78,9 @@
     {
         "id": "dec_z80_opt_chan_iorq",
         "text": "I/O请求"
+    },
+    {
+        "id": "dec_usb_request_opt_in_request_start",
+        "text": "IN请求起始于"
     }
 ]

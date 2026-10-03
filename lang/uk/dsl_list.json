@@ -1,0 +1,50 @@
+[
+    {
+        "id": "Buffer Mode",
+        "text": "Буферний режим"
+    },
+    {
+        "id": "Stream Mode",
+        "text": "Потоковий режим"
+    },
+    {
+        "id": "Internal Test",
+        "text": "Внутрішній тест"
+    },
+    {
+        "id": "External Test",
+        "text": "Зовнішній тест"
+    },
+    {
+        "id": "DRAM Loopback Test",
+        "text": "Петльовий тест DRAM"
+    },
+    {
+        "id": "Stop immediately",
+        "text": "Зупинити негайно"
+    },
+    {
+        "id": "Upload captured data",
+        "text": "Вивантажити захоплені дані"
+    },
+    {
+        "id": "None",
+        "text": "Немає"
+    },
+    {
+        "id": "1 Sample Clock",
+        "text": "1 такт дискретизації"
+    },
+    {
+        "id": "Normal",
+        "text": "Звичайний"
+    },
+    {
+        "id": "Full Bandwidth",
+        "text": "Повна смуга"
+    },
+    {
+        "id": "20MHz",
+        "text": "20MHz"
+    }
+]

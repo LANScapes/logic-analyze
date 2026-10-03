@@ -1,0 +1,182 @@
+[
+    {
+        "id": "IDS_DEVICE_MODE_LOGIC",
+        "text": "&Mantık Analizörü"
+    },
+    {
+        "id": "IDS_DEVICE_MODE_ANALOG",
+        "text": "&Veri Toplama"
+    },
+    {
+        "id": "IDS_DEVICE_MODE_DSO",
+        "text": "&Osiloskop"
+    },
+    {
+        "id": "IDS_TOOLBAR_DEVICE_TYPE_DEMO",
+        "text": "Demo"
+    },
+    {
+        "id": "IDS_TOOLBAR_DEVICE_TYPE_FILE",
+        "text": "Dosya"
+    },
+    {
+        "id": "IDS_TOOLBAR_DEVICE_OPTION",
+        "text": "&Seçenekler"
+    },
+    {
+        "id": "IDS_TOOLBAR_DEVICE_OPTION_ITEM",
+        "text": "Cihaz Seçenekleri..."
+    },
+    {
+        "id": "IDS_TOOLBAR_CAPTURE_MODE",
+        "text": "&Mod"
+    },
+    {
+        "id": "IDS_TOOLBAR_CAPTURE_MODE_SINGLE",
+        "text": "&Tek"
+    },
+    {
+        "id": "IDS_TOOLBAR_CAPTURE_MODE_REPEAT",
+        "text": "&Yinelemeli"
+    },
+    {
+        "id": "IDS_TOOLBAR_CAPTURE_MODE_LOOP",
+        "text": "&Döngü"
+    },
+    {
+        "id": "IDS_TOOLBAR_RUN_START",
+        "text": "&Başlat"
+    },
+    {
+        "id": "IDS_TOOLBAR_RUN_STOP",
+        "text": "&Durdur"
+    },
+    {
+        "id": "IDS_TOOLBAR_ONE_SINGLE",
+        "text": "&Tek"
+    },
+    {
+        "id": "IDS_TOOLBAR_ONE_INSTANT",
+        "text": "&Anlık"
+    },
+    {
+        "id": "IDS_TOOLBAR_ONE_STOP",
+        "text": "&Durdur"
+    },
+    {
+        "id": "IDS_TOOLBAR_TRIGGER",
+        "text": "&Tetikleme"
+    },
+    {
+        "id": "IDS_TOOLBAR_DECODE",
+        "text": "&Kod Çöz"
+    },
+    {
+        "id": "IDS_TOOLBAR_MEASURE",
+        "text": "&Ölçüm"
+    },
+    {
+        "id": "IDS_TOOLBAR_SEARCH",
+        "text": "&Ara"
+    },
+    {
+        "id": "IDS_TOOLBAR_FUNCTION",
+        "text": "&Fonksiyon"
+    },
+    {
+        "id": "IDS_TOOLBAR_FUNCTION_FFT",
+        "text": "&FFT"
+    },
+    {
+        "id": "IDS_TOOLBAR_FUNCTION_MATH",
+        "text": "&Matematik"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY",
+        "text": "&Görünüm"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_THEMES",
+        "text": "&Temalar"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_LISSAJOUS",
+        "text": "&Lissajous"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_THEMES_DARK",
+        "text": "&Koyu"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_THEMES_LIGHT",
+        "text": "&Açık"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_OPTIONS",
+        "text": "&Seçenekler"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE",
+        "text": "&Dosya"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CONFIG",
+        "text": "&Ayarlar"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CONFIG_LOAD",
+        "text": "Oturum &Yükle"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CONFIG_STORE",
+        "text": "Oturumu &Kaydet"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CONFIG_DEFAULT",
+        "text": "&Varsayılan Oturumu Yükle"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_OPEN",
+        "text": "&Aç..."
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_SAVE",
+        "text": "&Kaydet..."
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_EXPORT",
+        "text": "&Dışa Aktar..."
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CAPTURE",
+        "text": "&Görüntü Al..."
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP",
+        "text": "&Yardım"
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_LANG",
+        "text": "&Dil"
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_ABOUT",
+        "text": "&Hakkında..."
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_MANUAL",
+        "text": "&Kılavuz..."
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_BUG",
+        "text": "&Hata Bildir"
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_UPDATE",
+        "text": "&Güncelle"
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_LOG",
+        "text": "&Günlük Ayarları"
+    }
+]

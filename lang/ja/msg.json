@@ -1,0 +1,390 @@
+[
+    {
+        "id": "IDS_MSG_OK",
+        "text": "OK"
+    },
+    {
+        "id": "IDS_MSG_SKIP",
+        "text": "スキップ"
+    },
+    {
+        "id": "IDS_MSG_CANCEL",
+        "text": "キャンセル"
+    },
+    {
+        "id": "IDS_MSG_ATTENTION",
+        "text": "注意"
+    },
+    {
+        "id": "IDS_MSG_ERROR",
+        "text": "エラー"
+    },
+    {
+        "id": "IDS_MSG_INFORMATION",
+        "text": "情報"
+    },
+    {
+        "id": "IDS_MSG_CONTINUE",
+        "text": "続行"
+    },
+    {
+        "id": "IDS_MSG_AUTO_CALIB_START",
+        "text": "自動キャリブレーションを開始します。プローブは接続しないでください。\nしばらく時間がかかる場合があります。"
+    },
+    {
+        "id": "IDS_MSG_AUTO_CALIB",
+        "text": "自動キャリブレーション"
+    },
+    {
+        "id": "IDS_MSG_ADJUST_SAVE",
+        "text": "ゼロオフセットを調整して結果を保存してください"
+    },
+    {
+        "id": "IDS_MSG_SAVE_CAPDATE",
+        "text": "キャプチャしたデータを保存しますか?"
+    },
+    {
+        "id": "IDS_MSG_NOT_FOND_DEFAULT_PROFILE",
+        "text": "このデバイスの既定のセッションが見つかりません。"
+    },
+    {
+        "id": "IDS_MSG_OPEN_FILE_ERROR",
+        "text": "ファイルを開けませんでした。"
+    },
+    {
+        "id": "IDS_MSG_PROFILE_NOT_COMPATIBLE",
+        "text": "セッションが現在のデバイスまたはモードと互換性がありません。"
+    },
+    {
+        "id": "IDS_MSG_RESTORE_WINDOW_ERROR",
+        "text": "ウィンドウ状態の復元に失敗しました。"
+    },
+    {
+        "id": "IDS_MSG_DECODE_INVAILD_CURSOR",
+        "text": "サンプル範囲を指定するカーソルが無効です。"
+    },
+    {
+        "id": "IDS_MSG_SEL_FILENAME",
+        "text": "ファイル名を選択してください。"
+    },
+    {
+        "id": "IDS_MSG_DECODER_REPEAT",
+        "text": "デコーダに重複した ID または名前があります:"
+    },
+    {
+        "id": "IDS_MSG_DECODER_LIST_EMPTY",
+        "text": "デコーダリストが空です。"
+    },
+    {
+        "id": "IDS_MSG_NO_SEL_DECODER",
+        "text": "デコーダを選択してください。"
+    },
+    {
+        "id": "IDS_MSG_FIND_BASE_DECODER_ERROR",
+        "text": "対応するベースデコーダが見つかりません。"
+    },
+    {
+        "id": "IDS_MSG_NO_DECODER_DEL",
+        "text": "削除するデコーダがありません。"
+    },
+    {
+        "id": "IDS_MSG_DECODER_CONFIRM_DEL_ALL",
+        "text": "すべてのデコーダを削除しますか?"
+    },
+    {
+        "id": "IDS_MSG_DECODER_CONFIRM_DEL",
+        "text": "このデコーダを削除しますか?"
+    },
+    {
+        "id": "IDS_MSG_CLOSE_DEVICE",
+        "text": "このデバイスを削除しますか?"
+    },
+    {
+        "id": "IDS_MSG_SET_DEF_CAL_SETTING",
+        "text": "すべてのキャリブレーション設定が既定値として保存されます。"
+    },
+    {
+        "id": "IDS_MSG_ALL_CHANNEL_DISABLE",
+        "text": "すべてのチャンネルが無効です。少なくとも 1 つのチャンネルを有効にしてください。"
+    },
+    {
+        "id": "IDS_MSG_MAX_CHANNEL_COUNT_WARNING",
+        "text": "現在のモードでは最大 {0} チャンネルまでしか使用できません。"
+    },
+    {
+        "id": "IDS_MSG_TRI_SET_ISSUE",
+        "text": "トリガ設定の問題"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_HOR_TRI_POS_FAIL",
+        "text": "水平トリガ位置の変更に失敗しました。"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_TRI_HOLDOFF_TIME_FAIL",
+        "text": "トリガホールドオフ時間の変更に失敗しました。"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_SENSITIVITY_FAIL",
+        "text": "トリガ感度の変更に失敗しました。"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_SOURCE_FAIL",
+        "text": "トリガソースの変更に失敗しました。"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_CHANNEL_FAIL",
+        "text": "トリガチャンネルの変更に失敗しました。"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_TYPE_FAIL",
+        "text": "トリガタイプの変更に失敗しました。"
+    },
+    {
+        "id": "IDS_MSG_PLEASE_INSERT_CURSOR",
+        "text": "カーソル測定を使用する前にカーソルを挿入してください。"
+    },
+    {
+        "id": "IDS_MSG_SEARCH",
+        "text": "検索"
+    },
+    {
+        "id": "IDS_MSG_NO_SAMPLE_DATA",
+        "text": "サンプルデータがありません。"
+    },
+    {
+        "id": "IDS_MSG_SEARCH_AT_START",
+        "text": "検索カーソルが開始位置にあります。"
+    },
+    {
+        "id": "IDS_MSG_PATTERN_NOT_FOUND",
+        "text": "パターンが見つかりません。"
+    },
+    {
+        "id": "IDS_MSG_SEARCH_AT_END",
+        "text": "検索カーソルが終了位置にあります。"
+    },
+    {
+        "id": "IDS_MSG_TRIGGER",
+        "text": "トリガ"
+    },
+    {
+        "id": "IDS_MSG_STREAM_NO_AD_TRIGGER",
+        "text": "ストリームモードでは高度なトリガは使用できません。"
+    },
+    {
+        "id": "IDS_MSG_AD_TRIGGER_NEED_HARDWARE",
+        "text": "高度なトリガには DSLogic ハードウェアのサポートが必要です。"
+    },
+    {
+        "id": "IDS_MSG_SET_TRI_MULTI_CHANNEL",
+        "text": "複数のチャンネルにトリガが設定されています。\n設定したすべてのチャンネルが同一サンプルで条件を満たした場合にのみトリガします"
+    },
+    {
+        "id": "IDS_MSG_NOT_SHOW_AGAIN",
+        "text": "今後表示しない"
+    },
+    {
+        "id": "IDS_MSG_CLEAR_TRIG",
+        "text": "トリガ解除"
+    },
+    {
+        "id": "IDS_MSG_IGNORE",
+        "text": "無視"
+    },
+    {
+        "id": "IDS_MSG_OPEN",
+        "text": "開く"
+    },
+    {
+        "id": "IDS_MSG_FAIL_TO_LOAD",
+        "text": "読み込みに失敗しました"
+    },
+    {
+        "id": "IDS_MSG_HARDWARE_ERROR",
+        "text": "ハードウェア操作に失敗しました"
+    },
+    {
+        "id": "IDS_MSG_HARDWARE_ERROR_DET",
+        "text": "デバイスを接続し直して、ハードウェア構成を更新してください。"
+    },
+    {
+        "id": "IDS_MSG_MALLOC_ERROR",
+        "text": "メモリ割り当てエラー"
+    },
+    {
+        "id": "IDS_MSG_MALLOC_ERROR_DET",
+        "text": "このサンプルに必要なメモリが不足しています。\nメモリ長を減らしてください。"
+    },
+    {
+        "id": "IDS_MSG_PACKET_ERROR",
+        "text": "パケットエラー"
+    },
+    {
+        "id": "IDS_MSG_PACKET_ERROR_DET",
+        "text": "受信したパケットの形式が正しくありません。"
+    },
+    {
+        "id": "IDS_MSG_DATA_OVERFLOW",
+        "text": "データオーバーフロー"
+    },
+    {
+        "id": "IDS_MSG_DATA_OVERFLOW_DET",
+        "text": "USB 帯域幅が現在のサンプリングレートに対応できません。\nサンプリングレートを下げてください。"
+    },
+    {
+        "id": "IDS_MSG_UNDEFINED_ERROR",
+        "text": "未定義のエラー"
+    },
+    {
+        "id": "IDS_MSG_UNDEFINED_ERROR_DET",
+        "text": "予期しないエラーです。"
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR1",
+        "text": "DSView は現在、複数のデータタイプを含む\nファイルの保存に対応していません。"
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR2",
+        "text": "保存するデータがありません。"
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR3",
+        "text": "ファイル名がありません。"
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR4",
+        "text": "一時ファイルデータの生成に失敗しました。"
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR5",
+        "text": "デコーダファイルデータの生成に失敗しました。"
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR6",
+        "text": "セッションファイルデータの生成に失敗しました。"
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR7",
+        "text": "zip ファイルの生成に失敗しました。"
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVEPROC_ERROR1",
+        "text": "zip ファイルを作成できませんでした。メモリ割り当てエラーです。"
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVEPROC_ERROR2",
+        "text": "zip ファイルを作成できませんでした。このパスへの書き込み権限を確認してください。"
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR1",
+        "text": "DSView は現在、複数のデータタイプを含む\nファイルのエクスポートに対応していません。"
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR2",
+        "text": "保存するデータがありません。"
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR3",
+        "text": "ファイル名が設定されていません。"
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR4",
+        "text": "エクスポート形式が無効です。"
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTPROC_ERROR1",
+        "text": "このデータタイプには対応していません。"
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTPROC_ERROR2",
+        "text": "バッファのメモリ割り当てに失敗しました。"
+    },
+    {
+        "id": "IDS_MSG_SAVE_FILE",
+        "text": "ファイルを保存"
+    },
+    {
+        "id": "IDS_MSG_EXPORT_DATA",
+        "text": "データをエクスポート"
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_WORK_ERROR",
+        "text": "必要なチャンネルが 1 つ以上指定されていません。"
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_DATA_ERROR",
+        "text": "選択したチャンネルのうち、少なくとも 1 つが有効になっていません。"
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_STACK_ERROR",
+        "text": "デコーダインスタンスの作成に失敗しました"
+    },
+    {
+        "id": "IDS_MSG_MESSAGE",
+        "text": "メッセージ"
+    },
+    {
+        "id": "IDS_MSG_BOX_CONFIRM",
+        "text": "確認"
+    },
+    {
+        "id": "IDS_MSG_NO_DATA",
+        "text": "データがありません。"
+    },
+    {
+        "id": "IDS_MSG_TO_SWITCH_DEVICE",
+        "text": "新しいデバイスに切り替えますか?"
+    },
+    {
+        "id": "IDS_MSG_DISABLED_CHANNEL_TRIG",
+        "text": "無効なチャンネルはトリガに使用できません。"
+    },
+    {
+        "id": "IDS_MSG_TO_RECONNECT_FOR_FIRMWARE",
+        "text": "ファームウェアのバージョンが正しくありません。デバイスを接続し直してください。"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_BUSY_SWITCH_FAILED",
+        "text": "デバイスが使用中のため、切り替えに失敗しました。"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_NO_DRIVER",
+        "text": "デバイスドライバがインストールされていない可能性があります。"
+    },
+    {
+        "id": "IDS_MSG_NO_ENABLED_CHANNEL",
+        "text": "有効なチャンネルがありません。"
+    },
+    {
+        "id": "IDS_MSG_FILE_NOT_EXIST",
+        "text": "ファイルが存在しません。"
+    },
+    {
+        "id": "IDS_MSG_TO_CLEAR_LOG",
+        "text": "ログファイルを消去しますか?"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_SPEED_TOO_LOW",
+        "text": "エラー: USB ポートの速度が低すぎます (<480Mbps)。"
+    },
+    {
+        "id": "IDS_MSG_FIRMWARE_NOT_EXIST",
+        "text": "エラー: ファームウェアファイルが存在しません。"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_USB_IO_ERROR",
+        "text": "エラー: USB I/O エラーです。"
+    },
+    {
+        "id": "IDS_MSG_DATA_RANGE_ERROR",
+        "text": "データ範囲が正しくありません。"
+    },
+    {
+        "id": "IDS_MSG_DATA_RANGE_HAVE_NO_DATA",
+        "text": "データ範囲内にデータがありません。"
+    },
+    {
+        "id": "IDS_MSG_NO_DECODED_RESULT",
+        "text": "エクスポートするデータがありません。"
+    }
+]

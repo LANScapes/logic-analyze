@@ -1,0 +1,146 @@
+[
+    {
+        "id": "Connection",
+        "text": "Kết nối"
+    },
+    {
+        "id": "Serial communication",
+        "text": "Truyền thông nối tiếp"
+    },
+    {
+        "id": "Sample rate",
+        "text": "Tốc độ lấy mẫu"
+    },
+    {
+        "id": "Sample depth",
+        "text": "Độ sâu lấy mẫu"
+    },
+    {
+        "id": "Sample count",
+        "text": "Số mẫu"
+    },
+    {
+        "id": "Using External Clock",
+        "text": "Dùng xung nhịp ngoài"
+    },
+    {
+        "id": "Using Clock Negedge",
+        "text": "Dùng sườn xuống xung nhịp"
+    },
+    {
+        "id": "Pre-trigger capture ratio",
+        "text": "Tỷ lệ thu trước kích hoạt"
+    },
+    {
+        "id": "Run Length Encoding",
+        "text": "Mã hóa RLE"
+    },
+    {
+        "id": "Wait Buffer Upload",
+        "text": "Chờ tải lên bộ đệm"
+    },
+    {
+        "id": "Trigger slope",
+        "text": "Sườn kích hoạt"
+    },
+    {
+        "id": "Trigger source",
+        "text": "Nguồn kích hoạt"
+    },
+    {
+        "id": "Trigger channel",
+        "text": "Kênh kích hoạt"
+    },
+    {
+        "id": "Horizontal trigger position",
+        "text": "Vị trí kích hoạt ngang"
+    },
+    {
+        "id": "Trigger hold off",
+        "text": "Thời gian chặn kích hoạt"
+    },
+    {
+        "id": "Trigger margin",
+        "text": "Độ nhạy kích hoạt"
+    },
+    {
+        "id": "Buffer size",
+        "text": "Kích thước bộ đệm"
+    },
+    {
+        "id": "Time base",
+        "text": "Cơ sở thời gian"
+    },
+    {
+        "id": "Max Height",
+        "text": "Chiều cao tối đa"
+    },
+    {
+        "id": "Max Height value",
+        "text": "Giá trị chiều cao tối đa"
+    },
+    {
+        "id": "Filter Targets",
+        "text": "Đối tượng lọc"
+    },
+    {
+        "id": "Datalog",
+        "text": "Ghi dữ liệu"
+    },
+    {
+        "id": "Operation Mode",
+        "text": "Chế độ hoạt động"
+    },
+    {
+        "id": "Stop Options",
+        "text": "Tùy chọn dừng"
+    },
+    {
+        "id": "Channel Mode",
+        "text": "Chế độ kênh"
+    },
+    {
+        "id": "Threshold Levels",
+        "text": "Mức ngưỡng"
+    },
+    {
+        "id": "Threshold Level",
+        "text": "Mức ngưỡng"
+    },
+    {
+        "id": "Enable RLE Compress",
+        "text": "Bật nén RLE"
+    },
+    {
+        "id": "Bandwidth Limit",
+        "text": "Giới hạn băng thông"
+    },
+    {
+        "id": "Coupling",
+        "text": "Ghép nối"
+    },
+    {
+        "id": "Volts/div",
+        "text": "Volt/ô"
+    },
+    {
+        "id": "Probe Factor",
+        "text": "Hệ số đầu đo"
+    },
+    {
+        "id": "Map Default",
+        "text": "Ánh xạ mặc định"
+    },
+    {
+        "id": "Map Unit",
+        "text": "Đơn vị ánh xạ"
+    },
+    {
+        "id": "Map Min",
+        "text": "Ánh xạ tối thiểu"
+    },
+    {
+        "id": "Map Max",
+        "text": "Ánh xạ tối đa"
+    }
+]

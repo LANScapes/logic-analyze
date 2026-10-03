@@ -1,0 +1,146 @@
+[
+    {
+        "id": "Connection",
+        "text": "Connexion"
+    },
+    {
+        "id": "Serial communication",
+        "text": "Communication série"
+    },
+    {
+        "id": "Sample rate",
+        "text": "Fréquence d'échantillonnage"
+    },
+    {
+        "id": "Sample depth",
+        "text": "Profondeur mémoire"
+    },
+    {
+        "id": "Sample count",
+        "text": "Nombre d'échantillons"
+    },
+    {
+        "id": "Using External Clock",
+        "text": "Utiliser l'horloge externe"
+    },
+    {
+        "id": "Using Clock Negedge",
+        "text": "Utiliser le front descendant d'horloge"
+    },
+    {
+        "id": "Pre-trigger capture ratio",
+        "text": "Proportion de pré-déclenchement"
+    },
+    {
+        "id": "Run Length Encoding",
+        "text": "Codage RLE"
+    },
+    {
+        "id": "Wait Buffer Upload",
+        "text": "Attendre le transfert du tampon"
+    },
+    {
+        "id": "Trigger slope",
+        "text": "Pente de déclenchement"
+    },
+    {
+        "id": "Trigger source",
+        "text": "Source de déclenchement"
+    },
+    {
+        "id": "Trigger channel",
+        "text": "Voie de déclenchement"
+    },
+    {
+        "id": "Horizontal trigger position",
+        "text": "Position horizontale du déclenchement"
+    },
+    {
+        "id": "Trigger hold off",
+        "text": "Inhibition du déclenchement"
+    },
+    {
+        "id": "Trigger margin",
+        "text": "Marge de déclenchement"
+    },
+    {
+        "id": "Buffer size",
+        "text": "Taille du tampon"
+    },
+    {
+        "id": "Time base",
+        "text": "Base de temps"
+    },
+    {
+        "id": "Max Height",
+        "text": "Hauteur max."
+    },
+    {
+        "id": "Max Height value",
+        "text": "Valeur de hauteur max."
+    },
+    {
+        "id": "Filter Targets",
+        "text": "Cibles du filtre"
+    },
+    {
+        "id": "Datalog",
+        "text": "Enregistrement de données"
+    },
+    {
+        "id": "Operation Mode",
+        "text": "Mode de fonctionnement"
+    },
+    {
+        "id": "Stop Options",
+        "text": "Options d'arrêt"
+    },
+    {
+        "id": "Channel Mode",
+        "text": "Mode des voies"
+    },
+    {
+        "id": "Threshold Levels",
+        "text": "Niveaux de seuil"
+    },
+    {
+        "id": "Threshold Level",
+        "text": "Niveau de seuil"
+    },
+    {
+        "id": "Enable RLE Compress",
+        "text": "Activer la compression RLE"
+    },
+    {
+        "id": "Bandwidth Limit",
+        "text": "Limite de bande passante"
+    },
+    {
+        "id": "Coupling",
+        "text": "Couplage"
+    },
+    {
+        "id": "Volts/div",
+        "text": "Volts/div"
+    },
+    {
+        "id": "Probe Factor",
+        "text": "Atténuation de la sonde"
+    },
+    {
+        "id": "Map Default",
+        "text": "Correspondance par défaut"
+    },
+    {
+        "id": "Map Unit",
+        "text": "Unité de conversion"
+    },
+    {
+        "id": "Map Min",
+        "text": "Min. de conversion"
+    },
+    {
+        "id": "Map Max",
+        "text": "Max. de conversion"
+    }
+]

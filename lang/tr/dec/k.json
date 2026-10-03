@@ -1,0 +1,278 @@
+[
+    {
+        "id": "dec_lfast_chan_data",
+        "text": "TXP veya RXP"
+    },
+    {
+        "id": "dec_lin_opt_version",
+        "text": "Protokol sürümü"
+    },
+    {
+        "id": "dec_lm75_opt_sensor",
+        "text": "Sensör türü"
+    },
+    {
+        "id": "dec_lm75_opt_resolution",
+        "text": "Çözünürlük (bit)"
+    },
+    {
+        "id": "dec_lpc_chan_lframe",
+        "text": "Çerçeve"
+    },
+    {
+        "id": "dec_lpc_chan_lclk",
+        "text": "Saat"
+    },
+    {
+        "id": "dec_lpc_chan_lad0",
+        "text": "Adres/denetim/veri 0"
+    },
+    {
+        "id": "dec_lpc_chan_lad1",
+        "text": "Adres/denetim/veri 1"
+    },
+    {
+        "id": "dec_lpc_chan_lad2",
+        "text": "Adres/denetim/veri 2"
+    },
+    {
+        "id": "dec_lpc_chan_lad3",
+        "text": "Adres/denetim/veri 3"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lreset",
+        "text": "Sıfırlama"
+    },
+    {
+        "id": "dec_lpc_opt_chan_ldrq",
+        "text": "Kodlanmış DMA / veri yolu ana birim isteği"
+    },
+    {
+        "id": "dec_lpc_opt_chan_serirq",
+        "text": "Serileştirilmiş IRQ"
+    },
+    {
+        "id": "dec_lpc_opt_chan_clkrun",
+        "text": "Saat çalışması"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lpme",
+        "text": "LPC güç yönetimi olayı"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lpcpd",
+        "text": "Güç kesme"
+    },
+    {
+        "id": "dec_lpc_opt_chan_lsmi",
+        "text": "Sistem Yönetimi Kesmesi"
+    },
+    {
+        "id": "dec_ltc26x7_opt_chip",
+        "text": "Yonga"
+    },
+    {
+        "id": "dec_ltc26x7_opt_vref",
+        "text": "Referans gerilimi (V)"
+    },
+    {
+        "id": "dec_ltc242x_opt_vref",
+        "text": "Referans gerilimi (V)"
+    },
+    {
+        "id": "dec_maple_bus_chan_sdcka",
+        "text": "Veri/saat hattı A"
+    },
+    {
+        "id": "dec_maple_bus_chan_sdckb",
+        "text": "Veri/saat hattı B"
+    },
+    {
+        "id": "dec_mcs48_chan_ale",
+        "text": "Adres mandalı etkinleştirme"
+    },
+    {
+        "id": "dec_mcs48_chan_psen",
+        "text": "Program belleği etkinleştirme"
+    },
+    {
+        "id": "dec_mdio_chan_mdc",
+        "text": "Saat"
+    },
+    {
+        "id": "dec_mdio_chan_mdio",
+        "text": "Veri"
+    },
+    {
+        "id": "dec_mdio_opt_show_debug_bits",
+        "text": "Hata ayıklama bitlerini göster"
+    },
+    {
+        "id": "dec_mdio_opt_read_edge",
+        "text": "Okuma kenarı"
+    },
+    {
+        "id": "dec_microwire_chan_cs",
+        "text": "Yonga seçimi"
+    },
+    {
+        "id": "dec_microwire_chan_sk",
+        "text": "Saat"
+    },
+    {
+        "id": "dec_microwire_chan_si",
+        "text": "Bağımlı giriş"
+    },
+    {
+        "id": "dec_microwire_chan_so",
+        "text": "Bağımlı çıkış"
+    },
+    {
+        "id": "dec_miller_chan_data",
+        "text": "Veri sinyali"
+    },
+    {
+        "id": "dec_miller_opt_baudrate",
+        "text": "Baud hızı"
+    },
+    {
+        "id": "dec_miller_opt_edge",
+        "text": "Kenar"
+    },
+    {
+        "id": "dec_mipi_dsi_chan_D0N",
+        "text": "LP veri 0 negatif"
+    },
+    {
+        "id": "dec_mipi_dsi_chan_D0P",
+        "text": "LP veri 0 pozitif"
+    },
+    {
+        "id": "dec_mipi_rffe_chan_sclk",
+        "text": "Seri saat hattı"
+    },
+    {
+        "id": "dec_mipi_rffe_chan_sdata",
+        "text": "Seri veri hattı"
+    },
+    {
+        "id": "dec_mipi_rffe_opt_error_display",
+        "text": "Hata görüntüleme seçenekleri"
+    },
+    {
+        "id": "dec_morse_chan_data",
+        "text": "Veri hattı"
+    },
+    {
+        "id": "dec_morse_opt_timeunit",
+        "text": "Zaman birimi (tahmini)"
+    },
+    {
+        "id": "dec_nes_gamepad_opt_variant",
+        "text": "Oyun kumandası türü"
+    },
+    {
+        "id": "dec_nrf24l01_opt_chip",
+        "text": "Yonga türü"
+    },
+    {
+        "id": "dec_numbers_and_state_chan_clk",
+        "text": "Saat"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_clkedge",
+        "text": "Saat kenarı"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_count",
+        "text": "Toplam bit sayısı"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_interp",
+        "text": "Yorumlama"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_fracbits",
+        "text": "Kesir biti sayısı"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_mapping",
+        "text": "Numaralandırmadan metne eşleme dosyası"
+    },
+    {
+        "id": "dec_numbers_and_state_opt_format",
+        "text": "Sayı biçimi"
+    },
+    {
+        "id": "dec_onewire_link_chan_owr",
+        "text": "1-Wire sinyal hattı"
+    },
+    {
+        "id": "dec_onewire_link_opt_overdrive",
+        "text": "Overdrive hızında başla"
+    },
+    {
+        "id": "dec_ook_chan_data",
+        "text": "Veri hattı"
+    },
+    {
+        "id": "dec_ook_opt_invert",
+        "text": "Veriyi ters çevir"
+    },
+    {
+        "id": "dec_ook_opt_decodeas",
+        "text": "Kod çözme türü"
+    },
+    {
+        "id": "dec_ook_opt_preamble",
+        "text": "Önsöz"
+    },
+    {
+        "id": "dec_ook_opt_preamlen",
+        "text": "Filtre uzunluğu"
+    },
+    {
+        "id": "dec_ook_opt_diffmanvar",
+        "text": "Başlangıçta geçiş"
+    },
+    {
+        "id": "dec_ook_oregon_opt_unknown",
+        "text": "Bilinmeyen tür"
+    },
+    {
+        "id": "dec_ook_vis_opt_displayas",
+        "text": "Gösterim biçimi"
+    },
+    {
+        "id": "dec_ook_vis_opt_synclen",
+        "text": "Senkronizasyon uzunluğu"
+    },
+    {
+        "id": "dec_ook_vis_opt_syncoffset",
+        "text": "Senkronizasyon ofseti"
+    },
+    {
+        "id": "dec_ook_vis_opt_refsample",
+        "text": "Karşılaştır"
+    },
+    {
+        "id": "dec_onewire_link_opt_min_height_level_pulse_time",
+        "text": "Min. yüksek seviye darbe süresi (us)"
+    },
+    {
+        "id": "dec_onewire_link_opt_min_overdrive_height_level_pulse_time",
+        "text": "Min. overdrive yüksek seviye darbe süresi (us)"
+    },
+    {
+        "id": "dec_modbus_opt_scchannel",
+        "text": "Sunucu -> istemci kanalı"
+    },
+    {
+        "id": "dec_modbus_opt_cschannel",
+        "text": "İstemci -> sunucu kanalı"
+    },
+    {
+        "id": "dec_modbus_opt_framegap",
+        "text": "Çerçeveler arası bit boşluğu"
+    }
+]

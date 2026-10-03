@@ -1,0 +1,182 @@
+[
+    {
+        "id": "dec_0i2c_chan_scl",
+        "text": "직렬 클록 라인"
+    },
+    {
+        "id": "dec_0i2c_chan_sda",
+        "text": "직렬 데이터 라인"
+    },
+    {
+        "id": "dec_0i2c_opt_addr",
+        "text": "표시할 슬레이브 주소 형식"
+    },
+    {
+        "id": "dec_0spi_chan_clk",
+        "text": "클록"
+    },
+    {
+        "id": "dec_0spi_opt_chan_miso",
+        "text": "마스터 입력, 슬레이브 출력"
+    },
+    {
+        "id": "dec_0spi_opt_chan_mosi",
+        "text": "마스터 출력, 슬레이브 입력"
+    },
+    {
+        "id": "dec_0spi_opt_chan_cs",
+        "text": "칩 선택"
+    },
+    {
+        "id": "dec_0spi_opt_cs_pol",
+        "text": "CS# 극성"
+    },
+    {
+        "id": "dec_0spi_opt_cpol",
+        "text": "클록 극성 (CPOL)"
+    },
+    {
+        "id": "dec_0spi_opt_cpha",
+        "text": "클록 위상 (CPHA)"
+    },
+    {
+        "id": "dec_0spi_opt_bitorder",
+        "text": "비트 순서"
+    },
+    {
+        "id": "dec_0spi_opt_wordsize",
+        "text": "워드 크기"
+    },
+    {
+        "id": "dec_0uart_chan_rxtx",
+        "text": "UART 송수신 라인"
+    },
+    {
+        "id": "dec_0uart_opt_baudrate",
+        "text": "보드레이트"
+    },
+    {
+        "id": "dec_0uart_opt_num_data_bits",
+        "text": "데이터 비트"
+    },
+    {
+        "id": "dec_0uart_opt_parity_type",
+        "text": "패리티 유형"
+    },
+    {
+        "id": "dec_0uart_opt_parity_check",
+        "text": "패리티 검사?"
+    },
+    {
+        "id": "dec_0uart_opt_num_stop_bits",
+        "text": "정지 비트"
+    },
+    {
+        "id": "dec_0uart_opt_bit_order",
+        "text": "비트 순서"
+    },
+    {
+        "id": "dec_0uart_opt_format",
+        "text": "데이터 형식"
+    },
+    {
+        "id": "dec_0uart_opt_invert",
+        "text": "신호 반전?"
+    },
+    {
+        "id": "dec_0uart_anno_startstop",
+        "text": "시작/정지 표시?"
+    },
+    {
+        "id": "dec_1i2c_chan_scl",
+        "text": "직렬 클록 라인"
+    },
+    {
+        "id": "dec_1i2c_chan_sda",
+        "text": "직렬 데이터 라인"
+    },
+    {
+        "id": "dec_1i2c_opt_addr",
+        "text": "표시할 슬레이브 주소 형식"
+    },
+    {
+        "id": "dec_1spi_chan_clk",
+        "text": "클록"
+    },
+    {
+        "id": "dec_1spi_opt_chan_miso",
+        "text": "마스터 입력, 슬레이브 출력"
+    },
+    {
+        "id": "dec_1spi_opt_chan_mosi",
+        "text": "마스터 출력, 슬레이브 입력"
+    },
+    {
+        "id": "dec_1spi_opt_chan_cs",
+        "text": "칩 선택"
+    },
+    {
+        "id": "dec_1spi_opt_cs_pol",
+        "text": "CS# 극성"
+    },
+    {
+        "id": "dec_1spi_opt_cpol",
+        "text": "클록 극성 (CPOL)"
+    },
+    {
+        "id": "dec_1spi_opt_cpha",
+        "text": "클록 위상 (CPHA)"
+    },
+    {
+        "id": "dec_1spi_opt_bitorder",
+        "text": "비트 순서"
+    },
+    {
+        "id": "dec_1spi_opt_wordsize",
+        "text": "워드 크기"
+    },
+    {
+        "id": "dec_1spi_opt_frame",
+        "text": "프레임 디코더"
+    },
+    {
+        "id": "dec_1uart_chan_rxtx",
+        "text": "UART 송수신 라인"
+    },
+    {
+        "id": "dec_1uart_opt_baudrate",
+        "text": "보드레이트"
+    },
+    {
+        "id": "dec_1uart_opt_num_data_bits",
+        "text": "데이터 비트"
+    },
+    {
+        "id": "dec_1uart_opt_parity_type",
+        "text": "패리티 유형"
+    },
+    {
+        "id": "dec_1uart_opt_parity_check",
+        "text": "패리티 검사?"
+    },
+    {
+        "id": "dec_1uart_opt_num_stop_bits",
+        "text": "정지 비트"
+    },
+    {
+        "id": "dec_1uart_opt_bit_order",
+        "text": "비트 순서"
+    },
+    {
+        "id": "dec_1uart_opt_format",
+        "text": "데이터 형식"
+    },
+    {
+        "id": "dec_1uart_opt_invert",
+        "text": "신호 반전?"
+    },
+    {
+        "id": "dec_1uart_anno_startstop",
+        "text": "시작/정지 표시?"
+    }
+]
