@@ -936,7 +936,7 @@ void DsoSignal::paint_fore(QPainter &p, int left, int right, QColor fore, QColor
         p.setPen(fore);
         p.drawText(t_vol_rect, Qt::AlignRight | Qt::AlignVCenter, t_vol_s);
 
-        // paint the _trig_vpos line
+        // paint the trigger level line
         if (_view->get_dso_trig_moved()) {
             p.setPen(QPen(_colour, 1, Qt::DotLine));
             p.drawLine(left, trigp, right - p.boundingRect(t_vol_rect, Qt::AlignLeft, t_vol_s).width(), trigp);

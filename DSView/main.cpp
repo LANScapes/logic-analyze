@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
 
         LocalFree(argvUTF16);
 
-        // Ms::runApplication() wants an argv-style array of raw pointers to the arguments, so let's create a vector of them.
+        // getopt_long() and QApplication want an argv-style array of raw pointers to the arguments, so let's create a vector of them.
         std::vector<char*> argvUTF8;
         for (auto& arg : argvUTF8Q){
             argvUTF8.push_back(arg.data());
@@ -158,14 +158,14 @@ int main(int argc, char *argv[])
 	}
 
 	if (argcFinal - optind > 1) {
-		printf("Only one file can be openened.\n");
+		printf("Only one file can be opened.\n");
 		return 1;
     } 
 	else if (argcFinal - optind == 1){
         open_file = argvFinal[argcFinal - 1];		
 	}
 
-	//----------------------HightDpiScaling
+	//----------------------HighDpiScaling
 #if QT_VERSION >= QT_VERSION_CHECK(5,6,0)
 bool bHighScale = true;
 
@@ -269,7 +269,7 @@ bool bHighScale = true;
 		pv::MainFrame w;
 		control->Start();
 		w.ShowFormInit();  
-		w.ShowHelpDocAsync();  //to show the dailog for open help document
+		w.ShowHelpDocAsync();  //to show the dialog for open help document
 		
 		ret = a.exec(); //Run the application
 		control->Stop();
