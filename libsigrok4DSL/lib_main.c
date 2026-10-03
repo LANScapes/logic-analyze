@@ -61,6 +61,7 @@ struct sr_lib_context
 	struct sr_dev_inst *actived_device_instance;
 	GThread *hotplug_thread;
 	GThread *collect_thread;
+	int is_collecting;
 	ds_datafeed_callback_t data_forward_callback;
 	int callback_thread_count;
 	int is_delay_destory_actived_device;
@@ -85,6 +86,9 @@ static void process_detach_event();
 static struct libusb_device* get_new_attached_usb_device();
 static struct libusb_device* get_new_detached_usb_device();
 
+/* The worker may run before g_thread_new() publishes collect_thread. */
+static GPrivate in_collect_thread = G_PRIVATE_INIT(NULL);
+
 static struct sr_lib_context lib_ctx = {
 	.event_callback = NULL,
 	.sr_ctx = NULL,
@@ -100,6 +104,7 @@ static struct sr_lib_context lib_ctx = {
 	.actived_device_instance = NULL,
 	.data_forward_callback = NULL,
 	.collect_thread = NULL,
+	.is_collecting = 0,
 	.callback_thread_count = 0,
 	.is_delay_destory_actived_device = 0,
 	.is_stop_by_detached = 0,
@@ -588,6 +593,7 @@ SR_API const GSList *ds_get_actived_device_mode_list()
 	if (dev == NULL)
 	{
 		sr_err("Have no active device.");
+		return NULL;
 	}
 	if (dev->driver == NULL || dev->driver->dev_mode_list == NULL)
 	{
@@ -733,6 +739,15 @@ SR_API int ds_start_collect()
 {
 	int ret;
 	struct sr_dev_inst *di;
+
+	/* Completion callbacks run on this worker. The caller must queue a restart
+	 * on another thread so it can join us after the callback and cleanup end. */
+	if (g_private_get(&in_collect_thread))
+	{
+		sr_err("Cannot restart collection from its worker callback; queue the restart.");
+		return SR_ERR_CALL_STATUS;
+	}
+
 	di = lib_ctx.actived_device_instance;
 
 	lib_ctx.last_error = SR_OK;
@@ -765,6 +780,13 @@ SR_API int ds_start_collect()
 		return SR_ERR_CALL_STATUS;
 	}
 
+	// Finish the previous callback and cleanup before replacing its session.
+	if (lib_ctx.collect_thread != NULL)
+	{
+		g_thread_join(lib_ctx.collect_thread);
+		lib_ctx.collect_thread = NULL;
+	}
+
 	// Create new session.
 	sr_session_new();
 
@@ -779,6 +801,7 @@ SR_API int ds_start_collect()
 	}
 
 
+	g_atomic_int_set(&lib_ctx.is_collecting, 1);
 	lib_ctx.collect_thread = g_thread_new("collect_proc", collect_run_proc, (gpointer)0);
 
 	return SR_OK;
@@ -787,6 +810,7 @@ SR_API int ds_start_collect()
 static gpointer collect_run_proc(gpointer data)
 {
 	(void)data;
+	g_private_set(&in_collect_thread, GINT_TO_POINTER(1));
 
 	int ret;
 	struct sr_dev_inst *di;
@@ -831,7 +855,7 @@ static gpointer collect_run_proc(gpointer data)
 
 END:
 	sr_info("Collect thread end.");
-	lib_ctx.collect_thread = NULL;
+	g_atomic_int_set(&lib_ctx.is_collecting, 0);
 
 	if (bError)
 		send_event(DS_EV_COLLECT_TASK_END_BY_ERROR);
@@ -841,6 +865,7 @@ END:
 		send_event(DS_EV_COLLECT_TASK_END); // Normal end.
 
 	lib_ctx.is_stop_by_detached = 0;
+	g_private_set(&in_collect_thread, NULL);
 
 	return NULL;
 }
@@ -874,7 +899,7 @@ SR_API int ds_stop_collect()
  */
 SR_API int ds_is_collecting()
 {
-	if (lib_ctx.collect_thread != NULL)
+	if (g_atomic_int_get(&lib_ctx.is_collecting))
 	{
 		return 1;
 	}
@@ -1621,7 +1646,7 @@ static void post_event_async(int event)
 	lib_ctx.callback_thread_count++;
 	pthread_mutex_unlock(&lib_ctx.mutext);
 
-	g_thread_new("callback_thread", post_event_proc, (gpointer)((unsigned long)event));
+	g_thread_unref(g_thread_new("callback_thread", post_event_proc, (gpointer)((unsigned long)event)));
 }
 
 static void send_event(int event)

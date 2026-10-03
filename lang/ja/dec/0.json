@@ -1,0 +1,182 @@
+[
+    {
+        "id": "dec_0i2c_chan_scl",
+        "text": "シリアルクロックライン"
+    },
+    {
+        "id": "dec_0i2c_chan_sda",
+        "text": "シリアルデータライン"
+    },
+    {
+        "id": "dec_0i2c_opt_addr",
+        "text": "スレーブアドレスの表示形式"
+    },
+    {
+        "id": "dec_0spi_chan_clk",
+        "text": "クロック"
+    },
+    {
+        "id": "dec_0spi_opt_chan_miso",
+        "text": "マスタ入力、スレーブ出力"
+    },
+    {
+        "id": "dec_0spi_opt_chan_mosi",
+        "text": "マスタ出力、スレーブ入力"
+    },
+    {
+        "id": "dec_0spi_opt_chan_cs",
+        "text": "チップセレクト"
+    },
+    {
+        "id": "dec_0spi_opt_cs_pol",
+        "text": "CS# 極性"
+    },
+    {
+        "id": "dec_0spi_opt_cpol",
+        "text": "クロック極性 (CPOL)"
+    },
+    {
+        "id": "dec_0spi_opt_cpha",
+        "text": "クロック位相 (CPHA)"
+    },
+    {
+        "id": "dec_0spi_opt_bitorder",
+        "text": "ビット順序"
+    },
+    {
+        "id": "dec_0spi_opt_wordsize",
+        "text": "ワードサイズ"
+    },
+    {
+        "id": "dec_0uart_chan_rxtx",
+        "text": "UART 送受信ライン"
+    },
+    {
+        "id": "dec_0uart_opt_baudrate",
+        "text": "ボーレート"
+    },
+    {
+        "id": "dec_0uart_opt_num_data_bits",
+        "text": "データビット"
+    },
+    {
+        "id": "dec_0uart_opt_parity_type",
+        "text": "パリティの種類"
+    },
+    {
+        "id": "dec_0uart_opt_parity_check",
+        "text": "パリティをチェックする?"
+    },
+    {
+        "id": "dec_0uart_opt_num_stop_bits",
+        "text": "ストップビット"
+    },
+    {
+        "id": "dec_0uart_opt_bit_order",
+        "text": "ビット順序"
+    },
+    {
+        "id": "dec_0uart_opt_format",
+        "text": "データ形式"
+    },
+    {
+        "id": "dec_0uart_opt_invert",
+        "text": "信号を反転する?"
+    },
+    {
+        "id": "dec_0uart_anno_startstop",
+        "text": "スタート/ストップを表示する?"
+    },
+    {
+        "id": "dec_1i2c_chan_scl",
+        "text": "シリアルクロックライン"
+    },
+    {
+        "id": "dec_1i2c_chan_sda",
+        "text": "シリアルデータライン"
+    },
+    {
+        "id": "dec_1i2c_opt_addr",
+        "text": "スレーブアドレスの表示形式"
+    },
+    {
+        "id": "dec_1spi_chan_clk",
+        "text": "クロック"
+    },
+    {
+        "id": "dec_1spi_opt_chan_miso",
+        "text": "マスタ入力、スレーブ出力"
+    },
+    {
+        "id": "dec_1spi_opt_chan_mosi",
+        "text": "マスタ出力、スレーブ入力"
+    },
+    {
+        "id": "dec_1spi_opt_chan_cs",
+        "text": "チップセレクト"
+    },
+    {
+        "id": "dec_1spi_opt_cs_pol",
+        "text": "CS# 極性"
+    },
+    {
+        "id": "dec_1spi_opt_cpol",
+        "text": "クロック極性 (CPOL)"
+    },
+    {
+        "id": "dec_1spi_opt_cpha",
+        "text": "クロック位相 (CPHA)"
+    },
+    {
+        "id": "dec_1spi_opt_bitorder",
+        "text": "ビット順序"
+    },
+    {
+        "id": "dec_1spi_opt_wordsize",
+        "text": "ワードサイズ"
+    },
+    {
+        "id": "dec_1spi_opt_frame",
+        "text": "フレームデコーダ"
+    },
+    {
+        "id": "dec_1uart_chan_rxtx",
+        "text": "UART 送受信ライン"
+    },
+    {
+        "id": "dec_1uart_opt_baudrate",
+        "text": "ボーレート"
+    },
+    {
+        "id": "dec_1uart_opt_num_data_bits",
+        "text": "データビット"
+    },
+    {
+        "id": "dec_1uart_opt_parity_type",
+        "text": "パリティの種類"
+    },
+    {
+        "id": "dec_1uart_opt_parity_check",
+        "text": "パリティをチェックする?"
+    },
+    {
+        "id": "dec_1uart_opt_num_stop_bits",
+        "text": "ストップビット"
+    },
+    {
+        "id": "dec_1uart_opt_bit_order",
+        "text": "ビット順序"
+    },
+    {
+        "id": "dec_1uart_opt_format",
+        "text": "データ形式"
+    },
+    {
+        "id": "dec_1uart_opt_invert",
+        "text": "信号を反転する?"
+    },
+    {
+        "id": "dec_1uart_anno_startstop",
+        "text": "スタート/ストップを表示する?"
+    }
+]

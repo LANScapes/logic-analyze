@@ -1,0 +1,334 @@
+[
+    {
+        "id": "dec_flexray_chan_channel",
+        "text": "FlexRay 버스 채널"
+    },
+    {
+        "id": "dec_flexray_opt_channel_type",
+        "text": "채널 유형"
+    },
+    {
+        "id": "dec_flexray_opt_bitrate",
+        "text": "비트레이트 (bit/s)"
+    },
+    {
+        "id": "dec_fsi_chan_data",
+        "text": "프레임"
+    },
+    {
+        "id": "dec_fsi_chan_clock",
+        "text": "클록"
+    },
+    {
+        "id": "dec_gpib_chan_dio1",
+        "text": "데이터 I/O 비트 1"
+    },
+    {
+        "id": "dec_gpib_chan_dio2",
+        "text": "데이터 I/O 비트 2"
+    },
+    {
+        "id": "dec_gpib_chan_dio3",
+        "text": "데이터 I/O 비트 3"
+    },
+    {
+        "id": "dec_gpib_chan_dio4",
+        "text": "데이터 I/O 비트 4"
+    },
+    {
+        "id": "dec_gpib_chan_dio5",
+        "text": "데이터 I/O 비트 5"
+    },
+    {
+        "id": "dec_gpib_chan_dio6",
+        "text": "데이터 I/O 비트 6"
+    },
+    {
+        "id": "dec_gpib_chan_dio7",
+        "text": "데이터 I/O 비트 7"
+    },
+    {
+        "id": "dec_gpib_chan_dio8",
+        "text": "데이터 I/O 비트 8"
+    },
+    {
+        "id": "dec_gpib_chan_eoi",
+        "text": "종료 또는 식별"
+    },
+    {
+        "id": "dec_gpib_chan_dav",
+        "text": "데이터 유효"
+    },
+    {
+        "id": "dec_gpib_chan_nrfd",
+        "text": "데이터 수신 준비 안 됨"
+    },
+    {
+        "id": "dec_gpib_chan_ndac",
+        "text": "데이터 수락 안 됨"
+    },
+    {
+        "id": "dec_gpib_chan_ifc",
+        "text": "인터페이스 클리어"
+    },
+    {
+        "id": "dec_gpib_chan_srq",
+        "text": "서비스 요청"
+    },
+    {
+        "id": "dec_gpib_chan_atn",
+        "text": "어텐션"
+    },
+    {
+        "id": "dec_gpib_chan_ren",
+        "text": "원격 활성화"
+    },
+    {
+        "id": "dec_graycode_opt_edges",
+        "text": "회전당 에지 수"
+    },
+    {
+        "id": "dec_graycode_opt_avg_period",
+        "text": "평균화 기간"
+    },
+    {
+        "id": "dec_guess_bitrate_chan_data",
+        "text": "데이터 라인"
+    },
+    {
+        "id": "dec_i2cfilter_opt_address",
+        "text": "I²C 스트림에서 필터링할 주소"
+    },
+    {
+        "id": "dec_i2cfilter_opt_direction",
+        "text": "필터링할 방향"
+    },
+    {
+        "id": "dec_i2s_chan_sck",
+        "text": "비트 클록 라인"
+    },
+    {
+        "id": "dec_i2s_chan_ws",
+        "text": "워드 선택 라인"
+    },
+    {
+        "id": "dec_i2s_chan_sd",
+        "text": "직렬 데이터 라인"
+    },
+    {
+        "id": "dec_i2s_opt_ws_polarity",
+        "text": "WS 극성"
+    },
+    {
+        "id": "dec_i2s_opt_clk_edge",
+        "text": "SCK 활성 에지"
+    },
+    {
+        "id": "dec_i2s_opt_bit_shift",
+        "text": "비트 시프트"
+    },
+    {
+        "id": "dec_i2s_opt_bit_align",
+        "text": "비트 정렬"
+    },
+    {
+        "id": "dec_i2s_opt_bitorder",
+        "text": "비트 순서"
+    },
+    {
+        "id": "dec_i2s_opt_wordsize",
+        "text": "워드 크기"
+    },
+    {
+        "id": "dec_iec_chan_data",
+        "text": "데이터 I/O"
+    },
+    {
+        "id": "dec_iec_chan_clk",
+        "text": "클록"
+    },
+    {
+        "id": "dec_iec_chan_atn",
+        "text": "어텐션"
+    },
+    {
+        "id": "dec_iec_opt_chan_srq",
+        "text": "서비스 요청"
+    },
+    {
+        "id": "dec_ieee488_chan_dio1",
+        "text": "데이터 I/O 비트 1 또는 직렬 데이터"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio2",
+        "text": "데이터 I/O 비트 2"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio3",
+        "text": "데이터 I/O 비트 3"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio4",
+        "text": "데이터 I/O 비트 4"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio5",
+        "text": "데이터 I/O 비트 5"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio6",
+        "text": "데이터 I/O 비트 6"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio7",
+        "text": "데이터 I/O 비트 7"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio8",
+        "text": "데이터 I/O 비트 8"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_eoi",
+        "text": "종료 또는 식별"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dav",
+        "text": "데이터 유효"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_nrfd",
+        "text": "데이터 수신 준비 안 됨"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_ndac",
+        "text": "데이터 수락 안 됨"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_ifc",
+        "text": "인터페이스 클리어"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_srq",
+        "text": "서비스 요청"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_atn",
+        "text": "어텐션"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_ren",
+        "text": "원격 활성화"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_clk",
+        "text": "직렬 클록"
+    },
+    {
+        "id": "dec_ieee488_opt_iec_periph",
+        "text": "Commodore IEC 버스 주변 장치 세부 정보 디코딩"
+    },
+    {
+        "id": "dec_ieee488_opt_delim",
+        "text": "페이로드 데이터 구분자"
+    },
+    {
+        "id": "dec_ir_irmp_chan_ir",
+        "text": "데이터 라인"
+    },
+    {
+        "id": "dec_ir_irmp_opt_polarity",
+        "text": "극성"
+    },
+    {
+        "id": "dec_ir_nec_chan_ir",
+        "text": "데이터 라인"
+    },
+    {
+        "id": "dec_ir_nec_opt_polarity",
+        "text": "극성"
+    },
+    {
+        "id": "dec_ir_nec_opt_cd_freq",
+        "text": "반송파 주파수"
+    },
+    {
+        "id": "dec_ir_rc5_chan_ir",
+        "text": "IR 데이터 라인"
+    },
+    {
+        "id": "dec_ir_rc5_opt_polarity",
+        "text": "극성"
+    },
+    {
+        "id": "dec_ir_rc5_opt_protocol",
+        "text": "프로토콜 유형"
+    },
+    {
+        "id": "dec_ir_rc6_chan_ir",
+        "text": "IR 데이터 라인"
+    },
+    {
+        "id": "dec_ir_rc6_opt_polarity",
+        "text": "극성"
+    },
+    {
+        "id": "dec_ir_sirc_chan_ir",
+        "text": "IR 데이터 라인"
+    },
+    {
+        "id": "dec_ir_sirc_opt_polarity",
+        "text": "극성"
+    },
+    {
+        "id": "dec_jitter_chan_clk",
+        "text": "클록 기준 채널"
+    },
+    {
+        "id": "dec_jitter_chan_sig",
+        "text": "클록으로 제어되는 결과 신호"
+    },
+    {
+        "id": "dec_jitter_opt_clk_polarity",
+        "text": "클록 에지 극성"
+    },
+    {
+        "id": "dec_jitter_opt_sig_polarity",
+        "text": "결과 신호 에지 극성"
+    },
+    {
+        "id": "dec_jtag_chan_tdi",
+        "text": "테스트 데이터 입력"
+    },
+    {
+        "id": "dec_jtag_chan_tdo",
+        "text": "테스트 데이터 출력"
+    },
+    {
+        "id": "dec_jtag_chan_tck",
+        "text": "테스트 클록"
+    },
+    {
+        "id": "dec_jtag_chan_tms",
+        "text": "테스트 모드 선택"
+    },
+    {
+        "id": "dec_jtag_opt_chan_trst",
+        "text": "테스트 리셋"
+    },
+    {
+        "id": "dec_jtag_opt_chan_srst",
+        "text": "시스템 리셋"
+    },
+    {
+        "id": "dec_jtag_opt_chan_rtck",
+        "text": "리턴 클록 신호"
+    },
+    {
+        "id": "dec_gpib_opt_sample_total",
+        "text": "전체 샘플 수"
+    },
+    {
+        "id": "dec_ir_nec_opt_extended",
+        "text": "확장 NEC 프로토콜"
+    }
+]

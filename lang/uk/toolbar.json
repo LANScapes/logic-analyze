@@ -1,0 +1,182 @@
+[
+    {
+        "id": "IDS_DEVICE_MODE_LOGIC",
+        "text": "&Лог. аналізатор"
+    },
+    {
+        "id": "IDS_DEVICE_MODE_ANALOG",
+        "text": "Збір &даних"
+    },
+    {
+        "id": "IDS_DEVICE_MODE_DSO",
+        "text": "&Осцилограф"
+    },
+    {
+        "id": "IDS_TOOLBAR_DEVICE_TYPE_DEMO",
+        "text": "Демо"
+    },
+    {
+        "id": "IDS_TOOLBAR_DEVICE_TYPE_FILE",
+        "text": "Файл"
+    },
+    {
+        "id": "IDS_TOOLBAR_DEVICE_OPTION",
+        "text": "&Параметри"
+    },
+    {
+        "id": "IDS_TOOLBAR_DEVICE_OPTION_ITEM",
+        "text": "Параметри пристрою..."
+    },
+    {
+        "id": "IDS_TOOLBAR_CAPTURE_MODE",
+        "text": "&Режим"
+    },
+    {
+        "id": "IDS_TOOLBAR_CAPTURE_MODE_SINGLE",
+        "text": "&Одиночний"
+    },
+    {
+        "id": "IDS_TOOLBAR_CAPTURE_MODE_REPEAT",
+        "text": "&Повторний"
+    },
+    {
+        "id": "IDS_TOOLBAR_CAPTURE_MODE_LOOP",
+        "text": "&Цикл"
+    },
+    {
+        "id": "IDS_TOOLBAR_RUN_START",
+        "text": "&Пуск"
+    },
+    {
+        "id": "IDS_TOOLBAR_RUN_STOP",
+        "text": "&Стоп"
+    },
+    {
+        "id": "IDS_TOOLBAR_ONE_SINGLE",
+        "text": "&Одиночний"
+    },
+    {
+        "id": "IDS_TOOLBAR_ONE_INSTANT",
+        "text": "&Одразу"
+    },
+    {
+        "id": "IDS_TOOLBAR_ONE_STOP",
+        "text": "&Стоп"
+    },
+    {
+        "id": "IDS_TOOLBAR_TRIGGER",
+        "text": "&Тригер"
+    },
+    {
+        "id": "IDS_TOOLBAR_DECODE",
+        "text": "&Декодер"
+    },
+    {
+        "id": "IDS_TOOLBAR_MEASURE",
+        "text": "&Виміри"
+    },
+    {
+        "id": "IDS_TOOLBAR_SEARCH",
+        "text": "П&ошук"
+    },
+    {
+        "id": "IDS_TOOLBAR_FUNCTION",
+        "text": "&Функції"
+    },
+    {
+        "id": "IDS_TOOLBAR_FUNCTION_FFT",
+        "text": "&FFT"
+    },
+    {
+        "id": "IDS_TOOLBAR_FUNCTION_MATH",
+        "text": "&Матем."
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY",
+        "text": "&Дисплей"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_THEMES",
+        "text": "&Теми"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_LISSAJOUS",
+        "text": "&Ліссажу"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_THEMES_DARK",
+        "text": "&Темна"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_THEMES_LIGHT",
+        "text": "&Світла"
+    },
+    {
+        "id": "IDS_TOOLBAR_DISPLAY_OPTIONS",
+        "text": "&Параметри"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE",
+        "text": "&Файл"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CONFIG",
+        "text": "&Сеанс"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CONFIG_LOAD",
+        "text": "&Відкрити сеанс"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CONFIG_STORE",
+        "text": "З&берегти сеанс"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CONFIG_DEFAULT",
+        "text": "Сеанс за &замовчуванням"
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_OPEN",
+        "text": "&Відкрити..."
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_SAVE",
+        "text": "&Зберегти..."
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_EXPORT",
+        "text": "&Експорт..."
+    },
+    {
+        "id": "IDS_TOOLBAR_FILE_CAPTURE",
+        "text": "З&німок..."
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP",
+        "text": "&Довідка"
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_LANG",
+        "text": "&Мова"
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_ABOUT",
+        "text": "&Відомості..."
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_MANUAL",
+        "text": "&Посібник..."
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_BUG",
+        "text": "&Звіт про збій"
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_UPDATE",
+        "text": "&Оновлення"
+    },
+    {
+        "id": "IDS_TOOLBAR_HELP_LOG",
+        "text": "&Журналювання"
+    }
+]

@@ -1490,17 +1490,17 @@ namespace pv
             LangResource::Instance()->Load(language);     
         }        
 
-        if (language == LAN_CN)
+        // Qt's own texts (qt_*) and the app's tr() texts (my_*); English has none.
+        qApp->removeTranslator(&_qtTrans);
+        qApp->removeTranslator(&_myTrans);
+        const lang_key_item *lang = LangResource::find_lang(language);
+
+        if (lang != NULL && language != LAN_EN)
         {
-            _qtTrans.load(":/qt_" + QString::number(language));
-            qApp->installTranslator(&_qtTrans);
-            _myTrans.load(":/my_" + QString::number(language));
-            qApp->installTranslator(&_myTrans);
-        }
-        else if (language == LAN_EN)
-        {
-            qApp->removeTranslator(&_qtTrans);
-            qApp->removeTranslator(&_myTrans);
+            if (_qtTrans.load(QString(":/qt_") + lang->name))
+                qApp->installTranslator(&_qtTrans);
+            if (_myTrans.load(QString(":/my_") + lang->name))
+                qApp->installTranslator(&_myTrans);
         }
 
         retranslateUi();
@@ -1876,7 +1876,7 @@ namespace pv
         if (data != NULL)
         {
             QByteArray raw_bytes = QByteArray::fromRawData(data->data(), data->size());
-            QString jsonStr(raw_bytes.data());
+            QString jsonStr = QString::fromUtf8(raw_bytes.data(), raw_bytes.size());
             QByteArray qbs = jsonStr.toUtf8();
             sessionDoc = QJsonDocument::fromJson(qbs, &error);
 
@@ -1915,7 +1915,7 @@ namespace pv
         if (data != NULL)
         {
             QByteArray raw_bytes = QByteArray::fromRawData(data->data(), data->size());
-            QString jsonStr(raw_bytes.data());
+            QString jsonStr = QString::fromUtf8(raw_bytes.data(), raw_bytes.size());
             QByteArray qbs = jsonStr.toUtf8();
             QJsonDocument sessionDoc = QJsonDocument::fromJson(qbs, &error);
 

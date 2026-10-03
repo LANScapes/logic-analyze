@@ -1,0 +1,390 @@
+[
+    {
+        "id": "IDS_MSG_OK",
+        "text": "OK"
+    },
+    {
+        "id": "IDS_MSG_SKIP",
+        "text": "Bỏ qua"
+    },
+    {
+        "id": "IDS_MSG_CANCEL",
+        "text": "Hủy"
+    },
+    {
+        "id": "IDS_MSG_ATTENTION",
+        "text": "Chú ý"
+    },
+    {
+        "id": "IDS_MSG_ERROR",
+        "text": "Lỗi"
+    },
+    {
+        "id": "IDS_MSG_INFORMATION",
+        "text": "Thông tin"
+    },
+    {
+        "id": "IDS_MSG_CONTINUE",
+        "text": "Tiếp tục"
+    },
+    {
+        "id": "IDS_MSG_AUTO_CALIB_START",
+        "text": "Chương trình tự động hiệu chuẩn sẽ được khởi chạy. Không kết nối bất kỳ đầu đo nào. \nQuá trình này có thể mất một lúc!"
+    },
+    {
+        "id": "IDS_MSG_AUTO_CALIB",
+        "text": "Tự động hiệu chuẩn"
+    },
+    {
+        "id": "IDS_MSG_ADJUST_SAVE",
+        "text": "Vui lòng chỉnh độ lệch điểm không và lưu kết quả"
+    },
+    {
+        "id": "IDS_MSG_SAVE_CAPDATE",
+        "text": "Lưu dữ liệu đã thu?"
+    },
+    {
+        "id": "IDS_MSG_NOT_FOND_DEFAULT_PROFILE",
+        "text": "Không tìm thấy phiên mặc định cho thiết bị này!"
+    },
+    {
+        "id": "IDS_MSG_OPEN_FILE_ERROR",
+        "text": "Lỗi mở tệp!"
+    },
+    {
+        "id": "IDS_MSG_PROFILE_NOT_COMPATIBLE",
+        "text": "Phiên không tương thích với thiết bị hoặc chế độ hiện tại!"
+    },
+    {
+        "id": "IDS_MSG_RESTORE_WINDOW_ERROR",
+        "text": "Lỗi khôi phục trạng thái cửa sổ!"
+    },
+    {
+        "id": "IDS_MSG_DECODE_INVAILD_CURSOR",
+        "text": "Chỉ số con trỏ không hợp lệ cho phạm vi mẫu!"
+    },
+    {
+        "id": "IDS_MSG_SEL_FILENAME",
+        "text": "Bạn cần chọn tên tệp."
+    },
+    {
+        "id": "IDS_MSG_DECODER_REPEAT",
+        "text": "Phát hiện ID hoặc tên trùng lặp trong các bộ giải mã:"
+    },
+    {
+        "id": "IDS_MSG_DECODER_LIST_EMPTY",
+        "text": "Danh sách bộ giải mã trống!"
+    },
+    {
+        "id": "IDS_MSG_NO_SEL_DECODER",
+        "text": "Vui lòng chọn một bộ giải mã!"
+    },
+    {
+        "id": "IDS_MSG_FIND_BASE_DECODER_ERROR",
+        "text": "Không tìm thấy bộ giải mã cơ sở tương ứng!"
+    },
+    {
+        "id": "IDS_MSG_NO_DECODER_DEL",
+        "text": "Không có bộ giải mã nào để xóa!"
+    },
+    {
+        "id": "IDS_MSG_DECODER_CONFIRM_DEL_ALL",
+        "text": "Bạn có chắc muốn xóa tất cả bộ giải mã?"
+    },
+    {
+        "id": "IDS_MSG_DECODER_CONFIRM_DEL",
+        "text": "Bạn có chắc muốn xóa bộ giải mã này?"
+    },
+    {
+        "id": "IDS_MSG_CLOSE_DEVICE",
+        "text": "Bạn có chắc muốn gỡ thiết bị này?"
+    },
+    {
+        "id": "IDS_MSG_SET_DEF_CAL_SETTING",
+        "text": "Tất cả cài đặt hiệu chuẩn sẽ được lưu làm mặc định!"
+    },
+    {
+        "id": "IDS_MSG_ALL_CHANNEL_DISABLE",
+        "text": "Tất cả các kênh đã bị tắt! Vui lòng bật ít nhất một kênh."
+    },
+    {
+        "id": "IDS_MSG_MAX_CHANNEL_COUNT_WARNING",
+        "text": "Chế độ hiện tại chỉ hỗ trợ tối đa {0} kênh!"
+    },
+    {
+        "id": "IDS_MSG_TRI_SET_ISSUE",
+        "text": "Sự cố cài đặt kích hoạt"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_HOR_TRI_POS_FAIL",
+        "text": "Thay đổi vị trí kích hoạt ngang thất bại!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_TRI_HOLDOFF_TIME_FAIL",
+        "text": "Thay đổi thời gian chặn kích hoạt thất bại!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_SENSITIVITY_FAIL",
+        "text": "Thay đổi độ nhạy kích hoạt thất bại!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_SOURCE_FAIL",
+        "text": "Thay đổi nguồn kích hoạt thất bại!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_CHANNEL_FAIL",
+        "text": "Thay đổi kênh kích hoạt thất bại!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_TYPE_FAIL",
+        "text": "Thay đổi kiểu kích hoạt thất bại!"
+    },
+    {
+        "id": "IDS_MSG_PLEASE_INSERT_CURSOR",
+        "text": "Vui lòng chèn con trỏ trước khi dùng phép đo con trỏ."
+    },
+    {
+        "id": "IDS_MSG_SEARCH",
+        "text": "Tìm kiếm"
+    },
+    {
+        "id": "IDS_MSG_NO_SAMPLE_DATA",
+        "text": "Không có dữ liệu mẫu!"
+    },
+    {
+        "id": "IDS_MSG_SEARCH_AT_START",
+        "text": "Con trỏ tìm kiếm đang ở vị trí bắt đầu!"
+    },
+    {
+        "id": "IDS_MSG_PATTERN_NOT_FOUND",
+        "text": "Không tìm thấy mẫu khớp!"
+    },
+    {
+        "id": "IDS_MSG_SEARCH_AT_END",
+        "text": "Con trỏ tìm kiếm đang ở vị trí kết thúc!"
+    },
+    {
+        "id": "IDS_MSG_TRIGGER",
+        "text": "Kích hoạt"
+    },
+    {
+        "id": "IDS_MSG_STREAM_NO_AD_TRIGGER",
+        "text": "Chế độ luồng không hỗ trợ kích hoạt nâng cao!"
+    },
+    {
+        "id": "IDS_MSG_AD_TRIGGER_NEED_HARDWARE",
+        "text": "Kích hoạt nâng cao cần phần cứng DSLogic hỗ trợ!"
+    },
+    {
+        "id": "IDS_MSG_SET_TRI_MULTI_CHANNEL",
+        "text": "Kích hoạt được đặt trên nhiều kênh!\nViệc thu chỉ được kích hoạt khi tất cả các kênh đã đặt cùng thỏa mãn tại một mẫu"
+    },
+    {
+        "id": "IDS_MSG_NOT_SHOW_AGAIN",
+        "text": "Không hiện lại"
+    },
+    {
+        "id": "IDS_MSG_CLEAR_TRIG",
+        "text": "Xóa kích hoạt"
+    },
+    {
+        "id": "IDS_MSG_IGNORE",
+        "text": "Bỏ qua"
+    },
+    {
+        "id": "IDS_MSG_OPEN",
+        "text": "Mở"
+    },
+    {
+        "id": "IDS_MSG_FAIL_TO_LOAD",
+        "text": "Tải thất bại"
+    },
+    {
+        "id": "IDS_MSG_HARDWARE_ERROR",
+        "text": "Thao tác phần cứng thất bại"
+    },
+    {
+        "id": "IDS_MSG_HARDWARE_ERROR_DET",
+        "text": "Vui lòng cắm lại thiết bị để làm mới cấu hình phần cứng!"
+    },
+    {
+        "id": "IDS_MSG_MALLOC_ERROR",
+        "text": "Lỗi cấp phát bộ nhớ"
+    },
+    {
+        "id": "IDS_MSG_MALLOC_ERROR_DET",
+        "text": "Không đủ bộ nhớ cho lần lấy mẫu này!\nVui lòng giảm độ sâu lấy mẫu!"
+    },
+    {
+        "id": "IDS_MSG_PACKET_ERROR",
+        "text": "Lỗi gói dữ liệu"
+    },
+    {
+        "id": "IDS_MSG_PACKET_ERROR_DET",
+        "text": "Định dạng gói dữ liệu nhận được không đúng!"
+    },
+    {
+        "id": "IDS_MSG_DATA_OVERFLOW",
+        "text": "Tràn dữ liệu"
+    },
+    {
+        "id": "IDS_MSG_DATA_OVERFLOW_DET",
+        "text": "Băng thông USB không đáp ứng được tốc độ lấy mẫu hiện tại!\nVui lòng giảm tốc độ lấy mẫu!"
+    },
+    {
+        "id": "IDS_MSG_UNDEFINED_ERROR",
+        "text": "Lỗi không xác định"
+    },
+    {
+        "id": "IDS_MSG_UNDEFINED_ERROR_DET",
+        "text": "Lỗi ngoài dự kiến!"
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR1",
+        "text": "DSView hiện chưa hỗ trợ\nlưu tệp cho nhiều kiểu dữ liệu."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR2",
+        "text": "Không có dữ liệu để lưu."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR3",
+        "text": "Chưa có tên tệp."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR4",
+        "text": "Tạo dữ liệu tệp tạm thất bại."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR5",
+        "text": "Tạo dữ liệu tệp bộ giải mã thất bại."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR6",
+        "text": "Tạo dữ liệu tệp phiên thất bại."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR7",
+        "text": "Tạo tệp zip thất bại."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVEPROC_ERROR1",
+        "text": "Không thể tạo tệp zip, lỗi cấp phát bộ nhớ."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVEPROC_ERROR2",
+        "text": "Không thể tạo tệp zip, vui lòng kiểm tra quyền ghi của đường dẫn này."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR1",
+        "text": "DSView hiện chưa hỗ trợ\nxuất tệp cho nhiều kiểu dữ liệu."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR2",
+        "text": "Không có dữ liệu để lưu."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR3",
+        "text": "Chưa đặt tên tệp."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR4",
+        "text": "Định dạng xuất không hợp lệ."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTPROC_ERROR1",
+        "text": "Kiểu dữ liệu không được hỗ trợ."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTPROC_ERROR2",
+        "text": "Cấp phát bộ nhớ đệm thất bại."
+    },
+    {
+        "id": "IDS_MSG_SAVE_FILE",
+        "text": "Lưu tệp"
+    },
+    {
+        "id": "IDS_MSG_EXPORT_DATA",
+        "text": "Xuất dữ liệu"
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_WORK_ERROR",
+        "text": "Một hoặc nhiều kênh bắt buộc chưa được chỉ định!"
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_DATA_ERROR",
+        "text": "Có ít nhất một kênh đã chọn chưa được bật."
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_STACK_ERROR",
+        "text": "Không thể tạo phiên bản bộ giải mã"
+    },
+    {
+        "id": "IDS_MSG_MESSAGE",
+        "text": "Thông báo"
+    },
+    {
+        "id": "IDS_MSG_BOX_CONFIRM",
+        "text": "Xác nhận"
+    },
+    {
+        "id": "IDS_MSG_NO_DATA",
+        "text": "Không có dữ liệu!"
+    },
+    {
+        "id": "IDS_MSG_TO_SWITCH_DEVICE",
+        "text": "Chuyển sang thiết bị mới?"
+    },
+    {
+        "id": "IDS_MSG_DISABLED_CHANNEL_TRIG",
+        "text": "Không thể dùng kênh đã tắt để kích hoạt!"
+    },
+    {
+        "id": "IDS_MSG_TO_RECONNECT_FOR_FIRMWARE",
+        "text": "Phiên bản firmware không đúng, vui lòng cắm lại thiết bị!"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_BUSY_SWITCH_FAILED",
+        "text": "Thiết bị đang bận, chuyển đổi thất bại!"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_NO_DRIVER",
+        "text": "Có thể trình điều khiển thiết bị chưa được cài đặt!"
+    },
+    {
+        "id": "IDS_MSG_NO_ENABLED_CHANNEL",
+        "text": "Không có kênh nào được bật!"
+    },
+    {
+        "id": "IDS_MSG_FILE_NOT_EXIST",
+        "text": "Tệp không tồn tại!"
+    },
+    {
+        "id": "IDS_MSG_TO_CLEAR_LOG",
+        "text": "Bạn có chắc muốn xóa tệp nhật ký?"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_SPEED_TOO_LOW",
+        "text": "Lỗi: Tốc độ cổng USB quá thấp (<480Mbps)!"
+    },
+    {
+        "id": "IDS_MSG_FIRMWARE_NOT_EXIST",
+        "text": "Lỗi: Tệp firmware không tồn tại!"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_USB_IO_ERROR",
+        "text": "Lỗi: Lỗi vào/ra USB!"
+    },
+    {
+        "id": "IDS_MSG_DATA_RANGE_ERROR",
+        "text": "Phạm vi dữ liệu bị lỗi!"
+    },
+    {
+        "id": "IDS_MSG_DATA_RANGE_HAVE_NO_DATA",
+        "text": "Không có dữ liệu trong phạm vi dữ liệu!"
+    },
+    {
+        "id": "IDS_MSG_NO_DECODED_RESULT",
+        "text": "Không có dữ liệu để xuất!"
+    }
+]

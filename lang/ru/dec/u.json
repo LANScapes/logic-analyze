@@ -1,0 +1,86 @@
+[
+    {
+        "id": "dec_usb_packet_opt_signalling",
+        "text": "Сигнализация"
+    },
+    {
+        "id": "dec_usb_power_delivery_chan_cc1",
+        "text": "Канал конфигурации 1"
+    },
+    {
+        "id": "dec_usb_power_delivery_opt_chan_cc2",
+        "text": "Канал конфигурации 2"
+    },
+    {
+        "id": "dec_usb_power_delivery_opt_fulltext",
+        "text": "Полное текстовое декодирование пакетов"
+    },
+    {
+        "id": "dec_usb_signalling_chan_dp",
+        "text": "Сигнал USB D+"
+    },
+    {
+        "id": "dec_usb_signalling_chan_dm",
+        "text": "Сигнал USB D-"
+    },
+    {
+        "id": "dec_usb_signalling_opt_signalling",
+        "text": "Сигнализация"
+    },
+    {
+        "id": "dec_wiegand_chan_d0",
+        "text": "Линия Data 0"
+    },
+    {
+        "id": "dec_wiegand_chan_d1",
+        "text": "Линия Data 1"
+    },
+    {
+        "id": "dec_wiegand_opt_active",
+        "text": "Активный уровень линий данных"
+    },
+    {
+        "id": "dec_wiegand_opt_bitwidth_ms",
+        "text": "Длительность одного бита в миллисекундах"
+    },
+    {
+        "id": "dec_xy2-100_chan_clk",
+        "text": "Тактовый сигнал"
+    },
+    {
+        "id": "dec_xy2-100_chan_sync",
+        "text": "Синхронизация"
+    },
+    {
+        "id": "dec_xy2-100_chan_data",
+        "text": "Данные оси X, Y или Z"
+    },
+    {
+        "id": "dec_xy2-100_opt_chan_status",
+        "text": "Состояние оси X, Y или Z"
+    },
+    {
+        "id": "dec_z80_chan_m1",
+        "text": "Машинный цикл 1"
+    },
+    {
+        "id": "dec_z80_chan_rd",
+        "text": "Чтение памяти или ввода-вывода"
+    },
+    {
+        "id": "dec_z80_chan_wr",
+        "text": "Запись памяти или ввода-вывода"
+    },
+    {
+        "id": "dec_z80_opt_chan_mreq",
+        "text": "Запрос памяти"
+    },
+    {
+        "id": "dec_z80_opt_chan_iorq",
+        "text": "Запрос ввода-вывода"
+    },
+    {
+        "id": "dec_usb_request_opt_in_request_start",
+        "text": "Начинать IN-запросы с"
+    }
+]

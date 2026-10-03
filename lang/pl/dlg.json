@@ -1,0 +1,794 @@
+[
+    {
+        "id": "IDS_DLG_LOG_OPTIONS",
+        "text": "Opcje logów"
+    },
+    {
+        "id": "IDS_DLG_LOG_LEVEL",
+        "text": "Poziom logowania"
+    },
+    {
+        "id": "IDS_DLG_SAVE_FILE",
+        "text": "Zapisz do pliku"
+    },
+    {
+        "id": "IDS_DLG_OPEN_FILE",
+        "text": "Otwórz plik"
+    },
+    {
+        "id": "IDS_DLG_OPEN_SEESION",
+        "text": "Otwórz sesję"
+    },
+    {
+        "id": "IDS_DLG_SAVE_SEESION",
+        "text": "Zapisz sesję"
+    },
+    {
+        "id": "IDS_DLG_DOCUMENT",
+        "text": "Dokument"
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_DOCK_TITLE",
+        "text": "Ustawienia wyzwalania"
+    },
+    {
+        "id": "IDS_DLG_PROTOCOL_DOCK_TITLE",
+        "text": "Dekodery"
+    },
+    {
+        "id": "IDS_DLG_MEASURE_DOCK_TITLE",
+        "text": "Pomiary"
+    },
+    {
+        "id": "IDS_DLG_SEARCH_DOCK_TITLE",
+        "text": "Szukaj"
+    },
+    {
+        "id": "IDS_DLG_SAVE_AS",
+        "text": "Zapisz jako"
+    },
+    {
+        "id": "IDS_DLG_CHECK_USB_SPEED_ERROR",
+        "text": "Podłączenie urządzenia do portu USB 2.0 znacznie obniży jego wydajność.\nPodłącz je ponownie do portu USB 3.0."
+    },
+    {
+        "id": "IDS_DLG_CHECK_SESSION_FILE_VERSION_ERROR",
+        "text": "Ten plik ma stary format.\nWczytuje się wolno.\nPo wczytaniu możesz zapisać go ponownie."
+    },
+    {
+        "id": "IDS_DLG_ABOUT",
+        "text": "O programie"
+    },
+    {
+        "id": "IDS_DLG_DISPLAY_OPTIONS",
+        "text": "Opcje wyświetlania"
+    },
+    {
+        "id": "IDS_DLG_QUICK_SCROLL",
+        "text": "Przewijanie przebiegu przeciąganiem myszą"
+    },
+    {
+        "id": "IDS_DLG_SAVE",
+        "text": "Zapisz"
+    },
+    {
+        "id": "IDS_DLG_RESET",
+        "text": "Resetuj"
+    },
+    {
+        "id": "IDS_DLG_EXIT",
+        "text": "Zakończ"
+    },
+    {
+        "id": "IDS_DLG_MANUAL_CALIBRATION",
+        "text": "Kalibracja ręczna"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL",
+        "text": "Kanał"
+    },
+    {
+        "id": "IDS_DLG_SAVE_CALIBRATION_RESULTS",
+        "text": "Zapisywanie wyników kalibracji... Proszę czekać."
+    },
+    {
+        "id": "IDS_DLG_CANCEL",
+        "text": "Anuluj"
+    },
+    {
+        "id": "IDS_DLG_RELOAD_CALIBRATION_RESULTS",
+        "text": "Ponowne wczytywanie poprzednich wyników kalibracji... Proszę czekać."
+    },
+    {
+        "id": "IDS_DLG_DECODER_OPTIONS",
+        "text": "Opcje dekodera"
+    },
+    {
+        "id": "IDS_DLG_CURSOR",
+        "text": "Kursor "
+    },
+    {
+        "id": "IDS_DLG_CURSOR_FOR_DECODE_START",
+        "text": "Początek dekodowania"
+    },
+    {
+        "id": "IDS_DLG_CURSOR_FOR_DECODE_END",
+        "text": "Koniec dekodowania"
+    },
+    {
+        "id": "IDS_DLG_DEVICE_OPTIONS",
+        "text": "Opcje urządzenia"
+    },
+    {
+        "id": "IDS_DLG_MODE",
+        "text": "Opcje"
+    },
+    {
+        "id": "IDS_DLG_ENABLE_ALL",
+        "text": "Włącz wszystkie"
+    },
+    {
+        "id": "IDS_DLG_DISABLE_ALL",
+        "text": "Wyłącz wszystkie"
+    },
+    {
+        "id": "IDS_DLG_ENABLE",
+        "text": "Włącz: "
+    },
+    {
+        "id": "IDS_DLG_AUTO_CALIBRATION",
+        "text": "Automatyczna kalibracja"
+    },
+    {
+        "id": "IDS_DLG_CALIBRATION",
+        "text": "Kalibracja"
+    },
+    {
+        "id": "IDS_DLG_MEASUREMENTS",
+        "text": "Pomiary"
+    },
+    {
+        "id": "IDS_DLG_FFT_ENABLE",
+        "text": "Włącz FFT: "
+    },
+    {
+        "id": "IDS_DLG_FFT_LENGTH",
+        "text": "Długość FFT: "
+    },
+    {
+        "id": "IDS_DLG_SAMPLE_INTERVAL",
+        "text": "Interwał próbek: "
+    },
+    {
+        "id": "IDS_DLG_FFT_SOURCE",
+        "text": "Źródło FFT: "
+    },
+    {
+        "id": "IDS_DLG_FFT_WINDOW",
+        "text": "Okno FFT: "
+    },
+    {
+        "id": "IDS_DLG_DC_IGNORED",
+        "text": "Pomiń składową DC: "
+    },
+    {
+        "id": "IDS_DLG_Y-AXIS_MODE",
+        "text": "Tryb osi Y: "
+    },
+    {
+        "id": "IDS_DLG_DBV_RANGE",
+        "text": "Zakres DBV: "
+    },
+    {
+        "id": "IDS_DLG_FFT_OPTIONS",
+        "text": "Opcje FFT"
+    },
+    {
+        "id": "IDS_DLG_INTERVAL_S",
+        "text": "Interwał (s): "
+    },
+    {
+        "id": "IDS_DLG_REPETITIVE_INTERVAL",
+        "text": "Interwał powtarzania"
+    },
+    {
+        "id": "IDS_DLG_X_AXIS",
+        "text": "Oś X"
+    },
+    {
+        "id": "IDS_DLG_Y_AXIS",
+        "text": "Oś Y"
+    },
+    {
+        "id": "IDS_DLG_LISSAJOUS_OPTIONS",
+        "text": "Opcje Lissajous"
+    },
+    {
+        "id": "IDS_DLG_ADD",
+        "text": "Dodawanie"
+    },
+    {
+        "id": "IDS_DLG_SUBSTRACT",
+        "text": "Odejmowanie"
+    },
+    {
+        "id": "IDS_DLG_MULTIPLY",
+        "text": "Mnożenie"
+    },
+    {
+        "id": "IDS_DLG_DIVIDE",
+        "text": "Dzielenie"
+    },
+    {
+        "id": "IDS_DLG_MATH_TYPE",
+        "text": "Rodzaj działania"
+    },
+    {
+        "id": "IDS_DLG_1ST_SOURCE",
+        "text": "1. źródło"
+    },
+    {
+        "id": "IDS_DLG_2ST_SOURCE",
+        "text": "2. źródło"
+    },
+    {
+        "id": "IDS_DLG_MATH_OPTIONS",
+        "text": "Opcje działań matematycznych"
+    },
+    {
+        "id": "IDS_DLG_EXPORT_FORMAT",
+        "text": "Format eksportu: "
+    },
+    {
+        "id": "IDS_DLG_PROTOCOL_EXPORT",
+        "text": "Eksport protokołu"
+    },
+    {
+        "id": "IDS_DLG_EXPORT_DATA",
+        "text": "Eksportuj dane: "
+    },
+    {
+        "id": "IDS_DLG_EXPORT_PROTOCOL_LIST_RESULT",
+        "text": "Eksportowanie wyników dekodowania... Proszę czekać."
+    },
+    {
+        "id": "IDS_DLG_FIT_TO_WINDOW",
+        "text": "Dopasuj do okna"
+    },
+    {
+        "id": "IDS_DLG_FIXED",
+        "text": "Stały"
+    },
+    {
+        "id": "IDS_DLG_MAP_ZOOM",
+        "text": "Powiększenie skoku: "
+    },
+    {
+        "id": "IDS_DLG_DECODED_PROTOCOLS",
+        "text": "Dekodowane protokoły: "
+    },
+    {
+        "id": "IDS_DLG_PROTOCOL_LIST_VIEWER",
+        "text": "Wyniki dekodowania"
+    },
+    {
+        "id": "IDS_DLG_REGION",
+        "text": "Zakres"
+    },
+    {
+        "id": "IDS_DLG_SEARCH_LABEL",
+        "text": "X: Dowolny\n0: Poziom niski\n1: Poziom wysoki\nR: Zbocze narastające\nF: Zbocze opadające\nC: Zbocze narastające/opadające"
+    },
+    {
+        "id": "IDS_DLG_SEARCH_OPTIONS",
+        "text": "Opcje wyszukiwania"
+    },
+    {
+        "id": "IDS_DLG_SAVING",
+        "text": "Zapisywanie..."
+    },
+    {
+        "id": "IDS_DLG_ORIGINAL_DATA",
+        "text": "Dane oryginalne"
+    },
+    {
+        "id": "IDS_DLG_COMPRESSED_DATA",
+        "text": "Dane skompresowane"
+    },
+    {
+        "id": "IDS_DLG_EXPORT",
+        "text": "Eksportuj"
+    },
+    {
+        "id": "IDS_DLG_EXPORTING",
+        "text": "Eksportowanie..."
+    },
+    {
+        "id": "IDS_DLG_DONT_CONNECT_PROBES",
+        "text": "Nie podłączaj żadnych sond!"
+    },
+    {
+        "id": "IDS_DLG_LOAD_CURRENT_SETTING",
+        "text": "Wczytywanie bieżących ustawień... Proszę czekać."
+    },
+    {
+        "id": "IDS_DLG_WAITING",
+        "text": "Oczekiwanie"
+    },
+    {
+        "id": "IDS_DLG_FINISHED",
+        "text": "Zakończono!"
+    },
+    {
+        "id": "IDS_DLG_US",
+        "text": "uS"
+    },
+    {
+        "id": "IDS_DLG_MS",
+        "text": "mS"
+    },
+    {
+        "id": "IDS_DLG_S",
+        "text": "S"
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_POSITION",
+        "text": "Pozycja wyzwalania: "
+    },
+    {
+        "id": "IDS_DLG_HOLD_OFF_TIME",
+        "text": "Czas blokady: "
+    },
+    {
+        "id": "IDS_DLG_NOISE_SENSITIVITY",
+        "text": "Czułość wyzwalania: "
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_SOURCES",
+        "text": "Źródła wyzwalania: "
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_TYPES",
+        "text": "Typy wyzwalania: "
+    },
+    {
+        "id": "IDS_DLG_RISING_EDGE",
+        "text": "Zbocze narastające"
+    },
+    {
+        "id": "IDS_DLG_FALLING_EDGE",
+        "text": "Zbocze opadające"
+    },
+    {
+        "id": "IDS_DLG_AUTO",
+        "text": "Auto"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_0",
+        "text": "Kanał 0"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_1",
+        "text": "Kanał 1"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_0_AND_1",
+        "text": "Kanał 0 && 1"
+    },
+    {
+        "id": "IDS_DLG_CHANNEL_0_OR_1",
+        "text": "Kanał 0 | 1"
+    },
+    {
+        "id": "IDS_DLG_KEY_DECODER_SEARCH",
+        "text": "Szukaj dekodera..."
+    },
+    {
+        "id": "IDS_DLG_TIME_SAMPLES",
+        "text": "Czas/próbki"
+    },
+    {
+        "id": "IDS_DLG_MOUSE_MEASUREMENT",
+        "text": "Pomiar myszą"
+    },
+    {
+        "id": "IDS_DLG_ENABLE_FLOATING_MEASUREMENT",
+        "text": "Włącz pomiar pływający"
+    },
+    {
+        "id": "IDS_DLG_CURSOR_DISTANCE",
+        "text": "Odległość kursorów"
+    },
+    {
+        "id": "IDS_DLG_EDGES",
+        "text": "Zbocza"
+    },
+    {
+        "id": "IDS_DLG_CURSORS",
+        "text": "Kursory"
+    },
+    {
+        "id": "IDS_DLG_RIS_OR_FAL_EDGE",
+        "text": "Nar./opad./zbocza"
+    },
+    {
+        "id": "IDS_DLG_W",
+        "text": "S: "
+    },
+    {
+        "id": "IDS_DLG_P",
+        "text": "T: "
+    },
+    {
+        "id": "IDS_DLG_F",
+        "text": "f: "
+    },
+    {
+        "id": "IDS_DLG_D",
+        "text": "W: "
+    },
+    {
+        "id": "IDS_DLG_SEARCH",
+        "text": "szukaj"
+    },
+    {
+        "id": "IDS_DLG_MATCHING_ITEMS",
+        "text": "Pasujące elementy:"
+    },
+    {
+        "id": "IDS_DLG_OUT_OF_MEMORY",
+        "text": "Brak pamięci"
+    },
+    {
+        "id": "IDS_DLG_SEARCHING",
+        "text": "Wyszukiwanie..."
+    },
+    {
+        "id": "IDS_DLG_SEARCH_PREVIOUS",
+        "text": "Szukaj poprzedniego..."
+    },
+    {
+        "id": "IDS_DLG_SEARCH_NEXT",
+        "text": "Szukaj następnego..."
+    },
+    {
+        "id": "IDS_DLG_SIMPLE_TRIGGER",
+        "text": "Wyzwalanie proste"
+    },
+    {
+        "id": "IDS_DLG_ADVANCED_TRIGGER",
+        "text": "Wyzwalanie zaawansowane"
+    },
+    {
+        "id": "IDS_DLG_TOTAL_TRIGGER_STAGES",
+        "text": "Liczba etapów wyzwalania: "
+    },
+    {
+        "id": "IDS_DLG_START_FLAG",
+        "text": "Flaga startu: "
+    },
+    {
+        "id": "IDS_DLG_STOP_FLAG",
+        "text": "Flaga stopu: "
+    },
+    {
+        "id": "IDS_DLG_CLOCK_FLAG",
+        "text": "Flaga zegara: "
+    },
+    {
+        "id": "IDS_DLG_DATA_CHANNEL",
+        "text": "Kanał danych: "
+    },
+    {
+        "id": "IDS_DLG_DATA_VALUE",
+        "text": "Wartość danych: "
+    },
+    {
+        "id": "IDS_DLG_SERIAL_TRIGGER",
+        "text": "Wyzwalanie szeregowe"
+    },
+    {
+        "id": "IDS_DLG_STAGE_TRIGGER",
+        "text": "Wyzwalanie etapowe"
+    },
+    {
+        "id": "IDS_DLG_SERIAL_NOTE_LABEL",
+        "text": "X: Dowolny\n0: Poziom niski\n1: Poziom wysoki\nR: Zbocze narastające\nF: Zbocze opadające\nC: Zbocze narastające/opadające"
+    },
+    {
+        "id": "IDS_DLG_DATA_BITS",
+        "text": "Bity danych"
+    },
+    {
+        "id": "IDS_DLG_INV",
+        "text": "Odwr."
+    },
+    {
+        "id": "IDS_DLG_COUNTER",
+        "text": "Licznik"
+    },
+    {
+        "id": "IDS_DLG_CONTIGUOUS",
+        "text": "Ciągły"
+    },
+    {
+        "id": "IDS_DLG_STAGE",
+        "text": "Etap"
+    },
+    {
+        "id": "IDS_DLG_OR",
+        "text": "Lub"
+    },
+    {
+        "id": "IDS_DLG_AND",
+        "text": "I"
+    },
+    {
+        "id": "IDS_DLG_HZ",
+        "text": "Hz"
+    },
+    {
+        "id": "IDS_DLG_UNSHOWN",
+        "text": "Ukryte"
+    },
+    {
+        "id": "ZOOM_IN_FOR_DETAILS",
+        "text": "Powiększ, aby zobaczyć szczegóły"
+    },
+    {
+        "id": "IDS_DLG_DECODETRACE_ERROR1",
+        "text": "Błąd: "
+    },
+    {
+        "id": "IDS_DLG_DECODETRACE_ERROR2",
+        "text": "Błąd: ..."
+    },
+    {
+        "id": "IDS_DLG_ADD_GROUP",
+        "text": "Dodaj grupę"
+    },
+    {
+        "id": "IDS_DLG_DEL_GROUP",
+        "text": "Usuń grupę"
+    },
+    {
+        "id": "IDS_DLG_SET_CHANNEL_COLOUR",
+        "text": "Ustaw kolor kanału"
+    },
+    {
+        "id": "IDS_DLG_LISSAJOUS_FIGURE",
+        "text": "Krzywa Lissajous"
+    },
+    {
+        "id": "IDS_DLG_DATA_SOURCE_ERROR",
+        "text": "Błąd źródła danych."
+    },
+    {
+        "id": "IDS_DLG_ADD_X_CURSOR",
+        "text": "Dodaj kursor X"
+    },
+    {
+        "id": "IDS_DLG_ADD_Y_CURSOR",
+        "text": "Dodaj kursor Y"
+    },
+    {
+        "id": "IDS_DLG_AUTO_ROLL",
+        "text": "Auto (przewijanie)"
+    },
+    {
+        "id": "IDS_DLG_WAITING_TRIG",
+        "text": "Czekam na wyzw."
+    },
+    {
+        "id": "IDS_DLG_TRIG_D",
+        "text": "Wyzwolono"
+    },
+    {
+        "id": "IDS_DLG_TRIGGERED",
+        "text": "Wyzwolono! "
+    },
+    {
+        "id": "IDS_DLG_CAPTURED",
+        "text": "% zebrano"
+    },
+    {
+        "id": "IDS_DLG_WAITING_FOR_TRIGGER",
+        "text": "Oczekiwanie na wyzwolenie! "
+    },
+    {
+        "id": "IDS_DLG_RISING",
+        "text": "Narastające: "
+    },
+    {
+        "id": "IDS_DLG_FALLING",
+        "text": "Opadające: "
+    },
+    {
+        "id": "IDS_DLG_Edges_1",
+        "text": "Zbocza: "
+    },
+    {
+        "id": "IDS_DLG_WIDTH",
+        "text": "Szerokość: "
+    },
+    {
+        "id": "IDS_DLG_PERIOD",
+        "text": "Okres: "
+    },
+    {
+        "id": "IDS_DLG_FREQUENCY",
+        "text": "Częstotliwość: "
+    },
+    {
+        "id": "IDS_DLG_DUTY_CYCLE",
+        "text": "Wypełnienie: "
+    },
+    {
+        "id": "IDS_DLG_MEASURE",
+        "text": "Pomiar"
+    },
+    {
+        "id": "IDS_DLG_TRIGGER_TIME",
+        "text": "Czas wyzwolenia: "
+    },
+    {
+        "id": "IDS_DLG_SAMPLES_CAPTURED",
+        "text": "Próbki zebrane!"
+    },
+    {
+        "id": "IDS_DLG_FILE_THRESHOLD",
+        "text": "Próg: "
+    },
+    {
+        "id": "IDS_DLG_VIEW_CAPTURE",
+        "text": "Akwizycja"
+    },
+    {
+        "id": "IDS_DLG_CHAN_NUM_ERR2",
+        "text": "Wymagane są dane z dwóch kanałów."
+    },
+    {
+        "id": "IDS_DLG_PATH_NAME",
+        "text": "ścieżka"
+    },
+    {
+        "id": "IDS_DLG_DECODER_IF_TRANS",
+        "text": "Tłumacz nazwy parametrów"
+    },
+    {
+        "id": "IDS_DLG_LOG_PATH",
+        "text": "Ścieżka pliku"
+    },
+    {
+        "id": "IDS_DLG_OPEN",
+        "text": "Otwórz"
+    },
+    {
+        "id": "IDS_DLG_CLEARE",
+        "text": "Wyczyść"
+    },
+    {
+        "id": "IDS_DLG_APPEND_MODE",
+        "text": "Tryb dopisywania"
+    },
+    {
+        "id": "IDS_DLG_TRIG_DISPLAY_MIDDLE",
+        "text": "Pozycja wyzwalania na środku"
+    },
+    {
+        "id": "IDS_DLG_DISPLAY_PROFILE_IN_BAR",
+        "text": "Pokaż profil na pasku tytułu"
+    },
+    {
+        "id": "IDS_DLG_SERIAL_HEX",
+        "text": "Hex :"
+    },
+    {
+        "id": "IDS_DLG_SERIAL_INPUT_AS_HEX",
+        "text": "Wprowadzanie w formacie hex"
+    },
+    {
+        "id": "IDS_DLG_USE_ABORT_DATA_REPEAT",
+        "text": "Aktualizuj najnowsze dane po zatrzymaniu trybu powtarzanego"
+    },
+    {
+        "id": "IDS_DLG_FONT_SIZE",
+        "text": "Rozmiar czcionki"
+    },
+    {
+        "id": "IDS_DLG_DEFAULT_FONT",
+        "text": "Domyślna"
+    },
+    {
+        "id": "IDS_DLG_GROUP_LOGIC",
+        "text": "Analizator logiczny"
+    },
+    {
+        "id": "IDS_DLG_GROUP_DSO",
+        "text": "Oscyloskop"
+    },
+    {
+        "id": "IDS_DLG_GROUP_UI",
+        "text": "Interfejs"
+    },
+    {
+        "id": "IDS_DLG_ABORT",
+        "text": "Przerwij"
+    },
+    {
+        "id": "IDS_DLG_AUTO_SCROLL_LATEAST_DATA",
+        "text": "Automatycznie przewijaj do najnowszych danych"
+    },
+    {
+        "id": "IDS_DLG_DATA_OUT_OFF_RANGE",
+        "text": "Dane poza zakresem"
+    },
+    {
+        "id": "IDS_DLG_START_CURSOR",
+        "text": "Początek"
+    },
+    {
+        "id": "IDS_DLG_END_CURSOR",
+        "text": "Koniec"
+    },
+    {
+        "id": "IDS_DSO_CTR_EN",
+        "text": "WŁ"
+    },
+    {
+        "id": "IDS_DSO_CTR_DIS",
+        "text": "WYŁ"
+    },
+    {
+        "id": "IDS_DSO_CTR_GND",
+        "text": "GND"
+    },
+    {
+        "id": "IDS_DSO_CTR_DC",
+        "text": "DC"
+    },
+    {
+        "id": "IDS_DSO_CTR_AC",
+        "text": "AC"
+    },
+    {
+        "id": "IDS_DSO_CTR_AUTO",
+        "text": "AUTO"
+    },
+    {
+        "id": "IDS_CALIB_VGAIN",
+        "text": "VGAIN"
+    },
+    {
+        "id": "IDS_CALIB_VOFF",
+        "text": "VOFF"
+    },
+    {
+        "id": "IDS_CALIB_VCOMB",
+        "text": "VCOMB"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_RECTANGLE",
+        "text": "Prostokątne"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_HANN",
+        "text": "Hann"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_HAMMING",
+        "text": "Hamming"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_BLACKMAN",
+        "text": "Blackman"
+    },
+    {
+        "id": "IDS_FFT_WINDOW_FLATTOP",
+        "text": "Flat_top"
+    },
+    {
+        "id": "IDS_FFT_MODE_LINEARRSM",
+        "text": "Liniowy RMS"
+    }
+]

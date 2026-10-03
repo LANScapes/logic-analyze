@@ -1,0 +1,334 @@
+[
+    {
+        "id": "dec_ac97_chan_sync",
+        "text": "フレーム同期"
+    },
+    {
+        "id": "dec_ac97_chan_clk",
+        "text": "データビットクロック"
+    },
+    {
+        "id": "dec_ac97_opt_chan_out",
+        "text": "データ出力"
+    },
+    {
+        "id": "dec_ac97_opt_chan_in",
+        "text": "データ入力"
+    },
+    {
+        "id": "dec_ac97_opt_chan_rst",
+        "text": "リセットライン"
+    },
+    {
+        "id": "dec_ad79x0_opt_vref",
+        "text": "基準電圧 (V)"
+    },
+    {
+        "id": "dec_am230x_chan_sda",
+        "text": "シングルワイヤシリアルデータライン"
+    },
+    {
+        "id": "dec_am230x_opt_device",
+        "text": "デバイスの種類"
+    },
+    {
+        "id": "dec_amulet_ascii_opt_ms_chan",
+        "text": "マスタ -> スレーブチャンネル"
+    },
+    {
+        "id": "dec_amulet_ascii_opt_sm_chan",
+        "text": "スレーブ -> マスタチャンネル"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_objdump",
+        "text": "objdump のパス"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_objdump_opts",
+        "text": "objdump のオプション"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_elffile",
+        "text": ".elf のパス"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_branch_enc",
+        "text": "分岐エンコーディング"
+    },
+    {
+        "id": "dec_arm_itm_opt_objdump",
+        "text": "objdump のパス"
+    },
+    {
+        "id": "dec_arm_itm_opt_objdump_opts",
+        "text": "objdump のオプション"
+    },
+    {
+        "id": "dec_arm_itm_opt_elffile",
+        "text": ".elf のパス"
+    },
+    {
+        "id": "dec_arm_tpiu_opt_stream",
+        "text": "ストリームインデックス"
+    },
+    {
+        "id": "dec_arm_tpiu_sync_offset",
+        "text": "初期同期オフセット"
+    },
+    {
+        "id": "dec_aud_chan_audck",
+        "text": "AUD クロック"
+    },
+    {
+        "id": "dec_aud_chan_naudsync",
+        "text": "AUD 同期"
+    },
+    {
+        "id": "dec_aud_chan_audata3",
+        "text": "AUD データライン 3"
+    },
+    {
+        "id": "dec_aud_chan_audata2",
+        "text": "AUD データライン 2"
+    },
+    {
+        "id": "dec_aud_chan_audata1",
+        "text": "AUD データライン 1"
+    },
+    {
+        "id": "dec_aud_chan_audata0",
+        "text": "AUD データライン 0"
+    },
+    {
+        "id": "dec_avr_pdi_chan_reset",
+        "text": "RESET / PDI_CLK"
+    },
+    {
+        "id": "dec_avr_pdi_chan_data",
+        "text": "PDI_DATA"
+    },
+    {
+        "id": "dec_c2_chan_c2ck",
+        "text": "クロック"
+    },
+    {
+        "id": "dec_c2_chan_c2d",
+        "text": "データ"
+    },
+    {
+        "id": "dec_caliper_chan_clk",
+        "text": "シリアルクロックライン"
+    },
+    {
+        "id": "dec_caliper_chan_data",
+        "text": "シリアルデータライン"
+    },
+    {
+        "id": "dec_caliper_opt_timeout_ms",
+        "text": "パケットタイムアウト (ms)、0 で無効"
+    },
+    {
+        "id": "dec_caliper_opt_unit",
+        "text": "単位を変換"
+    },
+    {
+        "id": "dec_caliper_opt_changes",
+        "text": "変化のみ"
+    },
+    {
+        "id": "dec_can_chan_can_rx",
+        "text": "CAN FD バスライン"
+    },
+    {
+        "id": "dec_can_opt_bitrate",
+        "text": "ビットレート (bits/s)"
+    },
+    {
+        "id": "dec_can_opt_nominal_bitrate",
+        "text": "ノミナルビットレート (bits/s)"
+    },
+    {
+        "id": "dec_can_opt_fast_bitrate",
+        "text": "高速ビットレート (bits/s)"
+    },
+    {
+        "id": "dec_can_opt_sample_point",
+        "text": "サンプルポイント (%)"
+    },
+    {
+        "id": "dec_cec_chan_cec",
+        "text": "CEC バスデータ"
+    },
+    {
+        "id": "dec_1uart_chan_rxtx",
+        "text": "UART 送受信ライン"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tdi",
+        "text": "テストデータ入力"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tdo",
+        "text": "テストデータ出力"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tck",
+        "text": "テストクロック"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tms",
+        "text": "テストモード選択"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_trst",
+        "text": "テストリセット"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_srst",
+        "text": "システムリセット"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_rtck",
+        "text": "リターンクロック信号"
+    },
+    {
+        "id": "dec_counter_chan_data",
+        "text": "データライン"
+    },
+    {
+        "id": "dec_counter_opt_chan_reset",
+        "text": "リセットライン"
+    },
+    {
+        "id": "dec_counter_opt_data_edge",
+        "text": "カウントするエッジ (データ)"
+    },
+    {
+        "id": "dec_counter_opt_divider",
+        "text": "カウント分周 (ワード幅)"
+    },
+    {
+        "id": "dec_counter_opt_reset_edge",
+        "text": "カウンタをクリアするエッジ (リセット)"
+    },
+    {
+        "id": "dec_counter_opt_edge_off",
+        "text": "開始/リセット後のエッジカウンタ値"
+    },
+    {
+        "id": "dec_counter_opt_word_off",
+        "text": "開始/リセット後のワードカウンタ値"
+    },
+    {
+        "id": "dec_counter_opt_dead_cycles",
+        "text": "リセット後に無視するエッジ数"
+    },
+    {
+        "id": "dec_counter_opt_start_with_reset",
+        "text": "デコードはリセットから開始とみなす"
+    },
+    {
+        "id": "dec_dali_chan_dali",
+        "text": "DALI データライン"
+    },
+    {
+        "id": "dec_dali_opt_polarity",
+        "text": "極性"
+    },
+    {
+        "id": "dec_dcf77_chan_data",
+        "text": "DATA ライン"
+    },
+    {
+        "id": "dec_dmx512_chan_dmx",
+        "text": "任意の DMX データライン"
+    },
+    {
+        "id": "dec_dmx512_opt_invert",
+        "text": "信号を反転する?"
+    },
+    {
+        "id": "dec_dsi_chan_dsi",
+        "text": "DSI データライン"
+    },
+    {
+        "id": "dec_dsi_opt_polarity",
+        "text": "極性"
+    },
+    {
+        "id": "dec_eeprom24xx_opt_chip",
+        "text": "チップ"
+    },
+    {
+        "id": "dec_eeprom24xx_opt_addr_counter",
+        "text": "アドレスカウンタの初期値"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_addresssize",
+        "text": "アドレスサイズ"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_wordsize",
+        "text": "ワードサイズ"
+    },
+    {
+        "id": "dec_em4100_chan_data",
+        "text": "データライン"
+    },
+    {
+        "id": "dec_em4100_opt_polarity",
+        "text": "極性"
+    },
+    {
+        "id": "dec_em4100_opt_datarate",
+        "text": "データレート"
+    },
+    {
+        "id": "dec_em4100_opt_coilfreq",
+        "text": "コイル周波数"
+    },
+    {
+        "id": "dec_em4305_chan_data",
+        "text": "データライン"
+    },
+    {
+        "id": "dec_em4305_opt_coilfreq",
+        "text": "コイル周波数"
+    },
+    {
+        "id": "dec_em4305_opt_first_field_stop",
+        "text": "第 1 フィールドストップ最小値"
+    },
+    {
+        "id": "dec_em4305_opt_w_gap",
+        "text": "書き込みギャップ最小値"
+    },
+    {
+        "id": "dec_em4305_opt_w_one_max",
+        "text": "1 書き込み最大値"
+    },
+    {
+        "id": "dec_em4305_opt_w_zero_on_min",
+        "text": "0 書き込みオン最小値"
+    },
+    {
+        "id": "dec_em4305_opt_w_zero_off_max",
+        "text": "0 書き込みオフ最大値"
+    },
+    {
+        "id": "dec_em4305_opt_em4100_decode",
+        "text": "EM4100 デコード"
+    },
+    {
+        "id": "dec_eth_an_chan_dp",
+        "text": "ETH TX+ 信号"
+    },
+    {
+        "id": "dec_can_opt_data_order",
+        "text": "データ順序"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_format",
+        "text": "データ形式"
+    }
+]

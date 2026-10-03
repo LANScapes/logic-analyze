@@ -1,0 +1,390 @@
+[
+    {
+        "id": "IDS_MSG_OK",
+        "text": "OK"
+    },
+    {
+        "id": "IDS_MSG_SKIP",
+        "text": "Salta"
+    },
+    {
+        "id": "IDS_MSG_CANCEL",
+        "text": "Annulla"
+    },
+    {
+        "id": "IDS_MSG_ATTENTION",
+        "text": "Attenzione"
+    },
+    {
+        "id": "IDS_MSG_ERROR",
+        "text": "Errore"
+    },
+    {
+        "id": "IDS_MSG_INFORMATION",
+        "text": "Informazioni"
+    },
+    {
+        "id": "IDS_MSG_CONTINUE",
+        "text": "Continua"
+    },
+    {
+        "id": "IDS_MSG_AUTO_CALIB_START",
+        "text": "Verrà avviata la procedura di calibrazione automatica. Non collegare alcuna sonda. \nL'operazione potrebbe richiedere del tempo!"
+    },
+    {
+        "id": "IDS_MSG_AUTO_CALIB",
+        "text": "Calibrazione automatica"
+    },
+    {
+        "id": "IDS_MSG_ADJUST_SAVE",
+        "text": "Regolare l'offset di zero e salvare il risultato"
+    },
+    {
+        "id": "IDS_MSG_SAVE_CAPDATE",
+        "text": "Salvare i dati acquisiti?"
+    },
+    {
+        "id": "IDS_MSG_NOT_FOND_DEFAULT_PROFILE",
+        "text": "Impossibile trovare la sessione predefinita per questo dispositivo!"
+    },
+    {
+        "id": "IDS_MSG_OPEN_FILE_ERROR",
+        "text": "Errore di apertura del file!"
+    },
+    {
+        "id": "IDS_MSG_PROFILE_NOT_COMPATIBLE",
+        "text": "La sessione non è compatibile con il dispositivo o la modalità corrente!"
+    },
+    {
+        "id": "IDS_MSG_RESTORE_WINDOW_ERROR",
+        "text": "Errore nel ripristino dello stato della finestra!"
+    },
+    {
+        "id": "IDS_MSG_DECODE_INVAILD_CURSOR",
+        "text": "Indice del cursore non valido per l'intervallo di campioni!"
+    },
+    {
+        "id": "IDS_MSG_SEL_FILENAME",
+        "text": "È necessario selezionare un nome di file."
+    },
+    {
+        "id": "IDS_MSG_DECODER_REPEAT",
+        "text": "ID o nome duplicato trovato nei decodificatori:"
+    },
+    {
+        "id": "IDS_MSG_DECODER_LIST_EMPTY",
+        "text": "L'elenco dei decodificatori è vuoto!"
+    },
+    {
+        "id": "IDS_MSG_NO_SEL_DECODER",
+        "text": "Selezionare un decodificatore!"
+    },
+    {
+        "id": "IDS_MSG_FIND_BASE_DECODER_ERROR",
+        "text": "Nessun decodificatore di base corrispondente trovato!"
+    },
+    {
+        "id": "IDS_MSG_NO_DECODER_DEL",
+        "text": "Nessun decodificatore da rimuovere!"
+    },
+    {
+        "id": "IDS_MSG_DECODER_CONFIRM_DEL_ALL",
+        "text": "Rimuovere tutti i decodificatori?"
+    },
+    {
+        "id": "IDS_MSG_DECODER_CONFIRM_DEL",
+        "text": "Rimuovere questo decodificatore?"
+    },
+    {
+        "id": "IDS_MSG_CLOSE_DEVICE",
+        "text": "Rimuovere questo dispositivo?"
+    },
+    {
+        "id": "IDS_MSG_SET_DEF_CAL_SETTING",
+        "text": "Tutte le impostazioni di calibrazione verranno salvate come predefinite!"
+    },
+    {
+        "id": "IDS_MSG_ALL_CHANNEL_DISABLE",
+        "text": "Tutti i canali sono disattivati! Attivare almeno un canale."
+    },
+    {
+        "id": "IDS_MSG_MAX_CHANNEL_COUNT_WARNING",
+        "text": "La modalità corrente supporta al massimo {0} canali!"
+    },
+    {
+        "id": "IDS_MSG_TRI_SET_ISSUE",
+        "text": "Problema di impostazione del trigger"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_HOR_TRI_POS_FAIL",
+        "text": "Modifica della posizione orizzontale del trigger non riuscita!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_TRI_HOLDOFF_TIME_FAIL",
+        "text": "Modifica del tempo di hold-off del trigger non riuscita!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_SENSITIVITY_FAIL",
+        "text": "Modifica della sensibilità del trigger non riuscita!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_SOURCE_FAIL",
+        "text": "Modifica della sorgente di trigger non riuscita!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_CHANNEL_FAIL",
+        "text": "Modifica del canale di trigger non riuscita!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_TYPE_FAIL",
+        "text": "Modifica del tipo di trigger non riuscita!"
+    },
+    {
+        "id": "IDS_MSG_PLEASE_INSERT_CURSOR",
+        "text": "Inserire un cursore prima di usare la misura con cursori."
+    },
+    {
+        "id": "IDS_MSG_SEARCH",
+        "text": "Cerca"
+    },
+    {
+        "id": "IDS_MSG_NO_SAMPLE_DATA",
+        "text": "Nessun dato campionato!"
+    },
+    {
+        "id": "IDS_MSG_SEARCH_AT_START",
+        "text": "Il cursore di ricerca è nella posizione iniziale!"
+    },
+    {
+        "id": "IDS_MSG_PATTERN_NOT_FOUND",
+        "text": "Pattern non trovato!"
+    },
+    {
+        "id": "IDS_MSG_SEARCH_AT_END",
+        "text": "Il cursore di ricerca è nella posizione finale!"
+    },
+    {
+        "id": "IDS_MSG_TRIGGER",
+        "text": "Trigger"
+    },
+    {
+        "id": "IDS_MSG_STREAM_NO_AD_TRIGGER",
+        "text": "La modalità streaming non supporta il trigger avanzato!"
+    },
+    {
+        "id": "IDS_MSG_AD_TRIGGER_NEED_HARDWARE",
+        "text": "Il trigger avanzato richiede il supporto hardware DSLogic!"
+    },
+    {
+        "id": "IDS_MSG_SET_TRI_MULTI_CHANNEL",
+        "text": "Trigger impostato su più canali!\nL'acquisizione si attiverà solo quando tutti i canali impostati soddisfano la condizione nello stesso campione"
+    },
+    {
+        "id": "IDS_MSG_NOT_SHOW_AGAIN",
+        "text": "Non mostrare più"
+    },
+    {
+        "id": "IDS_MSG_CLEAR_TRIG",
+        "text": "Cancella trigger"
+    },
+    {
+        "id": "IDS_MSG_IGNORE",
+        "text": "Ignora"
+    },
+    {
+        "id": "IDS_MSG_OPEN",
+        "text": "Apri"
+    },
+    {
+        "id": "IDS_MSG_FAIL_TO_LOAD",
+        "text": "Caricamento non riuscito"
+    },
+    {
+        "id": "IDS_MSG_HARDWARE_ERROR",
+        "text": "Operazione hardware non riuscita"
+    },
+    {
+        "id": "IDS_MSG_HARDWARE_ERROR_DET",
+        "text": "Ricollegare il dispositivo per aggiornare la configurazione hardware!"
+    },
+    {
+        "id": "IDS_MSG_MALLOC_ERROR",
+        "text": "Errore di allocazione memoria"
+    },
+    {
+        "id": "IDS_MSG_MALLOC_ERROR_DET",
+        "text": "Memoria insufficiente per questo campionamento!\nRidurre la profondità di campionamento!"
+    },
+    {
+        "id": "IDS_MSG_PACKET_ERROR",
+        "text": "Errore di pacchetto"
+    },
+    {
+        "id": "IDS_MSG_PACKET_ERROR_DET",
+        "text": "Il formato del pacchetto ricevuto non è corretto!"
+    },
+    {
+        "id": "IDS_MSG_DATA_OVERFLOW",
+        "text": "Overflow dei dati"
+    },
+    {
+        "id": "IDS_MSG_DATA_OVERFLOW_DET",
+        "text": "La banda USB non è sufficiente per la frequenza di campionamento corrente!\nRidurre la frequenza di campionamento!"
+    },
+    {
+        "id": "IDS_MSG_UNDEFINED_ERROR",
+        "text": "Errore non definito"
+    },
+    {
+        "id": "IDS_MSG_UNDEFINED_ERROR_DET",
+        "text": "Errore imprevisto!"
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR1",
+        "text": "DSView attualmente non supporta\nil salvataggio di file con più tipi di dati."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR2",
+        "text": "Nessun dato da salvare."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR3",
+        "text": "Nessun nome di file."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR4",
+        "text": "Generazione dei dati del file temporaneo non riuscita."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR5",
+        "text": "Generazione dei dati del file del decodificatore non riuscita."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR6",
+        "text": "Generazione dei dati del file di sessione non riuscita."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR7",
+        "text": "Generazione del file zip non riuscita."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVEPROC_ERROR1",
+        "text": "Impossibile creare il file zip, errore di allocazione memoria."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVEPROC_ERROR2",
+        "text": "Impossibile creare il file zip, verificare i permessi di scrittura del percorso."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR1",
+        "text": "DSView attualmente non supporta\nl'esportazione di file con più tipi di dati."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR2",
+        "text": "Nessun dato da salvare."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR3",
+        "text": "Nome di file non impostato."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR4",
+        "text": "Formato di esportazione non valido."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTPROC_ERROR1",
+        "text": "Tipo di dati non supportato."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTPROC_ERROR2",
+        "text": "Allocazione del buffer non riuscita."
+    },
+    {
+        "id": "IDS_MSG_SAVE_FILE",
+        "text": "Salva file"
+    },
+    {
+        "id": "IDS_MSG_EXPORT_DATA",
+        "text": "Esporta dati"
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_WORK_ERROR",
+        "text": "Uno o più canali richiesti non sono stati specificati!"
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_DATA_ERROR",
+        "text": "Almeno uno dei canali selezionati non è attivato."
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_STACK_ERROR",
+        "text": "Impossibile creare l'istanza del decodificatore"
+    },
+    {
+        "id": "IDS_MSG_MESSAGE",
+        "text": "Messaggio"
+    },
+    {
+        "id": "IDS_MSG_BOX_CONFIRM",
+        "text": "Conferma"
+    },
+    {
+        "id": "IDS_MSG_NO_DATA",
+        "text": "Nessun dato!"
+    },
+    {
+        "id": "IDS_MSG_TO_SWITCH_DEVICE",
+        "text": "Passare al nuovo dispositivo?"
+    },
+    {
+        "id": "IDS_MSG_DISABLED_CHANNEL_TRIG",
+        "text": "I canali disattivati non possono essere usati per il trigger!"
+    },
+    {
+        "id": "IDS_MSG_TO_RECONNECT_FOR_FIRMWARE",
+        "text": "La versione del firmware non è corretta, ricollegare il dispositivo!"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_BUSY_SWITCH_FAILED",
+        "text": "Il dispositivo è occupato, cambio non riuscito!"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_NO_DRIVER",
+        "text": "Il driver del dispositivo potrebbe non essere installato!"
+    },
+    {
+        "id": "IDS_MSG_NO_ENABLED_CHANNEL",
+        "text": "Nessun canale attivato!"
+    },
+    {
+        "id": "IDS_MSG_FILE_NOT_EXIST",
+        "text": "Il file non esiste!"
+    },
+    {
+        "id": "IDS_MSG_TO_CLEAR_LOG",
+        "text": "Cancellare il file di log?"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_SPEED_TOO_LOW",
+        "text": "Errore: la velocità della porta USB è troppo bassa (<480Mbps)!"
+    },
+    {
+        "id": "IDS_MSG_FIRMWARE_NOT_EXIST",
+        "text": "Errore: il file del firmware non esiste!"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_USB_IO_ERROR",
+        "text": "Errore: errore di I/O USB!"
+    },
+    {
+        "id": "IDS_MSG_DATA_RANGE_ERROR",
+        "text": "Intervallo di dati non valido!"
+    },
+    {
+        "id": "IDS_MSG_DATA_RANGE_HAVE_NO_DATA",
+        "text": "Nessun dato nell'intervallo selezionato!"
+    },
+    {
+        "id": "IDS_MSG_NO_DECODED_RESULT",
+        "text": "Nessun dato da esportare!"
+    }
+]

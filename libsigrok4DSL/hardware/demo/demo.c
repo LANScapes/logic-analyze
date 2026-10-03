@@ -2267,7 +2267,8 @@ static int receive_data_dso(int fd, int revents, const struct sr_dev_inst *sdi)
         dso.mqflags = SR_MQFLAG_AC;
         dso.num_samples = pack_buffer->post_len / chan_num;
         if (vdev->instant){
-            dso.data = pack_buffer->post_buf+vdev->post_data_len;
+            // post_data_len was already advanced past this packet.
+            dso.data = pack_buffer->post_buf+vdev->post_data_len-vdev->packet_len;
         }
         else{
             dso.data = pack_buffer->post_buf;

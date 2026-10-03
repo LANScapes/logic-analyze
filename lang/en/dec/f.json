@@ -1,0 +1,334 @@
+[
+    {
+        "id": "dec_flexray_chan_channel",
+        "text": "FlexRay bus channel"
+    },
+    {
+        "id": "dec_flexray_opt_channel_type",
+        "text": "Channel type"
+    },
+    {
+        "id": "dec_flexray_opt_bitrate",
+        "text": "Bitrate (bit/s)"
+    },
+    {
+        "id": "dec_fsi_chan_data",
+        "text": "Frame"
+    },
+    {
+        "id": "dec_fsi_chan_clock",
+        "text": "Clock"
+    },
+    {
+        "id": "dec_gpib_chan_dio1",
+        "text": "Data I/O bit 1"
+    },
+    {
+        "id": "dec_gpib_chan_dio2",
+        "text": "Data I/O bit 2"
+    },
+    {
+        "id": "dec_gpib_chan_dio3",
+        "text": "Data I/O bit 3"
+    },
+    {
+        "id": "dec_gpib_chan_dio4",
+        "text": "Data I/O bit 4"
+    },
+    {
+        "id": "dec_gpib_chan_dio5",
+        "text": "Data I/O bit 5"
+    },
+    {
+        "id": "dec_gpib_chan_dio6",
+        "text": "Data I/O bit 6"
+    },
+    {
+        "id": "dec_gpib_chan_dio7",
+        "text": "Data I/O bit 7"
+    },
+    {
+        "id": "dec_gpib_chan_dio8",
+        "text": "Data I/O bit 8"
+    },
+    {
+        "id": "dec_gpib_chan_eoi",
+        "text": "End or identify"
+    },
+    {
+        "id": "dec_gpib_chan_dav",
+        "text": "Data valid"
+    },
+    {
+        "id": "dec_gpib_chan_nrfd",
+        "text": "Not ready for data"
+    },
+    {
+        "id": "dec_gpib_chan_ndac",
+        "text": "Not data accepted"
+    },
+    {
+        "id": "dec_gpib_chan_ifc",
+        "text": "Interface clear"
+    },
+    {
+        "id": "dec_gpib_chan_srq",
+        "text": "Service request"
+    },
+    {
+        "id": "dec_gpib_chan_atn",
+        "text": "Attention"
+    },
+    {
+        "id": "dec_gpib_chan_ren",
+        "text": "Remote enable"
+    },
+    {
+        "id": "dec_graycode_opt_edges",
+        "text": "Edges per rotation"
+    },
+    {
+        "id": "dec_graycode_opt_avg_period",
+        "text": "Averaging period"
+    },
+    {
+        "id": "dec_guess_bitrate_chan_data",
+        "text": "Data line"
+    },
+    {
+        "id": "dec_i2cfilter_opt_address",
+        "text": "Address to filter out of the I²C stream"
+    },
+    {
+        "id": "dec_i2cfilter_opt_direction",
+        "text": "Direction to filter"
+    },
+    {
+        "id": "dec_i2s_chan_sck",
+        "text": "Bit clock line"
+    },
+    {
+        "id": "dec_i2s_chan_ws",
+        "text": "Word select line"
+    },
+    {
+        "id": "dec_i2s_chan_sd",
+        "text": "Serial data line"
+    },
+    {
+        "id": "dec_i2s_opt_ws_polarity",
+        "text": "WS polarity"
+    },
+    {
+        "id": "dec_i2s_opt_clk_edge",
+        "text": "SCK active edge"
+    },
+    {
+        "id": "dec_i2s_opt_bit_shift",
+        "text": "Bit shift"
+    },
+    {
+        "id": "dec_i2s_opt_bit_align",
+        "text": "Bit align"
+    },
+    {
+        "id": "dec_i2s_opt_bitorder",
+        "text": "Bit order"
+    },
+    {
+        "id": "dec_i2s_opt_wordsize",
+        "text": "Word size"
+    },
+    {
+        "id": "dec_iec_chan_data",
+        "text": "Data I/O"
+    },
+    {
+        "id": "dec_iec_chan_clk",
+        "text": "Clock"
+    },
+    {
+        "id": "dec_iec_chan_atn",
+        "text": "Attention"
+    },
+    {
+        "id": "dec_iec_opt_chan_srq",
+        "text": "Service request"
+    },
+    {
+        "id": "dec_ieee488_chan_dio1",
+        "text": "Data I/O bit 1, or serial data"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio2",
+        "text": "Data I/O bit 2"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio3",
+        "text": "Data I/O bit 3"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio4",
+        "text": "Data I/O bit 4"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio5",
+        "text": "Data I/O bit 5"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio6",
+        "text": "Data I/O bit 6"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio7",
+        "text": "Data I/O bit 7"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio8",
+        "text": "Data I/O bit 8"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_eoi",
+        "text": "End or identify"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dav",
+        "text": "Data valid"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_nrfd",
+        "text": "Not ready for data"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_ndac",
+        "text": "Not data accepted"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_ifc",
+        "text": "Interface clear"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_srq",
+        "text": "Service request"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_atn",
+        "text": "Attention"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_ren",
+        "text": "Remote enable"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_clk",
+        "text": "Serial clock"
+    },
+    {
+        "id": "dec_ieee488_opt_iec_periph",
+        "text": "Decode Commodore IEC bus peripherals details"
+    },
+    {
+        "id": "dec_ieee488_opt_delim",
+        "text": "Payload data delimiter"
+    },
+    {
+        "id": "dec_ir_irmp_chan_ir",
+        "text": "Data line"
+    },
+    {
+        "id": "dec_ir_irmp_opt_polarity",
+        "text": "Polarity"
+    },
+    {
+        "id": "dec_ir_nec_chan_ir",
+        "text": "Data line"
+    },
+    {
+        "id": "dec_ir_nec_opt_polarity",
+        "text": "Polarity"
+    },
+    {
+        "id": "dec_ir_nec_opt_cd_freq",
+        "text": "Carrier Frequency"
+    },
+    {
+        "id": "dec_ir_rc5_chan_ir",
+        "text": "IR data line"
+    },
+    {
+        "id": "dec_ir_rc5_opt_polarity",
+        "text": "Polarity"
+    },
+    {
+        "id": "dec_ir_rc5_opt_protocol",
+        "text": "Protocol type"
+    },
+    {
+        "id": "dec_ir_rc6_chan_ir",
+        "text": "IR data line"
+    },
+    {
+        "id": "dec_ir_rc6_opt_polarity",
+        "text": "Polarity"
+    },
+    {
+        "id": "dec_ir_sirc_chan_ir",
+        "text": "IR data line"
+    },
+    {
+        "id": "dec_ir_sirc_opt_polarity",
+        "text": "Polarity"
+    },
+    {
+        "id": "dec_jitter_chan_clk",
+        "text": "Clock reference channel"
+    },
+    {
+        "id": "dec_jitter_chan_sig",
+        "text": "Resulting signal controlled by the clock"
+    },
+    {
+        "id": "dec_jitter_opt_clk_polarity",
+        "text": "Clock edge polarity"
+    },
+    {
+        "id": "dec_jitter_opt_sig_polarity",
+        "text": "Resulting signal edge polarity"
+    },
+    {
+        "id": "dec_jtag_chan_tdi",
+        "text": "Test data input"
+    },
+    {
+        "id": "dec_jtag_chan_tdo",
+        "text": "Test data output"
+    },
+    {
+        "id": "dec_jtag_chan_tck",
+        "text": "Test clock"
+    },
+    {
+        "id": "dec_jtag_chan_tms",
+        "text": "Test mode select"
+    },
+    {
+        "id": "dec_jtag_opt_chan_trst",
+        "text": "Test reset"
+    },
+    {
+        "id": "dec_jtag_opt_chan_srst",
+        "text": "System reset"
+    },
+    {
+        "id": "dec_jtag_opt_chan_rtck",
+        "text": "Return clock signal"
+    },
+    {
+        "id": "dec_gpib_opt_sample_total",
+        "text": "Total number of samples"
+    },
+    {
+        "id": "dec_ir_nec_opt_extended",
+        "text": "Extended NEC Protocol"
+    }
+]

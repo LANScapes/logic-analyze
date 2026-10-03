@@ -1,0 +1,390 @@
+[
+    {
+        "id": "IDS_MSG_OK",
+        "text": "확인"
+    },
+    {
+        "id": "IDS_MSG_SKIP",
+        "text": "건너뛰기"
+    },
+    {
+        "id": "IDS_MSG_CANCEL",
+        "text": "취소"
+    },
+    {
+        "id": "IDS_MSG_ATTENTION",
+        "text": "주의"
+    },
+    {
+        "id": "IDS_MSG_ERROR",
+        "text": "오류"
+    },
+    {
+        "id": "IDS_MSG_INFORMATION",
+        "text": "정보"
+    },
+    {
+        "id": "IDS_MSG_CONTINUE",
+        "text": "계속"
+    },
+    {
+        "id": "IDS_MSG_AUTO_CALIB_START",
+        "text": "자동 교정 프로그램을 시작합니다. 프로브를 연결하지 마십시오. \n시간이 걸릴 수 있습니다!"
+    },
+    {
+        "id": "IDS_MSG_AUTO_CALIB",
+        "text": "자동 교정"
+    },
+    {
+        "id": "IDS_MSG_ADJUST_SAVE",
+        "text": "제로 오프셋을 조정한 후 결과를 저장하십시오"
+    },
+    {
+        "id": "IDS_MSG_SAVE_CAPDATE",
+        "text": "캡처한 데이터를 저장하시겠습니까?"
+    },
+    {
+        "id": "IDS_MSG_NOT_FOND_DEFAULT_PROFILE",
+        "text": "이 장치의 기본 세션을 찾을 수 없습니다!"
+    },
+    {
+        "id": "IDS_MSG_OPEN_FILE_ERROR",
+        "text": "파일 열기 오류!"
+    },
+    {
+        "id": "IDS_MSG_PROFILE_NOT_COMPATIBLE",
+        "text": "세션이 현재 장치 또는 모드와 호환되지 않습니다!"
+    },
+    {
+        "id": "IDS_MSG_RESTORE_WINDOW_ERROR",
+        "text": "창 상태 복원 오류!"
+    },
+    {
+        "id": "IDS_MSG_DECODE_INVAILD_CURSOR",
+        "text": "샘플 범위에 대한 커서 인덱스가 잘못되었습니다!"
+    },
+    {
+        "id": "IDS_MSG_SEL_FILENAME",
+        "text": "파일 이름을 선택해야 합니다."
+    },
+    {
+        "id": "IDS_MSG_DECODER_REPEAT",
+        "text": "디코더에서 중복된 ID 또는 이름이 발견되었습니다:"
+    },
+    {
+        "id": "IDS_MSG_DECODER_LIST_EMPTY",
+        "text": "디코더 목록이 비어 있습니다!"
+    },
+    {
+        "id": "IDS_MSG_NO_SEL_DECODER",
+        "text": "디코더를 선택하십시오!"
+    },
+    {
+        "id": "IDS_MSG_FIND_BASE_DECODER_ERROR",
+        "text": "해당하는 기본 디코더를 찾을 수 없습니다!"
+    },
+    {
+        "id": "IDS_MSG_NO_DECODER_DEL",
+        "text": "제거할 디코더가 없습니다!"
+    },
+    {
+        "id": "IDS_MSG_DECODER_CONFIRM_DEL_ALL",
+        "text": "모든 디코더를 제거하시겠습니까?"
+    },
+    {
+        "id": "IDS_MSG_DECODER_CONFIRM_DEL",
+        "text": "이 디코더를 제거하시겠습니까?"
+    },
+    {
+        "id": "IDS_MSG_CLOSE_DEVICE",
+        "text": "이 장치를 제거하시겠습니까?"
+    },
+    {
+        "id": "IDS_MSG_SET_DEF_CAL_SETTING",
+        "text": "모든 교정 설정이 기본값으로 저장됩니다!"
+    },
+    {
+        "id": "IDS_MSG_ALL_CHANNEL_DISABLE",
+        "text": "모든 채널이 비활성화되었습니다! 채널을 하나 이상 활성화하십시오."
+    },
+    {
+        "id": "IDS_MSG_MAX_CHANNEL_COUNT_WARNING",
+        "text": "현재 모드는 최대 {0}개 채널만 지원합니다!"
+    },
+    {
+        "id": "IDS_MSG_TRI_SET_ISSUE",
+        "text": "트리거 설정 문제"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_HOR_TRI_POS_FAIL",
+        "text": "수평 트리거 위치를 변경하지 못했습니다!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_TRI_HOLDOFF_TIME_FAIL",
+        "text": "트리거 홀드오프 시간을 변경하지 못했습니다!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_SENSITIVITY_FAIL",
+        "text": "트리거 감도를 변경하지 못했습니다!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_SOURCE_FAIL",
+        "text": "트리거 소스를 변경하지 못했습니다!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_CHANNEL_FAIL",
+        "text": "트리거 채널을 변경하지 못했습니다!"
+    },
+    {
+        "id": "IDS_MSG_CHANGE_TYPE_FAIL",
+        "text": "트리거 유형을 변경하지 못했습니다!"
+    },
+    {
+        "id": "IDS_MSG_PLEASE_INSERT_CURSOR",
+        "text": "커서 측정을 사용하기 전에 커서를 추가하십시오."
+    },
+    {
+        "id": "IDS_MSG_SEARCH",
+        "text": "검색"
+    },
+    {
+        "id": "IDS_MSG_NO_SAMPLE_DATA",
+        "text": "샘플 데이터가 없습니다!"
+    },
+    {
+        "id": "IDS_MSG_SEARCH_AT_START",
+        "text": "검색 커서가 시작 위치에 있습니다!"
+    },
+    {
+        "id": "IDS_MSG_PATTERN_NOT_FOUND",
+        "text": "패턴을 찾을 수 없습니다!"
+    },
+    {
+        "id": "IDS_MSG_SEARCH_AT_END",
+        "text": "검색 커서가 끝 위치에 있습니다!"
+    },
+    {
+        "id": "IDS_MSG_TRIGGER",
+        "text": "트리거"
+    },
+    {
+        "id": "IDS_MSG_STREAM_NO_AD_TRIGGER",
+        "text": "스트림 모드에서는 고급 트리거를 지원하지 않습니다!"
+    },
+    {
+        "id": "IDS_MSG_AD_TRIGGER_NEED_HARDWARE",
+        "text": "고급 트리거에는 DSLogic 하드웨어 지원이 필요합니다!"
+    },
+    {
+        "id": "IDS_MSG_SET_TRI_MULTI_CHANNEL",
+        "text": "여러 채널에 트리거가 설정되었습니다!\n설정된 모든 채널이 같은 샘플에서 조건을 만족할 때만 트리거됩니다"
+    },
+    {
+        "id": "IDS_MSG_NOT_SHOW_AGAIN",
+        "text": "다시 표시 안 함"
+    },
+    {
+        "id": "IDS_MSG_CLEAR_TRIG",
+        "text": "트리거 지우기"
+    },
+    {
+        "id": "IDS_MSG_IGNORE",
+        "text": "무시"
+    },
+    {
+        "id": "IDS_MSG_OPEN",
+        "text": "열기"
+    },
+    {
+        "id": "IDS_MSG_FAIL_TO_LOAD",
+        "text": "불러오기 실패"
+    },
+    {
+        "id": "IDS_MSG_HARDWARE_ERROR",
+        "text": "하드웨어 작업 실패"
+    },
+    {
+        "id": "IDS_MSG_HARDWARE_ERROR_DET",
+        "text": "하드웨어 구성을 새로 고치려면 장치를 다시 연결하십시오!"
+    },
+    {
+        "id": "IDS_MSG_MALLOC_ERROR",
+        "text": "메모리 할당 오류"
+    },
+    {
+        "id": "IDS_MSG_MALLOC_ERROR_DET",
+        "text": "이 샘플을 저장할 메모리가 부족합니다!\n메모리 깊이를 줄이십시오!"
+    },
+    {
+        "id": "IDS_MSG_PACKET_ERROR",
+        "text": "패킷 오류"
+    },
+    {
+        "id": "IDS_MSG_PACKET_ERROR_DET",
+        "text": "수신한 패킷 형식이 올바르지 않습니다!"
+    },
+    {
+        "id": "IDS_MSG_DATA_OVERFLOW",
+        "text": "데이터 오버플로"
+    },
+    {
+        "id": "IDS_MSG_DATA_OVERFLOW_DET",
+        "text": "USB 대역폭이 현재 샘플링 속도를 지원할 수 없습니다!\n샘플링 속도를 낮추십시오!"
+    },
+    {
+        "id": "IDS_MSG_UNDEFINED_ERROR",
+        "text": "정의되지 않은 오류"
+    },
+    {
+        "id": "IDS_MSG_UNDEFINED_ERROR_DET",
+        "text": "예기치 않은 오류입니다!"
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR1",
+        "text": "DSView는 현재 여러 데이터 유형의\n파일 저장을 지원하지 않습니다."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR2",
+        "text": "저장할 데이터가 없습니다."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR3",
+        "text": "파일 이름이 없습니다."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR4",
+        "text": "임시 파일 데이터를 생성하지 못했습니다."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR5",
+        "text": "디코더 파일 데이터를 생성하지 못했습니다."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR6",
+        "text": "세션 파일 데이터를 생성하지 못했습니다."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVESTART_ERROR7",
+        "text": "zip 파일을 생성하지 못했습니다."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVEPROC_ERROR1",
+        "text": "zip 파일을 만들지 못했습니다. 메모리 할당 오류입니다."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_SAVEPROC_ERROR2",
+        "text": "zip 파일을 만들지 못했습니다. 이 경로의 쓰기 권한을 확인하십시오."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR1",
+        "text": "DSView는 현재 여러 데이터 유형의\n파일 내보내기를 지원하지 않습니다."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR2",
+        "text": "저장할 데이터가 없습니다."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR3",
+        "text": "파일 이름이 설정되지 않았습니다."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTSTART_ERROR4",
+        "text": "잘못된 내보내기 형식입니다."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTPROC_ERROR1",
+        "text": "지원하지 않는 데이터 유형입니다."
+    },
+    {
+        "id": "IDS_MSG_STORESESS_EXPORTPROC_ERROR2",
+        "text": "버퍼 메모리 할당에 실패했습니다."
+    },
+    {
+        "id": "IDS_MSG_SAVE_FILE",
+        "text": "파일 저장"
+    },
+    {
+        "id": "IDS_MSG_EXPORT_DATA",
+        "text": "데이터 내보내기"
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_WORK_ERROR",
+        "text": "필수 채널이 하나 이상 지정되지 않았습니다!"
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_DATA_ERROR",
+        "text": "선택한 채널 중 하나 이상이 활성화되지 않았습니다."
+    },
+    {
+        "id": "IDS_MSG_DECODERSTACK_DECODE_STACK_ERROR",
+        "text": "디코더 인스턴스를 생성하지 못했습니다"
+    },
+    {
+        "id": "IDS_MSG_MESSAGE",
+        "text": "메시지"
+    },
+    {
+        "id": "IDS_MSG_BOX_CONFIRM",
+        "text": "확인"
+    },
+    {
+        "id": "IDS_MSG_NO_DATA",
+        "text": "데이터가 없습니다!"
+    },
+    {
+        "id": "IDS_MSG_TO_SWITCH_DEVICE",
+        "text": "새 장치로 전환하시겠습니까?"
+    },
+    {
+        "id": "IDS_MSG_DISABLED_CHANNEL_TRIG",
+        "text": "비활성화된 채널은 트리거에 사용할 수 없습니다!"
+    },
+    {
+        "id": "IDS_MSG_TO_RECONNECT_FOR_FIRMWARE",
+        "text": "펌웨어 버전이 올바르지 않습니다. 장치를 다시 연결하십시오!"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_BUSY_SWITCH_FAILED",
+        "text": "장치가 사용 중이어서 전환하지 못했습니다!"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_NO_DRIVER",
+        "text": "장치 드라이버가 설치되지 않았을 수 있습니다!"
+    },
+    {
+        "id": "IDS_MSG_NO_ENABLED_CHANNEL",
+        "text": "활성화된 채널이 없습니다!"
+    },
+    {
+        "id": "IDS_MSG_FILE_NOT_EXIST",
+        "text": "파일이 존재하지 않습니다!"
+    },
+    {
+        "id": "IDS_MSG_TO_CLEAR_LOG",
+        "text": "로그 파일을 지우시겠습니까?"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_SPEED_TOO_LOW",
+        "text": "오류: USB 포트 속도가 너무 낮습니다(<480Mbps)!"
+    },
+    {
+        "id": "IDS_MSG_FIRMWARE_NOT_EXIST",
+        "text": "오류: 펌웨어 파일이 존재하지 않습니다!"
+    },
+    {
+        "id": "IDS_MSG_DEVICE_USB_IO_ERROR",
+        "text": "오류: USB 입출력 오류!"
+    },
+    {
+        "id": "IDS_MSG_DATA_RANGE_ERROR",
+        "text": "데이터 범위가 잘못되었습니다!"
+    },
+    {
+        "id": "IDS_MSG_DATA_RANGE_HAVE_NO_DATA",
+        "text": "데이터 범위에 데이터가 없습니다!"
+    },
+    {
+        "id": "IDS_MSG_NO_DECODED_RESULT",
+        "text": "내보낼 데이터가 없습니다!"
+    }
+]

@@ -1,0 +1,146 @@
+[
+    {
+        "id": "Connection",
+        "text": "연결"
+    },
+    {
+        "id": "Serial communication",
+        "text": "직렬 통신"
+    },
+    {
+        "id": "Sample rate",
+        "text": "샘플링 속도"
+    },
+    {
+        "id": "Sample depth",
+        "text": "메모리 깊이"
+    },
+    {
+        "id": "Sample count",
+        "text": "샘플 수"
+    },
+    {
+        "id": "Using External Clock",
+        "text": "외부 클록 사용"
+    },
+    {
+        "id": "Using Clock Negedge",
+        "text": "클록 하강 에지 사용"
+    },
+    {
+        "id": "Pre-trigger capture ratio",
+        "text": "프리트리거 캡처 비율"
+    },
+    {
+        "id": "Run Length Encoding",
+        "text": "런 렝스 인코딩"
+    },
+    {
+        "id": "Wait Buffer Upload",
+        "text": "버퍼 업로드 대기"
+    },
+    {
+        "id": "Trigger slope",
+        "text": "트리거 기울기"
+    },
+    {
+        "id": "Trigger source",
+        "text": "트리거 소스"
+    },
+    {
+        "id": "Trigger channel",
+        "text": "트리거 채널"
+    },
+    {
+        "id": "Horizontal trigger position",
+        "text": "수평 트리거 위치"
+    },
+    {
+        "id": "Trigger hold off",
+        "text": "트리거 홀드오프"
+    },
+    {
+        "id": "Trigger margin",
+        "text": "트리거 감도"
+    },
+    {
+        "id": "Buffer size",
+        "text": "버퍼 크기"
+    },
+    {
+        "id": "Time base",
+        "text": "타임베이스"
+    },
+    {
+        "id": "Max Height",
+        "text": "최대 높이"
+    },
+    {
+        "id": "Max Height value",
+        "text": "최대 높이 값"
+    },
+    {
+        "id": "Filter Targets",
+        "text": "필터 대상"
+    },
+    {
+        "id": "Datalog",
+        "text": "데이터 로그"
+    },
+    {
+        "id": "Operation Mode",
+        "text": "작동 모드"
+    },
+    {
+        "id": "Stop Options",
+        "text": "정지 옵션"
+    },
+    {
+        "id": "Channel Mode",
+        "text": "채널 모드"
+    },
+    {
+        "id": "Threshold Levels",
+        "text": "임계 레벨"
+    },
+    {
+        "id": "Threshold Level",
+        "text": "임계 레벨"
+    },
+    {
+        "id": "Enable RLE Compress",
+        "text": "RLE 압축 활성화"
+    },
+    {
+        "id": "Bandwidth Limit",
+        "text": "대역폭 제한"
+    },
+    {
+        "id": "Coupling",
+        "text": "커플링"
+    },
+    {
+        "id": "Volts/div",
+        "text": "Volts/div"
+    },
+    {
+        "id": "Probe Factor",
+        "text": "프로브 배율"
+    },
+    {
+        "id": "Map Default",
+        "text": "기본 매핑"
+    },
+    {
+        "id": "Map Unit",
+        "text": "매핑 단위"
+    },
+    {
+        "id": "Map Min",
+        "text": "매핑 최소값"
+    },
+    {
+        "id": "Map Max",
+        "text": "매핑 최대값"
+    }
+]

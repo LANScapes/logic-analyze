@@ -1,0 +1,86 @@
+[
+    {
+        "id": "dec_usb_packet_opt_signalling",
+        "text": "Signalling"
+    },
+    {
+        "id": "dec_usb_power_delivery_chan_cc1",
+        "text": "Configuration Channel 1"
+    },
+    {
+        "id": "dec_usb_power_delivery_opt_chan_cc2",
+        "text": "Configuration Channel 2"
+    },
+    {
+        "id": "dec_usb_power_delivery_opt_fulltext",
+        "text": "Full text decoding of packets"
+    },
+    {
+        "id": "dec_usb_signalling_chan_dp",
+        "text": "USB D+ signal"
+    },
+    {
+        "id": "dec_usb_signalling_chan_dm",
+        "text": "USB D- signal"
+    },
+    {
+        "id": "dec_usb_signalling_opt_signalling",
+        "text": "Signalling"
+    },
+    {
+        "id": "dec_wiegand_chan_d0",
+        "text": "Data 0 line"
+    },
+    {
+        "id": "dec_wiegand_chan_d1",
+        "text": "Data 1 line"
+    },
+    {
+        "id": "dec_wiegand_opt_active",
+        "text": "Data lines active level"
+    },
+    {
+        "id": "dec_wiegand_opt_bitwidth_ms",
+        "text": "Single bit width in milliseconds"
+    },
+    {
+        "id": "dec_xy2-100_chan_clk",
+        "text": "Clock"
+    },
+    {
+        "id": "dec_xy2-100_chan_sync",
+        "text": "Sync"
+    },
+    {
+        "id": "dec_xy2-100_chan_data",
+        "text": "X, Y or Z axis data"
+    },
+    {
+        "id": "dec_xy2-100_opt_chan_status",
+        "text": "X, Y or Z axis status"
+    },
+    {
+        "id": "dec_z80_chan_m1",
+        "text": "Machine cycle 1"
+    },
+    {
+        "id": "dec_z80_chan_rd",
+        "text": "Memory or I/O read"
+    },
+    {
+        "id": "dec_z80_chan_wr",
+        "text": "Memory or I/O write"
+    },
+    {
+        "id": "dec_z80_opt_chan_mreq",
+        "text": "Memory request"
+    },
+    {
+        "id": "dec_z80_opt_chan_iorq",
+        "text": "I/O request"
+    },
+    {
+        "id": "dec_usb_request_opt_in_request_start",
+        "text": "Start IN requests on"
+    }
+]

@@ -1,0 +1,334 @@
+[
+    {
+        "id": "dec_ac97_chan_sync",
+        "text": "Đồng bộ khung"
+    },
+    {
+        "id": "dec_ac97_chan_clk",
+        "text": "Xung nhịp bit dữ liệu"
+    },
+    {
+        "id": "dec_ac97_opt_chan_out",
+        "text": "Dữ liệu ra"
+    },
+    {
+        "id": "dec_ac97_opt_chan_in",
+        "text": "Dữ liệu vào"
+    },
+    {
+        "id": "dec_ac97_opt_chan_rst",
+        "text": "Đường reset"
+    },
+    {
+        "id": "dec_ad79x0_opt_vref",
+        "text": "Điện áp tham chiếu (V)"
+    },
+    {
+        "id": "dec_am230x_chan_sda",
+        "text": "Đường dữ liệu nối tiếp một dây"
+    },
+    {
+        "id": "dec_am230x_opt_device",
+        "text": "Loại thiết bị"
+    },
+    {
+        "id": "dec_amulet_ascii_opt_ms_chan",
+        "text": "Kênh master -> slave"
+    },
+    {
+        "id": "dec_amulet_ascii_opt_sm_chan",
+        "text": "Kênh slave -> master"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_objdump",
+        "text": "Đường dẫn objdump"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_objdump_opts",
+        "text": "Tùy chọn objdump"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_elffile",
+        "text": "Đường dẫn .elf"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_branch_enc",
+        "text": "Mã hóa rẽ nhánh"
+    },
+    {
+        "id": "dec_arm_itm_opt_objdump",
+        "text": "Đường dẫn objdump"
+    },
+    {
+        "id": "dec_arm_itm_opt_objdump_opts",
+        "text": "Tùy chọn objdump"
+    },
+    {
+        "id": "dec_arm_itm_opt_elffile",
+        "text": "Đường dẫn .elf"
+    },
+    {
+        "id": "dec_arm_tpiu_opt_stream",
+        "text": "Chỉ số luồng"
+    },
+    {
+        "id": "dec_arm_tpiu_sync_offset",
+        "text": "Độ lệch đồng bộ ban đầu"
+    },
+    {
+        "id": "dec_aud_chan_audck",
+        "text": "Xung nhịp AUD"
+    },
+    {
+        "id": "dec_aud_chan_naudsync",
+        "text": "Đồng bộ AUD"
+    },
+    {
+        "id": "dec_aud_chan_audata3",
+        "text": "Đường dữ liệu AUD 3"
+    },
+    {
+        "id": "dec_aud_chan_audata2",
+        "text": "Đường dữ liệu AUD 2"
+    },
+    {
+        "id": "dec_aud_chan_audata1",
+        "text": "Đường dữ liệu AUD 1"
+    },
+    {
+        "id": "dec_aud_chan_audata0",
+        "text": "Đường dữ liệu AUD 0"
+    },
+    {
+        "id": "dec_avr_pdi_chan_reset",
+        "text": "RESET / PDI_CLK"
+    },
+    {
+        "id": "dec_avr_pdi_chan_data",
+        "text": "PDI_DATA"
+    },
+    {
+        "id": "dec_c2_chan_c2ck",
+        "text": "Xung nhịp"
+    },
+    {
+        "id": "dec_c2_chan_c2d",
+        "text": "Dữ liệu"
+    },
+    {
+        "id": "dec_caliper_chan_clk",
+        "text": "Đường xung nhịp nối tiếp"
+    },
+    {
+        "id": "dec_caliper_chan_data",
+        "text": "Đường dữ liệu nối tiếp"
+    },
+    {
+        "id": "dec_caliper_opt_timeout_ms",
+        "text": "Thời gian chờ gói tính bằng ms, 0 để tắt"
+    },
+    {
+        "id": "dec_caliper_opt_unit",
+        "text": "Chuyển đổi đơn vị"
+    },
+    {
+        "id": "dec_caliper_opt_changes",
+        "text": "Chỉ khi thay đổi"
+    },
+    {
+        "id": "dec_can_chan_can_rx",
+        "text": "Đường bus CAN FD"
+    },
+    {
+        "id": "dec_can_opt_bitrate",
+        "text": "Tốc độ bit (bit/s)"
+    },
+    {
+        "id": "dec_can_opt_nominal_bitrate",
+        "text": "Tốc độ bit danh định (bit/s)"
+    },
+    {
+        "id": "dec_can_opt_fast_bitrate",
+        "text": "Tốc độ bit nhanh (bit/s)"
+    },
+    {
+        "id": "dec_can_opt_sample_point",
+        "text": "Điểm lấy mẫu (%)"
+    },
+    {
+        "id": "dec_cec_chan_cec",
+        "text": "Dữ liệu bus CEC"
+    },
+    {
+        "id": "dec_1uart_chan_rxtx",
+        "text": "Đường thu phát UART"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tdi",
+        "text": "Dữ liệu kiểm thử vào"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tdo",
+        "text": "Dữ liệu kiểm thử ra"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tck",
+        "text": "Xung nhịp kiểm thử"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tms",
+        "text": "Chọn chế độ kiểm thử"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_trst",
+        "text": "Reset kiểm thử"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_srst",
+        "text": "Reset hệ thống"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_rtck",
+        "text": "Tín hiệu xung nhịp phản hồi"
+    },
+    {
+        "id": "dec_counter_chan_data",
+        "text": "Đường dữ liệu"
+    },
+    {
+        "id": "dec_counter_opt_chan_reset",
+        "text": "Đường reset"
+    },
+    {
+        "id": "dec_counter_opt_data_edge",
+        "text": "Sườn cần đếm (dữ liệu)"
+    },
+    {
+        "id": "dec_counter_opt_divider",
+        "text": "Bộ chia đếm (độ rộng từ)"
+    },
+    {
+        "id": "dec_counter_opt_reset_edge",
+        "text": "Sườn xóa bộ đếm (reset)"
+    },
+    {
+        "id": "dec_counter_opt_edge_off",
+        "text": "Giá trị bộ đếm sườn sau khi bắt đầu/reset"
+    },
+    {
+        "id": "dec_counter_opt_word_off",
+        "text": "Giá trị bộ đếm từ sau khi bắt đầu/reset"
+    },
+    {
+        "id": "dec_counter_opt_dead_cycles",
+        "text": "Bỏ qua số sườn này sau reset"
+    },
+    {
+        "id": "dec_counter_opt_start_with_reset",
+        "text": "Giả định giải mã bắt đầu bằng reset"
+    },
+    {
+        "id": "dec_dali_chan_dali",
+        "text": "Đường dữ liệu DALI"
+    },
+    {
+        "id": "dec_dali_opt_polarity",
+        "text": "Cực tính"
+    },
+    {
+        "id": "dec_dcf77_chan_data",
+        "text": "Đường DATA"
+    },
+    {
+        "id": "dec_dmx512_chan_dmx",
+        "text": "Đường dữ liệu DMX bất kỳ"
+    },
+    {
+        "id": "dec_dmx512_opt_invert",
+        "text": "Đảo tín hiệu?"
+    },
+    {
+        "id": "dec_dsi_chan_dsi",
+        "text": "Đường dữ liệu DSI"
+    },
+    {
+        "id": "dec_dsi_opt_polarity",
+        "text": "Cực tính"
+    },
+    {
+        "id": "dec_eeprom24xx_opt_chip",
+        "text": "Chip"
+    },
+    {
+        "id": "dec_eeprom24xx_opt_addr_counter",
+        "text": "Giá trị ban đầu của bộ đếm địa chỉ"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_addresssize",
+        "text": "Kích thước địa chỉ"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_wordsize",
+        "text": "Kích thước từ"
+    },
+    {
+        "id": "dec_em4100_chan_data",
+        "text": "Đường dữ liệu"
+    },
+    {
+        "id": "dec_em4100_opt_polarity",
+        "text": "Cực tính"
+    },
+    {
+        "id": "dec_em4100_opt_datarate",
+        "text": "Tốc độ dữ liệu"
+    },
+    {
+        "id": "dec_em4100_opt_coilfreq",
+        "text": "Tần số cuộn dây"
+    },
+    {
+        "id": "dec_em4305_chan_data",
+        "text": "Đường dữ liệu"
+    },
+    {
+        "id": "dec_em4305_opt_coilfreq",
+        "text": "Tần số cuộn dây"
+    },
+    {
+        "id": "dec_em4305_opt_first_field_stop",
+        "text": "Dừng trường đầu tối thiểu"
+    },
+    {
+        "id": "dec_em4305_opt_w_gap",
+        "text": "Khoảng trống ghi tối thiểu"
+    },
+    {
+        "id": "dec_em4305_opt_w_one_max",
+        "text": "Ghi bit một tối đa"
+    },
+    {
+        "id": "dec_em4305_opt_w_zero_on_min",
+        "text": "Ghi bit không (bật) tối thiểu"
+    },
+    {
+        "id": "dec_em4305_opt_w_zero_off_max",
+        "text": "Ghi bit không (tắt) tối đa"
+    },
+    {
+        "id": "dec_em4305_opt_em4100_decode",
+        "text": "Giải mã EM4100"
+    },
+    {
+        "id": "dec_eth_an_chan_dp",
+        "text": "Tín hiệu ETH TX+"
+    },
+    {
+        "id": "dec_can_opt_data_order",
+        "text": "Thứ tự dữ liệu"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_format",
+        "text": "Định dạng dữ liệu"
+    }
+]

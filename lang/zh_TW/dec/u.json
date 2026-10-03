@@ -1,0 +1,86 @@
+[
+    {
+        "id": "dec_usb_packet_opt_signalling",
+        "text": "訊號速率"
+    },
+    {
+        "id": "dec_usb_power_delivery_chan_cc1",
+        "text": "組態通道 1"
+    },
+    {
+        "id": "dec_usb_power_delivery_opt_chan_cc2",
+        "text": "組態通道 2"
+    },
+    {
+        "id": "dec_usb_power_delivery_opt_fulltext",
+        "text": "封包全文解碼"
+    },
+    {
+        "id": "dec_usb_signalling_chan_dp",
+        "text": "USB D+ 訊號"
+    },
+    {
+        "id": "dec_usb_signalling_chan_dm",
+        "text": "USB D- 訊號"
+    },
+    {
+        "id": "dec_usb_signalling_opt_signalling",
+        "text": "訊號速率"
+    },
+    {
+        "id": "dec_wiegand_chan_d0",
+        "text": "資料 0 線"
+    },
+    {
+        "id": "dec_wiegand_chan_d1",
+        "text": "資料 1 線"
+    },
+    {
+        "id": "dec_wiegand_opt_active",
+        "text": "資料線有效位準"
+    },
+    {
+        "id": "dec_wiegand_opt_bitwidth_ms",
+        "text": "單一位元寬度 (毫秒)"
+    },
+    {
+        "id": "dec_xy2-100_chan_clk",
+        "text": "時脈"
+    },
+    {
+        "id": "dec_xy2-100_chan_sync",
+        "text": "同步"
+    },
+    {
+        "id": "dec_xy2-100_chan_data",
+        "text": "X、Y 或 Z 軸資料"
+    },
+    {
+        "id": "dec_xy2-100_opt_chan_status",
+        "text": "X、Y 或 Z 軸狀態"
+    },
+    {
+        "id": "dec_z80_chan_m1",
+        "text": "機器週期 1"
+    },
+    {
+        "id": "dec_z80_chan_rd",
+        "text": "記憶體或 I/O 讀取"
+    },
+    {
+        "id": "dec_z80_chan_wr",
+        "text": "記憶體或 I/O 寫入"
+    },
+    {
+        "id": "dec_z80_opt_chan_mreq",
+        "text": "記憶體請求"
+    },
+    {
+        "id": "dec_z80_opt_chan_iorq",
+        "text": "I/O 請求"
+    },
+    {
+        "id": "dec_usb_request_opt_in_request_start",
+        "text": "IN 請求起始於"
+    }
+]

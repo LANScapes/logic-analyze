@@ -1,6 +1,34 @@
 <RCC>
     <qresource prefix="/">
-        <file>my_25.qm</file>
-        <file>qt_25.qm</file>
+        <file>my_cn.qm</file>
+        <file>my_de.qm</file>
+        <file>my_es.qm</file>
+        <file>my_fr.qm</file>
+        <file>my_it.qm</file>
+        <file>my_ja.qm</file>
+        <file>my_ko.qm</file>
+        <file>my_nl.qm</file>
+        <file>my_pl.qm</file>
+        <file>my_pt_BR.qm</file>
+        <file>my_ru.qm</file>
+        <file>my_tr.qm</file>
+        <file>my_uk.qm</file>
+        <file>my_vi.qm</file>
+        <file>my_zh_TW.qm</file>
+        <file>qt_cn.qm</file>
+        <file>qt_de.qm</file>
+        <file>qt_es.qm</file>
+        <file>qt_fr.qm</file>
+        <file>qt_it.qm</file>
+        <file>qt_ja.qm</file>
+        <file>qt_ko.qm</file>
+        <file>qt_nl.qm</file>
+        <file>qt_pl.qm</file>
+        <file>qt_pt_BR.qm</file>
+        <file>qt_ru.qm</file>
+        <file>qt_tr.qm</file>
+        <file>qt_uk.qm</file>
+        <file>qt_vi.qm</file>
+        <file>qt_zh_TW.qm</file>
     </qresource>
 </RCC>

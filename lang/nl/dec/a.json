@@ -1,0 +1,334 @@
+[
+    {
+        "id": "dec_ac97_chan_sync",
+        "text": "Framesynchronisatie"
+    },
+    {
+        "id": "dec_ac97_chan_clk",
+        "text": "Databitklok"
+    },
+    {
+        "id": "dec_ac97_opt_chan_out",
+        "text": "Data-uitgang"
+    },
+    {
+        "id": "dec_ac97_opt_chan_in",
+        "text": "Data-ingang"
+    },
+    {
+        "id": "dec_ac97_opt_chan_rst",
+        "text": "Resetlijn"
+    },
+    {
+        "id": "dec_ad79x0_opt_vref",
+        "text": "Referentiespanning (V)"
+    },
+    {
+        "id": "dec_am230x_chan_sda",
+        "text": "Seriële eendraads-datalijn"
+    },
+    {
+        "id": "dec_am230x_opt_device",
+        "text": "Apparaattype"
+    },
+    {
+        "id": "dec_amulet_ascii_opt_ms_chan",
+        "text": "Kanaal master -> slave"
+    },
+    {
+        "id": "dec_amulet_ascii_opt_sm_chan",
+        "text": "Kanaal slave -> master"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_objdump",
+        "text": "objdump-pad"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_objdump_opts",
+        "text": "objdump-opties"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_elffile",
+        "text": ".elf-pad"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_branch_enc",
+        "text": "Branch-codering"
+    },
+    {
+        "id": "dec_arm_itm_opt_objdump",
+        "text": "objdump-pad"
+    },
+    {
+        "id": "dec_arm_itm_opt_objdump_opts",
+        "text": "objdump-opties"
+    },
+    {
+        "id": "dec_arm_itm_opt_elffile",
+        "text": ".elf-pad"
+    },
+    {
+        "id": "dec_arm_tpiu_opt_stream",
+        "text": "Streamindex"
+    },
+    {
+        "id": "dec_arm_tpiu_sync_offset",
+        "text": "Initiële sync-offset"
+    },
+    {
+        "id": "dec_aud_chan_audck",
+        "text": "AUD-klok"
+    },
+    {
+        "id": "dec_aud_chan_naudsync",
+        "text": "AUD-sync"
+    },
+    {
+        "id": "dec_aud_chan_audata3",
+        "text": "AUD-datalijn 3"
+    },
+    {
+        "id": "dec_aud_chan_audata2",
+        "text": "AUD-datalijn 2"
+    },
+    {
+        "id": "dec_aud_chan_audata1",
+        "text": "AUD-datalijn 1"
+    },
+    {
+        "id": "dec_aud_chan_audata0",
+        "text": "AUD-datalijn 0"
+    },
+    {
+        "id": "dec_avr_pdi_chan_reset",
+        "text": "RESET / PDI_CLK"
+    },
+    {
+        "id": "dec_avr_pdi_chan_data",
+        "text": "PDI_DATA"
+    },
+    {
+        "id": "dec_c2_chan_c2ck",
+        "text": "Klok"
+    },
+    {
+        "id": "dec_c2_chan_c2d",
+        "text": "Data"
+    },
+    {
+        "id": "dec_caliper_chan_clk",
+        "text": "Seriële kloklijn"
+    },
+    {
+        "id": "dec_caliper_chan_data",
+        "text": "Seriële datalijn"
+    },
+    {
+        "id": "dec_caliper_opt_timeout_ms",
+        "text": "Pakkettime-out in ms, 0 om uit te schakelen"
+    },
+    {
+        "id": "dec_caliper_opt_unit",
+        "text": "Eenheden omrekenen"
+    },
+    {
+        "id": "dec_caliper_opt_changes",
+        "text": "Alleen wijzigingen"
+    },
+    {
+        "id": "dec_can_chan_can_rx",
+        "text": "CAN FD-buslijn"
+    },
+    {
+        "id": "dec_can_opt_bitrate",
+        "text": "bitsnelheid (bits/s)"
+    },
+    {
+        "id": "dec_can_opt_nominal_bitrate",
+        "text": "Nominale bitsnelheid (bits/s)"
+    },
+    {
+        "id": "dec_can_opt_fast_bitrate",
+        "text": "Snelle bitsnelheid (bits/s)"
+    },
+    {
+        "id": "dec_can_opt_sample_point",
+        "text": "Samplepunt (%)"
+    },
+    {
+        "id": "dec_cec_chan_cec",
+        "text": "CEC-busdata"
+    },
+    {
+        "id": "dec_1uart_chan_rxtx",
+        "text": "UART-zend-/ontvangstlijn"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tdi",
+        "text": "Testdata-ingang"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tdo",
+        "text": "Testdata-uitgang"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tck",
+        "text": "Testklok"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tms",
+        "text": "Testmodusselectie"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_trst",
+        "text": "Testreset"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_srst",
+        "text": "Systeemreset"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_rtck",
+        "text": "Retourkloksignaal"
+    },
+    {
+        "id": "dec_counter_chan_data",
+        "text": "Datalijn"
+    },
+    {
+        "id": "dec_counter_opt_chan_reset",
+        "text": "Resetlijn"
+    },
+    {
+        "id": "dec_counter_opt_data_edge",
+        "text": "Te tellen flanken (data)"
+    },
+    {
+        "id": "dec_counter_opt_divider",
+        "text": "Teldeler (woordbreedte)"
+    },
+    {
+        "id": "dec_counter_opt_reset_edge",
+        "text": "Flank die tellers wist (reset)"
+    },
+    {
+        "id": "dec_counter_opt_edge_off",
+        "text": "Flanktellerwaarde na start/reset"
+    },
+    {
+        "id": "dec_counter_opt_word_off",
+        "text": "Woordtellerwaarde na start/reset"
+    },
+    {
+        "id": "dec_counter_opt_dead_cycles",
+        "text": "Aantal te negeren flanken na reset"
+    },
+    {
+        "id": "dec_counter_opt_start_with_reset",
+        "text": "Aannemen dat decodering met reset begint"
+    },
+    {
+        "id": "dec_dali_chan_dali",
+        "text": "DALI-datalijn"
+    },
+    {
+        "id": "dec_dali_opt_polarity",
+        "text": "Polariteit"
+    },
+    {
+        "id": "dec_dcf77_chan_data",
+        "text": "DATA-lijn"
+    },
+    {
+        "id": "dec_dmx512_chan_dmx",
+        "text": "Willekeurige DMX-datalijn"
+    },
+    {
+        "id": "dec_dmx512_opt_invert",
+        "text": "Signaal inverteren?"
+    },
+    {
+        "id": "dec_dsi_chan_dsi",
+        "text": "DSI-datalijn"
+    },
+    {
+        "id": "dec_dsi_opt_polarity",
+        "text": "Polariteit"
+    },
+    {
+        "id": "dec_eeprom24xx_opt_chip",
+        "text": "Chip"
+    },
+    {
+        "id": "dec_eeprom24xx_opt_addr_counter",
+        "text": "Beginwaarde adresteller"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_addresssize",
+        "text": "Adresgrootte"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_wordsize",
+        "text": "Woordgrootte"
+    },
+    {
+        "id": "dec_em4100_chan_data",
+        "text": "Datalijn"
+    },
+    {
+        "id": "dec_em4100_opt_polarity",
+        "text": "Polariteit"
+    },
+    {
+        "id": "dec_em4100_opt_datarate",
+        "text": "Datasnelheid"
+    },
+    {
+        "id": "dec_em4100_opt_coilfreq",
+        "text": "Spoelfrequentie"
+    },
+    {
+        "id": "dec_em4305_chan_data",
+        "text": "Datalijn"
+    },
+    {
+        "id": "dec_em4305_opt_coilfreq",
+        "text": "Spoelfrequentie"
+    },
+    {
+        "id": "dec_em4305_opt_first_field_stop",
+        "text": "Eerste veldstop min."
+    },
+    {
+        "id": "dec_em4305_opt_w_gap",
+        "text": "Schrijfgap min."
+    },
+    {
+        "id": "dec_em4305_opt_w_one_max",
+        "text": "Schrijf-één max."
+    },
+    {
+        "id": "dec_em4305_opt_w_zero_on_min",
+        "text": "Schrijf-nul aan min."
+    },
+    {
+        "id": "dec_em4305_opt_w_zero_off_max",
+        "text": "Schrijf-nul uit max."
+    },
+    {
+        "id": "dec_em4305_opt_em4100_decode",
+        "text": "EM4100 decoderen"
+    },
+    {
+        "id": "dec_eth_an_chan_dp",
+        "text": "ETH TX+-signaal"
+    },
+    {
+        "id": "dec_can_opt_data_order",
+        "text": "datavolgorde"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_format",
+        "text": "Dataformaat"
+    }
+]

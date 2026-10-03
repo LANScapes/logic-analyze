@@ -92,7 +92,8 @@ struct AppOptions
 struct FrameOptions
 { 
   QString     style;
-  int         language; 
+  int         language;       // the language in use
+  int         languageChoice; // picked in the menu; -1 follows the system
   int         left; //frame region
   int         top;
   int         right;

@@ -1,0 +1,50 @@
+[
+    {
+        "id": "Buffer Mode",
+        "text": "Modo Buffer"
+    },
+    {
+        "id": "Stream Mode",
+        "text": "Modo Stream"
+    },
+    {
+        "id": "Internal Test",
+        "text": "Prueba interna"
+    },
+    {
+        "id": "External Test",
+        "text": "Prueba externa"
+    },
+    {
+        "id": "DRAM Loopback Test",
+        "text": "Prueba de bucle DRAM"
+    },
+    {
+        "id": "Stop immediately",
+        "text": "Detener inmediatamente"
+    },
+    {
+        "id": "Upload captured data",
+        "text": "Cargar datos capturados"
+    },
+    {
+        "id": "None",
+        "text": "Ninguno"
+    },
+    {
+        "id": "1 Sample Clock",
+        "text": "1 ciclo de muestreo"
+    },
+    {
+        "id": "Normal",
+        "text": "Normal"
+    },
+    {
+        "id": "Full Bandwidth",
+        "text": "Ancho de banda completo"
+    },
+    {
+        "id": "20MHz",
+        "text": "20MHz"
+    }
+]

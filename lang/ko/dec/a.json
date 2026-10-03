@@ -1,0 +1,334 @@
+[
+    {
+        "id": "dec_ac97_chan_sync",
+        "text": "프레임 동기화"
+    },
+    {
+        "id": "dec_ac97_chan_clk",
+        "text": "데이터 비트 클록"
+    },
+    {
+        "id": "dec_ac97_opt_chan_out",
+        "text": "데이터 출력"
+    },
+    {
+        "id": "dec_ac97_opt_chan_in",
+        "text": "데이터 입력"
+    },
+    {
+        "id": "dec_ac97_opt_chan_rst",
+        "text": "리셋 라인"
+    },
+    {
+        "id": "dec_ad79x0_opt_vref",
+        "text": "기준 전압 (V)"
+    },
+    {
+        "id": "dec_am230x_chan_sda",
+        "text": "단선 직렬 데이터 라인"
+    },
+    {
+        "id": "dec_am230x_opt_device",
+        "text": "장치 유형"
+    },
+    {
+        "id": "dec_amulet_ascii_opt_ms_chan",
+        "text": "마스터 -> 슬레이브 채널"
+    },
+    {
+        "id": "dec_amulet_ascii_opt_sm_chan",
+        "text": "슬레이브 -> 마스터 채널"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_objdump",
+        "text": "objdump 경로"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_objdump_opts",
+        "text": "objdump 옵션"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_elffile",
+        "text": ".elf 경로"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_branch_enc",
+        "text": "분기 인코딩"
+    },
+    {
+        "id": "dec_arm_itm_opt_objdump",
+        "text": "objdump 경로"
+    },
+    {
+        "id": "dec_arm_itm_opt_objdump_opts",
+        "text": "objdump 옵션"
+    },
+    {
+        "id": "dec_arm_itm_opt_elffile",
+        "text": ".elf 경로"
+    },
+    {
+        "id": "dec_arm_tpiu_opt_stream",
+        "text": "스트림 인덱스"
+    },
+    {
+        "id": "dec_arm_tpiu_sync_offset",
+        "text": "초기 동기 오프셋"
+    },
+    {
+        "id": "dec_aud_chan_audck",
+        "text": "AUD 클록"
+    },
+    {
+        "id": "dec_aud_chan_naudsync",
+        "text": "AUD 동기"
+    },
+    {
+        "id": "dec_aud_chan_audata3",
+        "text": "AUD 데이터 라인 3"
+    },
+    {
+        "id": "dec_aud_chan_audata2",
+        "text": "AUD 데이터 라인 2"
+    },
+    {
+        "id": "dec_aud_chan_audata1",
+        "text": "AUD 데이터 라인 1"
+    },
+    {
+        "id": "dec_aud_chan_audata0",
+        "text": "AUD 데이터 라인 0"
+    },
+    {
+        "id": "dec_avr_pdi_chan_reset",
+        "text": "RESET / PDI_CLK"
+    },
+    {
+        "id": "dec_avr_pdi_chan_data",
+        "text": "PDI_DATA"
+    },
+    {
+        "id": "dec_c2_chan_c2ck",
+        "text": "클록"
+    },
+    {
+        "id": "dec_c2_chan_c2d",
+        "text": "데이터"
+    },
+    {
+        "id": "dec_caliper_chan_clk",
+        "text": "직렬 클록 라인"
+    },
+    {
+        "id": "dec_caliper_chan_data",
+        "text": "직렬 데이터 라인"
+    },
+    {
+        "id": "dec_caliper_opt_timeout_ms",
+        "text": "패킷 타임아웃(ms), 0이면 사용 안 함"
+    },
+    {
+        "id": "dec_caliper_opt_unit",
+        "text": "단위 변환"
+    },
+    {
+        "id": "dec_caliper_opt_changes",
+        "text": "변경 시에만"
+    },
+    {
+        "id": "dec_can_chan_can_rx",
+        "text": "CAN FD 버스 라인"
+    },
+    {
+        "id": "dec_can_opt_bitrate",
+        "text": "비트레이트 (bits/s)"
+    },
+    {
+        "id": "dec_can_opt_nominal_bitrate",
+        "text": "공칭 비트레이트 (bits/s)"
+    },
+    {
+        "id": "dec_can_opt_fast_bitrate",
+        "text": "고속 비트레이트 (bits/s)"
+    },
+    {
+        "id": "dec_can_opt_sample_point",
+        "text": "샘플 포인트 (%)"
+    },
+    {
+        "id": "dec_cec_chan_cec",
+        "text": "CEC 버스 데이터"
+    },
+    {
+        "id": "dec_1uart_chan_rxtx",
+        "text": "UART 송수신 라인"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tdi",
+        "text": "테스트 데이터 입력"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tdo",
+        "text": "테스트 데이터 출력"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tck",
+        "text": "테스트 클록"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tms",
+        "text": "테스트 모드 선택"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_trst",
+        "text": "테스트 리셋"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_srst",
+        "text": "시스템 리셋"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_rtck",
+        "text": "리턴 클록 신호"
+    },
+    {
+        "id": "dec_counter_chan_data",
+        "text": "데이터 라인"
+    },
+    {
+        "id": "dec_counter_opt_chan_reset",
+        "text": "리셋 라인"
+    },
+    {
+        "id": "dec_counter_opt_data_edge",
+        "text": "카운트할 에지 (데이터)"
+    },
+    {
+        "id": "dec_counter_opt_divider",
+        "text": "카운트 분주비 (워드 폭)"
+    },
+    {
+        "id": "dec_counter_opt_reset_edge",
+        "text": "카운터를 지우는 에지 (리셋)"
+    },
+    {
+        "id": "dec_counter_opt_edge_off",
+        "text": "시작/리셋 후 에지 카운터 값"
+    },
+    {
+        "id": "dec_counter_opt_word_off",
+        "text": "시작/리셋 후 워드 카운터 값"
+    },
+    {
+        "id": "dec_counter_opt_dead_cycles",
+        "text": "리셋 후 무시할 에지 수"
+    },
+    {
+        "id": "dec_counter_opt_start_with_reset",
+        "text": "디코딩이 리셋으로 시작한다고 가정"
+    },
+    {
+        "id": "dec_dali_chan_dali",
+        "text": "DALI 데이터 라인"
+    },
+    {
+        "id": "dec_dali_opt_polarity",
+        "text": "극성"
+    },
+    {
+        "id": "dec_dcf77_chan_data",
+        "text": "DATA 라인"
+    },
+    {
+        "id": "dec_dmx512_chan_dmx",
+        "text": "임의의 DMX 데이터 라인"
+    },
+    {
+        "id": "dec_dmx512_opt_invert",
+        "text": "신호 반전?"
+    },
+    {
+        "id": "dec_dsi_chan_dsi",
+        "text": "DSI 데이터 라인"
+    },
+    {
+        "id": "dec_dsi_opt_polarity",
+        "text": "극성"
+    },
+    {
+        "id": "dec_eeprom24xx_opt_chip",
+        "text": "칩"
+    },
+    {
+        "id": "dec_eeprom24xx_opt_addr_counter",
+        "text": "초기 주소 카운터 값"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_addresssize",
+        "text": "주소 크기"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_wordsize",
+        "text": "워드 크기"
+    },
+    {
+        "id": "dec_em4100_chan_data",
+        "text": "데이터 라인"
+    },
+    {
+        "id": "dec_em4100_opt_polarity",
+        "text": "극성"
+    },
+    {
+        "id": "dec_em4100_opt_datarate",
+        "text": "데이터 속도"
+    },
+    {
+        "id": "dec_em4100_opt_coilfreq",
+        "text": "코일 주파수"
+    },
+    {
+        "id": "dec_em4305_chan_data",
+        "text": "데이터 라인"
+    },
+    {
+        "id": "dec_em4305_opt_coilfreq",
+        "text": "코일 주파수"
+    },
+    {
+        "id": "dec_em4305_opt_first_field_stop",
+        "text": "첫 필드 정지 최소값"
+    },
+    {
+        "id": "dec_em4305_opt_w_gap",
+        "text": "쓰기 간격 최소값"
+    },
+    {
+        "id": "dec_em4305_opt_w_one_max",
+        "text": "1 쓰기 최대값"
+    },
+    {
+        "id": "dec_em4305_opt_w_zero_on_min",
+        "text": "0 쓰기 온 최소값"
+    },
+    {
+        "id": "dec_em4305_opt_w_zero_off_max",
+        "text": "0 쓰기 오프 최대값"
+    },
+    {
+        "id": "dec_em4305_opt_em4100_decode",
+        "text": "EM4100 디코딩"
+    },
+    {
+        "id": "dec_eth_an_chan_dp",
+        "text": "ETH TX+ 신호"
+    },
+    {
+        "id": "dec_can_opt_data_order",
+        "text": "데이터 순서"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_format",
+        "text": "데이터 형식"
+    }
+]

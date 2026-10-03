@@ -27,12 +27,26 @@
 #include <QString>
 #include <string>
 #include "string_ids.h"
+#include "../config/appconfig.h"
 #include <mutex>
+
+// One supported language. Adding a language means adding a row to
+// lang_id_keys, its string tables under lang/<name>/ and its Qt translations
+// DSView/languages/{qt,my}_<name>.qm, listed in language.qrc. qt_<name>.qm is
+// Qt's own qtbase_<locale>.qm; my_<name>.qm is built from my_<name>.ts with
+// lrelease (or pyside6-lrelease). tools/check_lang.py checks the tables.
+#ifdef LANG_PSEUDO
+// Test builds only (tools/lang_ui_check): English, about 40% longer, accented
+// and in brackets, so overflow and texts that bypass L_S() show.
+#define LAN_PSEUDO  9999
+#endif
 
 struct lang_key_item
 {
-    int id;
-    const char *name;
+    int id;             // persisted in the settings; never change or reuse one
+    const char *name;   // folder under lang/ and suffix of the .qm files
+    const char *locale; // matched against the system's preferred languages
+    const char *native; // the menu label, in the language itself
 };
 
 class Lang_resource_page
@@ -58,10 +72,30 @@ struct lang_page_item
     bool is_dynamic;
 };
 
-static const struct lang_key_item lang_id_keys[] = 
+// LAN_CN and LAN_EN are Qt 5 QLocale::Language values; the newer ids follow
+// that numbering, and Traditional Chinese, which shares the Chinese value,
+// takes 1025. The order is the menu order.
+static const struct lang_key_item lang_id_keys[] =
 {
-    {25, "cn"},
-    {31, "en"}
+    {LAN_EN, "en", "en", "English"},
+    {42, "de", "de", "Deutsch"},
+    {111, "es", "es", "Español"},
+    {37, "fr", "fr", "Français"},
+    {58, "it", "it", "Italiano"},
+    {30, "nl", "nl", "Nederlands"},
+    {90, "pl", "pl", "Polski"},
+    {91, "pt_BR", "pt_BR", "Português (Brasil)"},
+    {132, "vi", "vi", "Tiếng Việt"},
+    {125, "tr", "tr", "Türkçe"},
+    {96, "ru", "ru", "Русский"},
+    {129, "uk", "uk", "Українська"},
+    {59, "ja", "ja", "日本語"},
+    {66, "ko", "ko", "한국어"},
+    {LAN_CN, "cn", "zh_Hans", "简体中文"},
+    {1025, "zh_TW", "zh_Hant", "繁體中文"},
+#ifdef LANG_PSEUDO
+    {LAN_PSEUDO, "en", "C", "[Pseudo]"},
+#endif
 };
 
 static const struct lang_page_item lange_page_keys[] = 
@@ -89,9 +123,17 @@ public:
     void release_dynamic();
 
     inline bool is_lang_en(){
-        return _cur_lang == 31;
+        return _cur_lang == LAN_EN;
     }
-   
+
+    // The row of a language id, or NULL when the id is not supported.
+    static const lang_key_item* find_lang(int lang);
+    // The first supported language among the system's preferred languages, else English.
+    static int system_lang();
+#ifdef LANG_PSEUDO
+    static QString pseudo(const QString &text);
+#endif
+
 private:
     void release_self();
     const char *get_lang_key(int lang);

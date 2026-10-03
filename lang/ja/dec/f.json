@@ -1,0 +1,334 @@
+[
+    {
+        "id": "dec_flexray_chan_channel",
+        "text": "FlexRay バスチャンネル"
+    },
+    {
+        "id": "dec_flexray_opt_channel_type",
+        "text": "チャンネルの種類"
+    },
+    {
+        "id": "dec_flexray_opt_bitrate",
+        "text": "ビットレート (bit/s)"
+    },
+    {
+        "id": "dec_fsi_chan_data",
+        "text": "フレーム"
+    },
+    {
+        "id": "dec_fsi_chan_clock",
+        "text": "クロック"
+    },
+    {
+        "id": "dec_gpib_chan_dio1",
+        "text": "データ I/O ビット 1"
+    },
+    {
+        "id": "dec_gpib_chan_dio2",
+        "text": "データ I/O ビット 2"
+    },
+    {
+        "id": "dec_gpib_chan_dio3",
+        "text": "データ I/O ビット 3"
+    },
+    {
+        "id": "dec_gpib_chan_dio4",
+        "text": "データ I/O ビット 4"
+    },
+    {
+        "id": "dec_gpib_chan_dio5",
+        "text": "データ I/O ビット 5"
+    },
+    {
+        "id": "dec_gpib_chan_dio6",
+        "text": "データ I/O ビット 6"
+    },
+    {
+        "id": "dec_gpib_chan_dio7",
+        "text": "データ I/O ビット 7"
+    },
+    {
+        "id": "dec_gpib_chan_dio8",
+        "text": "データ I/O ビット 8"
+    },
+    {
+        "id": "dec_gpib_chan_eoi",
+        "text": "End or Identify (EOI)"
+    },
+    {
+        "id": "dec_gpib_chan_dav",
+        "text": "Data Valid (DAV)"
+    },
+    {
+        "id": "dec_gpib_chan_nrfd",
+        "text": "Not Ready For Data (NRFD)"
+    },
+    {
+        "id": "dec_gpib_chan_ndac",
+        "text": "Not Data Accepted (NDAC)"
+    },
+    {
+        "id": "dec_gpib_chan_ifc",
+        "text": "Interface Clear (IFC)"
+    },
+    {
+        "id": "dec_gpib_chan_srq",
+        "text": "Service Request (SRQ)"
+    },
+    {
+        "id": "dec_gpib_chan_atn",
+        "text": "Attention (ATN)"
+    },
+    {
+        "id": "dec_gpib_chan_ren",
+        "text": "Remote Enable (REN)"
+    },
+    {
+        "id": "dec_graycode_opt_edges",
+        "text": "1 回転あたりのエッジ数"
+    },
+    {
+        "id": "dec_graycode_opt_avg_period",
+        "text": "平均化期間"
+    },
+    {
+        "id": "dec_guess_bitrate_chan_data",
+        "text": "データライン"
+    },
+    {
+        "id": "dec_i2cfilter_opt_address",
+        "text": "I²C ストリームから抽出するアドレス"
+    },
+    {
+        "id": "dec_i2cfilter_opt_direction",
+        "text": "フィルタする方向"
+    },
+    {
+        "id": "dec_i2s_chan_sck",
+        "text": "ビットクロックライン"
+    },
+    {
+        "id": "dec_i2s_chan_ws",
+        "text": "ワードセレクトライン"
+    },
+    {
+        "id": "dec_i2s_chan_sd",
+        "text": "シリアルデータライン"
+    },
+    {
+        "id": "dec_i2s_opt_ws_polarity",
+        "text": "WS 極性"
+    },
+    {
+        "id": "dec_i2s_opt_clk_edge",
+        "text": "SCK アクティブエッジ"
+    },
+    {
+        "id": "dec_i2s_opt_bit_shift",
+        "text": "ビットシフト"
+    },
+    {
+        "id": "dec_i2s_opt_bit_align",
+        "text": "ビットアライメント"
+    },
+    {
+        "id": "dec_i2s_opt_bitorder",
+        "text": "ビット順序"
+    },
+    {
+        "id": "dec_i2s_opt_wordsize",
+        "text": "ワードサイズ"
+    },
+    {
+        "id": "dec_iec_chan_data",
+        "text": "データ I/O"
+    },
+    {
+        "id": "dec_iec_chan_clk",
+        "text": "クロック"
+    },
+    {
+        "id": "dec_iec_chan_atn",
+        "text": "Attention (ATN)"
+    },
+    {
+        "id": "dec_iec_opt_chan_srq",
+        "text": "Service Request (SRQ)"
+    },
+    {
+        "id": "dec_ieee488_chan_dio1",
+        "text": "データ I/O ビット 1 またはシリアルデータ"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio2",
+        "text": "データ I/O ビット 2"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio3",
+        "text": "データ I/O ビット 3"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio4",
+        "text": "データ I/O ビット 4"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio5",
+        "text": "データ I/O ビット 5"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio6",
+        "text": "データ I/O ビット 6"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio7",
+        "text": "データ I/O ビット 7"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dio8",
+        "text": "データ I/O ビット 8"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_eoi",
+        "text": "End or Identify (EOI)"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_dav",
+        "text": "Data Valid (DAV)"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_nrfd",
+        "text": "Not Ready For Data (NRFD)"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_ndac",
+        "text": "Not Data Accepted (NDAC)"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_ifc",
+        "text": "Interface Clear (IFC)"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_srq",
+        "text": "Service Request (SRQ)"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_atn",
+        "text": "Attention (ATN)"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_ren",
+        "text": "Remote Enable (REN)"
+    },
+    {
+        "id": "dec_ieee488_opt_chan_clk",
+        "text": "シリアルクロック"
+    },
+    {
+        "id": "dec_ieee488_opt_iec_periph",
+        "text": "Commodore IEC バス周辺機器の詳細をデコード"
+    },
+    {
+        "id": "dec_ieee488_opt_delim",
+        "text": "ペイロードデータの区切り文字"
+    },
+    {
+        "id": "dec_ir_irmp_chan_ir",
+        "text": "データライン"
+    },
+    {
+        "id": "dec_ir_irmp_opt_polarity",
+        "text": "極性"
+    },
+    {
+        "id": "dec_ir_nec_chan_ir",
+        "text": "データライン"
+    },
+    {
+        "id": "dec_ir_nec_opt_polarity",
+        "text": "極性"
+    },
+    {
+        "id": "dec_ir_nec_opt_cd_freq",
+        "text": "キャリア周波数"
+    },
+    {
+        "id": "dec_ir_rc5_chan_ir",
+        "text": "IR データライン"
+    },
+    {
+        "id": "dec_ir_rc5_opt_polarity",
+        "text": "極性"
+    },
+    {
+        "id": "dec_ir_rc5_opt_protocol",
+        "text": "プロトコルの種類"
+    },
+    {
+        "id": "dec_ir_rc6_chan_ir",
+        "text": "IR データライン"
+    },
+    {
+        "id": "dec_ir_rc6_opt_polarity",
+        "text": "極性"
+    },
+    {
+        "id": "dec_ir_sirc_chan_ir",
+        "text": "IR データライン"
+    },
+    {
+        "id": "dec_ir_sirc_opt_polarity",
+        "text": "極性"
+    },
+    {
+        "id": "dec_jitter_chan_clk",
+        "text": "クロック基準チャンネル"
+    },
+    {
+        "id": "dec_jitter_chan_sig",
+        "text": "クロックで制御される出力信号"
+    },
+    {
+        "id": "dec_jitter_opt_clk_polarity",
+        "text": "クロックエッジ極性"
+    },
+    {
+        "id": "dec_jitter_opt_sig_polarity",
+        "text": "出力信号のエッジ極性"
+    },
+    {
+        "id": "dec_jtag_chan_tdi",
+        "text": "テストデータ入力"
+    },
+    {
+        "id": "dec_jtag_chan_tdo",
+        "text": "テストデータ出力"
+    },
+    {
+        "id": "dec_jtag_chan_tck",
+        "text": "テストクロック"
+    },
+    {
+        "id": "dec_jtag_chan_tms",
+        "text": "テストモード選択"
+    },
+    {
+        "id": "dec_jtag_opt_chan_trst",
+        "text": "テストリセット"
+    },
+    {
+        "id": "dec_jtag_opt_chan_srst",
+        "text": "システムリセット"
+    },
+    {
+        "id": "dec_jtag_opt_chan_rtck",
+        "text": "リターンクロック信号"
+    },
+    {
+        "id": "dec_gpib_opt_sample_total",
+        "text": "総サンプル数"
+    },
+    {
+        "id": "dec_ir_nec_opt_extended",
+        "text": "拡張 NEC プロトコル"
+    }
+]

@@ -27,6 +27,7 @@
 #include <assert.h>
 #include <QStandardPaths>
 #include "../log.h"
+#include "../ui/langresource.h"
   
 #define MAX_PROTOCOL_FORMAT_LIST 15
 
@@ -212,15 +213,21 @@ static void _loadFrame(FrameOptions &o, QSettings &st)
     o.windowState = st.value("windowState", QByteArray()).toByteArray();
     st.endGroup();
 
-    if (o.language == -1 || (o.language != LAN_CN && o.language != LAN_EN)){
-        //get local language
-        QLocale locale;
-
-        if (QLocale::languageToString(locale.language()) == "Chinese")
-            o.language = LAN_CN;            
-        else
-            o.language = LAN_EN; 
+    if (st.contains("MainFrame/languageChoice")){
+        getFiled("MainFrame/languageChoice", st, o.languageChoice, -1);
     }
+    else{
+        // Older versions saved only "language", which also held their start-up
+        // guess (Chinese on a Chinese system, else English). A saved value that
+        // differs from that guess was picked in the menu.
+        int guess = QLocale().language() == QLocale::Chinese ? LAN_CN : LAN_EN;
+        o.languageChoice = (o.language != -1 && o.language != guess) ? o.language : -1;
+    }
+
+    if (LangResource::find_lang(o.languageChoice))
+        o.language = o.languageChoice;
+    else
+        o.language = LangResource::system_lang();
 }
 
 static void _saveFrame(FrameOptions &o, QSettings &st)
@@ -228,7 +235,8 @@ static void _saveFrame(FrameOptions &o, QSettings &st)
     st.beginGroup("MainFrame");
     setFiled("style", st, o.style);
     setFiled("language", st, o.language);
-    setFiled("isMax", st, o.isMax);  
+    setFiled("languageChoice", st, o.languageChoice);
+    setFiled("isMax", st, o.isMax);
     setFiled("left", st, o.left);
     setFiled("top", st, o.top);
     setFiled("right", st, o.right);

@@ -1,0 +1,334 @@
+[
+    {
+        "id": "dec_ac97_chan_sync",
+        "text": "Sincronizzazione di frame"
+    },
+    {
+        "id": "dec_ac97_chan_clk",
+        "text": "Clock dei bit di dati"
+    },
+    {
+        "id": "dec_ac97_opt_chan_out",
+        "text": "Uscita dati"
+    },
+    {
+        "id": "dec_ac97_opt_chan_in",
+        "text": "Ingresso dati"
+    },
+    {
+        "id": "dec_ac97_opt_chan_rst",
+        "text": "Linea di reset"
+    },
+    {
+        "id": "dec_ad79x0_opt_vref",
+        "text": "Tensione di riferimento (V)"
+    },
+    {
+        "id": "dec_am230x_chan_sda",
+        "text": "Linea dati seriale a filo singolo"
+    },
+    {
+        "id": "dec_am230x_opt_device",
+        "text": "Tipo di dispositivo"
+    },
+    {
+        "id": "dec_amulet_ascii_opt_ms_chan",
+        "text": "Canale master -> slave"
+    },
+    {
+        "id": "dec_amulet_ascii_opt_sm_chan",
+        "text": "Canale slave -> master"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_objdump",
+        "text": "Percorso objdump"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_objdump_opts",
+        "text": "Opzioni objdump"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_elffile",
+        "text": "Percorso .elf"
+    },
+    {
+        "id": "dec_arm_etmv3_opt_branch_enc",
+        "text": "Codifica dei branch"
+    },
+    {
+        "id": "dec_arm_itm_opt_objdump",
+        "text": "Percorso objdump"
+    },
+    {
+        "id": "dec_arm_itm_opt_objdump_opts",
+        "text": "Opzioni objdump"
+    },
+    {
+        "id": "dec_arm_itm_opt_elffile",
+        "text": "Percorso .elf"
+    },
+    {
+        "id": "dec_arm_tpiu_opt_stream",
+        "text": "Indice dello stream"
+    },
+    {
+        "id": "dec_arm_tpiu_sync_offset",
+        "text": "Offset di sincronizzazione iniziale"
+    },
+    {
+        "id": "dec_aud_chan_audck",
+        "text": "Clock AUD"
+    },
+    {
+        "id": "dec_aud_chan_naudsync",
+        "text": "Sync AUD"
+    },
+    {
+        "id": "dec_aud_chan_audata3",
+        "text": "Linea dati AUD 3"
+    },
+    {
+        "id": "dec_aud_chan_audata2",
+        "text": "Linea dati AUD 2"
+    },
+    {
+        "id": "dec_aud_chan_audata1",
+        "text": "Linea dati AUD 1"
+    },
+    {
+        "id": "dec_aud_chan_audata0",
+        "text": "Linea dati AUD 0"
+    },
+    {
+        "id": "dec_avr_pdi_chan_reset",
+        "text": "RESET / PDI_CLK"
+    },
+    {
+        "id": "dec_avr_pdi_chan_data",
+        "text": "PDI_DATA"
+    },
+    {
+        "id": "dec_c2_chan_c2ck",
+        "text": "Clock"
+    },
+    {
+        "id": "dec_c2_chan_c2d",
+        "text": "Dati"
+    },
+    {
+        "id": "dec_caliper_chan_clk",
+        "text": "Linea di clock seriale"
+    },
+    {
+        "id": "dec_caliper_chan_data",
+        "text": "Linea di dati seriale"
+    },
+    {
+        "id": "dec_caliper_opt_timeout_ms",
+        "text": "Timeout pacchetto in ms, 0 per disattivare"
+    },
+    {
+        "id": "dec_caliper_opt_unit",
+        "text": "Converti unità"
+    },
+    {
+        "id": "dec_caliper_opt_changes",
+        "text": "Solo variazioni"
+    },
+    {
+        "id": "dec_can_chan_can_rx",
+        "text": "Linea del bus CAN FD"
+    },
+    {
+        "id": "dec_can_opt_bitrate",
+        "text": "Bitrate (bit/s)"
+    },
+    {
+        "id": "dec_can_opt_nominal_bitrate",
+        "text": "Bitrate nominale (bit/s)"
+    },
+    {
+        "id": "dec_can_opt_fast_bitrate",
+        "text": "Bitrate veloce (bit/s)"
+    },
+    {
+        "id": "dec_can_opt_sample_point",
+        "text": "Punto di campionamento (%)"
+    },
+    {
+        "id": "dec_cec_chan_cec",
+        "text": "Dati del bus CEC"
+    },
+    {
+        "id": "dec_1uart_chan_rxtx",
+        "text": "Linea di trasmissione/ricezione UART"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tdi",
+        "text": "Ingresso dati di test"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tdo",
+        "text": "Uscita dati di test"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tck",
+        "text": "Clock di test"
+    },
+    {
+        "id": "dec_cjtag_oscan0_chan_tms",
+        "text": "Selezione modalità di test"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_trst",
+        "text": "Reset di test"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_srst",
+        "text": "Reset di sistema"
+    },
+    {
+        "id": "dec_cjtag_oscan0_opt_chan_rtck",
+        "text": "Segnale di clock di ritorno"
+    },
+    {
+        "id": "dec_counter_chan_data",
+        "text": "Linea dati"
+    },
+    {
+        "id": "dec_counter_opt_chan_reset",
+        "text": "Linea di reset"
+    },
+    {
+        "id": "dec_counter_opt_data_edge",
+        "text": "Fronti da contare (dati)"
+    },
+    {
+        "id": "dec_counter_opt_divider",
+        "text": "Divisore di conteggio (larghezza parola)"
+    },
+    {
+        "id": "dec_counter_opt_reset_edge",
+        "text": "Fronte che azzera i contatori (reset)"
+    },
+    {
+        "id": "dec_counter_opt_edge_off",
+        "text": "Valore del contatore di fronti dopo avvio/reset"
+    },
+    {
+        "id": "dec_counter_opt_word_off",
+        "text": "Valore del contatore di parole dopo avvio/reset"
+    },
+    {
+        "id": "dec_counter_opt_dead_cycles",
+        "text": "Numero di fronti da ignorare dopo il reset"
+    },
+    {
+        "id": "dec_counter_opt_start_with_reset",
+        "text": "Presumi che la decodifica inizi con un reset"
+    },
+    {
+        "id": "dec_dali_chan_dali",
+        "text": "Linea dati DALI"
+    },
+    {
+        "id": "dec_dali_opt_polarity",
+        "text": "Polarità"
+    },
+    {
+        "id": "dec_dcf77_chan_data",
+        "text": "Linea DATA"
+    },
+    {
+        "id": "dec_dmx512_chan_dmx",
+        "text": "Qualsiasi linea dati DMX"
+    },
+    {
+        "id": "dec_dmx512_opt_invert",
+        "text": "Invertire il segnale?"
+    },
+    {
+        "id": "dec_dsi_chan_dsi",
+        "text": "Linea dati DSI"
+    },
+    {
+        "id": "dec_dsi_opt_polarity",
+        "text": "Polarità"
+    },
+    {
+        "id": "dec_eeprom24xx_opt_chip",
+        "text": "Chip"
+    },
+    {
+        "id": "dec_eeprom24xx_opt_addr_counter",
+        "text": "Valore iniziale del contatore di indirizzi"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_addresssize",
+        "text": "Dimensione indirizzo"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_wordsize",
+        "text": "Dimensione parola"
+    },
+    {
+        "id": "dec_em4100_chan_data",
+        "text": "Linea dati"
+    },
+    {
+        "id": "dec_em4100_opt_polarity",
+        "text": "Polarità"
+    },
+    {
+        "id": "dec_em4100_opt_datarate",
+        "text": "Velocità dati"
+    },
+    {
+        "id": "dec_em4100_opt_coilfreq",
+        "text": "Frequenza della bobina"
+    },
+    {
+        "id": "dec_em4305_chan_data",
+        "text": "Linea dati"
+    },
+    {
+        "id": "dec_em4305_opt_coilfreq",
+        "text": "Frequenza della bobina"
+    },
+    {
+        "id": "dec_em4305_opt_first_field_stop",
+        "text": "Stop primo campo min"
+    },
+    {
+        "id": "dec_em4305_opt_w_gap",
+        "text": "Intervallo di scrittura min"
+    },
+    {
+        "id": "dec_em4305_opt_w_one_max",
+        "text": "Scrittura uno max"
+    },
+    {
+        "id": "dec_em4305_opt_w_zero_on_min",
+        "text": "Scrittura zero on min"
+    },
+    {
+        "id": "dec_em4305_opt_w_zero_off_max",
+        "text": "Scrittura zero off max"
+    },
+    {
+        "id": "dec_em4305_opt_em4100_decode",
+        "text": "Decodifica EM4100"
+    },
+    {
+        "id": "dec_eth_an_chan_dp",
+        "text": "Segnale ETH TX+"
+    },
+    {
+        "id": "dec_can_opt_data_order",
+        "text": "Ordine dei dati"
+    },
+    {
+        "id": "dec_eeprom93xx_opt_format",
+        "text": "Formato dati"
+    }
+]

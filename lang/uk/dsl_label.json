@@ -1,0 +1,146 @@
+[
+    {
+        "id": "Connection",
+        "text": "Підключення"
+    },
+    {
+        "id": "Serial communication",
+        "text": "Послідовний зв'язок"
+    },
+    {
+        "id": "Sample rate",
+        "text": "Частота дискретизації"
+    },
+    {
+        "id": "Sample depth",
+        "text": "Глибина вибірки"
+    },
+    {
+        "id": "Sample count",
+        "text": "Кількість відліків"
+    },
+    {
+        "id": "Using External Clock",
+        "text": "Зовнішнє тактування"
+    },
+    {
+        "id": "Using Clock Negedge",
+        "text": "Тактування за спадом"
+    },
+    {
+        "id": "Pre-trigger capture ratio",
+        "text": "Частка даних до тригера"
+    },
+    {
+        "id": "Run Length Encoding",
+        "text": "Кодування RLE"
+    },
+    {
+        "id": "Wait Buffer Upload",
+        "text": "Очікувати вивантаження буфера"
+    },
+    {
+        "id": "Trigger slope",
+        "text": "Перепад тригера"
+    },
+    {
+        "id": "Trigger source",
+        "text": "Джерело тригера"
+    },
+    {
+        "id": "Trigger channel",
+        "text": "Канал тригера"
+    },
+    {
+        "id": "Horizontal trigger position",
+        "text": "Горизонтальна позиція тригера"
+    },
+    {
+        "id": "Trigger hold off",
+        "text": "Утримання тригера"
+    },
+    {
+        "id": "Trigger margin",
+        "text": "Чутливість тригера"
+    },
+    {
+        "id": "Buffer size",
+        "text": "Розмір буфера"
+    },
+    {
+        "id": "Time base",
+        "text": "Розгортка"
+    },
+    {
+        "id": "Max Height",
+        "text": "Макс. висота"
+    },
+    {
+        "id": "Max Height value",
+        "text": "Значення макс. висоти"
+    },
+    {
+        "id": "Filter Targets",
+        "text": "Фільтрування"
+    },
+    {
+        "id": "Datalog",
+        "text": "Журнал даних"
+    },
+    {
+        "id": "Operation Mode",
+        "text": "Режим роботи"
+    },
+    {
+        "id": "Stop Options",
+        "text": "Параметри зупинки"
+    },
+    {
+        "id": "Channel Mode",
+        "text": "Режим каналів"
+    },
+    {
+        "id": "Threshold Levels",
+        "text": "Порогові рівні"
+    },
+    {
+        "id": "Threshold Level",
+        "text": "Пороговий рівень"
+    },
+    {
+        "id": "Enable RLE Compress",
+        "text": "Увімкнути стиснення RLE"
+    },
+    {
+        "id": "Bandwidth Limit",
+        "text": "Обмеження смуги"
+    },
+    {
+        "id": "Coupling",
+        "text": "Зв'язок входу"
+    },
+    {
+        "id": "Volts/div",
+        "text": "В/под"
+    },
+    {
+        "id": "Probe Factor",
+        "text": "Коефіцієнт щупа"
+    },
+    {
+        "id": "Map Default",
+        "text": "Масштаб: типово"
+    },
+    {
+        "id": "Map Unit",
+        "text": "Масштаб: одиниця"
+    },
+    {
+        "id": "Map Min",
+        "text": "Масштаб: мін."
+    },
+    {
+        "id": "Map Max",
+        "text": "Масштаб: макс."
+    }
+]
