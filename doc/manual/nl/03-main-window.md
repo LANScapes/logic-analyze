@@ -9,8 +9,7 @@ Het hoofdvenster heeft deze onderdelen:
 - **Kanaallabels.** Een label links van elke rij toont het kanaalnummer, de naam en de triggerknoppen.
 - **Docks.** Een dock is een paneel aan de zijkant van het golfvormgebied. De hulpmiddelen voor de trigger, de decoders, de metingen en het zoeken openen in docks.
 
-![Het hoofdvenster in de modus logische analyser](../figures/main-window.png)
-<!-- TODO: new screenshot -->
+![Het hoofdvenster in de modus logische analyser](../figures/nl/main-window.png)
 
 ## De werkbalk
 

@@ -7,8 +7,7 @@ Aby otworzyć panel boczny dekoderów, kliknij **Dekoduj** na pasku narzędzi lu
 - Listę dekoderów z polem **Szukaj dekodera...** u góry.
 - Listę **Wyniki dekodowania**. Ta lista pokazuje każdy element z dekodera jako wiersz tekstu.
 
-![Panel boczny dekoderów](../figures/decoder-dock.png)
-<!-- TODO: new screenshot -->
+![Panel boczny dekoderów](../figures/pl/decoder-dock.png)
 
 ## Dodawanie dekodera
 

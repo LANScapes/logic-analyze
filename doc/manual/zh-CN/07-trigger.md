@@ -78,8 +78,7 @@
 - **计数**：该级完成之前条件必须发生的次数。
 - **连续**：选中此复选框时，条件必须在连续的采样点中发生，不能中断。
 
-![多级触发设置](../figures/stage-trigger-panel.png)
-<!-- TODO: new screenshot -->
+![多级触发设置](../figures/zh-CN/stage-trigger-panel.png)
 
 要设置多级触发，执行以下步骤：
 
@@ -132,8 +131,7 @@
 
 开始标志发生后，设备在每个时钟标志处读取数据通道。设备把这一位移入移位寄存器。移位寄存器的最后几位等于 **数据值** 时，触发发生。停止标志发生时，设备清除移位寄存器。
 
-![串行触发设置](../figures/serial-trigger-panel.png)
-<!-- TODO: new screenshot -->
+![串行触发设置](../figures/zh-CN/serial-trigger-panel.png)
 
 **示例 4。** I2C 总线上出现值 `010000100` 时触发。通道 0 是 SCL，通道 1 是 SDA。
 

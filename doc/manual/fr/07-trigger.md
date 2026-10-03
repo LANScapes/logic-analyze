@@ -78,8 +78,7 @@ Chaque étape a ces paramètres :
 - **Compteur** : Le nombre de fois que la condition doit se produire avant la fin de l'étape.
 - **Contigu** : Quand vous cochez cette case, la condition doit se produire sur des échantillons qui se suivent sans interruption.
 
-![Les paramètres du déclenchement par étapes](../figures/stage-trigger-panel.png)
-<!-- TODO: new screenshot -->
+![Les paramètres du déclenchement par étapes](../figures/fr/stage-trigger-panel.png)
 
 Pour régler un déclenchement par étapes, faites ces étapes :
 
@@ -132,8 +131,7 @@ Un déclenchement série trouve une valeur de données sur un bus série. Il fon
 
 Après la condition de début, l'appareil lit la voie de données à chaque condition d'horloge. L'appareil place ce bit dans le registre à décalage. Quand les derniers bits du registre à décalage sont égaux à **Valeur des données**, le déclenchement se produit. Quand la condition de fin se produit, l'appareil efface le registre à décalage.
 
-![Les paramètres du déclenchement série](../figures/serial-trigger-panel.png)
-<!-- TODO: new screenshot -->
+![Les paramètres du déclenchement série](../figures/fr/serial-trigger-panel.png)
 
 **Exemple 4.** Déclencher quand la valeur `010000100` apparaît sur un bus I2C. La voie 0 est SCL et la voie 1 est SDA.
 

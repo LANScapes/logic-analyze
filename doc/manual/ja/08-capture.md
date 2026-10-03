@@ -54,8 +54,7 @@
 | **繰り返し** | はい | はい |
 | **ループ** | いいえ | はい |
 
-![キャプチャモードのメニュー](../figures/capture-mode-menu.png)
-<!-- TODO: new screenshot -->
+![キャプチャモードのメニュー](../figures/ja/capture-mode-menu.png)
 
 ### 単発
 

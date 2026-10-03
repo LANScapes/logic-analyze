@@ -9,8 +9,7 @@ La finestra principale ha queste parti:
 - **Etichette dei canali.** Un'etichetta a sinistra di ogni riga mostra il numero del canale, il nome e i pulsanti di trigger.
 - **Pannelli.** Un pannello è una zona a lato dell'area delle forme d'onda. Gli strumenti per il trigger, i decodificatori, le misure e la ricerca si aprono nei pannelli.
 
-![La finestra principale in modalità analizzatore logico](../figures/main-window.png)
-<!-- TODO: new screenshot -->
+![La finestra principale in modalità analizzatore logico](../figures/it/main-window.png)
 
 ## La barra degli strumenti
 

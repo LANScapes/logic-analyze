@@ -9,8 +9,7 @@ La fenêtre principale a ces parties :
 - **Étiquettes de voie.** Une étiquette à gauche de chaque ligne affiche le numéro de la voie, le nom et les boutons de déclenchement.
 - **Panneaux.** Un panneau est une zone sur le côté de la zone des formes d'onde. Les outils de déclenchement, de décodage, de mesure et de recherche s'ouvrent dans des panneaux.
 
-![La fenêtre principale en mode analyseur logique](../figures/main-window.png)
-<!-- TODO: new screenshot -->
+![La fenêtre principale en mode analyseur logique](../figures/fr/main-window.png)
 
 ## La barre d'outils
 

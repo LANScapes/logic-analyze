@@ -6,7 +6,7 @@ This folder contains the source of the user manual. The text uses ASD-STE100 Sim
 - Each other folder is a translation: `de`, `es`, `fr`, `it`, `ja`, `ko`, `nl`, `pl`, `pt-BR`, `ru`, `tr`, `uk`, `vi`, `zh-CN`, `zh-TW`.
 - `<lang>/manual.json` gives the title and the labels for the rendered page.
 - `<lang>/term-list.md` gives the fixed translation of each technical name. It is not part of the rendered manual.
-- `figures/` contains the figures. All languages use the same figures.
+- `figures/` contains the figures that all languages use. `figures/<lang>/` contains the pictures of the app in each language, for example `figures/de/main-window.png`.
 
 ## Rules for the text
 
@@ -31,6 +31,19 @@ The script finds long sentences, passive verbs, words that end in "-ing", modal 
 pdftotext -layout ASD-STE100-Issue9.pdf /tmp/ste100.txt
 STE100_TXT=/tmp/ste100.txt python3 tools/manual/ste_check.py doc/manual/en/*.md
 ```
+
+## Make the pictures of the app
+
+The language check `tools/lang_ui_check` makes the pictures of the app in each language. It uses the Demo Device and does not start a capture.
+
+```sh
+cmake -B build -DLANSCAPES_BRAND=ON -DLANG_UI_CHECK=ON
+cmake --build build --target lang_ui_check
+build/lang_ui_check/MacOS/lang_ui_check /tmp/lang-ui-check --shots /tmp/shots
+python3 tools/manual/import_shots.py /tmp/shots
+```
+
+`import_shots.py` puts the pictures in `figures/<lang>/` and makes the files small. The check cannot make `trigger-position.png`, because the Demo Device does not send a trigger.
 
 ## Check the translations
 

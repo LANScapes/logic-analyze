@@ -71,8 +71,7 @@ Xuất tạo một tệp mà các chương trình khác có thể đọc.
 
 Ở chế độ máy hiện sóng và chế độ thu thập dữ liệu, chỉ có CSV.
 
-![Cửa sổ xuất CSV](../figures/export-csv.png)
-<!-- TODO: new screenshot -->
+![Cửa sổ xuất CSV](../figures/vi/export-csv.png)
 
 ## Lưu ảnh cửa sổ
 

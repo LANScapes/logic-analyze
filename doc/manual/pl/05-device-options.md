@@ -11,8 +11,7 @@ Ustawienia w oknie są inne dla każdego modelu urządzenia. Ten rozdział podaj
 > [!NOTE]
 > Nie możesz zmienić opcji urządzenia podczas rejestracji.
 
-![Okno Opcje urządzenia](../figures/device-options.png)
-<!-- TODO: new screenshot -->
+![Okno Opcje urządzenia](../figures/pl/device-options.png)
 
 ## Tryb pracy
 

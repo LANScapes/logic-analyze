@@ -78,8 +78,7 @@ Ogni stadio ha queste impostazioni:
 - **Contatore**: Il numero di volte che la condizione deve verificarsi prima che lo stadio sia completo.
 - **Contigui**: Quando si seleziona questa casella, la condizione deve verificarsi su campioni consecutivi senza interruzioni.
 
-![Le impostazioni del trigger a stadi](../figures/stage-trigger-panel.png)
-<!-- TODO: new screenshot -->
+![Le impostazioni del trigger a stadi](../figures/it/stage-trigger-panel.png)
 
 Per impostare un trigger a stadi, eseguire questi passi:
 
@@ -132,8 +131,7 @@ Un trigger seriale trova un valore di dati su un bus seriale. Funziona come un r
 
 Dopo il flag di inizio, il dispositivo legge il canale dati a ogni flag di clock. Il dispositivo inserisce questo bit nel registro a scorrimento. Quando gli ultimi bit del registro a scorrimento sono uguali a **Valore dati**, il trigger si verifica. Quando il flag di fine si verifica, il dispositivo azzera il registro a scorrimento.
 
-![Le impostazioni del trigger seriale](../figures/serial-trigger-panel.png)
-<!-- TODO: new screenshot -->
+![Le impostazioni del trigger seriale](../figures/it/serial-trigger-panel.png)
 
 **Esempio 4.** Trigger quando il valore `010000100` compare su un bus I2C. Il canale 0 è SCL e il canale 1 è SDA.
 

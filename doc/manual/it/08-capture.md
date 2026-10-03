@@ -54,8 +54,7 @@ Per selezionare la modalità di acquisizione, fare clic su **Modo** nella barra 
 | **Ripetuta** | Sì | Sì |
 | **Loop** | No | Sì |
 
-![Il menu delle modalità di acquisizione](../figures/capture-mode-menu.png)
-<!-- TODO: new screenshot -->
+![Il menu delle modalità di acquisizione](../figures/it/capture-mode-menu.png)
 
 ### Singola
 

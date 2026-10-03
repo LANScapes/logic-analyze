@@ -9,8 +9,7 @@ Okno główne ma te części:
 - **Etykiety kanałów.** Etykieta po lewej stronie każdego wiersza pokazuje numer kanału, nazwę i przyciski wyzwalania.
 - **Panele boczne.** Panel boczny to panel z boku obszaru przebiegów. Narzędzia wyzwalania, dekoderów, pomiarów i wyszukiwania otwierają się w panelach bocznych.
 
-![Okno główne w trybie analizatora logicznego](../figures/main-window.png)
-<!-- TODO: new screenshot -->
+![Okno główne w trybie analizatora logicznego](../figures/pl/main-window.png)
 
 ## Pasek narzędzi
 

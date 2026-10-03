@@ -11,8 +11,7 @@ Cài đặt trong cửa sổ khác nhau theo mẫu thiết bị. Chương này t
 > [!NOTE]
 > Bạn không thể đổi tùy chọn thiết bị trong khi thu.
 
-![Cửa sổ Tùy chọn thiết bị](../figures/device-options.png)
-<!-- TODO: new screenshot -->
+![Cửa sổ Tùy chọn thiết bị](../figures/vi/device-options.png)
 
 ## Chế độ hoạt động
 

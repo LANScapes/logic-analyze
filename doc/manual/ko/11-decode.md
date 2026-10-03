@@ -7,8 +7,7 @@
 - 디코더 목록. 위쪽에 **디코더 검색...** 필드가 있습니다.
 - **디코딩 결과** 목록. 이 목록은 디코더의 각 항목을 텍스트 한 행으로 표시합니다.
 
-![디코더 도크](../figures/decoder-dock.png)
-<!-- TODO: new screenshot -->
+![디코더 도크](../figures/ko/decoder-dock.png)
 
 ## 디코더 추가
 

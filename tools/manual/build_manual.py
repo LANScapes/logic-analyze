@@ -14,7 +14,8 @@ subset (the subset that the manual uses):
 Output, for each language:
 
   <out>/<lang>/index.html    one page with all chapters
-  <out>/figures/*.png        the figures (shared by all languages)
+  <out>/figures/             the figures; figures/<lang>/ has the pictures of the app
+                             in each language
   <out>/<lang>/logic-analyze-manual-<lang>.pdf   with --pdf
 
 The PDF step prints the HTML page with a headless Chrome or Chromium. Set

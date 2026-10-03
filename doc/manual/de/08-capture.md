@@ -54,8 +54,7 @@ Um den Erfassungsmodus auszuwählen, klicken Sie in der Symbolleiste auf **Modus
 | **Wiederholt** | Ja | Ja |
 | **Schleife** | Nein | Ja |
 
-![Das Menü der Erfassungsmodi](../figures/capture-mode-menu.png)
-<!-- TODO: new screenshot -->
+![Das Menü der Erfassungsmodi](../figures/de/capture-mode-menu.png)
 
 ### Einzeln
 

@@ -7,8 +7,7 @@ To open the decoder dock, click **Decode** on the toolbar or press `D`. The dock
 - The decoder list, with the **Decoder search...** field at the top.
 - The **Decoding Results** list. This list shows each item from the decoder as a row of text.
 
-![The decoder dock](../figures/decoder-dock.png)
-<!-- TODO: new screenshot -->
+![The decoder dock](../figures/en/decoder-dock.png)
 
 ## Add a decoder
 

@@ -71,8 +71,7 @@
 
 オシロスコープモードとデータ収集モードでは、CSV だけを使えます。
 
-![CSV のエクスポートウィンドウ](../figures/export-csv.png)
-<!-- TODO: new screenshot -->
+![CSV のエクスポートウィンドウ](../figures/ja/export-csv.png)
 
 ## ウィンドウの画像を保存する
 

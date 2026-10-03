@@ -54,8 +54,7 @@ Para seleccionar el modo de captura, haga clic en **Modo** en la barra de herram
 | **Repetitivo** | Sí | Sí |
 | **Bucle** | No | Sí |
 
-![El menú de modos de captura](../figures/capture-mode-menu.png)
-<!-- TODO: new screenshot -->
+![El menú de modos de captura](../figures/es/capture-mode-menu.png)
 
 ### Único
 

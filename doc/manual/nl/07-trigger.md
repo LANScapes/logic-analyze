@@ -78,8 +78,7 @@ Elke trap heeft deze instellingen:
 - **Teller**: Het aantal keren dat de voorwaarde moet optreden voordat de trap voltooid is.
 - **Aaneengesloten**: Als u dit selectievakje selecteert, moet de voorwaarde optreden in samples die zonder onderbreking op elkaar volgen.
 
-![De instellingen van de trappentrigger](../figures/stage-trigger-panel.png)
-<!-- TODO: new screenshot -->
+![De instellingen van de trappentrigger](../figures/nl/stage-trigger-panel.png)
 
 Voer deze stappen uit om een trappentrigger in te stellen:
 
@@ -132,8 +131,7 @@ Een seriële trigger vindt een gegevenswaarde op een seriële bus. Hij werkt als
 
 Na de startvlag leest het apparaat het datakanaal bij elke klokvlag. Het apparaat schuift deze bit in het schuifregister. Als de laatste bits van het schuifregister gelijk zijn aan **Datawaarde**, treedt de trigger op. Als de stopvlag optreedt, wist het apparaat het schuifregister.
 
-![De instellingen van de seriële trigger](../figures/serial-trigger-panel.png)
-<!-- TODO: new screenshot -->
+![De instellingen van de seriële trigger](../figures/nl/serial-trigger-panel.png)
 
 **Voorbeeld 4.** Trigger als de waarde `010000100` optreedt op een I2C-bus. Kanaal 0 is SCL en kanaal 1 is SDA.
 

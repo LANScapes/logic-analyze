@@ -11,8 +11,7 @@ Die Einstellungen im Fenster sind für jedes Gerätemodell anders. Dieses Kapite
 > [!NOTE]
 > Sie können die Geräteoptionen während einer Erfassung nicht ändern.
 
-![Das Fenster Geräteoptionen](../figures/device-options.png)
-<!-- TODO: new screenshot -->
+![Das Fenster Geräteoptionen](../figures/de/device-options.png)
 
 ## Betriebsmodus
 

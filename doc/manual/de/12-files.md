@@ -71,8 +71,7 @@ Im Logikanalysator-Modus sind diese Formate verfügbar:
 
 Im Oszilloskop-Modus und im Datenerfassungsmodus ist nur CSV verfügbar.
 
-![Das Export-Fenster für CSV](../figures/export-csv.png)
-<!-- TODO: new screenshot -->
+![Das Export-Fenster für CSV](../figures/de/export-csv.png)
 
 ## Ein Bild des Fensters speichern
 

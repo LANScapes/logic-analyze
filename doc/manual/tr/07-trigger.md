@@ -78,8 +78,7 @@ Her aşamada şu ayarlar vardır:
 - **Sayaç**: Aşama tamamlanmadan önce koşulun oluşması gereken sayı.
 - **Ardışık**: Bu onay kutusunu seçtiğinizde koşul, ara vermeden birbirini izleyen örneklerde oluşmalıdır.
 
-![Aşamalı tetikleme ayarları](../figures/stage-trigger-panel.png)
-<!-- TODO: new screenshot -->
+![Aşamalı tetikleme ayarları](../figures/tr/stage-trigger-panel.png)
 
 Aşamalı tetikleme ayarlamak için şu adımları uygulayın:
 
@@ -132,8 +131,7 @@ Seri tetikleme, bir seri veri yolunda bir veri değeri bulur. Bir kaydırma yazm
 
 Başlangıç bayrağı oluştuktan sonra cihaz her saat bayrağında veri kanalını okur. Cihaz bu biti kaydırma yazmacına taşır. Kaydırma yazmacının son bitleri **Veri Değeri** ile eşit olduğunda tetikleme oluşur. Bitiş bayrağı oluştuğunda cihaz kaydırma yazmacını temizler.
 
-![Seri tetikleme ayarları](../figures/serial-trigger-panel.png)
-<!-- TODO: new screenshot -->
+![Seri tetikleme ayarları](../figures/tr/serial-trigger-panel.png)
 
 **Örnek 4.** Bir I2C veri yolunda `010000100` değeri oluştuğunda tetikleme. Kanal 0 SCL, kanal 1 SDA'dır.
 
