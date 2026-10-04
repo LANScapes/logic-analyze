@@ -78,14 +78,14 @@ Each frame is a big-endian `u32` length N (1 ≤ N ≤ 32764), then N bytes of o
 
 Other keys (such as `label`) are ignored. A field of the wrong type or out of range is `unsupported`.
 
-The GUI and `dslcap` turn the request into device settings with the same code (`tools/dslcap/capcore.c`, `cap_apply()`): operation mode first, then the channel mode with the most channels that offers the rate, only the requested channels enabled, the internal clock without run-length compression or input filter, the threshold (ignored on devices without one, which keep their 3.3 V / 5 V setting; `vth` is then null in the record), the rate, the depth (`samples` rounded up to the driver's 1024-sample alignment in buffer mode), and a simple trigger on one channel at `trigger_position_percent`.
+The GUI and `dslcap` turn the request into device settings with the same code (`tools/dslcap/capcore.c`, `cap_apply()`): operation mode first, then the channel mode with the most channels that offers the rate, only the requested channels enabled, the internal clock without run-length compression or input filter, the threshold (ignored on devices without one, which keep their 3.3 V / 5 V setting; `vth` is then null in the record), the rate, the depth (`samples` rounded up to the driver's 1024-sample alignment in buffer mode; in buffer mode no more than the device memory holds for the enabled channels, `SR_CONF_HW_DEPTH`, the limit of the app's own depth list), and a simple trigger on one channel at `trigger_position_percent` of `samples` (the driver takes a percentage of the aligned depth, so the percentage is scaled to keep the trigger inside the saved samples).
 
 The GUI, on `capture`:
 
 1. Answers `capture_error` `busy` at once if a capture (the user's or another MCP one) or a save is running.
-2. Uses the selected device if it is an analyzer. If the demo device or a file is selected, it switches to the first analyzer in the device list; with none, `no_device`.
-3. Applies the request through `cap_apply()`; a setting the device does not have is `unsupported`. The toolbar then shows the new rate and depth, and only the requested channels are enabled.
-4. Starts the capture as if the user pressed Start (a single capture), sends `capture_started`, and shows the orange dot on the MCP button. The waveform draws live.
+2. Uses the selected device if it is an analyzer. If the demo device or a file is selected, it switches to the first analyzer in the device list; with none, `no_device`; if another program holds it, `busy`. It shows no message box.
+3. Applies the request through `cap_apply()`; a setting the device does not have is `unsupported`. The toolbar then shows the new rate and depth, and only the requested channels are enabled. A refused request can have changed some settings already (the channel mode, the enabled channels); the toolbar shows those too.
+4. Starts the capture as if the user pressed Start (a single capture), sends `capture_started`, and shows the orange dot on the MCP button. The waveform draws live. The trigger panel's own trigger, and its multi-channel trigger warning, are not used.
 5. Ends the capture after `timeout_ms` from `capture_started` if it has not finished, with `capture_error` `failed` (`"capture timed out"`).
 6. On completion writes `<name>.bin` and then `<name>.json` into the staging directory (below) and sends `capture_done` with `meta` equal to the JSON file's contents.
 
@@ -96,7 +96,7 @@ The GUI, on `capture`:
 - A device error, detach, overflow or a write failure: `capture_error` `failed` with `dslcap`'s message for it (for example `"device detached during capture"`, `"cannot write capture data"`).
 - If the connection drops during an MCP capture, the capture goes on as the user's own; nothing is written.
 
-Only one MCP capture runs at a time. After `capture_done` or `capture_error` the data stays on screen as an ordinary capture; the user can save it, but switching device or quitting does not ask to (the agent has the data).
+When the capture ends (or is refused), the GUI gives back the user's capture mode (single, repeat or loop), clock, run-length compression and input filter. Only one MCP capture runs at a time. After `capture_done` or `capture_error` the data stays on screen as an ordinary capture; the user can save it, but switching device or quitting does not ask to (the agent has the data).
 
 ### current
 
@@ -112,9 +112,9 @@ The agent asks for the logic capture on screen, the user's or an MCP one: `{"v":
 
 | `code` | Meaning |
 |---|---|
-| `busy` | The user's capture, another MCP capture or a save is running. Try again later. |
+| `busy` | The user's capture, another MCP capture or a save is running, or another program holds the analyzer. Try again later. |
 | `no_device` | No analyzer in the device list. |
-| `unsupported` | A malformed request, or a setting the device does not offer (rate, channel/rate combination, trigger channel). `message` is `dslcap`'s message for it where there is one. |
+| `unsupported` | A malformed request, or a setting the device does not offer (rate, channel/rate combination, buffer depth, trigger channel). `message` is `dslcap`'s message for it where there is one. |
 | `stopped` | Cancelled by the agent, or stopped by the user before any sample arrived. |
 | `no_data` | `current`: no logic capture is on screen. |
 | `failed` | Anything else: timeout, device error, the staging directory is missing, a write failed. |

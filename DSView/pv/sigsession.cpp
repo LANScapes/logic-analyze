@@ -218,7 +218,7 @@ namespace pv
         return false;
     }
 
-    bool SigSession::set_device(ds_device_handle dev_handle)
+    bool SigSession::set_device(ds_device_handle dev_handle, bool quiet)
     {
         assert(!_is_saving);
         assert(!_is_working);
@@ -263,37 +263,41 @@ namespace pv
 
         int lastError = ds_get_last_error();
         bool ret = true;
+        auto prop_msg = [&](const QString &m) {
+            if (!quiet)
+                _callback->delay_prop_msg(m);
+        };
 
         switch (lastError)
         {
             case SR_ERR_DEVICE_FIRMWARE_VERSION_LOW:{
                 QString strMsg = L_S(STR_PAGE_MSG, S_ID(IDS_MSG_TO_RECONNECT_FOR_FIRMWARE), 
                         "Please reconnect the device!");
-                _callback->delay_prop_msg(strMsg);
+                prop_msg(strMsg);
                 ret = false;
                 break;
             }
             case SR_ERR_FIRMWARE_NOT_EXIST:{
                 QString strMsg = L_S(STR_PAGE_MSG, S_ID(IDS_MSG_FIRMWARE_NOT_EXIST), 
                     "Firmware not exist!");
-                _callback->delay_prop_msg(strMsg);
+                prop_msg(strMsg);
                 ret = false;
                 break;
             }
             case SR_ERR_DEVICE_USB_IO_ERROR:{
                 QString strMsg = L_S(STR_PAGE_MSG, S_ID(IDS_MSG_DEVICE_USB_IO_ERROR), 
                     "USB io error!");
-                _callback->delay_prop_msg(strMsg);
+                prop_msg(strMsg);
                 ret = false;
                 break;
             }
             case SR_ERR_DEVICE_IS_EXCLUSIVE:{
                 QString strMsg = L_S(STR_PAGE_MSG, S_ID(IDS_MSG_DEVICE_BUSY_SWITCH_FAILED), 
                         "Device is busy!");
-                if (old_dev != NULL_HANDLE)
+                if (old_dev != NULL_HANDLE && !quiet)
                     MsgBox::Show(strMsg);
                 else
-                    _callback->delay_prop_msg(strMsg);
+                    prop_msg(strMsg);
                 ret = false;
                 break;
             }
@@ -301,7 +305,7 @@ namespace pv
             {
                 QString strMsg = L_S(STR_PAGE_MSG, S_ID(IDS_MSG_DEVICE_NO_DRIVER), 
                     "No driver!");
-                _callback->delay_prop_msg(strMsg);
+                prop_msg(strMsg);
                 ret = false;
                 break;
             }
