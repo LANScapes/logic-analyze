@@ -122,6 +122,7 @@ void McpCapture::start(qint64 id, const QString &name, const CaptureRequest &req
     r.samples = (uint64_t)req.samples;
     r.vth = req.threshold_v;
     r.stream = req.stream;
+    cap_resolve_mode(&r);   // no mode: the user's buffer or stream setting
     r.trig_ch = req.trigger_channel;
     r.trig_type = req.trigger_edge;
     r.trigpos = req.trigger_position_percent;
@@ -203,6 +204,7 @@ void McpCapture::restore_settings()
     // Loop mode needs stream mode on an analyzer (as SamplingBar::reload).
     if (_saved.collect_mode != COLLECT_LOOP || dev->is_stream_mode() || !dev->is_hardware())
         _session->set_collect_mode((DEVICE_COLLECT_MODE)_saved.collect_mode);
+    _bar->update_view_status();   // the Mode button's icon
 }
 
 void McpCapture::OnMessage(int msg)

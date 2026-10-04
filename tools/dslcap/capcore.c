@@ -295,6 +295,17 @@ int cap_check(const struct cap_request *r, struct cap_error *e)
     return 0;
 }
 
+void cap_resolve_mode(struct cap_request *r)
+{
+    if (r->stream >= 0)
+        return;
+    /* Devices without an operation mode (the demo device) count as buffer. */
+    GVariant *gv = device_has_option(SR_CONF_OPERATION_MODE) ?
+        get_config(SR_CONF_OPERATION_MODE, G_VARIANT_TYPE_INT16) : NULL;
+    r->stream = gv && g_variant_get_int16(gv) == LO_OP_STREAM;
+    if (gv) g_variant_unref(gv);
+}
+
 int cap_apply(const struct cap_request *r, struct cap_setup *s, struct cap_error *e)
 {
     int rc;

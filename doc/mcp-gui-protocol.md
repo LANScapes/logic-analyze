@@ -70,7 +70,7 @@ Each frame is a big-endian `u32` length N (1 ≤ N ≤ 32764), then N bytes of o
 | `samples` | integer ≥ 1, samples per channel | 1000000 | `--samples` |
 | `duration_s` | number > 0; used only when `samples` is absent: samples = max(1, floor(duration_s × samplerate_hz)) | | |
 | `threshold_v` | number 0–5; ignored on a device without a threshold setting | 1.6 | `--vth` |
-| `mode` | `"buffer"` or `"stream"` | `"buffer"` | `--mode` |
+| `mode` | `"buffer"` or `"stream"` | the device's current mode (the user's Buffer or Stream setting) | `--mode` (absent: the same) |
 | `trigger_channel` | integer, one of `channels`, or null | null (no trigger) | `--trigger CH` |
 | `trigger_edge` | `"R"` rising, `"F"` falling, `"C"` either edge, `"1"` high, `"0"` low | `"R"` | `--trigger CH:E` |
 | `trigger_position_percent` | integer 0–100 | 10 | `--trigpos` |
@@ -78,7 +78,7 @@ Each frame is a big-endian `u32` length N (1 ≤ N ≤ 32764), then N bytes of o
 
 Other keys (such as `label`) are ignored. A field of the wrong type or out of range is `unsupported`.
 
-The GUI and `dslcap` turn the request into device settings with the same code (`tools/dslcap/capcore.c`, `cap_apply()`): operation mode first, then the channel mode with the most channels that offers the rate, only the requested channels enabled, the internal clock without run-length compression or input filter, the threshold (ignored on devices without one, which keep their 3.3 V / 5 V setting; `vth` is then null in the record), the rate, the depth (`samples` rounded up to the driver's 1024-sample alignment in buffer mode; in buffer mode no more than the device memory holds for the enabled channels, `SR_CONF_HW_DEPTH`, the limit of the app's own depth list), and a simple trigger on one channel at `trigger_position_percent` of `samples` (the driver takes a percentage of the aligned depth, so the percentage is scaled to keep the trigger inside the saved samples).
+The GUI and `dslcap` turn the request into device settings with the same code (`tools/dslcap/capcore.c`, `cap_resolve_mode()` and `cap_apply()`): operation mode first (the requested one, or the device's current one), then the channel mode with the most channels that offers the rate, only the requested channels enabled, the internal clock without run-length compression or input filter, the threshold (ignored on devices without one, which keep their 3.3 V / 5 V setting; `vth` is then null in the record), the rate, the depth (`samples` rounded up to the driver's 1024-sample alignment in buffer mode; in buffer mode no more than the device memory holds for the enabled channels, `SR_CONF_HW_DEPTH`, the limit of the app's own depth list), and a simple trigger on one channel at `trigger_position_percent` of `samples` (the driver takes a percentage of the aligned depth, so the percentage is scaled to keep the trigger inside the saved samples).
 
 The GUI, on `capture`:
 
@@ -96,7 +96,7 @@ The GUI, on `capture`:
 - A device error, detach, overflow or a write failure: `capture_error` `failed` with `dslcap`'s message for it (for example `"device detached during capture"`, `"cannot write capture data"`).
 - If the connection drops during an MCP capture, the capture goes on as the user's own; nothing is written.
 
-When the capture ends (or is refused), the GUI gives back the user's capture mode (single, repeat or loop), clock, run-length compression and input filter. Only one MCP capture runs at a time. After `capture_done` or `capture_error` the data stays on screen as an ordinary capture; the user can save it, but switching device or quitting does not ask to (the agent has the data).
+When the capture ends (or is refused), the GUI gives back the user's capture mode (single, repeat or loop), clock, run-length compression and input filter. The rate, the depth and the channels stay as the capture set them, matching the data on screen (restoring them would clear it). Only one MCP capture runs at a time. After `capture_done` or `capture_error` the data stays on screen as an ordinary capture; the user can save it, but switching device or quitting does not ask to (the agent has the data).
 
 ### current
 
