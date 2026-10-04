@@ -18,6 +18,7 @@
  */
 
 #include "mcpbridge.h"
+#include "../ui/xtoolbutton.h"
 #include "mcpcapture.h"
 #include "mcpplatform.h"
 
@@ -97,11 +98,10 @@ McpBridge::McpBridge(SigSession *session, toolbars::SamplingBar *bar, QWidget *w
         emit changed();
     });
 
-    // The MCP button, after Start and Instant; MainWindow lays it out with the others.
-    _button = new QToolButton(bar);
+    // The MCP button; MainWindow puts it between Options and Help.
+    _button = new XToolButton(bar);   // lines its label up with the other toolbar buttons
     _button->setObjectName("mcp_button");
     _button->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    bar->addWidget(_button);
     connect(_button, &QToolButton::clicked, this, [this]() { show_pane(); });
     connect(this, &McpBridge::changed, this, &McpBridge::update_button);
     retranslate();

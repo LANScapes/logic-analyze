@@ -60,6 +60,7 @@ public:
     ~McpBridge();
 
     static McpBridge *instance() { return _instance; }
+    QToolButton *button() const { return _button; }
 
     bool connected() const { return _fd >= 0 && _ok; }
     bool enabled() const { return _enabled; }

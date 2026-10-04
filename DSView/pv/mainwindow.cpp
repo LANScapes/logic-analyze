@@ -225,8 +225,12 @@ namespace pv
         _sampling_bar->add_options_submenu(_trig_bar->display_menu());
         _logo_bar->add_before_help(_sampling_bar->options_button());
 #ifdef LANSCAPES_APPSTORE
-        // Mac App Store edition: the agent connection; its MCP button ends the sampling bar.
+        // Mac App Store edition: the agent connection; its MCP button sits between Options and Help.
         _mcp = new pv::mcp::McpBridge(_session, _sampling_bar, this);
+        _logo_bar->add_before_help(_mcp->button());
+        // A widget added to a toolbar does not follow its icon size; keep it in step.
+        _mcp->button()->setIconSize(_logo_bar->iconSize());
+        connect(_logo_bar, &QToolBar::iconSizeChanged, _mcp->button(), &QToolButton::setIconSize);
 #endif
         // File first; Options and Help close the row.
         for (QToolBar *bar : {(QToolBar*)_file_bar, (QToolBar*)_sampling_bar,
