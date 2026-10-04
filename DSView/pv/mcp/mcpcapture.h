@@ -53,6 +53,9 @@ public:
     McpCapture(SigSession *session, toolbars::SamplingBar *bar, QObject *parent);
 
     bool running() const { return _id >= 0; }
+    // Inside start(): the app's Start runs for an MCP capture, which sets its
+    // own trigger (no trigger dialog).
+    bool starting() const { return _starting; }
 
     // Runs one capture into <staging>/<name>.bin and .json. Answers through
     // started() and then done() or failed(), or failed() at once.
@@ -88,6 +91,8 @@ private:
     bool choose_device(QString &code, QString &message);
     void stop(bool timed_out);
     void finish();
+    void save_settings();
+    void restore_settings();
 
     SigSession *_session;
     toolbars::SamplingBar *_bar;
@@ -107,6 +112,14 @@ private:
     QTimer _timeout;
     bool _mcp_on_screen = false;     // the data on screen is from an MCP capture
     bool _stopped_on_screen = false; // and the user stopped it early
+    struct {
+        bool valid = false;
+        int collect_mode = 0;
+        bool has_clock = false, clock = false;
+        bool has_rle = false, rle = false;
+        bool has_filter = false;
+        int filter = 0;
+    } _saved;                        // restored when the capture ends
 };
 
 } // namespace mcp

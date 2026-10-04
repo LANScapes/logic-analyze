@@ -254,12 +254,25 @@ static int select_channel_mode(uint64_t rate)
     return SR_ERR;
 }
 
+/* The depth asked of the driver: buffer delivery is aligned to 1024 samples. */
+static uint64_t hw_samples(const struct cap_request *r)
+{
+    return r->stream ? r->samples : (r->samples + SAMPLES_ALIGN) & ~SAMPLES_ALIGN;
+}
+
 int cap_set_trigger(const struct cap_request *r, struct cap_error *e)
 {
     int rc;
+    /* The driver places the trigger at a percentage of the depth asked of it,
+     * which can be more than the samples kept: scale it by samples/depth, and
+     * keep it before the last sample kept. */
+    uint64_t hw = hw_samples(r);
+    uint64_t pos = ((uint64_t)r->trigpos * r->samples * 2 + hw) / (2 * hw);
+    if (pos > 0 && pos * hw >= r->samples * 100)
+        pos--;
     if ((rc = ds_trigger_reset()) != SR_OK) { config_error(e, "trigger", rc); return rc; }
     if ((rc = ds_trigger_set_mode(SIMPLE_TRIGGER)) != SR_OK) { config_error(e, "trigger_mode", rc); return rc; }
-    if ((rc = ds_trigger_set_pos((uint16_t)r->trigpos)) != SR_OK) { config_error(e, "trigpos", rc); return rc; }
+    if ((rc = ds_trigger_set_pos((uint16_t)pos)) != SR_OK) { config_error(e, "trigpos", rc); return rc; }
     if (r->trig_ch >= 0 && (rc = ds_trigger_probe_set((uint16_t)r->trig_ch,
             (unsigned char)r->trig_type, 'X')) != SR_OK) {
         config_error(e, "trigger", rc);
@@ -282,6 +295,17 @@ int cap_check(const struct cap_request *r, struct cap_error *e)
     return 0;
 }
 
+void cap_resolve_mode(struct cap_request *r)
+{
+    if (r->stream >= 0)
+        return;
+    /* Devices without an operation mode (the demo device) count as buffer. */
+    GVariant *gv = device_has_option(SR_CONF_OPERATION_MODE) ?
+        get_config(SR_CONF_OPERATION_MODE, G_VARIANT_TYPE_INT16) : NULL;
+    r->stream = gv && g_variant_get_int16(gv) == LO_OP_STREAM;
+    if (gv) g_variant_unref(gv);
+}
+
 int cap_apply(const struct cap_request *r, struct cap_setup *s, struct cap_error *e)
 {
     int rc;
@@ -293,11 +317,7 @@ int cap_apply(const struct cap_request *r, struct cap_setup *s, struct cap_error
     info.name[sizeof info.name - 1] = '\0';
     g_strlcpy(s->device, info.name, sizeof s->device);
 
-    s->hw_samples = r->samples;
-    if (!r->stream) {
-        /* Buffer delivery is aligned to 1024 samples in the driver. */
-        s->hw_samples = (r->samples + SAMPLES_ALIGN) & ~SAMPLES_ALIGN;
-    }
+    s->hw_samples = hw_samples(r);
 
     /* Mode first: it changes the channel mode and the allowed rates. Devices
      * without an operation mode (the demo device) have one channel mode. */
@@ -325,6 +345,20 @@ int cap_apply(const struct cap_request *r, struct cap_setup *s, struct cap_error
             set_error(e, 2, "channel/rate combination unavailable",
                       ",\"channel\":%d,\"samplerate\":%llu,\"max_channels\":%d",
                       r->channels[i], (unsigned long long)r->rate, max_channels);
+            return 2;
+        }
+    }
+
+    /* Buffer mode holds the capture in the device memory: refuse more samples
+     * than it holds for this channel count (the app's own depth limit). */
+    gv = r->stream ? NULL : get_config(SR_CONF_HW_DEPTH, G_VARIANT_TYPE_UINT64);
+    if (gv) {
+        uint64_t depth = g_variant_get_uint64(gv);
+        g_variant_unref(gv);
+        if (s->hw_samples > depth) {
+            set_error(e, 2, "samples exceed the device memory for this channel count in buffer mode",
+                      ",\"samples\":%llu,\"max_samples\":%llu,\"channels\":%d",
+                      (unsigned long long)r->samples, (unsigned long long)depth, r->nch);
             return 2;
         }
     }

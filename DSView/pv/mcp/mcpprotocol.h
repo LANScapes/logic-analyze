@@ -53,7 +53,7 @@ struct CaptureRequest
     qint64 samplerate_hz = 0;
     qint64 samples = 0;           // resolved from duration_s if needed
     double threshold_v = 1.6;
-    bool stream = false;
+    int stream = -1;              // 1 stream, 0 buffer, -1 the device's current mode
     int trigger_channel = -1;     // -1: none
     char trigger_edge = 'R';
     int trigger_position_percent = 10;

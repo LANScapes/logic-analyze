@@ -11,6 +11,10 @@ subset (the subset that the manual uses):
   **bold**, *italic*, `code`, [text](NN-chapter.md) and [text](#id) links,
   <https://...> links, <!-- comments -->
 
+A block between "<!-- edition: NAME -->" and "<!-- end edition -->" is only for
+one edition of the app: "download" (the release from GitHub, the default) or
+"appstore" (the Mac App Store edition, --edition appstore).
+
 Output, for each language:
 
   <out>/<lang>/index.html    one page with all chapters
@@ -22,7 +26,7 @@ The PDF step prints the HTML page with a headless Chrome or Chromium. Set
 CHROME to the browser executable if the script does not find it.
 
 Usage:
-  tools/manual/build_manual.py [--out DIR] [--pdf] [--lang en,de,...]
+  tools/manual/build_manual.py [--out DIR] [--pdf] [--lang en,de,...] [--edition appstore]
 """
 import argparse
 import html
@@ -290,7 +294,14 @@ footer { margin-top: 4rem; color: var(--muted); font-size: .85rem; border-top: 1
 """
 
 
-def build_lang(lang, out_dir):
+EDITION_BLOCK = re.compile(r'<!-- edition: (\w+) -->\n(.*?)<!-- end edition -->\n', re.S)
+
+
+def select_edition(md, edition):
+    return EDITION_BLOCK.sub(lambda m: m.group(2) if m.group(1) == edition else '', md)
+
+
+def build_lang(lang, out_dir, edition):
     src = os.path.join(SRC, lang)
     with open(os.path.join(src, 'manual.json'), encoding='utf-8') as f:
         meta = json.load(f)
@@ -300,7 +311,7 @@ def build_lang(lang, out_dir):
     body = []
     for f in files:
         with open(os.path.join(src, f), encoding='utf-8') as fh:
-            body.append(f'<section>{render_chapter(fh.read(), f[:-3], doc, chapter_ids)}</section>')
+            body.append(f'<section>{render_chapter(select_edition(fh.read(), edition), f[:-3], doc, chapter_ids)}</section>')
     toc = ['<nav class="toc"><h2>' + html.escape(meta['labels']['contents']) + '</h2><ol>']
     for level, num, text, hid in doc.toc:
         if level <= 2:
@@ -387,6 +398,8 @@ def main():
     ap.add_argument('--out', default=os.path.join(ROOT, 'build', 'manual'), help='output directory')
     ap.add_argument('--pdf', action='store_true', help='also print a PDF for each language (needs Chrome)')
     ap.add_argument('--lang', help='comma-separated language directories (default: all)')
+    ap.add_argument('--edition', choices=('download', 'appstore'), default='download',
+                    help='the edition of the app that the manual describes')
     args = ap.parse_args()
 
     langs = sorted(d for d in os.listdir(SRC) if os.path.exists(os.path.join(SRC, d, 'manual.json')))
@@ -406,7 +419,7 @@ def main():
     if args.pdf and not chrome:
         raise SystemExit('build_manual: --pdf needs Chrome or Chromium; set CHROME=/path/to/browser')
     for lang in langs:
-        path = build_lang(lang, args.out)
+        path = build_lang(lang, args.out, args.edition)
         line = path
         if chrome:
             pdf = os.path.join(os.path.dirname(path), f'logic-analyze-manual-{lang}.pdf')

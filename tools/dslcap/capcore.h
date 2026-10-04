@@ -27,7 +27,7 @@ struct cap_request {
     int nch;
     uint64_t rate, samples;
     double vth;                      /* ignored on devices without a threshold */
-    int stream;                      /* stream mode, else buffer */
+    int stream;                      /* 1 stream, 0 buffer, -1 the device's current mode */
     int trig_ch;                     /* -1: no trigger */
     char trig_type;                  /* R F C 1 0 */
     int trigpos;                     /* 0..100 */
@@ -64,6 +64,10 @@ struct cap_publish_hooks {
 /* Range checks that need more than one field (trigger position vs depth).
  * Returns 0, or rc with e filled. */
 int cap_check(const struct cap_request *r, struct cap_error *e);
+
+/* A request without a mode (stream -1) takes the active device's operation
+ * mode; call before cap_apply(). */
+void cap_resolve_mode(struct cap_request *r);
 
 /* Applies r to the active device: operation mode and channel mode, enabled
  * channels, internal clock without RLE or filter, threshold, rate, depth and

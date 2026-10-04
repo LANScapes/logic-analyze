@@ -165,7 +165,8 @@ public:
     void Close();
     
     bool set_default_device();
-    bool set_device(ds_device_handle dev_handle);
+    // quiet: no message box (an MCP capture reports the failure to the agent).
+    bool set_device(ds_device_handle dev_handle, bool quiet = false);
     bool set_file(QString name);
     void close_file(ds_device_handle dev_handle);
     bool start_capture(bool instant);

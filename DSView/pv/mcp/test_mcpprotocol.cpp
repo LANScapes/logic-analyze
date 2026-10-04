@@ -141,14 +141,14 @@ static void test_requests()
     CHECK(a.name == "20261003-120000-abc");
     CHECK(a.req.channels.size() == 2 && a.req.channels[0] == 3 && a.req.channels[1] == 0);
     CHECK(a.req.samplerate_hz == 10000000 && a.req.samples == 4096);
-    CHECK(a.req.threshold_v == 0.9 && a.req.stream);
+    CHECK(a.req.threshold_v == 0.9 && a.req.stream == 1);
     CHECK(a.req.trigger_channel == 3 && a.req.trigger_edge == 'F' && a.req.trigger_position_percent == 25);
     CHECK(a.req.timeout_ms == 5000);
 
     // Defaults, as dslcap's.
     a = capture("{\"channels\":[0],\"samplerate_hz\":1000000}");
     CHECK(a.req_error.isEmpty() && a.req.samples == 1000000 && a.req.threshold_v == 1.6);
-    CHECK(!a.req.stream && a.req.trigger_channel == -1 && a.req.trigger_edge == 'R');
+    CHECK(a.req.stream == -1 && a.req.trigger_channel == -1 && a.req.trigger_edge == 'R');
     CHECK(a.req.trigger_position_percent == 10 && a.req.timeout_ms == 30000);
     a = capture("{\"channels\":[0],\"samplerate_hz\":1000000,\"trigger_channel\":null}");
     CHECK(a.req_error.isEmpty() && a.req.trigger_channel == -1);

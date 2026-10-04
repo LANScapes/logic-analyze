@@ -2,10 +2,17 @@
 
 ## Cài đặt ứng dụng
 
+<!-- edition: download -->
 1. Mở trang phát hành của dự án: <https://github.com/LANScapes/logic-analyze/releases>.
 2. Tải xuống tệp ZIP của bản phát hành mới nhất.
 3. Mở tệp ZIP trong Finder. Finder giải nén **Logic Analyze.app**.
 4. Kéo **Logic Analyze.app** vào thư mục **Ứng dụng**.
+<!-- end edition -->
+<!-- edition: appstore -->
+1. Mở App Store trên máy Mac.
+2. Tìm Logic Analyze trong App Store.
+3. Cài đặt ứng dụng. App Store đặt **Logic Analyze.app** vào thư mục **Ứng dụng**.
+<!-- end edition -->
 
 Ứng dụng chứa tất cả thư viện, firmware và bộ giải mã giao thức cần thiết. Bạn không cài trình điều khiển trên macOS.
 
@@ -19,12 +26,23 @@ Khi ứng dụng khởi động lần đầu, ứng dụng có thể hiện cử
 
 ## Cập nhật ứng dụng
 
+<!-- edition: download -->
 1. Nhấp **Trợ giúp** › **Cập nhật**. Ứng dụng mở trang phát hành trong trình duyệt web.
 2. Nếu trang phát hành có phiên bản mới hơn, tải phiên bản đó xuống.
 3. Thoát Logic Analyze.
 4. Thay **Logic Analyze.app** trong thư mục **Ứng dụng** bằng phiên bản mới.
 
 Ứng dụng giữ cài đặt của bạn khi bạn thay ứng dụng.
+<!-- end edition -->
+<!-- edition: appstore -->
+App Store cập nhật ứng dụng. Để tìm bản cập nhật ngay, làm các bước sau:
+
+1. Mở App Store trên máy Mac.
+2. Mở danh sách cập nhật.
+3. Nếu Logic Analyze có trong danh sách, cập nhật ứng dụng.
+
+Ứng dụng giữ cài đặt của bạn khi ứng dụng cập nhật.
+<!-- end edition -->
 
 ## Mở hướng dẫn này
 

@@ -96,7 +96,10 @@ LogoBar::LogoBar(SigSession *session, QWidget *parent) :
     _menu->addAction(_about);
     _menu->addAction(_manual);
     _menu->addAction(_issue);
+#ifndef LANSCAPES_APPSTORE
+    // The App Store edition updates through the App Store (guideline 2.4.5(vii)).
     _menu->addAction(_update);
+#endif
     _menu->addAction(_log);
     _logo_button.setMenu(_menu);
 

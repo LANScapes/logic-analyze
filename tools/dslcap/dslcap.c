@@ -261,7 +261,7 @@ static int parse_args(int argc, char **argv, struct options *o)
     o->res = getenv("DSLCAP_RES");
     o->chans = "0";
     o->device = "DSLogic";
-    o->mode = "buffer";
+    o->mode = NULL;                   /* the device's current mode */
     o->rate = 10000000;
     o->samples = 1000000;
     o->vth = 1.6;
@@ -380,11 +380,11 @@ static int parse_args(int argc, char **argv, struct options *o)
         }
         return 0;
     }
-    if (strcmp(o->mode, "buffer") && strcmp(o->mode, "stream")) {
+    if (o->mode && strcmp(o->mode, "buffer") && strcmp(o->mode, "stream")) {
         arg_error("invalid option value", "--mode", o->mode);
         return 2;
     }
-    o->stream = !strcmp(o->mode, "stream");
+    o->stream = o->mode ? !strcmp(o->mode, "stream") : -1;
     if (o->list_only)
         return 0;
     /* The driver converts trigpos% of the (aligned) sample limit to a 32-bit
@@ -611,6 +611,7 @@ int main(int argc, char **argv)
     struct cap_setup setup;
     struct cap_error err;
     to_request(&o, &req);
+    cap_resolve_mode(&req);
     if ((rc = cap_apply(&req, &setup, &err)) != 0) {
         printf("%s\n", err.json);
         ds_lib_exit();

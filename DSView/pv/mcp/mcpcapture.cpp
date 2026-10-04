@@ -80,9 +80,14 @@ bool McpCapture::choose_device(QString &code, QString &message)
         message = "no analyzer is connected";
         return false;
     }
-    if ((!dev->have_instance() || dev->handle() != want) && !_session->set_device(want)) {
-        code = "no_device";
-        message = "the analyzer could not be opened";
+    if ((!dev->have_instance() || dev->handle() != want) && !_session->set_device(want, true)) {
+        if (ds_get_last_error() == SR_ERR_DEVICE_IS_EXCLUSIVE) {
+            code = "busy";
+            message = "another program is using the analyzer";
+        } else {
+            code = "no_device";
+            message = "the analyzer could not be opened";
+        }
         return false;
     }
     return true;
@@ -117,21 +122,26 @@ void McpCapture::start(qint64 id, const QString &name, const CaptureRequest &req
     r.samples = (uint64_t)req.samples;
     r.vth = req.threshold_v;
     r.stream = req.stream;
+    cap_resolve_mode(&r);   // no mode: the user's buffer or stream setting
     r.trig_ch = req.trigger_channel;
     r.trig_type = req.trigger_edge;
     r.trigpos = req.trigger_position_percent;
 
     struct cap_error e;
-    if (cap_check(&r, &e) || cap_apply(&r, &_setup, &e)) {
-        fail(id, e.rc == 2 ? "unsupported" : "failed", e.message);
+    if (cap_check(&r, &e)) {
+        fail(id, "unsupported", e.message);
         return;
     }
+    save_settings();
     // Show the new settings as the device options dialog does, then apply the
-    // request once more so the device holds exactly what dslcap would set.
+    // request once more so the device holds exactly what dslcap would set. A
+    // refused request can have changed some settings already: show them too.
+    bool applied = cap_apply(&r, &_setup, &e) == 0;
     _session->broadcast_msg(DSV_MSG_DEVICE_OPTIONS_UPDATED);
     _bar->update_sample_rate_list();
     _bar->reload();
-    if (cap_apply(&r, &_setup, &e)) {
+    if (!applied || cap_apply(&r, &_setup, &e)) {
+        restore_settings();
         fail(id, e.rc == 2 ? "unsupported" : "failed", e.message);
         return;
     }
@@ -140,6 +150,7 @@ void McpCapture::start(qint64 id, const QString &name, const CaptureRequest &req
 
     _out_base = QDir(staging).filePath(name);
     if (cap_record_begin(_out_base.toUtf8().constData())) {
+        restore_settings();
         fail(id, "failed", "cannot create capture spool");
         return;
     }
@@ -155,12 +166,45 @@ void McpCapture::start(qint64 id, const QString &name, const CaptureRequest &req
     if (!ok) {
         cap_record_end();
         _id = -1;
+        restore_settings();
         fail(id, "failed", "start failed");
         return;
     }
+    if (!running())   // it has already ended, and finish() has answered
+        return;
     _timeout.start((int)qMin<qint64>(req.timeout_ms, INT_MAX));
     emit active_changed(true);
     emit started(id);
+}
+
+// The settings that an MCP capture changes and gives back afterwards: the
+// capture mode, and the clock, RLE and input filter that capcore turns off.
+void McpCapture::save_settings()
+{
+    DeviceAgent *dev = _session->get_device();
+    _saved.valid = true;
+    _saved.collect_mode = _session->get_collect_mode();
+    _saved.has_clock = dev->get_config_bool(SR_CONF_CLOCK_TYPE, _saved.clock);
+    _saved.has_rle = dev->get_config_bool(SR_CONF_RLE, _saved.rle);
+    _saved.has_filter = dev->get_config_int16(SR_CONF_FILTER, _saved.filter);
+}
+
+void McpCapture::restore_settings()
+{
+    if (!_saved.valid)
+        return;
+    _saved.valid = false;
+    DeviceAgent *dev = _session->get_device();
+    if (_saved.has_clock)
+        dev->set_config_bool(SR_CONF_CLOCK_TYPE, _saved.clock);
+    if (_saved.has_rle)
+        dev->set_config_bool(SR_CONF_RLE, _saved.rle);
+    if (_saved.has_filter)
+        dev->set_config_int16(SR_CONF_FILTER, _saved.filter);
+    // Loop mode needs stream mode on an analyzer (as SamplingBar::reload).
+    if (_saved.collect_mode != COLLECT_LOOP || dev->is_stream_mode() || !dev->is_hardware())
+        _session->set_collect_mode((DEVICE_COLLECT_MODE)_saved.collect_mode);
+    _bar->update_view_status();   // the Mode button's icon
 }
 
 void McpCapture::OnMessage(int msg)
@@ -168,6 +212,7 @@ void McpCapture::OnMessage(int msg)
     switch (msg) {
     case DSV_MSG_CURRENT_DEVICE_CHANGED:
         _mcp_on_screen = _stopped_on_screen = false;
+        _saved.valid = false;   // they belong to the other device
         break;
     case DSV_MSG_START_COLLECT_WORK_PREV:
         _mcp_on_screen = _starting;
@@ -190,6 +235,8 @@ void McpCapture::OnMessage(int msg)
     case DSV_MSG_END_COLLECT_WORK:
         if (running())
             finish();
+        else
+            restore_settings();   // after abandon(), when the capture ends
         break;
     default:
         break;
@@ -228,6 +275,7 @@ void McpCapture::finish()
     qint64 id = _id;
     _id = -1;
     _timeout.stop();
+    restore_settings();
     // The agent has the data: switching device or quitting does not ask to save it.
     _session->is_first_store_confirm();
     emit active_changed(false);

@@ -2,10 +2,17 @@
 
 ## Instalar o aplicativo
 
+<!-- edition: download -->
 1. Vá para a página de versões do projeto: <https://github.com/LANScapes/logic-analyze/releases>.
 2. Baixe o arquivo ZIP da versão mais nova.
 3. Abra o arquivo ZIP no Finder. O Finder extrai o **Logic Analyze.app**.
 4. Arraste o **Logic Analyze.app** para a pasta **Aplicativos**.
+<!-- end edition -->
+<!-- edition: appstore -->
+1. Abra a App Store no Mac.
+2. Procure o Logic Analyze na App Store.
+3. Instale o aplicativo. A App Store coloca o **Logic Analyze.app** na pasta **Aplicativos**.
+<!-- end edition -->
 
 O aplicativo contém todas as bibliotecas, o firmware e os decodificadores de protocolo necessários. Você não instala um driver no macOS.
 
@@ -19,12 +26,23 @@ Quando o aplicativo inicia pela primeira vez, ele pode mostrar a janela **Docume
 
 ## Atualizar o aplicativo
 
+<!-- edition: download -->
 1. Clique em **Ajuda** › **Atualizar**. O aplicativo abre a página de versões no seu navegador da web.
 2. Se a página de versões mostrar uma versão mais nova, baixe-a.
 3. Feche o Logic Analyze.
 4. Substitua o **Logic Analyze.app** na pasta **Aplicativos** pela nova versão.
 
 O aplicativo mantém as suas configurações quando você o substitui.
+<!-- end edition -->
+<!-- edition: appstore -->
+A App Store atualiza o aplicativo. Para procurar uma atualização imediatamente, faça estes passos:
+
+1. Abra a App Store no Mac.
+2. Abra a lista de atualizações.
+3. Se o Logic Analyze estiver na lista, atualize-o.
+
+O aplicativo mantém as suas configurações quando é atualizado.
+<!-- end edition -->
 
 ## Abrir este manual
 

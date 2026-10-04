@@ -34,6 +34,7 @@
 #endif
 #ifdef LANSCAPES_APPSTORE
 #include "mcp/mcpbridge.h"
+#include "mcp/mcpcapture.h"
 #endif
 #include <QWidget>
 #include <QDesktopServices>
@@ -1963,7 +1964,13 @@ namespace pv
             }
             case DSV_MSG_START_COLLECT_WORK_PREV:
             {
-                if (_device_agent->get_work_mode() == LOGIC)
+#ifdef LANSCAPES_APPSTORE
+                // An MCP capture sets its own trigger and shows no trigger dialog.
+                bool mcp_capture = _mcp && _mcp->capture()->starting();
+#else
+                bool mcp_capture = false;
+#endif
+                if (_device_agent->get_work_mode() == LOGIC && !mcp_capture)
                     _trigger_widget->try_commit_trigger();
                 else if (_device_agent->get_work_mode() == DSO)
                     _dso_trigger_widget->check_setting();

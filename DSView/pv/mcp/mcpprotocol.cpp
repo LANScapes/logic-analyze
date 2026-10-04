@@ -146,7 +146,7 @@ static QString parse_request(const QJsonObject &q, CaptureRequest &r)
         QString mode = q.value("mode").toString();
         if (mode != "buffer" && mode != "stream")
             return "mode must be buffer or stream";
-        r.stream = mode == "stream";
+        r.stream = mode == "stream" ? 1 : 0;
     }
 
     QJsonValue tc = q.value("trigger_channel");

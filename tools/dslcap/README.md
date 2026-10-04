@@ -14,6 +14,9 @@ dslcap --channels 0,1 --samplerate 10000000 --samples 1000000
        --out /path/base
 ```
 
+Without `--mode`, the capture uses the device's current operation mode (buffer
+or stream).
+
 `--device NAME` captures from the first device whose name contains NAME
 (default `DSLogic`); `--device Demo` uses the demo device, whose patterns are
 read from `demo/` next to the firmware directory, and does not scan USB at all. `--vth` is ignored on a
