@@ -61,7 +61,10 @@ The script compares the headings, the steps, the safety instructions, the tables
 python3 tools/manual/build_manual.py              # HTML in build/manual/<lang>/index.html
 python3 tools/manual/build_manual.py --pdf        # also build/manual/<lang>/logic-analyze-manual-<lang>.pdf
 python3 tools/manual/build_manual.py --lang en,de # only some languages
+python3 tools/manual/build_manual.py --edition appstore  # the Mac App Store edition
 ```
+
+Text between `<!-- edition: download -->` and `<!-- end edition -->` is only for the release from GitHub. Text between `<!-- edition: appstore -->` and `<!-- end edition -->` is only for the Mac App Store edition. `package.sh` builds the App Store manual when it packages the App Store edition.
 
 The script uses only the Python standard library. The PDF step uses Google Chrome or Chromium in headless mode. If the script does not find the browser, set `CHROME` to the path of the browser.
 

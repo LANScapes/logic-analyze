@@ -2,10 +2,17 @@
 
 ## Uygulamayı yükleme
 
+<!-- edition: download -->
 1. Projenin sürümler sayfasına gidin: <https://github.com/LANScapes/logic-analyze/releases>.
 2. En yeni sürümün ZIP dosyasını indirin.
 3. ZIP dosyasını Finder'da açın. Finder, **Logic Analyze.app** dosyasını çıkarır.
 4. **Logic Analyze.app** dosyasını **Uygulamalar** klasörüne sürükleyin.
+<!-- end edition -->
+<!-- edition: appstore -->
+1. Mac'te App Store'u açın.
+2. App Store'da Logic Analyze'ı bulun.
+3. Uygulamayı yükleyin. App Store, **Logic Analyze.app** dosyasını **Uygulamalar** klasörüne koyar.
+<!-- end edition -->
 
 Uygulama gerekli tüm kitaplıkları, aygıt yazılımını ve protokol çözücülerini içerir. macOS'ta sürücü yüklemezsiniz.
 
@@ -19,12 +26,23 @@ Uygulama ilk kez başladığında **Belge** penceresini gösterebilir. Bu kılav
 
 ## Uygulamayı güncelleme
 
+<!-- edition: download -->
 1. **Yardım** › **Güncelle** öğesine tıklayın. Uygulama, sürümler sayfasını web tarayıcınızda açar.
 2. Sürümler sayfasında daha yeni bir sürüm varsa onu indirin.
 3. Logic Analyze'dan çıkın.
 4. **Uygulamalar** klasöründeki **Logic Analyze.app** dosyasını yeni sürümle değiştirin.
 
 Uygulamayı değiştirdiğinizde ayarlarınız korunur.
+<!-- end edition -->
+<!-- edition: appstore -->
+App Store uygulamayı günceller. Bir güncellemeyi hemen bulmak için şu adımları uygulayın:
+
+1. Mac'te App Store'u açın.
+2. Güncellemeler listesini açın.
+3. Logic Analyze listede varsa onu güncelleyin.
+
+Uygulama güncellendiğinde ayarlarınız korunur.
+<!-- end edition -->
 
 ## Bu kılavuzu açma
 

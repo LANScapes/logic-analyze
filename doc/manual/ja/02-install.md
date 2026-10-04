@@ -2,10 +2,17 @@
 
 ## アプリをインストールする
 
+<!-- edition: download -->
 1. プロジェクトのリリースページを開きます：<https://github.com/LANScapes/logic-analyze/releases>。
 2. 最新リリースの ZIP ファイルをダウンロードします。
 3. Finder で ZIP ファイルを開きます。Finder が **Logic Analyze.app** を展開します。
 4. **Logic Analyze.app** を **アプリケーション** フォルダにドラッグします。
+<!-- end edition -->
+<!-- edition: appstore -->
+1. Mac で App Store を開きます。
+2. App Store で Logic Analyze を探します。
+3. アプリをインストールします。App Store が **Logic Analyze.app** を **アプリケーション** フォルダに入れます。
+<!-- end edition -->
 
 このアプリには、必要なライブラリ、ファームウェア、プロトコルデコーダがすべて含まれます。macOS ではドライバをインストールしません。
 
@@ -19,12 +26,23 @@
 
 ## アプリを更新する
 
+<!-- edition: download -->
 1. **ヘルプ** › **更新** をクリックします。アプリが Web ブラウザでリリースページを開きます。
 2. リリースページに新しいバージョンがあれば、ダウンロードします。
 3. Logic Analyze を終了します。
 4. **アプリケーション** フォルダの **Logic Analyze.app** を新しいバージョンに置き換えます。
 
 アプリを置き換えても、設定は保持されます。
+<!-- end edition -->
+<!-- edition: appstore -->
+App Store がアプリを更新します。すぐにアップデートを確認するには、次の手順を実行します。
+
+1. Mac で App Store を開きます。
+2. アップデートの一覧を開きます。
+3. 一覧に Logic Analyze があれば、更新します。
+
+アプリを更新しても、設定は保持されます。
+<!-- end edition -->
 
 ## このマニュアルを開く
 

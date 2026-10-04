@@ -2,10 +2,17 @@
 
 ## 安装应用
 
+<!-- edition: download -->
 1. 打开项目的发布页面：<https://github.com/LANScapes/logic-analyze/releases>。
 2. 下载最新发布版本的 ZIP 文件。
 3. 在 Finder 中打开 ZIP 文件。Finder 解压出 **Logic Analyze.app**。
 4. 把 **Logic Analyze.app** 拖到 **应用程序** 文件夹。
+<!-- end edition -->
+<!-- edition: appstore -->
+1. 在 Mac 上打开 App Store。
+2. 在 App Store 中找到 Logic Analyze。
+3. 安装应用。App Store 把 **Logic Analyze.app** 放到 **应用程序** 文件夹。
+<!-- end edition -->
 
 此应用包含所有必需的库、固件和协议解码器。在 macOS 上不需要安装驱动程序。
 
@@ -19,12 +26,23 @@
 
 ## 更新应用
 
+<!-- edition: download -->
 1. 单击 **帮助** › **更新**。应用在您的网页浏览器中打开发布页面。
 2. 如果发布页面显示更新的版本，下载该版本。
 3. 退出 Logic Analyze。
 4. 用新版本替换 **应用程序** 文件夹中的 **Logic Analyze.app**。
 
 替换应用后，应用保留您的设置。
+<!-- end edition -->
+<!-- edition: appstore -->
+App Store 会更新应用。要立即查找更新，请执行以下步骤：
+
+1. 在 Mac 上打开 App Store。
+2. 打开更新列表。
+3. 如果列表中有 Logic Analyze，更新它。
+
+应用更新后，应用保留您的设置。
+<!-- end edition -->
 
 ## 打开本手册
 

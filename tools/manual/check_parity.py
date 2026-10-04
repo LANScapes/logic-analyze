@@ -37,6 +37,7 @@ def shape(path):
         # A figure in figures/<lang>/ shows the app in that language.
         'figures': [f.replace(f'figures/{lang}/', 'figures/<lang>/')
                     for f in re.findall(r'!\[[^\]]*\]\(([^)]+)\)', body)],
+        'editions': re.findall(r'<!-- (edition: \w+|end edition) -->', body),
         'ids': re.findall(r'\{#([\w-]+)\}', body),
         'links': sorted(re.findall(r'\]\((\d\d-[\w-]+\.md|#[\w-]+)\)', body)),
         'code': code,

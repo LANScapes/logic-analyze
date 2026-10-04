@@ -2,10 +2,17 @@
 
 ## De app installeren
 
+<!-- edition: download -->
 1. Ga naar de releasepagina van het project: <https://github.com/LANScapes/logic-analyze/releases>.
 2. Download het ZIP-bestand van de nieuwste release.
 3. Open het ZIP-bestand in de Finder. De Finder pakt **Logic Analyze.app** uit.
 4. Sleep **Logic Analyze.app** naar de map **Apps**.
+<!-- end edition -->
+<!-- edition: appstore -->
+1. Open de App Store op de Mac.
+2. Zoek Logic Analyze in de App Store.
+3. Installeer de app. De App Store zet **Logic Analyze.app** in de map **Apps**.
+<!-- end edition -->
 
 De app bevat alle nodige bibliotheken, de firmware en de protocoldecoders. U installeert op macOS geen stuurprogramma.
 
@@ -19,12 +26,23 @@ Bij de eerste start kan de app het venster **Document** tonen. Klik op **Openen*
 
 ## De app bijwerken
 
+<!-- edition: download -->
 1. Klik op **Help** › **Bijwerken**. De app opent de releasepagina in uw webbrowser.
 2. Als de releasepagina een nieuwere versie toont, download die dan.
 3. Stop Logic Analyze.
 4. Vervang **Logic Analyze.app** in de map **Apps** door de nieuwe versie.
 
 De app behoudt uw instellingen als u de app vervangt.
+<!-- end edition -->
+<!-- edition: appstore -->
+De App Store werkt de app bij. Doe deze stappen om direct naar een update te zoeken:
+
+1. Open de App Store op de Mac.
+2. Open de lijst met updates.
+3. Als Logic Analyze in de lijst staat, werk de app dan bij.
+
+De app behoudt uw instellingen als de app wordt bijgewerkt.
+<!-- end edition -->
 
 ## Deze handleiding openen
 
