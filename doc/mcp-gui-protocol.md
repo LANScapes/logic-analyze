@@ -8,7 +8,7 @@ Nothing on the MCP path asks the user anything: no prompts, notices or confirmat
 
 ## Lifetime
 
-- MCP is off by default. The toolbar's **MCP** button (after Start and Instant) opens the MCP pane, a tool window that is never modal: a short intro, MCP on or off with **Turn On**/**Turn Off**, and what MCP is doing now (**Idle**, or **Capturing: ch 0–3, 10 MHz, 1M samples**) with a **Stop** that ends the MCP capture as the app's Stop does. The GUI stores the setting.
+- MCP is off by default. The toolbar's **MCP** button (between Options and Help) opens the MCP pane, a tool window that is never modal: a short intro, MCP on or off with **Turn On**/**Turn Off**, and what MCP is doing now (**Idle**, or **Capturing: ch 0–3, 10 MHz, 1M samples**) with a **Stop** that ends the MCP capture as the app's Stop does. The GUI stores the setting.
 - The button's mark: none when MCP is off, a green dot when it is on (a green ring while the agent is not connected yet), an orange dot while an MCP capture runs. An agent error (version mismatch, agent missing) shows only in the pane and in the button's tooltip.
 - With MCP on, the GUI opens the nested `Logic Analyze Agent.app` with `NSWorkspace` and connects. If the connection drops, it connects again every 3 s and reopens the agent at most every 30 s. After a version error it stops until MCP is turned off and on.
 - The agent serves only while the GUI is connected, and exits at once when the GUI disconnects. Nothing else starts the agent or the GUI.
