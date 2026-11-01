@@ -130,6 +130,10 @@ rm -f "$DYN"/_decimal.* "$DYN"/_hashlib.* "$DYN"/_ssl.* "$DYN"/_lzma.* "$DYN"/_s
       "$DYN"/_test*.* "$DYN"/_xxtestfuzz.* "$DYN"/xx*.* "$DYN"/_ctypes_test.* \
       "$DYN"/readline.* "$DYN"/_curses*.* "$DYN"/_dbm.* "$DYN"/_gdbm.* "$DYN"/_tkinter.*
 rm -f "$PV/lib/python$PYVER/sitecustomize.py"  # Homebrew's: adds /opt/homebrew site-packages
+# App Review (guideline 2.5.2) rejects any bundle containing the string "itms-services".
+# urllib.parse lists it as a URL scheme; CPython's --with-app-store-compliance drops it
+# the same way (Mac/Resources/app-store-compliance.patch). Homebrew's build doesn't.
+sed -i '' "s/, 'itms-services'\]/]/" "$PV/lib/python$PYVER/urllib/parse.py"
 # macOS rsync follows the site-packages symlink despite the exclude, bringing pip and wheel;
 # the decoders need neither, so the bundle gets an empty site-packages.
 rm -rf "$PV/lib/python$PYVER/site-packages"
@@ -182,6 +186,9 @@ python3 "$SRC/packaging/macos/macho_audit.py" audit "$APP" "$MIN_MACOS"
 
 echo "== third-party notices (every bundled library traced to its Homebrew keg)"
 BRAND_REPO_URL="$BRAND_REPO_URL" BRAND_SUPPORT_EMAIL="$BRAND_SUPPORT_EMAIL" python3 "$SRC/packaging/macos/third_party_notices.py" "$APP" "$SRC" "$C/Resources/licenses/THIRD-PARTY-NOTICES.txt"
+
+echo "== App Store static scan strings"
+if grep -rl -a 'itms-services' "$APP"; then echo "FAIL: 'itms-services' in the bundle (guideline 2.5.2)"; exit 1; fi
 
 if [ -n "$APPSTORE" ]; then
   du -sh "$APP"
