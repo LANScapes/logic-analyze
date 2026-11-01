@@ -178,7 +178,8 @@ void McpCapture::start(qint64 id, const QString &name, const CaptureRequest &req
 }
 
 // The settings that an MCP capture changes and gives back afterwards: the
-// capture mode, and the clock, RLE and input filter that capcore turns off.
+// capture mode, the clock, RLE and input filter that capcore turns off, and the
+// threshold voltage, which capcore sets to the request's (1.6 V by default).
 void McpCapture::save_settings()
 {
     DeviceAgent *dev = _session->get_device();
@@ -187,6 +188,7 @@ void McpCapture::save_settings()
     _saved.has_clock = dev->get_config_bool(SR_CONF_CLOCK_TYPE, _saved.clock);
     _saved.has_rle = dev->get_config_bool(SR_CONF_RLE, _saved.rle);
     _saved.has_filter = dev->get_config_int16(SR_CONF_FILTER, _saved.filter);
+    _saved.has_vth = dev->get_config_double(SR_CONF_VTH, _saved.vth);
 }
 
 void McpCapture::restore_settings()
@@ -201,6 +203,8 @@ void McpCapture::restore_settings()
         dev->set_config_bool(SR_CONF_RLE, _saved.rle);
     if (_saved.has_filter)
         dev->set_config_int16(SR_CONF_FILTER, _saved.filter);
+    if (_saved.has_vth)
+        dev->set_config_double(SR_CONF_VTH, _saved.vth);
     // Loop mode needs stream mode on an analyzer (as SamplingBar::reload).
     if (_saved.collect_mode != COLLECT_LOOP || dev->is_stream_mode() || !dev->is_hardware())
         _session->set_collect_mode((DEVICE_COLLECT_MODE)_saved.collect_mode);
