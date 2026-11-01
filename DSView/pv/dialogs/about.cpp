@@ -67,7 +67,11 @@ About::About(QWidget *parent) :
                       .arg(BRAND_ORG_NAME);
 
     QString url = QString("Source code: <a href=\"%1\" style=\"color:#C0C0C0\">%1</a><br />"
+#ifdef LANSCAPES_APPSTORE
+                          "Issues: <a href=\"%1/issues\" style=\"color:#C0C0C0\">%1/issues</a><br />"
+#else
                           "Releases and issues: <a href=\"%1/releases\" style=\"color:#C0C0C0\">%1/releases</a><br />"
+#endif
                           "Support and source requests: %2<br />"
                           "<br />")
                   .arg(BRAND_REPO_URL, BRAND_SUPPORT_EMAIL);
@@ -105,9 +109,11 @@ About::About(QWidget *parent) :
         "This edition includes the %1 MCP server, which lets AI assistants such as Claude "
         "capture, measure and decode signals through the analyzer. The MCP server is "
         "proprietary software &copy; 2026 %2. It is NOT free software and is NOT covered "
-        "by the GPL: it is licensed to the purchaser of this App Store edition under the "
-        "%1 End User License Agreement, and may not be copied, redistributed or used "
-        "outside %1.<br /><br />")
+        "by the GPL, and may not be copied, redistributed or used outside %1.<br /><br />"
+        "This App Store edition is licensed to you under Apple's "
+        "<a href=\"https://www.apple.com/legal/internet-services/itunes/dev/stdeula/\" style=\"color:#C0C0C0\">"
+        "Standard End User License Agreement</a>. The GPL-licensed parts keep the rights "
+        "the GPL gives you.<br /><br />")
         .arg(QApplication::applicationName()).arg(BRAND_ORG_NAME);
 #else
     thanks += QString(
@@ -129,9 +135,6 @@ About::About(QWidget *parent) :
     thanks += link("GPL-3.0.txt", "GNU General Public License, version 3");
     thanks += link("DreamSourceLab-firmware-MIT.txt", "DreamSourceLab firmware license (MIT)");
     thanks += link("THIRD-PARTY-NOTICES.txt", "Third-party notices (Qt, Python and other bundled libraries)");
-#ifdef LANSCAPES_APPSTORE
-    thanks += link("EULA.txt", QApplication::applicationName() + " End User License Agreement");
-#endif
     thanks += "<br /><br />";
 
     QString changlogs;

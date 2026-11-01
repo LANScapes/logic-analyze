@@ -19,7 +19,7 @@ case "$LANSCAPES_BRAND" in ON|on|TRUE|true|1) ;; *)
   echo "FAIL: this packages Logic Analyze; the build has LANSCAPES_BRAND=$LANSCAPES_BRAND"; exit 1 ;;
 esac
 case "$LANSCAPES_APPSTORE" in ON|on|TRUE|true|1) APPSTORE=1 ;; *) APPSTORE= ;; esac
-# The App Store edition promises the MCP agent (About window, EULA), which lives in a
+# The App Store edition promises the MCP agent (About window), which lives in a
 # private repository. Here it is only laid out, unsigned: the private assembly step
 # embeds the agent, signs for the store and builds the installer.
 [ -z "$APPSTORE" ] || [ $# -eq 0 ] || { echo "FAIL: the App Store layout takes no arguments; the private assembly step signs it"; exit 2; }
@@ -71,18 +71,13 @@ cp -R "$SRC/DSView/res" "$SRC/DSView/demo" "$SRC/lang" "$C/Resources/"
 cp -R "$SRC/libsigrokdecode4DSL/decoders" "$C/Resources/decoders"
 rm -rf "$C/Resources/decoders/ir_irmp"  # needs the native libirmp, which is not built
 rm -rf "$C/Resources/decoders/pxx1"     # declares no license ("Pirate"); not redistributable
-cp "$SRC/NEWS25" "$SRC/NEWS31" "$C/Resources/"
 # The manual in each UI language (doc/manual); Help > Manual opens manual/<lang>/index.html.
 python3 "$SRC/tools/manual/build_manual.py" --out "$C/Resources/manual" ${APPSTORE:+--edition appstore} >/dev/null
-cp "$SRC/DSView/icons/showDoc25.png" "$SRC/DSView/icons/showDoc31.png" "$C/Resources/"
 cp "$SRC/packaging/macos/icon/$EXE.icns" "$C/Resources/$EXE.icns"
 sips -Z 256 "$SRC/packaging/macos/icon/$EXE-1024.png" --out "$C/Resources/about-icon.png" >/dev/null
 mkdir -p "$C/Resources/licenses"
 cp "$SRC/COPYING" "$C/Resources/licenses/GPL-3.0.txt"
 cp "$SRC/DSView/res/license.txt" "$C/Resources/licenses/DreamSourceLab-firmware-MIT.txt"
-if [ -n "$APPSTORE" ]; then
-  cp "$SRC/packaging/legal/EULA.md" "$C/Resources/licenses/EULA.txt"
-fi
 find "$C/Resources" -name '__pycache__' -type d -prune -exec rm -rf {} +
 
 cat > "$C/Info.plist" <<PLIST
@@ -108,7 +103,7 @@ cat > "$C/Info.plist" <<PLIST
 <key>LSApplicationCategoryType</key><string>public.app-category.developer-tools</string>
 <key>NSHighResolutionCapable</key><true/>
 <key>NSPrincipalClass</key><string>NSApplication</string>
-<key>NSHumanReadableCopyright</key><string>GPL-3.0-or-later. Based on DSView by DreamSourceLab.</string>
+<key>NSHumanReadableCopyright</key><string>© 2026 LANScapes. GPL-3.0-or-later; based on DSView by DreamSourceLab.</string>
 </dict></plist>
 PLIST
 
