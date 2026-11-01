@@ -142,6 +142,7 @@ void TitleBar::paintEvent(QPaintEvent *event)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &o, &p, this);
 
+#ifndef LANSCAPES_BRAND  // DSView's bar logo; the centred title stands alone in Logic Analyze
     p.setRenderHint(QPainter::Antialiasing, true);
 
     const int xgap = 2;
@@ -165,6 +166,7 @@ void TitleBar::paintEvent(QPaintEvent *event)
     p.setPen(QPen(QColor(109, 50, 156, 255), 2, Qt::SolidLine));
     p.drawLine(xstart + xgap*8,  height()*0.50, xstart + xgap*8,  height()*0.66);
     p.drawLine(xstart + xgap*10, height()*0.34, xstart + xgap*10, height()*0.50);
+#endif
 
     QWidget::paintEvent(event);
 }

@@ -27,7 +27,7 @@ import subprocess
 import sys
 import tarfile
 
-LICENSE_NAMES = ("COPYING", "COPYRIGHT", "LICENSE", "LICENCE", "LICENSE.TXT", "LICENSE.md",
+LICENSE_NAMES = ("COPYING", "COPYRIGHT", "LICENSE", "LICENCE", "LICENSE.TXT", "LICENSE.txt", "LICENSE.md",
                  "LICENCE.md", "COPYING.LESSER", "COPYING.LIB")
 # Kegs that ship no license file: texts vendored in packaging/legal/texts.
 FALLBACK_TEXTS = {
@@ -65,6 +65,10 @@ COPYLEFT = {"glib", "libusb", "gettext", "qtbase", "qtsvg", "fftw", "graphite2"}
 QT_MODULES = ("Core", "Gui", "Widgets", "DBus", "Svg", "QCocoaIntegrationPlugin",
               "QMacStylePlugin", "QGifPlugin", "QICOPlugin", "QJpegPlugin", "QSvgPlugin",
               "QSvgIconPlugin")
+# Qt licenses missing from its LICENSES directory: the module's own license file.
+QT_LICENSE_FILES = {
+    "HPND-sell-variant": "src/gui/util/LICENSE.XSVG.txt",  # XSVG (Qt 6.12)
+}
 # Code compiled or copied into the app from this source tree, not from Homebrew:
 # (title, license, holders, file with the license text, (first, last) line span or None).
 # The MIT and BSD decoders also ship as source with their headers intact.
@@ -207,7 +211,8 @@ def source_record(formula, version, keg, m):
         die(f"{formula}: keg {version} kept no recipe ({kept_path})")
     head = open(kept_path, encoding="utf-8").read().split("\n__END__")[0]
     # The archive's SHA-256 is its identity (the URL can name another mirror path).
-    sha = re.search(r'^  sha256 "([0-9a-f]{64})"', head, re.M)
+    # It is the recipe's first sha256, at the top level or inside a `stable do` block.
+    sha = re.search(r'^ {2}(?: {2})?sha256 "([0-9a-f]{64})"', head, re.M)
     if not (sha and sha.group(1) == stable["checksum"]):
         die(f"{formula}: keg {version} was built from a different source archive than "
             f"Homebrew's current recipe names; reinstall {formula} and package again")
@@ -236,7 +241,8 @@ def read_from_archive(archive, wanted):
 
 def qt_attributions(cellar, formula, version, archive):
     """Attributions [(name, module, license, copyright)] for the shipped modules, and their license texts."""
-    spdx = os.path.join(cellar, formula, version, "share/qt/sbom", f"{formula}-{version}.spdx")
+    # The SBOM is named for Qt's version, without Homebrew's _N revision suffix.
+    spdx = os.path.join(cellar, formula, version, "share/qt/sbom", f"{formula}-{version.split('_')[0]}.spdx")
     if not os.path.exists(spdx):
         die(f"{spdx} missing; cannot list Qt's third-party attributions")
     atts = []
@@ -253,8 +259,9 @@ def qt_attributions(cellar, formula, version, archive):
         atts.append((what, mod, lic, cr))
     ids = sorted({i for _, _, lic, _ in atts for i in re.findall(SPDX_TOKEN, lic)
                   if i not in ("AND", "OR", "WITH", "LicenseRef-Qt-Commercial")})
-    texts = read_from_archive(archive, [f"LICENSES/{i}.txt" for i in ids])
-    return atts, {rel[len("LICENSES/"):-len(".txt")]: d for rel, d in texts.items()}
+    paths = {i: QT_LICENSE_FILES.get(i, f"LICENSES/{i}.txt") for i in ids}
+    texts = read_from_archive(archive, list(paths.values()))
+    return atts, {i: (rel, texts[rel]) for i, rel in paths.items()}
 
 
 def python_incorporated(archive):
@@ -336,7 +343,7 @@ def main():
         if formula in ("qtbase", "qtsvg"):
             atts, qtexts = qt_attributions(cellar, formula, version, archive)
             qt.append((formula, version, atts,
-                       {i: texts.add(f"Qt {version} source: LICENSES/{i}.txt", d) for i, d in qtexts.items()}))
+                       {i: texts.add(f"Qt {version} source: {rel}", d) for i, (rel, d) in qtexts.items()}))
         lic = OVERRIDE[formula][0] if formula in OVERRIDE else m["license"]
         e = [f"{m.get('full_name', formula)} {version}", f"  License:  {lic}"]
         if formula in CHOICE:

@@ -269,7 +269,9 @@ bool bHighScale = true;
 		pv::MainFrame w;
 		control->Start();
 		w.ShowFormInit();  
+#ifndef LANSCAPES_BRAND  // DSView's Windows "open the help document" prompt
 		w.ShowHelpDocAsync();  //to show the dialog for open help document
+#endif
 		
 		ret = a.exec(); //Run the application
 		control->Stop();
