@@ -119,6 +119,8 @@ private:
         bool has_rle = false, rle = false;
         bool has_filter = false;
         int filter = 0;
+        bool has_vth = false;
+        double vth = 0;
     } _saved;                        // restored when the capture ends
 };
 

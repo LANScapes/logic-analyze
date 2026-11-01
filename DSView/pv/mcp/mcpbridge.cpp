@@ -22,6 +22,8 @@
 #include "mcpcapture.h"
 #include "mcpplatform.h"
 
+#include <QCoreApplication>
+#include <QDir>
 #include <QGridLayout>
 #include <QLabel>
 #include <QPainter>
@@ -50,9 +52,10 @@ static const qint64 kRestartAgentMs = 30 * 1000;    // start the agent again at 
 static const char *kEnabledKey = "MCP/enabled";
 static const QColor kGreen(0x00, 0x99, 0x49);      // the USB 2 and Start icons' green
 static const QColor kOrange(0xff, 0x95, 0x00);     // MCP is using the analyzer
+static const QColor kGrey(0x8e, 0x8e, 0x93);       // MCP is off
 static const char *kErrorMark = "<span style='color:#e0483e'>●</span> ";
 
-// The MCP button's icon: nothing, a ring (starting) or a dot.
+// The MCP button's icon: a ring (off or starting) or a dot.
 static QIcon dot_icon(const QColor &color, bool ring)
 {
     QPixmap pm(64, 64);
@@ -142,8 +145,11 @@ void McpBridge::try_connect()
     int fd = platform::connect_agent(&why);
     if (fd < 0) {
         // The agent exits whenever the GUI disconnects; start it again if needed.
-        if (!_agent_started.isValid() || _agent_started.elapsed() >= kRestartAgentMs)
+        if (!_agent_started.isValid() || _agent_started.elapsed() >= kRestartAgentMs) {
+            if (_agent_started.isValid())
+                _error = why;   // it did not answer in time; say why (start_agent emits changed)
             start_agent();
+        }
         else
             _connect_timer.start(kReconnectMs);
         return;
@@ -337,7 +343,7 @@ void McpBridge::update_button()
 {
     QString tip;
     if (!_enabled) {
-        _button->setIcon(dot_icon(QColor(), false));
+        _button->setIcon(dot_icon(kGrey, true));
         tip = L_S(STR_PAGE_TOOLBAR, S_ID(IDS_TOOLBAR_MCP_TIP_OFF), "MCP is off");
     }
     else if (_busy) {
@@ -400,6 +406,16 @@ QWidget *McpBridge::show_pane()
     grid->addWidget(stop, 1, 2);
     grid->setColumnStretch(1, 1);
     lay->addLayout(grid);
+
+    // How to add this app's MCP server to an assistant; selectable, to copy.
+    QString relay = QDir::cleanPath(QCoreApplication::applicationDirPath()
+        + "/../Library/LoginItems/Logic Analyze Agent.app/Contents/MacOS/logic-analyze-mcp");
+    QLabel *how = new QLabel(QString(L_S(STR_PAGE_DLG, S_ID(IDS_DLG_MCP_CONNECT), "Connect an assistant:"))
+        + " claude mcp add --scope user logic-analyze -- \"" + relay + "\"");
+    how->setTextFormat(Qt::PlainText);
+    how->setWordWrap(true);
+    how->setTextInteractionFlags(Qt::TextSelectableByMouse);
+    lay->addWidget(how);
 
     QLabel *err = new QLabel();
     err->setWordWrap(true);

@@ -842,5 +842,9 @@
     {
         "id": "IDS_DLG_MCP_STOP",
         "text": "Stop"
+    },
+    {
+        "id": "IDS_DLG_MCP_CONNECT",
+        "text": "Connect an assistant:"
     }
 ]
