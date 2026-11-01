@@ -20,7 +20,9 @@ Die App enthält alle notwendigen Bibliotheken, die Firmware und die Protokollde
 
 1. Schließen Sie den Logikanalysator an den Computer an. Siehe [Das DSLogic Plus anschließen](04-connect.md).
 2. Öffnen Sie **Logic Analyze** im Ordner **Programme** oder im Launchpad.
+<!-- edition: download -->
 3. Wenn macOS eine Meldung zur App zeigt, klicken Sie auf **Öffnen**.
+<!-- end edition -->
 
 Beim ersten Start kann die App das Fenster **Dokument** zeigen. Klicken Sie auf **Öffnen**, um dieses Handbuch zu lesen. Klicken Sie auf **Ignorieren**, um das Fenster zu schließen. Klicken Sie auf **Nicht mehr anzeigen**, wenn Sie dieses Fenster nicht mehr sehen möchten.
 

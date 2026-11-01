@@ -31,7 +31,13 @@ A barra de ferramentas tem estes itens, do início ao fim:
 | **Medir** | Abre o painel de medição. |
 | **Buscar** | Abre a barra de busca. |
 | **Opções** | Um menu com **Opções do dispositivo...** e o menu **Exibir**. |
+<!-- edition: download -->
 | **Ajuda** | Um menu com o idioma, este manual, a página de atualização, as opções de log e a página de relatório de problemas. |
+<!-- end edition -->
+<!-- edition: appstore -->
+| **MCP** | Abre a janela **MCP**. Consulte [Conectar um assistente de IA (MCP)](13-mcp.md). |
+| **Ajuda** | Um menu com o idioma, este manual, as opções de log e a página de relatório de problemas. |
+<!-- end edition -->
 
 O rótulo do tipo de dispositivo mostra estes valores:
 

@@ -8,7 +8,12 @@ Uygulama, bir DSLogic mantık analizörü ile dijital sinyalleri kaydeder. Sonra
 
 Bu kılavuz, örnekler için DSLogic Plus kullanır. Diğer DSLogic modelleri aynı yordamlarla çalışır. Kanal, bellek ve örnekleme hızı sınırları farklıdır.
 
+<!-- edition: download -->
 Uygulamada `dslcap` aracı da vardır. Bu araç, ana pencere olmadan veri yakalar. Bkz. [dslcap aracı](13-dslcap.md).
+<!-- end edition -->
+<!-- edition: appstore -->
+MCP ile Mac'inizdeki bir yapay zekâ asistanı, uygulama üzerinden veri yakalayabilir, ölçebilir ve verinin kodunu çözebilir. Bkz. [Bir yapay zekâ asistanı bağlama (MCP)](13-mcp.md).
+<!-- end edition -->
 
 ## Bu kılavuz hakkında
 

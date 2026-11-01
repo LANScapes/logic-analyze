@@ -31,7 +31,13 @@ Thanh công cụ có các mục sau, từ đầu đến cuối:
 | **Đo** | Mở khung neo phép đo. |
 | **Tìm** | Mở thanh tìm kiếm. |
 | **Tùy chọn** | Menu có **Tùy chọn thiết bị...** và menu **Hiển thị**. |
+<!-- edition: download -->
 | **Trợ giúp** | Menu có ngôn ngữ, hướng dẫn này, trang cập nhật, tùy chọn nhật ký và trang báo cáo sự cố. |
+<!-- end edition -->
+<!-- edition: appstore -->
+| **MCP** | Mở cửa sổ **MCP**. Xem [Kết nối trợ lý AI (MCP)](13-mcp.md). |
+| **Trợ giúp** | Menu có ngôn ngữ, hướng dẫn này, tùy chọn nhật ký và trang báo cáo sự cố. |
+<!-- end edition -->
 
 Nhãn loại thiết bị hiển thị các giá trị sau:
 

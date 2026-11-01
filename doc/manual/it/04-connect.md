@@ -21,8 +21,14 @@ Se l'elenco dei dispositivi non mostra il dispositivo, eseguire questi passi:
 3. Collegare il cavo USB a un'altra porta USB.
 4. Se l'elenco dei dispositivi non mostra il dispositivo dopo il passo 3, uscire dall'applicazione e avviarla di nuovo.
 
+<!-- edition: download -->
 > [!NOTE]
 > Un solo programma alla volta può usare il dispositivo. Se `dslcap` o un altro programma usa il dispositivo, l'applicazione non lo trova.
+<!-- end edition -->
+<!-- edition: appstore -->
+> [!NOTE]
+> Un solo programma alla volta può usare il dispositivo. Se un altro programma usa il dispositivo, l'applicazione non lo trova.
+<!-- end edition -->
 
 ## Collegare il cavo delle sonde
 

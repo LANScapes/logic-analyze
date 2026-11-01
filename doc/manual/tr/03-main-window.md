@@ -31,7 +31,13 @@ Araç çubuğunda baştan sona şu öğeler vardır:
 | **Ölçüm** | Ölçüm yan panelini açar. |
 | **Ara** | Arama çubuğunu açar. |
 | **Seçenekler** | **Cihaz Seçenekleri...** ve **Görünüm** menüsünü içeren bir menü. |
+<!-- edition: download -->
 | **Yardım** | Dil, bu kılavuz, güncelleme sayfası, günlük ayarları ve sorun bildirme sayfasını içeren bir menü. |
+<!-- end edition -->
+<!-- edition: appstore -->
+| **MCP** | **MCP** penceresini açar. Bkz. [Bir yapay zekâ asistanı bağlama (MCP)](13-mcp.md). |
+| **Yardım** | Dil, bu kılavuz, günlük ayarları ve sorun bildirme sayfasını içeren bir menü. |
+<!-- end edition -->
 
 Cihaz türü etiketi şu değerleri gösterir:
 

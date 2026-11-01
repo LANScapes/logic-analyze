@@ -31,7 +31,13 @@ The toolbar has these items, from the start to the end:
 | **Measure** | Opens the measurement dock. |
 | **Search** | Opens the search bar. |
 | **Options** | A menu with **Device Options...** and the **Display** menu. |
+<!-- edition: download -->
 | **Help** | A menu with the language, this manual, the update page, the log options and the problem report page. |
+<!-- end edition -->
+<!-- edition: appstore -->
+| **MCP** | Opens the **MCP** window. Refer to [Connect an AI assistant (MCP)](13-mcp.md). |
+| **Help** | A menu with the language, this manual, the log options and the problem report page. |
+<!-- end edition -->
 
 The device type label shows these values:
 

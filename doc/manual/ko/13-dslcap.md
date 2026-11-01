@@ -1,3 +1,4 @@
+<!-- edition: download -->
 # dslcap 도구
 
 `dslcap` 도구는 주 창 없이 DSLogic 장치에서 데이터를 캡처합니다. 스크립트와 자동 테스트에서 사용하십시오. 이 도구는 샘플을 바이너리 파일에 씁니다. 결과는 JSON 객체 하나로 표준 출력에 씁니다.
@@ -80,3 +81,4 @@ dslcap --channels 0,1 --samplerate 10000000 --samples 1000000 --out /tmp/capture
 - `--res-manifest FD`: 도구가 각 펌웨어 파일을 장치로 보내기 전에 SHA-256 값을 검사합니다.
 
 소스 코드의 `tools/dslcap/README.md` 파일에 이 옵션의 모든 정보가 있습니다.
+<!-- end edition -->

@@ -21,8 +21,14 @@ Jeśli lista urządzeń nie pokazuje urządzenia, wykonaj te kroki:
 3. Podłącz kabel USB do innego portu USB.
 4. Jeśli lista urządzeń nie pokazuje urządzenia po kroku 3, zakończ aplikację i uruchom ją ponownie.
 
+<!-- edition: download -->
 > [!NOTE]
 > Tylko jeden program jednocześnie może używać urządzenia. Jeśli `dslcap` lub inny program używa urządzenia, aplikacja nie może go znaleźć.
+<!-- end edition -->
+<!-- edition: appstore -->
+> [!NOTE]
+> Tylko jeden program jednocześnie może używać urządzenia. Jeśli inny program używa urządzenia, aplikacja nie może go znaleźć.
+<!-- end edition -->
 
 ## Podłączenie kabla pomiarowego
 

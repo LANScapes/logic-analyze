@@ -1,3 +1,4 @@
+<!-- edition: download -->
 # The dslcap tool
 
 The `dslcap` tool captures data from a DSLogic device without the main window. Use it in scripts and in automatic tests. The tool writes the samples to a binary file. It writes one JSON object with the result to the standard output.
@@ -80,3 +81,4 @@ Use the result only when the exit status is 0 and the JSON object is complete.
 - `--res-manifest FD`: The tool examines the SHA-256 value of each firmware file before it sends the file to the device.
 
 The file `tools/dslcap/README.md` in the source code gives all the data about these options.
+<!-- end edition -->

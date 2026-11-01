@@ -1,3 +1,4 @@
+<!-- edition: download -->
 # Das Werkzeug dslcap
 
 Das Werkzeug `dslcap` erfasst Daten von einem DSLogic-Gerät ohne das Hauptfenster. Verwenden Sie es in Skripten und in automatischen Tests. Das Werkzeug schreibt die Abtastwerte in eine Binärdatei. Es schreibt ein JSON-Objekt mit dem Ergebnis in die Standardausgabe.
@@ -80,3 +81,4 @@ Verwenden Sie das Ergebnis nur, wenn der Exit-Status 0 ist und das JSON-Objekt v
 - `--res-manifest FD`: Das Werkzeug prüft den SHA-256-Wert jeder Firmware-Datei, bevor es die Datei an das Gerät sendet.
 
 Die Datei `tools/dslcap/README.md` im Quellcode gibt alle Informationen zu diesen Optionen.
+<!-- end edition -->

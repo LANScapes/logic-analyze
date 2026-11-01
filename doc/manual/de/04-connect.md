@@ -21,8 +21,14 @@ Wenn die Geräteliste das Gerät nicht zeigt, führen Sie diese Schritte aus:
 3. Schließen Sie das USB-Kabel an einen anderen USB-Anschluss an.
 4. Wenn die Geräteliste das Gerät nach Schritt 3 nicht zeigt, beenden Sie die App und starten Sie sie erneut.
 
+<!-- edition: download -->
 > [!NOTE]
 > Nur ein Programm kann das Gerät zur gleichen Zeit verwenden. Wenn `dslcap` oder ein anderes Programm das Gerät verwendet, findet die App das Gerät nicht.
+<!-- end edition -->
+<!-- edition: appstore -->
+> [!NOTE]
+> Nur ein Programm kann das Gerät zur gleichen Zeit verwenden. Wenn ein anderes Programm das Gerät verwendet, findet die App das Gerät nicht.
+<!-- end edition -->
 
 ## Das Messkabel anschließen
 

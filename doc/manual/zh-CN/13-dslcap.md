@@ -1,3 +1,4 @@
+<!-- edition: download -->
 # dslcap 工具
 
 `dslcap` 工具不使用主窗口，从 DSLogic 设备采集数据。在脚本和自动测试中使用它。此工具把采样点写入一个二进制文件。它把一个包含结果的 JSON 对象写到标准输出。
@@ -80,3 +81,4 @@ dslcap --channels 0,1 --samplerate 10000000 --samples 1000000 --out /tmp/capture
 - `--res-manifest FD`：工具在把每个固件文件发送到设备之前，检查该文件的 SHA-256 值。
 
 源代码中的 `tools/dslcap/README.md` 文件给出这些选项的全部说明。
+<!-- end edition -->

@@ -1,3 +1,4 @@
+<!-- edition: download -->
 # La herramienta dslcap
 
 La herramienta `dslcap` captura datos de un dispositivo DSLogic sin la ventana principal. Úsela en scripts y en pruebas automáticas. La herramienta escribe las muestras en un archivo binario. Escribe un objeto JSON con el resultado en la salida estándar.
@@ -80,3 +81,4 @@ Use el resultado solo cuando el estado de salida es 0 y el objeto JSON está com
 - `--res-manifest FD`: La herramienta examina el valor SHA-256 de cada archivo de firmware antes de enviar el archivo al dispositivo.
 
 El archivo `tools/dslcap/README.md` del código fuente da toda la información sobre estas opciones.
+<!-- end edition -->

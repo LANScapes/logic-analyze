@@ -1,3 +1,4 @@
+<!-- edition: download -->
 # L'outil dslcap
 
 L'outil `dslcap` capture des données d'un appareil DSLogic sans la fenêtre principale. Utilisez-le dans des scripts et des tests automatiques. L'outil écrit les échantillons dans un fichier binaire. Il écrit un objet JSON avec le résultat sur la sortie standard.
@@ -80,3 +81,4 @@ Utilisez le résultat uniquement quand le code de sortie est 0 et que l'objet JS
 - `--res-manifest FD` : L'outil examine la valeur SHA-256 de chaque fichier de firmware avant d'envoyer le fichier à l'appareil.
 
 Le fichier `tools/dslcap/README.md` du code source donne toutes les informations sur ces options.
+<!-- end edition -->

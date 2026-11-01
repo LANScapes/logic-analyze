@@ -8,7 +8,12 @@ Die App zeichnet digitale Signale von einem DSLogic-Logikanalysator auf. Dann ze
 
 Dieses Handbuch verwendet das DSLogic Plus für die Beispiele. Andere DSLogic-Modelle arbeiten mit denselben Verfahren. Ihre Grenzwerte für Kanäle, Speicher und Abtastrate sind anders.
 
+<!-- edition: download -->
 Die App enthält auch das Werkzeug `dslcap`. Dieses Werkzeug erfasst Daten ohne das Hauptfenster. Siehe [Das Werkzeug dslcap](13-dslcap.md).
+<!-- end edition -->
+<!-- edition: appstore -->
+Mit MCP kann ein KI-Assistent auf Ihrem Mac über die App Daten erfassen, messen und dekodieren. Siehe [KI-Assistenten verbinden (MCP)](13-mcp.md).
+<!-- end edition -->
 
 ## Über dieses Handbuch
 

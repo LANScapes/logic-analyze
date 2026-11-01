@@ -162,7 +162,8 @@ def split_blocks(md):
                 in_comment = False
             continue
         s = line.strip()
-        if not s:
+        if not s or (s.startswith('<!--') and s.endswith('-->')):
+            # A blank line or a one-line comment (an edition marker) ends the paragraph.
             flush()
             continue
         if s.startswith('#'):

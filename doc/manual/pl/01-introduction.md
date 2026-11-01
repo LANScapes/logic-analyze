@@ -8,7 +8,12 @@ Aplikacja rejestruje sygnały cyfrowe z analizatora logicznego DSLogic. Następn
 
 Ten podręcznik używa urządzenia DSLogic Plus w przykładach. Inne modele DSLogic działają według tych samych procedur. Ich limity kanałów, pamięci i częstotliwości próbkowania są inne.
 
+<!-- edition: download -->
 Aplikacja zawiera też narzędzie `dslcap`. To narzędzie rejestruje dane bez okna głównego. Zobacz [Narzędzie dslcap](13-dslcap.md).
+<!-- end edition -->
+<!-- edition: appstore -->
+Dzięki MCP asystent AI na Twoim Macu może rejestrować, mierzyć i dekodować dane przez aplikację. Zobacz [Połączenie asystenta AI (MCP)](13-mcp.md).
+<!-- end edition -->
 
 ## O tym podręczniku
 

@@ -1,3 +1,4 @@
+<!-- edition: download -->
 # Narzędzie dslcap
 
 Narzędzie `dslcap` rejestruje dane z urządzenia DSLogic bez okna głównego. Używaj go w skryptach i w testach automatycznych. Narzędzie zapisuje próbki do pliku binarnego. Zapisuje jeden obiekt JSON z wynikiem na standardowe wyjście.
@@ -80,3 +81,4 @@ Używaj wyniku tylko wtedy, gdy status wyjścia wynosi 0, a obiekt JSON jest kom
 - `--res-manifest FD`: Narzędzie sprawdza wartość SHA-256 każdego pliku oprogramowania układowego, zanim wyśle plik do urządzenia.
 
 Plik `tools/dslcap/README.md` w kodzie źródłowym podaje wszystkie informacje o tych opcjach.
+<!-- end edition -->

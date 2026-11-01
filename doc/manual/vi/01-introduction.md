@@ -8,7 +8,12 @@ Logic Analyze là ứng dụng macOS cho máy phân tích logic của DreamSourc
 
 Hướng dẫn này dùng DSLogic Plus làm ví dụ. Các mẫu DSLogic khác hoạt động theo cùng quy trình. Giới hạn về kênh, bộ nhớ và tốc độ lấy mẫu của chúng khác nhau.
 
+<!-- edition: download -->
 Ứng dụng cũng có công cụ `dslcap`. Công cụ này thu dữ liệu mà không cần cửa sổ chính. Xem [Công cụ dslcap](13-dslcap.md).
+<!-- end edition -->
+<!-- edition: appstore -->
+Với MCP, một trợ lý AI trên máy Mac của bạn có thể thu, đo và giải mã dữ liệu qua ứng dụng. Xem [Kết nối trợ lý AI (MCP)](13-mcp.md).
+<!-- end edition -->
 
 ## Về hướng dẫn này
 

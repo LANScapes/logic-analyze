@@ -20,7 +20,9 @@ L'application contient toutes les bibliothèques, le firmware et les décodeurs 
 
 1. Connectez l'analyseur logique à l'ordinateur. Consultez [Connecter le DSLogic Plus](04-connect.md).
 2. Ouvrez **Logic Analyze** depuis le dossier **Applications** ou depuis le Launchpad.
+<!-- edition: download -->
 3. Si macOS affiche un message sur l'application, cliquez sur **Ouvrir**.
+<!-- end edition -->
 
 Au premier démarrage, l'application peut afficher la fenêtre **Documents**. Cliquez sur **Ouvrir** pour lire ce manuel. Cliquez sur **Ignorer** pour fermer la fenêtre. Cliquez sur **Ne plus afficher** si vous ne voulez plus voir cette fenêtre.
 

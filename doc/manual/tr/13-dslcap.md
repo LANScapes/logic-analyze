@@ -1,3 +1,4 @@
+<!-- edition: download -->
 # dslcap aracı
 
 `dslcap` aracı, ana pencere olmadan bir DSLogic cihazından veri yakalar. Betiklerde ve otomatik testlerde kullanın. Araç örnekleri bir ikili dosyaya yazar. Sonucu içeren bir JSON nesnesini standart çıkışa yazar.
@@ -80,3 +81,4 @@ Sonucu yalnızca çıkış durumu 0 olduğunda ve JSON nesnesi tam olduğunda ku
 - `--res-manifest FD`: Araç, her aygıt yazılımı dosyasını cihaza göndermeden önce dosyanın SHA-256 değerini inceler.
 
 Kaynak koddaki `tools/dslcap/README.md` dosyası bu seçeneklerle ilgili tüm bilgileri verir.
+<!-- end edition -->

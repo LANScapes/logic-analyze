@@ -21,8 +21,14 @@ If the device list does not show the device, do these steps:
 3. Connect the USB cable to a different USB port.
 4. If the device list does not show the device after step 3, quit the app and start it again.
 
+<!-- edition: download -->
 > [!NOTE]
 > Only one program can use the device at a time. If `dslcap` or a different program uses the device, the app cannot find it.
+<!-- end edition -->
+<!-- edition: appstore -->
+> [!NOTE]
+> Only one program can use the device at a time. If a different program uses the device, the app cannot find it.
+<!-- end edition -->
 
 ## Connect the probe cable
 

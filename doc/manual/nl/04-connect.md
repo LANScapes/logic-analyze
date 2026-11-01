@@ -21,8 +21,14 @@ Als de apparatenlijst het apparaat niet toont, voer dan deze stappen uit:
 3. Sluit de USB-kabel aan op een andere USB-poort.
 4. Als de apparatenlijst het apparaat na stap 3 niet toont, stop de app en start de app opnieuw.
 
+<!-- edition: download -->
 > [!NOTE]
 > Maar één programma tegelijk kan het apparaat gebruiken. Als `dslcap` of een ander programma het apparaat gebruikt, vindt de app het apparaat niet.
+<!-- end edition -->
+<!-- edition: appstore -->
+> [!NOTE]
+> Maar één programma tegelijk kan het apparaat gebruiken. Als een ander programma het apparaat gebruikt, vindt de app het apparaat niet.
+<!-- end edition -->
 
 ## De meetkabel aansluiten
 

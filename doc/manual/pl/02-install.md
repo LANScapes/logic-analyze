@@ -20,7 +20,9 @@ Aplikacja zawiera wszystkie potrzebne biblioteki, oprogramowanie układowe i dek
 
 1. Podłącz analizator logiczny do komputera. Zobacz [Podłączenie DSLogic Plus](04-connect.md).
 2. Otwórz **Logic Analyze** z folderu **Aplikacje** lub z Launchpada.
+<!-- edition: download -->
 3. Jeśli macOS pokazuje komunikat o aplikacji, kliknij **Otwórz**.
+<!-- end edition -->
 
 Przy pierwszym uruchomieniu aplikacja może pokazać okno **Dokument**. Kliknij **Otwórz**, aby przeczytać ten podręcznik. Kliknij **Ignoruj**, aby zamknąć okno. Kliknij **Nie pokazuj ponownie**, jeśli nie chcesz więcej widzieć tego okna.
 

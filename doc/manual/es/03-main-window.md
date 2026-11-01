@@ -31,7 +31,13 @@ La barra de herramientas tiene estos elementos, del principio al final:
 | **Medir** | Abre el panel de medición. |
 | **Buscar** | Abre la barra de búsqueda. |
 | **Opciones** | Un menú con **Opciones del dispositivo...** y el menú **Pantalla**. |
+<!-- edition: download -->
 | **Ayuda** | Un menú con el idioma, este manual, la página de actualizaciones, las opciones de registro y la página para informar de problemas. |
+<!-- end edition -->
+<!-- edition: appstore -->
+| **MCP** | Abre la ventana **MCP**. Consulte [Conectar un asistente de IA (MCP)](13-mcp.md). |
+| **Ayuda** | Un menú con el idioma, este manual, las opciones de registro y la página para informar de problemas. |
+<!-- end edition -->
 
 La etiqueta del tipo de dispositivo muestra estos valores:
 

@@ -31,7 +31,13 @@ Die Symbolleiste hat diese Elemente, vom Anfang bis zum Ende:
 | **Messen** | Öffnet das Mess-Dock. |
 | **Suchen** | Öffnet die Suchleiste. |
 | **Optionen** | Ein Menü mit **Geräteoptionen...** und dem Menü **Anzeige**. |
+<!-- edition: download -->
 | **Hilfe** | Ein Menü mit der Sprache, diesem Handbuch, der Update-Seite, den Log-Optionen und der Seite für Fehlerberichte. |
+<!-- end edition -->
+<!-- edition: appstore -->
+| **MCP** | Öffnet das Fenster **MCP**. Siehe [KI-Assistenten verbinden (MCP)](13-mcp.md). |
+| **Hilfe** | Ein Menü mit der Sprache, diesem Handbuch, den Log-Optionen und der Seite für Fehlerberichte. |
+<!-- end edition -->
 
 Die Beschriftung des Gerätetyps zeigt diese Werte:
 
