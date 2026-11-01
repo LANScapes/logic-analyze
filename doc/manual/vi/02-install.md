@@ -20,7 +20,9 @@
 
 1. Nối máy phân tích logic với máy tính. Xem [Nối DSLogic Plus](04-connect.md).
 2. Mở **Logic Analyze** từ thư mục **Ứng dụng** hoặc từ Launchpad.
+<!-- edition: download -->
 3. Nếu macOS hiện thông báo về ứng dụng, nhấp **Mở**.
+<!-- end edition -->
 
 Khi ứng dụng khởi động lần đầu, ứng dụng có thể hiện cửa sổ **Tài liệu**. Nhấp **Mở** để đọc hướng dẫn này. Nhấp **Bỏ qua** để đóng cửa sổ. Nhấp **Không hiện lại** nếu bạn không muốn thấy cửa sổ này nữa.
 

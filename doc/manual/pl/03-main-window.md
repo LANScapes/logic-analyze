@@ -31,7 +31,13 @@ Pasek narzędzi ma te elementy, od początku do końca:
 | **Pomiar** | Otwiera panel boczny pomiarów. |
 | **Szukaj** | Otwiera pasek wyszukiwania. |
 | **Opcje** | Menu z pozycją **Opcje urządzenia...** i menu **Widok**. |
+<!-- edition: download -->
 | **Pomoc** | Menu z językiem, tym podręcznikiem, stroną aktualizacji, opcjami logów i stroną zgłaszania problemów. |
+<!-- end edition -->
+<!-- edition: appstore -->
+| **MCP** | Otwiera okno **MCP**. Zobacz [Połączenie asystenta AI (MCP)](13-mcp.md). |
+| **Pomoc** | Menu z językiem, tym podręcznikiem, opcjami logów i stroną zgłaszania problemów. |
+<!-- end edition -->
 
 Etykieta typu urządzenia pokazuje te wartości:
 

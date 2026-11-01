@@ -1,3 +1,4 @@
+<!-- edition: download -->
 # Công cụ dslcap
 
 Công cụ `dslcap` thu dữ liệu từ thiết bị DSLogic mà không cần cửa sổ chính. Dùng nó trong script và kiểm thử tự động. Công cụ ghi các mẫu vào một tệp nhị phân. Công cụ ghi một đối tượng JSON chứa kết quả ra đầu ra chuẩn.
@@ -80,3 +81,4 @@ Chỉ dùng kết quả khi trạng thái thoát là 0 và đối tượng JSON 
 - `--res-manifest FD`: Công cụ kiểm tra giá trị SHA-256 của mỗi tệp firmware trước khi gửi tệp đến thiết bị.
 
 Tệp `tools/dslcap/README.md` trong mã nguồn có tất cả thông tin về các tùy chọn này.
+<!-- end edition -->

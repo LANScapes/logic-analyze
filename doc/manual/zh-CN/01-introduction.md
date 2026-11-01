@@ -8,7 +8,12 @@ Logic Analyze 是一个 macOS 应用，用于 DreamSourceLab 的逻辑分析仪�
 
 本手册的示例使用 DSLogic Plus。其他 DSLogic 型号使用相同的步骤。它们的通道数、内存和采样率的上限不同。
 
+<!-- edition: download -->
 此应用还包含 `dslcap` 工具。此工具不使用主窗口采集数据。参阅 [dslcap 工具](13-dslcap.md)。
+<!-- end edition -->
+<!-- edition: appstore -->
+使用 MCP，您 Mac 上的 AI 助手可以通过此应用采集、测量和解码数据。参阅 [连接 AI 助手 (MCP)](13-mcp.md)。
+<!-- end edition -->
 
 ## 关于本手册
 

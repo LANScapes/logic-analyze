@@ -1,3 +1,4 @@
+<!-- edition: download -->
 # Het hulpprogramma dslcap
 
 Het hulpprogramma `dslcap` neemt gegevens op van een DSLogic-apparaat zonder het hoofdvenster. Gebruik het in scripts en in automatische tests. Het hulpprogramma schrijft de samples naar een binair bestand. Het schrijft één JSON-object met het resultaat naar de standaarduitvoer.
@@ -80,3 +81,4 @@ Gebruik het resultaat alleen als de exitstatus 0 is en het JSON-object volledig 
 - `--res-manifest FD`: Het hulpprogramma controleert de SHA-256-waarde van elk firmwarebestand voordat het het bestand naar het apparaat stuurt.
 
 Het bestand `tools/dslcap/README.md` in de broncode geeft alle informatie over deze opties.
+<!-- end edition -->

@@ -20,7 +20,9 @@ The app contains all the necessary libraries, firmware and protocol decoders. Yo
 
 1. Connect the logic analyzer to the computer. Refer to [Connect the DSLogic Plus](04-connect.md).
 2. Open **Logic Analyze** from the **Applications** folder or from Launchpad.
+<!-- edition: download -->
 3. If macOS shows a message about the app, click **Open**.
+<!-- end edition -->
 
 When the app starts for the first time, it can show the **Document** window. Click **Open** to read this manual. Click **Ignore** to close the window. Click **Not Show Again** if you do not want to see this window again.
 

@@ -8,7 +8,12 @@ Logic Analyze는 DreamSourceLab 로직 분석기용 macOS 앱입니다. LANScape
 
 이 설명서는 예로 DSLogic Plus를 사용합니다. 다른 DSLogic 모델도 같은 절차로 작동합니다. 채널, 메모리, 샘플 레이트의 한계는 모델마다 다릅니다.
 
+<!-- edition: download -->
 이 앱에는 `dslcap` 도구도 있습니다. 이 도구는 주 창 없이 데이터를 캡처합니다. [dslcap 도구](13-dslcap.md)를 참조하십시오.
+<!-- end edition -->
+<!-- edition: appstore -->
+MCP를 사용하면 Mac의 AI 어시스턴트가 앱을 통해 데이터를 캡처, 측정, 디코드할 수 있습니다. [AI 어시스턴트 연결 (MCP)](13-mcp.md)을 참조하십시오.
+<!-- end edition -->
 
 ## 이 설명서 정보
 

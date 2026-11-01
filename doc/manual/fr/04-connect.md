@@ -21,8 +21,14 @@ Si la liste des appareils n'affiche pas l'appareil, faites ces étapes :
 3. Connectez le câble USB à un autre port USB.
 4. Si la liste des appareils n'affiche pas l'appareil après l'étape 3, quittez l'application et démarrez-la de nouveau.
 
+<!-- edition: download -->
 > [!NOTE]
 > Un seul programme à la fois peut utiliser l'appareil. Si `dslcap` ou un autre programme utilise l'appareil, l'application ne le trouve pas.
+<!-- end edition -->
+<!-- edition: appstore -->
+> [!NOTE]
+> Un seul programme à la fois peut utiliser l'appareil. Si un autre programme utilise l'appareil, l'application ne le trouve pas.
+<!-- end edition -->
 
 ## Connecter le câble de sondes
 

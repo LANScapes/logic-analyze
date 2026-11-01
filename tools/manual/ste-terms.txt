@@ -60,5 +60,7 @@ search                     # n the search function (use "find" for the verb)
 single repetitive loop     # n capture modes
 simple advanced            # n trigger types
 technical sentence verb verbs   # n only in "technical name", "technical verb"; "sentence" in the writing rules
-red green               # n indicator colors
+red green orange dot     # n indicator colors; "dot" is the status indicator on a button
 shield chapter spreadsheet   # n
+AI assistant assistants MCP server configuration   # n software ("AI assistant", "MCP server", "configuration file")
+Claude Cursor              # n names of AI assistants

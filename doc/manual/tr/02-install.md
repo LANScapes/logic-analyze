@@ -20,7 +20,9 @@ Uygulama gerekli tüm kitaplıkları, aygıt yazılımını ve protokol çözüc
 
 1. Mantık analizörünü bilgisayara bağlayın. Bkz. [DSLogic Plus'ı bağlama](04-connect.md).
 2. **Logic Analyze** uygulamasını **Uygulamalar** klasöründen veya Launchpad'den açın.
+<!-- edition: download -->
 3. macOS uygulama hakkında bir ileti gösterirse **Aç** düğmesine tıklayın.
+<!-- end edition -->
 
 Uygulama ilk kez başladığında **Belge** penceresini gösterebilir. Bu kılavuzu okumak için **Aç** düğmesine tıklayın. Pencereyi kapatmak için **Yoksay** düğmesine tıklayın. Bu pencereyi bir daha görmek istemiyorsanız **Bir Daha Gösterme** düğmesine tıklayın.
 

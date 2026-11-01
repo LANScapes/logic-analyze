@@ -8,7 +8,12 @@ Logic Analyze は、DreamSourceLab のロジックアナライザ用の macOS �
 
 このマニュアルの例では DSLogic Plus を使います。他の DSLogic モデルも同じ手順で操作します。チャンネル数、メモリ、サンプルレートの上限はモデルによって異なります。
 
+<!-- edition: download -->
 このアプリには `dslcap` ツールも含まれます。このツールは、メインウィンドウを使わずにデータをキャプチャします。[dslcap ツール](13-dslcap.md)を参照してください。
+<!-- end edition -->
+<!-- edition: appstore -->
+MCP を使うと、Mac 上の AI アシスタントがアプリを通してデータをキャプチャ、測定、デコードできます。[AI アシスタントを接続する (MCP)](13-mcp.md)を参照してください。
+<!-- end edition -->
 
 ## このマニュアルについて
 

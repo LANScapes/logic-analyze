@@ -8,7 +8,12 @@ The app records digital signals from a DSLogic logic analyzer. Then it shows the
 
 This manual uses the DSLogic Plus for the examples. Other DSLogic models operate with the same procedures. Their limits for channels, memory and sample rate are different.
 
+<!-- edition: download -->
 The app also includes the `dslcap` tool. This tool captures data without the main window. Refer to [The dslcap tool](13-dslcap.md).
+<!-- end edition -->
+<!-- edition: appstore -->
+With MCP, an AI assistant on your Mac can capture, measure and decode data through the app. Refer to [Connect an AI assistant (MCP)](13-mcp.md).
+<!-- end edition -->
 
 ## About this manual
 

@@ -31,7 +31,13 @@ De werkbalk heeft deze items, van het begin tot het einde:
 | **Meten** | Opent het meetdock. |
 | **Zoeken** | Opent de zoekbalk. |
 | **Opties** | Een menu met **Apparaatopties...** en het menu **Weergave**. |
+<!-- edition: download -->
 | **Help** | Een menu met de taal, deze handleiding, de updatepagina, de logopties en de pagina voor foutmeldingen. |
+<!-- end edition -->
+<!-- edition: appstore -->
+| **MCP** | Opent het venster **MCP**. Zie [Een AI-assistent verbinden (MCP)](13-mcp.md). |
+| **Help** | Een menu met de taal, deze handleiding, de logopties en de pagina voor foutmeldingen. |
+<!-- end edition -->
 
 Het label van het apparaattype toont deze waarden:
 

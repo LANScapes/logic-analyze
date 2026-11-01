@@ -31,7 +31,13 @@ La barre d'outils contient ces éléments, du début à la fin :
 | **Mesure** | Ouvre le panneau de mesure. |
 | **Chercher** | Ouvre la barre de recherche. |
 | **Options** | Un menu avec **Options de l'appareil...** et le menu **Affichage**. |
+<!-- edition: download -->
 | **Aide** | Un menu avec la langue, ce manuel, la page des mises à jour, les options de journalisation et la page de signalement des problèmes. |
+<!-- end edition -->
+<!-- edition: appstore -->
+| **MCP** | Ouvre la fenêtre **MCP**. Consultez [Connecter un assistant IA (MCP)](13-mcp.md). |
+| **Aide** | Un menu avec la langue, ce manuel, les options de journalisation et la page de signalement des problèmes. |
+<!-- end edition -->
 
 L'étiquette du type d'appareil affiche ces valeurs :
 

@@ -21,8 +21,14 @@ Cihaz listesi cihazı göstermezse şu adımları uygulayın:
 3. USB kablosunu başka bir USB bağlantı noktasına bağlayın.
 4. 3. adımdan sonra cihaz listesi cihazı yine göstermezse uygulamadan çıkın ve uygulamayı yeniden başlatın.
 
+<!-- edition: download -->
 > [!NOTE]
 > Cihazı aynı anda yalnızca bir program kullanabilir. `dslcap` veya başka bir program cihazı kullanıyorsa uygulama cihazı bulamaz.
+<!-- end edition -->
+<!-- edition: appstore -->
+> [!NOTE]
+> Cihazı aynı anda yalnızca bir program kullanabilir. Başka bir program cihazı kullanıyorsa uygulama cihazı bulamaz.
+<!-- end edition -->
 
 ## Prob kablosunu bağlama
 

@@ -8,7 +8,12 @@ O aplicativo registra sinais digitais de um analisador lógico DSLogic. Depois, 
 
 Este manual usa o DSLogic Plus nos exemplos. Os outros modelos DSLogic operam com os mesmos procedimentos. Os limites de canais, de memória e de taxa de amostragem são diferentes.
 
+<!-- edition: download -->
 O aplicativo também contém a ferramenta `dslcap`. Esta ferramenta captura dados sem a janela principal. Consulte [A ferramenta dslcap](13-dslcap.md).
+<!-- end edition -->
+<!-- edition: appstore -->
+Com o MCP, um assistente de IA do seu Mac pode capturar, medir e decodificar dados por meio do aplicativo. Consulte [Conectar um assistente de IA (MCP)](13-mcp.md).
+<!-- end edition -->
 
 ## Sobre este manual
 

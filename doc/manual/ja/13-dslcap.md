@@ -1,3 +1,4 @@
+<!-- edition: download -->
 # dslcap ツール
 
 `dslcap` ツールは、メインウィンドウを使わずに DSLogic デバイスからデータをキャプチャします。スクリプトや自動テストで使います。このツールはサンプルをバイナリファイルに書き込みます。結果を含む JSON オブジェクトを 1 つ、標準出力に書き込みます。
@@ -80,3 +81,4 @@ dslcap --channels 0,1 --samplerate 10000000 --samples 1000000 --out /tmp/capture
 - `--res-manifest FD`：ツールは、各ファームウェアファイルをデバイスに送る前に、そのファイルの SHA-256 値を調べます。
 
 これらのオプションの詳しい説明は、ソースコードのファイル `tools/dslcap/README.md` にあります。
+<!-- end edition -->

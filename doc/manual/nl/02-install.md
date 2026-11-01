@@ -20,7 +20,9 @@ De app bevat alle nodige bibliotheken, de firmware en de protocoldecoders. U ins
 
 1. Sluit de logische analyser aan op de computer. Zie [De DSLogic Plus aansluiten](04-connect.md).
 2. Open **Logic Analyze** vanuit de map **Apps** of vanuit Launchpad.
+<!-- edition: download -->
 3. Als macOS een melding over de app toont, klik dan op **Openen**.
+<!-- end edition -->
 
 Bij de eerste start kan de app het venster **Document** tonen. Klik op **Openen** om deze handleiding te lezen. Klik op **Negeren** om het venster te sluiten. Klik op **Niet meer tonen** als u dit venster niet meer wilt zien.
 

@@ -8,7 +8,12 @@ De app neemt digitale signalen op van een logische analyser van het type DSLogic
 
 Deze handleiding gebruikt de DSLogic Plus voor de voorbeelden. Andere DSLogic-modellen werken met dezelfde procedures. Hun grenzen voor kanalen, geheugen en samplefrequentie zijn anders.
 
+<!-- edition: download -->
 De app bevat ook het hulpprogramma `dslcap`. Dit hulpprogramma neemt gegevens op zonder het hoofdvenster. Zie [Het hulpprogramma dslcap](13-dslcap.md).
+<!-- end edition -->
+<!-- edition: appstore -->
+Met MCP kan een AI-assistent op uw Mac via de app gegevens opnemen, meten en decoderen. Zie [Een AI-assistent verbinden (MCP)](13-mcp.md).
+<!-- end edition -->
 
 ## Over deze handleiding
 

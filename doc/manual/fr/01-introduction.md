@@ -8,7 +8,12 @@ L'application enregistre des signaux numériques avec un analyseur logique DSLog
 
 Ce manuel utilise le DSLogic Plus pour les exemples. Les autres modèles DSLogic utilisent les mêmes procédures. Leurs limites de voies, de mémoire et de fréquence d'échantillonnage sont différentes.
 
+<!-- edition: download -->
 L'application contient aussi l'outil `dslcap`. Cet outil capture des données sans la fenêtre principale. Consultez [L'outil dslcap](13-dslcap.md).
+<!-- end edition -->
+<!-- edition: appstore -->
+Avec MCP, un assistant IA de votre Mac peut capturer, mesurer et décoder des données par l'application. Consultez [Connecter un assistant IA (MCP)](13-mcp.md).
+<!-- end edition -->
 
 ## À propos de ce manuel
 

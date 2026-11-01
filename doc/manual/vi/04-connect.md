@@ -21,8 +21,14 @@ Nếu danh sách thiết bị không hiển thị thiết bị, làm các bướ
 3. Nối cáp USB với cổng USB khác.
 4. Nếu sau bước 3 danh sách thiết bị vẫn không hiển thị thiết bị, thoát ứng dụng rồi khởi động lại.
 
+<!-- edition: download -->
 > [!NOTE]
 > Mỗi lần chỉ một chương trình dùng được thiết bị. Nếu `dslcap` hoặc chương trình khác đang dùng thiết bị, ứng dụng không tìm thấy thiết bị.
+<!-- end edition -->
+<!-- edition: appstore -->
+> [!NOTE]
+> Mỗi lần chỉ một chương trình dùng được thiết bị. Nếu chương trình khác đang dùng thiết bị, ứng dụng không tìm thấy thiết bị.
+<!-- end edition -->
 
 ## Nối cáp đầu đo
 

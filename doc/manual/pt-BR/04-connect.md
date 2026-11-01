@@ -21,8 +21,14 @@ Se a lista de dispositivos não mostrar o dispositivo, faça estes passos:
 3. Conecte o cabo USB a uma outra porta USB.
 4. Se a lista de dispositivos não mostrar o dispositivo depois do passo 3, feche o aplicativo e inicie-o de novo.
 
+<!-- edition: download -->
 > [!NOTE]
 > Somente um programa pode usar o dispositivo de cada vez. Se o `dslcap` ou um outro programa usa o dispositivo, o aplicativo não o encontra.
+<!-- end edition -->
+<!-- edition: appstore -->
+> [!NOTE]
+> Somente um programa pode usar o dispositivo de cada vez. Se um outro programa usa o dispositivo, o aplicativo não o encontra.
+<!-- end edition -->
 
 ## Conectar o cabo de pontas de prova
 
